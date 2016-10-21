@@ -24,43 +24,61 @@
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="#">Home</a></li>
                         <li><a href="#about">About</a></li>
-
                     </ul>
-
                 </div>
                 <!--/.nav-collapse -->
             </div>
         </nav>
     </header>
 
+
     <div class="container" style="margin-top: 60px;">
-        <div class="row">
-            <div class="col-md-12">
-                <form action="/admin/createActor" method="post">
+        <div class="jumbotron">
+            <h1> Create new Comics Character</h1>
 
-
-                    <input  type="hidden" name="character" value ="<%= characterName %>"/>
-
-                    <div class="form-group">
-                        <input type="text" name="firstName" class="form-control" placeholder="First Name"/>
+            <form action="/admin//character/create" method="post">
+                <div class="row form-group">
+                    <div class="col-md-6">
+                        <input type="text" name="name" class="form-control" placeholder="Name"/>
+                    </div>
+                    <div class="col-md-6">
+                        <input type="text" name="description" class="form-control" placeholder="Description"/>
                     </div>
 
-                    <div class="form-group">
-                        <input type="text" name="lastName" class="form-control" placeholder="Last Name"/>
+                </div>
+                <div class="row form-group">
+                    <div class="col-md-12">
+                        <input type="text" name="imgUrl" class="form-control" placeholder="Image Url"/>
                     </div>
-                    <div class="form-group">
-                        <input type="number" name="age" class="form-control" placeholder="Age"/>
+                </div>
+                <div class="row form-group">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="typeSelect">Example select</label>
+                            <select class="form-control" id="typeSelect" name="type">
+                                <option>Super Hero</option>
+                                <option>Villain</option>
+                                <option>Complicated</option>
+                            </select>
+                        </div>
                     </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="sexSelect">Example select</label>
+                            <select class="form-control" id="sexSelect" name="sex">
+                                <option>Male</option>
+                                <option>Female</option>
+                                <option>Complicated</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
 
-                    <div class="form-group text-center">
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </div>
-
-                </form>
-            </div>
         </div>
-
-
     </div>
 
 </main>

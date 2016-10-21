@@ -5,23 +5,22 @@ var passport = require('passport');
 var session = require('express-session');
 
 
-//var mongoose = require('mongoose');
-//mongoose.connect('mongodb://localhost/comics');
+var mongoose = require('mongoose');
 
-//var Test = require('./src/models/test');
-//
-//var newTest = new Test({
-//    name:'Ruben'
-//});
-//
-//newTest.save();
+mongoose.connect('mongodb://localhost/comics', function(err) {
+    if (err) {
+        console.err(err);
+    } else {
+        console.log('Connected');
+    }
+});
 
 var app = express();
 
 var port = process.env.PORT || 5000;
 
-var bookRouter = require('./src/routes/bookRoutes');
-var adminRouter = require('./src/routes/adminRoutes')();
+//var bookRouter = require('./src/routes/bookRoutes');
+var adminRouter = require('./src/routes/adminRoutes');
 var authRouter = require('./src/routes/authRoutes')();
 
 app.use(express.static('public'));
@@ -36,7 +35,7 @@ app.set('views', './src/views');
 
 app.set('view engine', 'ejs');
 
-app.use('/Books', bookRouter);
+//app.use('/Books', bookRouter);
 app.use('/Admin', adminRouter);
 app.use('/Auth', authRouter);
 
