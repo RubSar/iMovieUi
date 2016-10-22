@@ -70,8 +70,6 @@ module.exports.createArtist = function (req, res) {
 
 //create new movie
 module.exports.createMovie = function (req, res) {
-
-
     var query = {
         name: req.body.character,
         'actors.firstName': req.body.artist
@@ -82,7 +80,19 @@ module.exports.createMovie = function (req, res) {
             console.log(err);
         }
         else {
+            character.actors.filter(function(obj){
+                if (obj.firstName.toLowerCase() == req.body.artist.toLowerCase()) {
+                    obj.movies.push({
+                        name: req.body.name,
+                        year: req.body.year
+                    })
+                }
+            });
+            character.save();
             console.log(character);
+            res.render('jsonView', {
+                character:character
+            })
         }
     });
 };
