@@ -90,9 +90,8 @@ module.exports.createMovie = function (req, res) {
             });
             character.save();
             console.log(character);
-            res.render('jsonView', {
-                character:character
-            })
+            req.session['character'] =character;
+            res.redirect('/admin/toJson')
         }
     });
 };
@@ -109,24 +108,30 @@ module.exports.createMovie = function (req, res) {
 
 
 module.exports.character = function (req, res) {
-    res.render('character', {
+    res.render('admin/character', {
         title: 'Welcome back'
     });
 };
 
 
 module.exports.artist = function (req, res) {
-    res.render('artist', {
+    res.render('admin/artist', {
         title: 'Continue creating new Comics',
         character: req.params.character
     });
 };
 
 module.exports.movie = function (req, res) {
-    res.render('movie', {
+    res.render('admin/movie', {
         title: 'Continue creating new Comics',
         character: req.params.character,
         artist: req.params.artist
+    });
+};
+
+module.exports.jsonView = function (req, res) {
+    res.render('admin/jsonView', {
+        character: req.params.character
     });
 };
 

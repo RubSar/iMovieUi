@@ -43,6 +43,10 @@ var router = function () {
         return adminController.movie(req, res);
     });
 
+    adminRouter.route('/toJson').get(function (req, res) {
+        return adminController.jsonView(req, res);
+    });
+
     //# end GET actions
 
     return adminRouter;
