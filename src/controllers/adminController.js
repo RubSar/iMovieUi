@@ -16,7 +16,7 @@ var middleware = function (req, res, next) {
 
 //create new charcater
 module.exports.createCharacter = function (req, res) {
-    Character.findOne({name: req.body.name}, function (err, result) {
+    Character.findOne({name: req.body.name.trim()}, function (err, result) {
         console.log(result);
         if (err) {
             console.log(err);
@@ -30,7 +30,7 @@ module.exports.createCharacter = function (req, res) {
                 if (err) {
                     console.log(err);
                 } else {
-                    res.redirect('/admin/new/' + req.body.name);
+                    res.redirect('/admin/new/' + req.body.name.trim());
                 }
             });
         } else {
@@ -42,7 +42,7 @@ module.exports.createCharacter = function (req, res) {
                 sex: req.body.sex
             });
             entry.save();
-            res.redirect('/admin/new/' + req.body.name);
+            res.redirect('/admin/new/' + req.body.name.trim());
         }
     });
 };
@@ -51,7 +51,7 @@ module.exports.createCharacter = function (req, res) {
 module.exports.createArtist = function (req, res) {
 
 
-    Character.findOne({name: req.body.character}, function (err, character) {
+    Character.findOne({name: req.body.character.trim()}, function (err, character) {
         if (err) {
             console.log(err);
         }
@@ -63,7 +63,7 @@ module.exports.createArtist = function (req, res) {
             };
             character.actors.push(newActor);
             character.save();
-            res.redirect('/admin/new/' + req.body.character + '/' + req.body.firstName)
+            res.redirect('/admin/new/' + req.body.character.trim() + '/' + req.body.firstName.trim())
         }
     });
 };
@@ -71,7 +71,7 @@ module.exports.createArtist = function (req, res) {
 //create new movie
 module.exports.createMovie = function (req, res) {
     var query = {
-        name: req.body.character,
+        name: req.body.character.trim(),
         'actors.firstName': req.body.artist
     };
     console.log(query);
@@ -83,15 +83,13 @@ module.exports.createMovie = function (req, res) {
             character.actors.filter(function(obj){
                 if (obj.firstName.toLowerCase() == req.body.artist.toLowerCase()) {
                     obj.movies.push({
-                        name: req.body.name,
+                        name: req.body.name.trim(),
                         year: req.body.year
                     })
                 }
             });
             character.save();
-            console.log(character);
-            req.session['character'] =character;
-            res.redirect('/admin/toJson')
+            res.redirect('/admin')
         }
     });
 };
@@ -129,10 +127,21 @@ module.exports.movie = function (req, res) {
     });
 };
 
-module.exports.jsonView = function (req, res) {
-    res.render('admin/jsonView', {
-        character: req.params.character
+
+
+module.exports.index = function (req, res) {
+
+    Character.find({}, function(err, results){
+        if (err) {
+            console.log(err);
+        } else{
+            res.render('admin/index', {
+                characters: results,
+                title:'three view'
+            });
+        }
     });
+
 };
 
 

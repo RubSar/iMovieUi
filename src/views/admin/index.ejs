@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css"/>
+    <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="/css/tree.view.css"/>
+</head>
+
+<body id="body" data-spy="scroll" data-target=".one-page-header" class="demo-lightbox-gallery">
+<main class="wrapper">
+<div class="container" ng-controller="IndexCtrl">
+    <h1>{{welcome}}</h1>
+
+    <ul class="treeview">
+    <% for(var i=0; i < characters.length; i++) { %>
+     <li>
+         <%= characters[i].name %>
+         <ul>
+             <li>
+                 Description :  <%= characters[i].description %>
+             </li>
+             <li>
+               Type :  <%= characters[i].type[0] %>
+             </li>
+             <li>
+                 Sex :  <%= characters[i].sex[0] %>
+             </li>
+             <li>
+                 Artists
+                 <ul>
+                     <!-- repeat over artists-->
+                   <% for(var j=0; j < characters[i].actors.length; j++) { %>
+                     <li>
+                          <%= characters[i].actors[j].firstName  %>   <%= characters[i].actors[j].lastName  %>
+
+                         <ul>
+                             <li>
+                                Age : <%= characters[i].actors[j].age  %>
+                             </li>
+                             <li>
+                                 Movies
+                                 <ul>
+                                     <!-- repeat over movies-->
+                                     <% for(var v=0; v < characters[i].actors[j].movies.length; v++) { %>
+                                     <li>
+                                       <%=  characters[i].actors[j].movies[v].name  %>  ---  <%=  characters[i].actors[j].movies[v].year  %>
+                                     </li>
+
+                                     <% } %>
+                                     <!-- END movies-->
+                                     <li class="add">
+                                         <a href="/admin/new/<%= characters[i].name %>/<%= characters[i].actors[j].firstName %>"> <i class="fa fa-plus"></i> Add new Movie</a>
+                                     </li>
+                                 </ul>
+                             </li>
+                         </ul>
+                     </li>
+                     <% } %>
+                     <!-- END repeat over artists-->
+                     <li class="add">
+                         <a href="/admin/new/<%= characters[i].name %>"> <i class="fa fa-plus"></i> Add new artist</a>
+                     </li>
+                 </ul>
+             </li>
+         </ul>
+     </li>
+    <% } %>
+        <li class="add">
+            <a href="/admin/new"> <i class="fa fa-plus"></i>  Add new Character</a>
+        </li>
+    </ul>
+</div>
+</main>
+
+<script src="/lib/jquery/dist/jquery.js"></script>
+<script src="/lib/bootstrap/dist/js/bootstrap.js"></script>
+<script src="/lib/angular/angular.min.js"></script>
+
+<script src="/js/tree.view.js"></script>
+
+<script>
+    $(window).on('load', function () {
+        $('.treeview').each(function () {
+            var tree = $(this);
+            tree.treeview();
+        })
+    })
+    var app = angular.module('app', []);
+    app.controller('IndexCtrl', function($scope){
+        $scope.welcome ="Hello dear Admin welcome to our amazing website";
+    })
+
+</script>
+</body>

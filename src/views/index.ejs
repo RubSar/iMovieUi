@@ -14,11 +14,12 @@
             <div class="our-tours-list-wrapper">
                 <div class="our-tours-list text-left">
                     <!-- Batman  -->
+                    <% for(var i=0; i<characters.length; i++){ %>
                     <div class="our-tours-list-item">
                         <div class="img-wrapper img-wrapper--shadow">
-                            <img src="/img/batman.jpg" alt="BatMan" class="img-reposnsive">
+                            <img src="<%= characters[i].imgUrl%>"  class="img-reposnsive">
                         </div>
-                        <h3>Batman</h3>
+                        <h3><%= characters[i].name%>    <small>  /  <%= characters[i].type[0]%></small></h3>
                         <ul class="list-inline star-vote">
                             <li><i class="g-color-default fa fa-star"></i></li>
                             <li><i class="g-color-default fa fa-star"></i></li>
@@ -26,69 +27,13 @@
                             <li><i class="g-color-default fa fa-star-o"></i></li>
                             <li><i class="g-color-default fa fa-star-o"></i></li>
                         </ul>
-                        <p>dapibus quis sapien id phar etra iaculis est</p>
-                        <div class="our-tours-price">$350.00</div>
-                        <a href="#" class="our-tours-list-item__more">More</a>
-                    </div>
-                    <!-- End batman -->
-
-                    <!-- Joker -->
-                    <div class="our-tours-list-item">
-                        <div class="img-wrapper img-wrapper--shadow">
-                            <img src="/img/joker.jpg" alt="Joker" class="img-reposnsive">
+                        <p><%= characters[i].description%></p>
+                        <div class="our-tours-price">
+                            <a style="color:white" href="/<%= characters[i].name%>">See more</a>
                         </div>
-                        <h3>Joker</h3>
-                        <ul class="list-inline star-vote">
-                            <li><i class="g-color-default fa fa-star"></i></li>
-                            <li><i class="g-color-default fa fa-star"></i></li>
-                            <li><i class="g-color-default fa fa-star"></i></li>
-                            <li><i class="g-color-default fa fa-star-o"></i></li>
-                            <li><i class="g-color-default fa fa-star-o"></i></li>
-                        </ul>
-                        <p>dapibus quis sapien id phar etra iaculis est</p>
-                        <div class="our-tours-price">$350.00</div>
-                        <a href="#" class="our-tours-list-item__more">More</a>
+
                     </div>
-                    <!-- End Joker -->
-
-                    <!-- Spiderman -->
-                    <div class="our-tours-list-item">
-                        <div class="img-wrapper img-wrapper--shadow">
-                            <img src="/img/spiderman.jpg" alt="Spiderman" class="img-reposnsive">
-                        </div>
-                        <h3>Spiderman</h3>
-                        <ul class="list-inline star-vote">
-                            <li><i class="g-color-default fa fa-star"></i></li>
-                            <li><i class="g-color-default fa fa-star"></i></li>
-                            <li><i class="g-color-default fa fa-star"></i></li>
-                            <li><i class="g-color-default fa fa-star"></i></li>
-                            <li><i class="g-color-default fa fa-star"></i></li>
-                        </ul>
-                        <p>dapibus quis sapien id phar etra iaculis est</p>
-                        <div class="our-tours-price">$350.00</div>
-                        <a href="#" class="our-tours-list-item__more">More</a>
-                    </div>
-                    <!-- End Spiderman -->
-
-                    <!-- Superman -->
-                    <div class="our-tours-list-item">
-                        <div class="img-wrapper img-wrapper--shadow">
-                            <img src="/img/superman.jpg" alt="Superman" class="img-reposnsive"></div>
-                        <h3>Superman</h3>
-                        <ul class="list-inline star-vote">
-                            <li><i class="g-color-default fa fa-star"></i></li>
-                            <li><i class="g-color-default fa fa-star"></i></li>
-                            <li><i class="g-color-default fa fa-star"></i></li>
-                            <li><i class="g-color-default fa fa-star-half-o"></i></li>
-                            <li><i class="g-color-default fa fa-star-o"></i></li>
-                        </ul>
-                        <p>dapibus quis sapien id phar etra iaculis est</p>
-                        <div class="our-tours-price">$350.00</div>
-                        <a href="#" class="our-tours-list-item__more">More</a>
-                    </div>
-                    <!-- End Superman-->
-
-
+                    <% }%>
                 </div>
             </div>
         </div>

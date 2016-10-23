@@ -21,6 +21,7 @@ var port = process.env.PORT || 5000;
 
 var adminRouter = require('./src/routes/adminRoutes');
 var authRouter = require('./src/routes/authRoutes')();
+var homeRouter = require('./src/routes/homeRoutes');
 
 app.use(express.static('public'));
 app.use(bodyParser.json());
@@ -36,21 +37,7 @@ app.set('view engine', 'ejs');
 
 app.use('/Admin', adminRouter);
 app.use('/Auth', authRouter);
-
-
-
-app.get('/', function (req, res) {
-    res.render('index', {
-        title: 'Hello from render'
-
-    });
-});
-app.get('/test', function (req, res) {
-    res.render('admin/test', {
-        title: 'Hello from render'
-    });
-});
-
+app.use('/', homeRouter);
 
 
 app.listen(port, function (err) {
