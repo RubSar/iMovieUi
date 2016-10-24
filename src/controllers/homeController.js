@@ -18,13 +18,13 @@ var homeController = function () {
 
     function  view(req, res){
         console.log(req.params.name);
-        Character.find({name:req.params.name}, function(err, result){
+        Character.find({name:req.params.name}, function(err, results){
             if (err) {
                 console.log(err);
             } else{
-                console.log(result);
+                console.log(results[0]);
                 res.render('view', {
-                    character:result
+                    character:results[0]
                 });
             }
         });
