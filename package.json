@@ -1,5 +1,5 @@
 {
-  "name": "Comics Characters",
+  "name": "ComicsCharacters",
   "version": "1.0.0",
   "description": "Compare Artists in Comics Characters Role",
   "main": "app.js",
@@ -12,6 +12,7 @@
   "dependencies": {
     "bluebird": "^3.4.6",
     "body-parser": "^1.14.1",
+    "bower": "^1.7.9",
     "cookie-parser": "^1.4.0",
     "ejs": "^2.3.4",
     "express": "^4.13.3",

@@ -1,3 +1,4 @@
 # Comics
 Node.js Project, using express and mongoose
-run project using  'gulp serve' in command line 
+install node modules using npm install and
+run project using  'gulp serve' 

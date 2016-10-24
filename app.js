@@ -19,36 +19,26 @@ var app = express();
 
 var port = process.env.PORT || 5000;
 
-//var bookRouter = require('./src/routes/bookRoutes');
 var adminRouter = require('./src/routes/adminRoutes');
 var authRouter = require('./src/routes/authRoutes')();
+var homeRouter = require('./src/routes/homeRoutes');
 
 app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cookieParser());
-app.use(session({secret: 'library'}));
+app.use(session({secret: 'comicsCharacters'}));
 
 require('./src/config/passport')(app);
 
-app.set('views', './src/views');
+app.set('views', './src/views/');
 
 app.set('view engine', 'ejs');
 
-//app.use('/Books', bookRouter);
 app.use('/Admin', adminRouter);
 app.use('/Auth', authRouter);
+app.use('/', homeRouter);
 
-app.get('/', function (req, res) {
-    res.render('index', {
-        title: 'Hello from render'
-
-    });
-});
-
-app.get('/books', function (req, res) {
-    res.send('Hello Books');
-});
 
 app.listen(port, function (err) {
     console.log('running server on port ' + port);

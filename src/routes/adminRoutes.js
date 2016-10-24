@@ -44,6 +44,11 @@ var router = function () {
         return adminController.movie(req, res);
     });
 
+
+    adminRouter.route('/').get(function (req, res) {
+        return adminController.index(req, res);
+    });
+
     //# end GET actions
 
     return adminRouter;
