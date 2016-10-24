@@ -22,19 +22,22 @@ var awardsSchema = new Schema({
 var movieSchema = new Schema({
     name: String,
     year: Number,
+    posterUrl: String,
     awards: [awardsSchema]
 }, {_id: false});
+
 
 //actors
 var actorSchema = new Schema({
     firstName: String,
     lastName: String,
+    imgUrl: String,
     age: Number,
     movies: [movieSchema]
 }, {_id: false});
 
-//comicsCharacter
 
+//comicsCharacter
 var characterSchema = new Schema({
     name: String,
     description: String,

@@ -71,8 +71,7 @@ module.exports.createArtist = function (req, res) {
 //create new movie
 module.exports.createMovie = function (req, res) {
     var query = {
-        name: req.body.character.trim(),
-        'actors.firstName': req.body.artist
+        name: req.body.character.trim()
     };
     console.log(query);
     Character.findOne(query, function (err, character) {

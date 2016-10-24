@@ -473,7 +473,7 @@ a:hover {
 }
 
 .one-page-header .navbar-nav > li > a span[data-hover] {
-  color: #fff;
+  color: #ccc;
   position: relative;
   display: inline-block;
   transition: transform .4s;
