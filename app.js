@@ -19,9 +19,34 @@ var app = express();
 
 var port = process.env.PORT || 5000;
 
+
+//var fs = require('fs');
+//var Schema = mongoose.Schema;
+//
+//var imgSchema = new Schema({
+//    img: {data: Buffer, contentType: String}
+//});
+//
+//var IMG = mongoose.model('IMG', imgSchema);
+//
+//var imgUrl =__dirname +'/public/img/joker.jpg';
+
+//var a = new IMG;
+//a.img.data = fs.readFileSync(imgUrl);
+//a.img.contentType = imgUrl;
+//a.save(function (err, a) {
+//    if (err) throw err;
+//
+//    console.error(a);
+//});
+
+
+
+
 var adminRouter = require('./src/routes/adminRoutes');
 var authRouter = require('./src/routes/authRoutes')();
 var homeRouter = require('./src/routes/homeRoutes');
+var seedRouter = require('./src/routes/seedDB');
 
 app.use(express.static('public'));
 app.use(bodyParser.json());
@@ -37,9 +62,14 @@ app.set('view engine', 'ejs');
 
 app.use('/Admin', adminRouter);
 app.use('/Auth', authRouter);
+app.use('/seed', seedRouter);
 app.use('/', homeRouter);
+//test for image
+app.get('/img/hell', function(req, res){
 
+});
 
 app.listen(port, function (err) {
+
     console.log('running server on port ' + port);
 });

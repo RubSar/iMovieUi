@@ -31,6 +31,7 @@ var movieSchema = new Schema({
 var actorSchema = new Schema({
     firstName: String,
     lastName: String,
+    fullNameUri: String,
     imgUrl: String,
     age: Number,
     movies: [movieSchema]
