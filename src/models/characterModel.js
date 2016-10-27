@@ -15,13 +15,16 @@ var starSchema = new Schema({
 //awards
 var awardsSchema = new Schema({
     name: String,
-    year: Number
+    year: Number,
+    nomination:String,
+    winners:[String]
 }, {_id: false});
 
 //movies
 var movieSchema = new Schema({
     name: String,
     year: Number,
+    IMDbRating:Number,
     posterUrl: String,
     awards: [awardsSchema]
 }, {_id: false});
