@@ -1,19 +1,32 @@
 
 var Character = require('../models/characterModel');
+var MovieCharacter = require('../models/movieCharacter');
 
 var homeController = function () {
 
     function index (req, res) {
+        var characters ;
         Character.find({}, 'name imgUrl description type', function(err, results){
             if (err) {
                 console.log(err);
             } else{
                 console.log(results);
-                res.render('index', {
-                    characters:results
-                });
+                characters =results;
             }
         });
+        MovieCharacter.find({}).limit(20).exec(
+            function(err, movieCharacters) {
+                if (err) {
+                    console.log(err);
+                }
+                else{
+                    res.render('index', {
+                        characters:characters,
+                        movieCharacters:movieCharacters
+                    });
+                }
+            }
+        );
     }
 
     function  view(req, res){

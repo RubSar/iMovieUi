@@ -16,9 +16,14 @@ var router = function () {
         return adminController.createArtist(req, res);
     });
 
-    //create new  artist for  character
+    //create new  movie for  artist
     adminRouter.route('/movie/create').post(function (req, res) {
         return adminController.createMovie(req, res);
+    });
+
+    //create new movie character
+    adminRouter.route('/movieCharacter/create').post(function (req, res) {
+        return adminController.createMovieCharacter(req, res);
     });
 
     // # end POST actions
@@ -47,6 +52,10 @@ var router = function () {
 
     adminRouter.route('/').get(function (req, res) {
         return adminController.index(req, res);
+    });
+
+    adminRouter.route('/newMovieCharacter').get(function(req, res){
+       return adminController.movieCharacter(req, res);
     });
 
     //# end GET actions

@@ -18,7 +18,7 @@ var OwlCarousel = function () {
                 navText: [, ],
                 nav: true,
                 dots: false,
-                navContainerClass: 'owl-buttons',
+                navContainerClass: 'owl-buttons'
             });
             $('.our-tours-list').owlCarousel({
                 loop: true,
@@ -46,7 +46,7 @@ var OwlCarousel = function () {
                 navText: [, ],
                 nav: true,
                 dots: false,
-                navContainerClass: 'owl-buttons',
+                navContainerClass: 'owl-buttons'
             });
         }
     };

@@ -4,49 +4,40 @@
 var express = require('express');
 var mongoose = require('mongoose');
 var seedRouter = express.Router();
+var imdb = require('imdb-api');
+var Character = require('../models/characterModel');
 
-//var fs = require('fs');
-//var Schema = mongoose.Schema;
-//
-//var imgSchema = new Schema({
-//    img: {data: Buffer, contentType: String}
-//});
-//
-//var IMG = mongoose.model('IMG', imgSchema);
-//
-//var imgUrl =process.cwd() +'/public/img/batman.jpg';
-//
-//
-//var a = new IMG;
-//
-//a.img.data = fs.readFileSync(imgUrl);
-//a.img.contentType = 'image/jpg';
-//a.save(function (err, a) {
-//    if (err) throw err;
-//    console.error(a);
-//});
-//
-//
-//
-//
-//
-//
-//seedRouter.route('/img').get(function (req, res) {
-//    IMG.find({}, function (err, doc) {
-//        if (err) return next(err);
-//        res.contentType(doc[0].img.contentType);
-//        res.send(doc[0].img.data);
-//    });
-//});
-//seedRouter.route('/fuck').get(function (req, res) {
-//    IMG.find({}, function (err, doc) {
-//        if (err) return next(err);
-//        //res.contentType(doc[0].img.contentType);
-//        res.render('fuck', {
-//           img: doc[0].img.data
-//        });
-//    });
-//});
+
+seedRouter.route('/change/poster').get(function (req, res) {
+    Character.find({}, function (err, results) {
+        results.forEach(function (character) {
+
+            character.actors.forEach(function (actor) {
+                console.log(actor);
+                actor.movies.forEach(function(movie){
+                    console.log(movie);
+
+                    imdb.getReq({ name: movie.name }, function(err, things) {
+                        if (err) {
+                            console.log(err);
+                        }else{
+                            movie.posterUrl =things.poster;
+                            movie.IMDbRating =things.rating;
+                            movie.save();
+                            console.log(movie.posterUrl);
+                        }
+
+                    });
+                });
+                actor.save();
+            });
+            character.save();
+        });
+        res.send(results);
+    });
+});
+
 
 
 module.exports = seedRouter;
+

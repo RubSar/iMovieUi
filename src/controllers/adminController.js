@@ -2,6 +2,8 @@
  * Created by User on 10/18/2016.
  */
 var Character = require('../models/characterModel');
+var imdb = require('imdb-api');
+var MovieCharacter =require('../models/movieCharacter');
 
 //middleware
 var middleware = function (req, res, next) {
@@ -70,28 +72,71 @@ module.exports.createArtist = function (req, res) {
 
 //create new movie
 module.exports.createMovie = function (req, res) {
-    var query = {
-        name: req.body.character.trim()
-    };
-    console.log(query);
-    Character.findOne(query, function (err, character) {
+
+    imdb.getReq({name:req.body.name.trim()},function(err, things){
         if (err) {
             console.log(err);
-        }
-        else {
-            character.actors.filter(function(obj){
-                if (obj.firstName.toLowerCase() == req.body.artist.toLowerCase()) {
-                    obj.movies.push({
-                        name: req.body.name.trim(),
-                        year: req.body.year
-                    })
-                }
+            res.render('admin/movie', {
+                title: 'Continue creating new Comics',
+                character: req.body.character,
+                artist: req.body.artist,
+                errorMessage:err.message
             });
-            character.save();
-            res.redirect('/admin')
-        }
+        } else{
+                Character.findOne({name: req.body.character.trim()}, function (err, character) {
+                    if (err) {
+                        console.log(err);
+                    }
+                    else {
+                        character.actors.filter(function(obj){
+                            if (obj.firstName.toLowerCase() == req.body.artist.toLowerCase()) {
+                                obj.movies.push({
+                                    name: things.title,
+                                    year:things._year_data,
+                                    IMDbRating: parseFloat(things.rating),
+                                    posterUrl:things.poster
+                                })
+
+                            }
+                        });
+                        character.save();
+                        res.redirect('/admin');
+                    }
+                });
+            }
     });
+
 };
+
+module.exports.createMovieCharacter = function (req, res){
+    var newMovieCharacter = new MovieCharacter();
+    newMovieCharacter.name =req.body.name.trim();
+    newMovieCharacter.playedBy =req.body.playedBy.trim();
+    var re = new RegExp(' ', 'g');
+    newMovieCharacter.imgUrl ='/img/movieCharacters/' +newMovieCharacter.name.replace(re, '-').toLowerCase() +'.jpg';
+    imdb.getReq({name:req.body.movie},function(err, things) {
+        if (err) {
+            res.render('admin/movieCharacter', {
+                name:newMovieCharacter.name,
+                playedBy:newMovieCharacter.playedBy,
+                errorMessage:err.message
+            })
+        }else{
+            newMovieCharacter.movies.push({
+                name: things.title,
+                year:things.year,
+                IMDbRating: parseFloat(things.rating),
+                poster:things.poster,
+                IMDbId:things.imdbID
+            });
+            newMovieCharacter.save();
+            res.render('admin/movieCharacter')
+        }
+
+    });
+
+};
+
 
 
 // # end POST actions
@@ -141,6 +186,12 @@ module.exports.index = function (req, res) {
         }
     });
 
+};
+
+module.exports.movieCharacter = function(req, res){
+    res.render('admin/movieCharacter', {
+        title:'Create new Movie Character'
+    })
 };
 
 

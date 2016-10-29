@@ -8,7 +8,10 @@
 
 <body id="body" data-spy="scroll" data-target=".one-page-header" class="demo-lightbox-gallery">
 <main class="wrapper">
-<div class="container" ng-controller="IndexCtrl">
+    <header>
+        <% include partials/header.ejs %>
+    </header>
+<div class="container" ng-controller="IndexCtrl" style="margin-top: 60px;">
     <h1>{{welcome}}</h1>
 
     <ul class="treeview">

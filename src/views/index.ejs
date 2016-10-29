@@ -8,16 +8,16 @@
     <header>
         <% include partials/header.ejs %>
     </header>
-    <div class="our-tours text-center g-heading-v8 g-pt-85 g-pb-100" id="Our-Tours">
+    <div class="our-tours text-center g-heading-v8 g-pt-85 g-pb-100">
         <div class="container-fluid">
-            <h2 class="h2"><em class="block-name">Our Tours</em><br> <strong>We can</strong> offer</h2>
+            <h2 class="h2"> <strong>Comics based</strong> Movies</h2>
             <div class="our-tours-list-wrapper">
                 <div class="our-tours-list text-left">
                     <!-- Batman  -->
                     <% for(var i=0; i<characters.length; i++){ %>
                     <div class="our-tours-list-item">
                         <div class="img-wrapper img-wrapper--shadow">
-                            <img src="<%= characters[i].imgUrl%>"  class="img-reposnsive">
+                            <img src="<%= characters[i].imgUrl%>"  class="img-responsive">
                         </div>
                         <h3><%= characters[i].name%>    <small>  /  <%= characters[i].type[0]%></small></h3>
                         <ul class="list-inline star-vote">
@@ -38,6 +38,35 @@
             </div>
         </div>
     </div>
+
+    <div class="our-tours text-center g-heading-v8 g-pt-85 g-pb-100" >
+            <h2 class="h2"> <strong>Most popular movie</strong> Characters</h2>
+            <div class="container">
+                <div class="row">
+                    <% movieCharacters.forEach(function(mCharacter){ %>
+
+                     <div class="col-md-6" style="min-height: 100px;margin-bottom: 15px;">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <img src="<%= mCharacter.imgUrl%>" class="img-responsive" >
+                            </div>
+                            <div class="col-md-10 text-left">
+                                <h4> <%= mCharacter.name%> <small> played by</small>  <%= mCharacter.playedBy%></h4>
+                                <p style="margin:0"> <strong><%= mCharacter.movies[0].name%></strong> (<%= mCharacter.movies[0].year%>)</p>
+                                <p style="margin:0"><strong>IMDb</strong> Rating (<strong><%= mCharacter.movies[0].IMDbRating%>/10</strong>)</p>
+                            </div>
+                        </div>
+                     </div>
+
+
+
+                    <% })%>
+                </div>
+            </div>
+
+
+    </div>
+
 
     <footer>
         <% include partials/footer.ejs %>
