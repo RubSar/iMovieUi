@@ -14,7 +14,7 @@ var homeController = function () {
                 characters =results;
             }
         });
-        MovieCharacter.find({}).limit(60).exec(
+        MovieCharacter.find({}).limit(6).exec(
             function(err, movieCharacters) {
                 if (err) {
                     console.log(err);
@@ -29,23 +29,29 @@ var homeController = function () {
         );
     }
 
+
+
     function  view(req, res){
         console.log(req.params.name);
-        Character.find({name:req.params.name}, function(err, results){
+        Character.findOne({name:req.params.name}, function(err, result){
             if (err) {
                 console.log(err);
             } else{
-                console.log(results[0]);
+                console.log(result);
                 res.render('view', {
-                    character:results[0]
+                    character:result
                 });
             }
         });
     }
+    function mostPopular(req, res){
+        res.render('mostPopular');
+    }
 
     return {
         index: index,
-        view:view
+        view:view,
+        mostPopular:mostPopular
     };
 };
 

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css"/>
+    <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="/css/tree.view.css"/>
+</head>
+
+<body id="body" data-spy="scroll" data-target=".one-page-header" class="demo-lightbox-gallery" ng-app="mpmcApp">
+<main class="wrapper" ng-controller="mpmcCtrl">
+    <header>
+        <% include partials/header.ejs %>
+    </header>
+    <div class="our-tours text-center g-heading-v8 g-pt-85 g-pb-100">
+        <div class="container-fluid">
+            <h2 class="h2"> <strong>Comics based</strong> Movies</h2>
+            <div class="our-tours-list-wrapper">
+                <div class="our-tours-list text-left">
+                    <!-- Batman  -->
+                   <pre>{{topCharacters}}</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="our-tours text-center g-heading-v8 g-pt-85 g-pb-100" >
+        <h2 class="h2"> <strong>Most popular movie</strong> Characters</h2>
+        <div class="container">
+
+
+        </div>
+        <div class="text-center">
+            <a href="/most-popular-movie-characters/" class="btn btn-primary">
+                See More Movie Characters
+            </a>
+        </div>
+    </div>
+
+
+
+
+
+    <footer>
+        <% include partials/footer.ejs %>
+    </footer>
+
+    <script src="/lib/jquery/dist/jquery.js"></script>
+    <script src="/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="/lib/angular/angular.min.js"></script>
+
+    <!-- inject helper module scripts-->
+    <% include angular/helperSrc.ejs %>
+    <!-- inject mpmc module scripts-->
+    <% include angular/mpmcSrc.ejs %>
+</main>
+</body>
+</html>

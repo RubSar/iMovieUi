@@ -10,8 +10,12 @@ var router = function () {
         return homeController.index(req,res);
     });
 
-    homeRouter.route('/:name').get(function(req, res){
+    homeRouter.route('comics-character/:name').get(function(req, res){
         return homeController.view(req,res);
+    });
+
+    homeRouter.route('/most-popular-movie-characters/').get(function(req, res) {
+        return homeController.mostPopular(req, res);
     });
 
     //END GET actions
