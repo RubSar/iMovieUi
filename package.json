@@ -13,6 +13,7 @@
     "bluebird": "^3.4.6",
     "body-parser": "^1.14.1",
     "bower": "^1.7.9",
+    "cloudinary": "^1.4.4",
     "cookie-parser": "^1.4.0",
     "ejs": "^2.3.4",
     "express": "^4.13.3",

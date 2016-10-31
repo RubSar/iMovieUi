@@ -47,19 +47,16 @@
 
                      <div class="col-md-6" style="min-height: 100px;margin-bottom: 15px;">
                         <div class="row">
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <img src="<%= mCharacter.imgUrl%>" class="img-responsive" >
                             </div>
-                            <div class="col-md-10 text-left">
-                                <h4> <%= mCharacter.name%> <small> played by</small>  <%= mCharacter.playedBy%></h4>
+                            <div class="col-md-9 text-left">
+                                <h4 style="text-transform: none"> <%= mCharacter.name%> <small> played by</small>  <%= mCharacter.playedBy%></h4>
                                 <p style="margin:0"> <strong><%= mCharacter.movies[0].name%></strong> (<%= mCharacter.movies[0].year%>)</p>
                                 <p style="margin:0"><strong>IMDb</strong> Rating (<strong><%= mCharacter.movies[0].IMDbRating%>/10</strong>)</p>
                             </div>
                         </div>
                      </div>
-
-
-
                     <% })%>
                 </div>
             </div>

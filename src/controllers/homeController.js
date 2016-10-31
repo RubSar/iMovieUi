@@ -14,7 +14,7 @@ var homeController = function () {
                 characters =results;
             }
         });
-        MovieCharacter.find({}).limit(20).exec(
+        MovieCharacter.find({}).limit(60).exec(
             function(err, movieCharacters) {
                 if (err) {
                     console.log(err);
@@ -28,6 +28,8 @@ var homeController = function () {
             }
         );
     }
+
+
 
     function  view(req, res){
         console.log(req.params.name);

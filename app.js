@@ -3,7 +3,14 @@ var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var passport = require('passport');
 var session = require('express-session');
-var jwt =require('jsonwebtoken');
+var cloudinary = require('cloudinary');
+
+cloudinary.config({
+    cloud_name: 'dk1chsp5h',
+    api_key: '672872814841976',
+    api_secret: 'TEj_snS8SOOmDRpWv3VikI2sOjs'
+});
+//var jwt =require('jsonwebtoken');
 
 
 var mongoose = require('mongoose');
@@ -41,10 +48,8 @@ app.use('/Admin', adminRouter);
 app.use('/Auth', authRouter);
 app.use('/seed', seedRouter);
 app.use('/', homeRouter);
-//test for image
-app.get('/img/hell', function(req, res){
 
-});
+
 
 app.listen(port, function (err) {
     console.log('running server on port ' + port);
