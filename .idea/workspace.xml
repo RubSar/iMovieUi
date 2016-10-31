@@ -2,93 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0c47ae67-fac8-4dc5-89b2-073f2f0bca81" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/js/angularModules/core/helperModule.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/js/angularModules/core/helperSvc.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/jobs/image.uploader.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/views/mostPopular.ejs" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/api/movieCharacters.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/js/angularModules/mpmc/mpmcApp.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/js/angularModules/mpmc/mpmcCtrl.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/views/angular/mpmcSrc.ejs" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/js/angularModules/mpmc/mpmcSvc.js" />
-      <change type="DELETED" beforePath="C:\Users\Toshiba\Documents\GitHub\Comics\public\img\artists\andrew-garfield.jpg" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Toshiba\Documents\GitHub\Comics\public\img\artists\ben-affleck.jpg" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Toshiba\Documents\GitHub\Comics\public\img\artists\brandon-routh.jpg" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Toshiba\Documents\GitHub\Comics\public\img\artists\christian-bale.jpg" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Toshiba\Documents\GitHub\Comics\public\img\artists\christopher-reeve.jpg" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Toshiba\Documents\GitHub\Comics\public\img\artists\edward-norton.jpg" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Toshiba\Documents\GitHub\Comics\public\img\artists\george-clooney.jpg" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Toshiba\Documents\GitHub\Comics\public\img\artists\heat-ledger.jpg" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Toshiba\Documents\GitHub\Comics\public\img\artists\henry-cavill.jpg" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Toshiba\Documents\GitHub\Comics\public\img\artists\jared-leto.jpg" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Toshiba\Documents\GitHub\Comics\public\img\artists\mark-ruffalo.jpg" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Toshiba\Documents\GitHub\Comics\public\img\artists\tobey-maguire.jpg" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Toshiba\Documents\GitHub\Comics\public\img\movieCharacters\ace-ventura.jpg" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Toshiba\Documents\GitHub\Comics\public\img\movieCharacters\adrian-veidt.jpg" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Toshiba\Documents\GitHub\Comics\public\img\movieCharacters\agent-smith.jpg" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Toshiba\Documents\GitHub\Comics\public\img\movieCharacters\alonzo-harris.jpg" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Toshiba\Documents\GitHub\Comics\public\img\movieCharacters\anton-chigurh.jpg" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Toshiba\Documents\GitHub\Comics\public\img\movieCharacters\aragorn.jpg" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Toshiba\Documents\GitHub\Comics\public\img\movieCharacters\bane.jpg" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Toshiba\Documents\GitHub\Comics\public\img\movieCharacters\batman.jpg" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Toshiba\Documents\GitHub\Comics\public\img\movieCharacters\bill-the-butcher-cutting.jpg" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Toshiba\Documents\GitHub\Comics\public\img\movieCharacters\billy-costigan.jpg" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Toshiba\Documents\GitHub\Comics\public\img\movieCharacters\boromir.jpg" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Toshiba\Documents\GitHub\Comics\public\img\movieCharacters\buddy-israel.jpg" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Toshiba\Documents\GitHub\Comics\public\img\movieCharacters\captain-jack-sparrow.jpg" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Toshiba\Documents\GitHub\Comics\public\img\movieCharacters\captain-miller.jpg" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Toshiba\Documents\GitHub\Comics\public\img\movieCharacters\comedian.jpg" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Toshiba\Documents\GitHub\Comics\public\img\movieCharacters\derek-vinyard.jpg" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Toshiba\Documents\GitHub\Comics\public\img\movieCharacters\dignam.jpg" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Toshiba\Documents\GitHub\Comics\public\img\movieCharacters\don-michael-corleone.jpg" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Toshiba\Documents\GitHub\Comics\public\img\movieCharacters\driver.jpg" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Toshiba\Documents\GitHub\Comics\public\img\movieCharacters\ernesto-che-guevara.jpg" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Toshiba\Documents\GitHub\Comics\public\img\movieCharacters\forrest-gump.jpg" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Toshiba\Documents\GitHub\Comics\public\img\movieCharacters\frank-costello.jpg" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Toshiba\Documents\GitHub\Comics\public\img\movieCharacters\ghost-dog.jpg" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Toshiba\Documents\GitHub\Comics\public\img\movieCharacters\hank-palmer.jpg" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Toshiba\Documents\GitHub\Comics\public\img\movieCharacters\indiana-jones.jpg" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Toshiba\Documents\GitHub\Comics\public\img\movieCharacters\jack-torrance.jpg" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Toshiba\Documents\GitHub\Comics\public\img\movieCharacters\jason-bourne.jpg" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Toshiba\Documents\GitHub\Comics\public\img\movieCharacters\john-coffey.jpg" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Toshiba\Documents\GitHub\Comics\public\img\movieCharacters\john-constantine.jpg" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Toshiba\Documents\GitHub\Comics\public\img\movieCharacters\joker.JPG" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Toshiba\Documents\GitHub\Comics\public\img\movieCharacters\jules-winnfield.jpg" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Toshiba\Documents\GitHub\Comics\public\img\movieCharacters\legolas.jpg" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Toshiba\Documents\GitHub\Comics\public\img\movieCharacters\logan.jpg" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Toshiba\Documents\GitHub\Comics\public\img\movieCharacters\loki.jpg" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Toshiba\Documents\GitHub\Comics\public\img\movieCharacters\magneto.jpg" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Toshiba\Documents\GitHub\Comics\public\img\movieCharacters\max-rockatansky.jpg" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Toshiba\Documents\GitHub\Comics\public\img\movieCharacters\maximus.jpg" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Toshiba\Documents\GitHub\Comics\public\img\movieCharacters\mickey-o'neil.jpg" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Toshiba\Documents\GitHub\Comics\public\img\movieCharacters\neo.jpg" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Toshiba\Documents\GitHub\Comics\public\img\movieCharacters\oskar-schindler.jpg" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Toshiba\Documents\GitHub\Comics\public\img\movieCharacters\patrick-bateman.jpg" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Toshiba\Documents\GitHub\Comics\public\img\movieCharacters\rorschach.jpg" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Toshiba\Documents\GitHub\Comics\public\img\movieCharacters\stansfield.jpg" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Toshiba\Documents\GitHub\Comics\public\img\movieCharacters\sweeney-todd.jpg" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Toshiba\Documents\GitHub\Comics\public\img\movieCharacters\tony-montana.jpg" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Toshiba\Documents\GitHub\Comics\public\img\movieCharacters\tony-stark.jpg" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Toshiba\Documents\GitHub\Comics\public\img\movieCharacters\travis-bickle.jpg" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Toshiba\Documents\GitHub\Comics\public\img\movieCharacters\tyler-durden.jpg" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Toshiba\Documents\GitHub\Comics\public\img\movieCharacters\viktor-navorski.jpg" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Toshiba\Documents\GitHub\Comics\public\img\movieCharacters\vincent.jpg" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Toshiba\Documents\GitHub\Comics\public\img\movieCharacters\william-wallace.jpg" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Toshiba\Documents\GitHub\Comics\public\img\movies\batman-begins.jpg" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Toshiba\Documents\GitHub\Comics\public\img\movies\spider-man-2.jpg" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Toshiba\Documents\GitHub\Comics\public\img\movies\spider-man-3.jpg" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Toshiba\Documents\GitHub\Comics\public\img\movies\spider-man.jpg" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Toshiba\Documents\GitHub\Comics\public\img\movies\suicide-squad.jpg" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Toshiba\Documents\GitHub\Comics\public\img\movies\the-amazing-spider-man-2.jpg" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Toshiba\Documents\GitHub\Comics\public\img\movies\the-amazing-spider-man.jpg" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Toshiba\Documents\GitHub\Comics\public\img\movies\the-dark-knight-rises.jpg" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Toshiba\Documents\GitHub\Comics\public\img\movies\the-dark-knight.jpg" afterPath="" />
-      <change type="MOVED" beforePath="C:\Users\Toshiba\Documents\GitHub\Comics\public\js\app.js" afterPath="$PROJECT_DIR$/src/views/angular/helperSrc.ejs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app.js" afterPath="$PROJECT_DIR$/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/controllers/homeController.js" afterPath="$PROJECT_DIR$/src/controllers/homeController.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/routes/homeRoutes.js" afterPath="$PROJECT_DIR$/src/routes/homeRoutes.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/views/index.ejs" afterPath="$PROJECT_DIR$/src/views/index.ejs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Comics.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -156,8 +71,8 @@
       <file leaf-file-name="index.ejs" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/views/index.ejs">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.45259392">
-              <caret line="46" column="45" selection-start-line="46" selection-start-column="45" selection-end-line="46" selection-end-column="45" />
+            <state vertical-scroll-proportion="0.42114696">
+              <caret line="81" column="10" selection-start-line="81" selection-start-column="10" selection-end-line="81" selection-end-column="10" />
               <folding />
             </state>
           </provider>
@@ -273,6 +188,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -325,7 +241,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -486,9 +401,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="23" column="17" selection-start-line="23" selection-start-column="17" selection-end-line="23" selection-end-column="17" />
-          <folding>
-            <element signature="e#0#41#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -554,9 +466,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#41#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -662,7 +571,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.4392765">
           <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -698,9 +606,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="44" column="5" selection-start-line="44" selection-start-column="5" selection-end-line="44" selection-end-column="5" />
-          <folding>
-            <element signature="e#0#41#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -775,9 +680,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="1.3074936">
           <caret line="41" column="27" selection-start-line="41" selection-start-column="17" selection-end-line="41" selection-end-column="27" />
-          <folding>
-            <element signature="e#0#41#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -845,8 +747,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/views/index.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.45259392">
-          <caret line="46" column="45" selection-start-line="46" selection-start-column="45" selection-end-line="46" selection-end-column="45" />
+        <state vertical-scroll-proportion="0.42114696">
+          <caret line="81" column="10" selection-start-line="81" selection-start-column="10" selection-end-line="81" selection-end-column="10" />
           <folding />
         </state>
       </provider>

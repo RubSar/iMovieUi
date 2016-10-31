@@ -29,7 +29,7 @@
                         </ul>
                         <p><%= characters[i].description%></p>
                         <div class="our-tours-price">
-                            <a style="color:white" href="/<%= characters[i].name%>">See more</a>
+                            <a style="color:white" href="/comics-character/<%= characters[i].name%>">See more</a>
                         </div>
 
                     </div>
@@ -40,74 +40,56 @@
     </div>
 
     <div class="our-tours text-center g-heading-v8 g-pt-85 g-pb-100" >
-            <h2 class="h2"> <strong>Most popular movie</strong> Characters</h2>
-            <div class="container">
-
-                    <%var rowOpenClose =0%>
-                    <% movieCharacters.forEach(function(mCharacter){ %>
-                   <% if(rowOpenClose==0){%>
-                       <div class="row">
-                    <%}%>
-
-                     <div class="col-md-6" style="min-height: 100px;margin-bottom: 15px;">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <img src="<%= mCharacter.imgUrl%>" class="img-responsive" >
-                            </div>
-                            <div class="col-md-9 text-left">
-                                <h4 style="text-transform: none"> <%= mCharacter.name%> <small> played by</small>  <%= mCharacter.playedBy%></h4>
-                                <p style="margin:0"> <strong><%= mCharacter.movies[0].name%></strong> (<%= mCharacter.movies[0].year%>)</p>
-                                <p style="margin:0"><strong>IMDb</strong> Rating (<strong><%= mCharacter.movies[0].IMDbRating%>/10</strong>)</p>
-                                <h4>
-                                    <span style="margin-right: 10px;"><i style="color:goldenrod" class="fa fa-star"></i> 8.2</span>
-                                    <span ><i style="color:#ee4136" class="fa fa-star"></i> 9</span>
-                                </h4>
-                            </div>
+        <h2 class="h2"> <strong>Most popular movie</strong> Characters</h2>
+        <div class="container">
+            <%var rowOpenClose =0%>
+            <% movieCharacters.forEach(function(mCharacter){ %>
+            <% if(rowOpenClose==0){%>
+            <div class="row">
+                <%}%>
+                <div class="col-md-6" style="min-height: 100px;margin-bottom: 15px;">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <img src="<%= mCharacter.imgUrl%>" class="img-responsive" >
                         </div>
-                     </div>
-                    <% rowOpenClose ++%>
-                    <% if(rowOpenClose>0 && rowOpenClose%2==0){%>
-                           <% rowOpenClose =0%>
+                        <div class="col-md-8 text-left">
+                            <h4 style="text-transform: none"> <%= mCharacter.name%> <small> played by</small>  <%= mCharacter.playedBy%></h4>
+                            <h4>
+                                <span style="margin-right: 10px;"><i style="color:goldenrod" class="fa fa-star"></i> 8.2</span>
+                                <span ><i style="color:#ee4136" class="fa fa-star"></i> 9</span>
+                            </h4>
+
+                            <p style="margin:0"> <strong><%= mCharacter.movies[0].name%></strong> (<%= mCharacter.movies[0].year%>)</p>
+                            <p style="margin:0"><strong>IMDb</strong> Rating (<strong><%= mCharacter.movies[0].IMDbRating%>/10</strong>)
+
+                            </p>
+
                         </div>
-                    <%}%>
-
-                    <% })%>
-
+                    </div>
+                </div>
+                <% rowOpenClose ++%>
+                <% if(rowOpenClose>0 && rowOpenClose%2==0){%>
+                <% rowOpenClose =0%>
             </div>
-
-
+            <%}%>
+            <% })%>
+        </div>
+        <div class="text-center">
+            <a href="/most-popular-movie-characters/" class="btn btn-primary">
+                See More Movie Characters
+            </a>
+        </div>
     </div>
 
-    <span class="rating">
-    <span class="star "></span>
-    <span class="star "></span>
-    <span class="star "></span>
-    <span class="star"></span>
-    <span class="star"></span>
-    <span class="star"></span>
-    <span class="star"></span>
-    <span class="star"></span>
-    <span class="star filled"></span>
-    <span class="star filled"></span>
-    </span>
+
+
+
+
     <footer>
         <% include partials/footer.ejs %>
     </footer>
 
     <% include partials/scripts.ejs %>
-    <script type="text/javascript">
-        $.ready(function(){
-            var ratingStar =$('.rating span.star');
-            $('.rating span.star').click(function(){
-                var total=$(this).parent().children().length;
-                var clickedIndex=$(this).index();
-                ratingStar.removeClass('filled');
-                for(var i=clickedIndex;i<total;i++){
-                    ratingStar.eq(i).addClass('filled');
-                }
-            });
-        });
-    </script>
 </main>
 </body>
 </html>
