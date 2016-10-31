@@ -5,10 +5,16 @@ var express = require('express');
 
 var api = express.Router();
 
-api.use('/top', function(req, res){
-   res.send({
-       data:{message:'all right', status:200}
-   });
-});
 
-module.exports =api;
+var router = function () {
+    //GET actions
+
+    api.route('/top').get(function(req, res){
+        res.send({
+            data:{message:'all right', status:200}
+        });
+    });
+
+    return api;
+};
+module.exports = router();

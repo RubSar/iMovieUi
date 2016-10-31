@@ -55,7 +55,7 @@ app.use('/seed', seedRouter);
 app.use('/', homeRouter);
 
 //register APIs
-app.use('/api/test', movieCharacterAPI);
+app.use('/api/movieCharacters', movieCharacterAPI);
 
 
 
