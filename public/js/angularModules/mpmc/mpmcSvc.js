@@ -9,9 +9,14 @@
         function getTopCharacters(){
           return helperSvc.requestHandler({method:'GET', url:'/api/movieCharacters/top'});
         }
+        function getArtists(){
+            return helperSvc.requestHandler({method:'GET', url:'/api/movieCharacters/artists'});
+        }
+
 
         return{
-            getTopCharacters:getTopCharacters
+            getTopCharacters:getTopCharacters,
+            getArtists:getArtists
         }
     })
 })();

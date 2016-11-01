@@ -3,25 +3,23 @@
  */
 //helperSvc.js
 
-(function(){
-    angular.module('helperModule').factory('helperSvc', function($http, $q, $log){
+(function () {
+    angular.module('helperModule').factory('helperSvc', function ($http, $q, $log) {
 
-        function requestHandler(requestBody){
-            var deferred = $q.defer();
-            $http.(requestBody)
-                .success(function(data) {
-                    deferred.resolve(data);
+        function requestHandler(requestBody) {
+            var task = $q.defer();
+            $http(requestBody)
+                .success(function (result, status, headers, config) {
+                    task.resolve(result);
                 })
-                .error(function(msg, code) {
-                    deferred.reject(msg);
-                     $log.error(msg, code);
-                 });
-
-           return deferred.promise;
+                .error(function (result, status, headers, config) {
+                    task.reject(status);
+                });
+            return task.promise;
         }
 
-        return{
-            requestHandler:requestHandler
+        return {
+            requestHandler: requestHandler
         }
     });
 })();

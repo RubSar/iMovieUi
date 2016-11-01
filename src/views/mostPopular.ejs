@@ -3,7 +3,9 @@
 <head>
     <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css"/>
     <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css"/>
-    <link rel="stylesheet" href="/css/tree.view.css"/>
+    <link rel="stylesheet" href="/css/app.css"/>
+    <link rel="stylesheet" href="/css/comics.style.css"/>
+
 </head>
 
 <body id="body" data-spy="scroll" data-target=".one-page-header" class="demo-lightbox-gallery" ng-app="mpmcApp">
@@ -13,45 +15,81 @@
     </header>
     <div class="our-tours text-center g-heading-v8 g-pt-85 g-pb-100">
         <div class="container-fluid">
-            <h2 class="h2"> <strong>Comics based</strong> Movies</h2>
-            <div class="our-tours-list-wrapper">
+            <h2 class="h2"><strong>Most Popular movie characters</strong> Movies</h2>
+
+            <div ng-hide="contentLoaded" style="min-height: 550px; padding-top:200px;" class="text-center">
+                <img src="/img/loading.gif" alt="loading" />
+            </div>
+            <div class="our-tours-list-wrapper" ng-show="contentLoaded">
                 <div class="our-tours-list text-left">
-                    <!-- Batman  -->
-                   <pre>{{topCharacters}}</pre>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <ul class="list-group" ng-repeat="artist in artists">
+                                    <li class="list-group-item">
+                                        <button type="submit" ng-click="getArtistMovies(artist._id)">{{artist._id}}</button>
+                                        <span class="badge">{{artist.count}}</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="row">
+                                    <div class="col-md-6" ng-repeat="character in topCharacters"
+                                         style="min-height: 200px;margin-bottom: 15px;">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <img ng-src="{{character.imgUrl}}" class="img-responsive">
+                                            </div>
+                                            <div class="col-md-8 text-left">
+                                                <h4 style="text-transform: none"> {{ character.name}}
+                                                    <small> played by</small>
+                                                    {{character.playedBy}}
+                                                </h4>
+                                                <h4>
+                                            <span style="margin-right: 10px;">
+                                                <i style="color:goldenrod" class="fa fa-star"></i> 8.2</span>
+                                            <span>
+                                                <i style="color:#ee4136" class="fa fa-star"></i> 9
+                                            </span>
+                                                </h4>
+
+                                                <p style="margin:0">
+                                                    <strong>{{character.movies[0].name}} </strong>
+                                                    ({{character.movies[0].year}})
+                                                </p>
+
+                                                <p style="margin:0"><strong>IMDb</strong> Rating (<strong>
+                                                        {{character.movies[0].IMDbRating}}/10</strong>)
+
+                                                </p>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="our-tours text-center g-heading-v8 g-pt-85 g-pb-100" >
-        <h2 class="h2"> <strong>Most popular movie</strong> Characters</h2>
-        <div class="container">
-
-
-        </div>
-        <div class="text-center">
-            <a href="/most-popular-movie-characters/" class="btn btn-primary">
-                See More Movie Characters
-            </a>
-        </div>
-    </div>
 
 
 
 
+        <footer>
+            <% include partials/footer.ejs %>
+        </footer>
 
-    <footer>
-        <% include partials/footer.ejs %>
-    </footer>
+        <script src="/lib/jquery/dist/jquery.js"></script>
+        <script src="/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="/lib/angular/angular.min.js"></script>
 
-    <script src="/lib/jquery/dist/jquery.js"></script>
-    <script src="/lib/bootstrap/dist/js/bootstrap.js"></script>
-    <script src="/lib/angular/angular.min.js"></script>
-
-    <!-- inject helper module scripts-->
-    <% include angular/helperSrc.ejs %>
-    <!-- inject mpmc module scripts-->
-    <% include angular/mpmcSrc.ejs %>
+        <!-- inject helper module scripts-->
+        <% include angular/helperSrc.ejs %>
+        <!-- inject mpmc module scripts-->
+        <% include angular/mpmcSrc.ejs %>
 </main>
 </body>
 </html>
