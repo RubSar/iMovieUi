@@ -30,7 +30,7 @@ var
 	wrapMap = {
 
 		// Support: IE9
-		option: [ 1, "<select multiple='multiple'>", "</select>" ],
+		option: [ 1, "<autocomplete multiple='multiple'>", "</autocomplete>" ],
 
 		thead: [ 1, "<table>", "</table>" ],
 		col: [ 2, "<table><colgroup>", "</colgroup></table>" ],

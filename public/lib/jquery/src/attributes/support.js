@@ -14,7 +14,7 @@ define([
 	support.checkOn = input.value !== "";
 
 	// Support: IE<=11+
-	// Must access selectedIndex to make default options select
+	// Must access selectedIndex to make default options autocomplete
 	support.optSelected = opt.selected;
 
 	// Support: Android<=2.3

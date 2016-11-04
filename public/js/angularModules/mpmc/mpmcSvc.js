@@ -3,20 +3,41 @@
  */
 //mpmcSvc.js
 
-(function(){
-    angular.module('mpmcApp').factory('mpmcSvc', function(helperSvc){
+(function () {
+    angular.module('mpmcApp').factory('mpmcSvc', function (helperSvc) {
 
-        function getTopCharacters(){
-          return helperSvc.requestHandler({method:'GET', url:'/api/movieCharacters/top'});
-        }
-        function getArtists(){
-            return helperSvc.requestHandler({method:'GET', url:'/api/movieCharacters/artists'});
+        function getAll(){
+            return helperSvc.requestHandler({method: 'GET', url: '/api/movieCharacters/all'});
         }
 
+        function getTopCharacters() {
+            return helperSvc.requestHandler({method: 'GET', url: '/api/movieCharacters/top'});
+        }
 
-        return{
-            getTopCharacters:getTopCharacters,
-            getArtists:getArtists
+        function getArtists() {
+            return helperSvc.requestHandler({method: 'GET', url: '/api/movieCharacters/artists'});
+        }
+
+        function getOrderedYears(){
+            return helperSvc.requestHandler({method: 'GET', url: '/api/movieCharacters/years'});
+        }
+
+        function getCharactersByArtist(artist) {
+            return helperSvc.requestHandler({method: 'GET', url: '/api/movieCharacters/byArtist', params:{artist:artist}});
+        }
+
+        function getCharactersByMovieReleaseDate(year){
+            return helperSvc.requestHandler({method: 'GET', url: '/api/movieCharacters/byYear', params:{year:year}});
+        }
+
+
+        return {
+            getAll:getAll,
+            getTopCharacters: getTopCharacters,
+            getArtists: getArtists,
+            getCharactersByArtist: getCharactersByArtist,
+            getCharactersByMovieReleaseDate:getCharactersByMovieReleaseDate,
+            getOrderedYears:getOrderedYears
         }
     })
 })();

@@ -2834,7 +2834,7 @@ var TAG_NAME_REGEXP = /<([\w:-]+)/;
 var XHTML_TAG_REGEXP = /<(?!area|br|col|embed|hr|img|input|link|meta|param)(([\w:-]+)[^>]*)\/>/gi;
 
 var wrapMap = {
-  'option': [1, '<select multiple="multiple">', '</select>'],
+  'option': [1, '<autocomplete multiple="multiple">', '</autocomplete>'],
 
   'thead': [1, '<table>', '</table>'],
   'col': [2, '<table><colgroup>', '</colgroup></table>'],
@@ -3244,7 +3244,7 @@ forEach('multiple,selected,checked,disabled,readOnly,required,open'.split(','), 
   BOOLEAN_ATTR[lowercase(value)] = value;
 });
 var BOOLEAN_ELEMENTS = {};
-forEach('input,select,option,textarea,button,form,details'.split(','), function(value) {
+forEach('input,autocomplete,option,textarea,button,form,details'.split(','), function(value) {
   BOOLEAN_ELEMENTS[value] = true;
 });
 var ALIASED_ATTR = {
@@ -11346,10 +11346,10 @@ function $HttpProvider() {
 <example module="httpExample">
 <file name="index.html">
   <div ng-controller="FetchController">
-    <select ng-model="method" aria-label="Request method">
+    <autocomplete ng-model="method" aria-label="Request method">
       <option>GET</option>
       <option>JSONP</option>
-    </select>
+    </autocomplete>
     <input type="text" ng-model="url" size="80" aria-label="URL" />
     <button id="fetchbtn" ng-click="fetch()">fetch</button><br>
     <button id="samplegetbtn" ng-click="updateModel('GET', 'http-hello.html')">Sample GET</button>
@@ -22124,23 +22124,23 @@ var htmlAnchorDirective = valueFn({
  * attribute. See the {@link guide/interpolation interpolation guide} for more info.
  *
  * <div class="alert alert-warning">
- *   **Note:** `ngSelected` does not interact with the `select` and `ngModel` directives, it only
- *   sets the `selected` attribute on the element. If you are using `ngModel` on the select, you
- *   should not use `ngSelected` on the options, as `ngModel` will set the select value and
+ *   **Note:** `ngSelected` does not interact with the `autocomplete` and `ngModel` directives, it only
+ *   sets the `selected` attribute on the element. If you are using `ngModel` on the autocomplete, you
+ *   should not use `ngSelected` on the options, as `ngModel` will set the autocomplete value and
  *   selected options.
  * </div>
  *
  * @example
     <example>
       <file name="index.html">
-        <label>Check me to select: <input type="checkbox" ng-model="selected"></label><br/>
-        <select aria-label="ngSelected demo">
+        <label>Check me to autocomplete: <input type="checkbox" ng-model="selected"></label><br/>
+        <autocomplete aria-label="ngSelected demo">
           <option>Hello!</option>
           <option id="greet" ng-selected="selected">Greetings!</option>
-        </select>
+        </autocomplete>
       </file>
       <file name="protractor.js" type="protractor">
-        it('should select Greetings!', function() {
+        it('should autocomplete Greetings!', function() {
           expect(element(by.id('greet')).getAttribute('selected')).toBeFalsy();
           element(by.model('selected')).click();
           expect(element(by.id('greet')).getAttribute('selected')).toBeTruthy();
@@ -24570,9 +24570,9 @@ var CONSTANT_VALUE_REGEXP = /^(true|false|\d+)$/;
  * {@link ngRepeat `ngRepeat`}, as shown below.
  *
  * Likewise, `ngValue` can be used to generate `<option>` elements for
- * the {@link select `select`} element. In that case however, only strings are supported
+ * the {@link select `autocomplete`} element. In that case however, only strings are supported
  * for the `value `attribute, so the resulting `ngModel` will always be a string.
- * Support for `select` models with non-string values is available via `ngOptions`.
+ * Support for `autocomplete` models with non-string values is available via `ngOptions`.
  *
  * @element input
  * @param {string=} ngValue angular expression, whose value will be bound to the `value` attribute
@@ -25452,10 +25452,10 @@ var ngCloakDirective = ngDirective({
  *      Contact:
  *      <ul>
  *        <li ng-repeat="contact in settings.contacts">
- *          <select ng-model="contact.type" aria-label="Contact method" id="select_{{$index}}">
+ *          <autocomplete ng-model="contact.type" aria-label="Contact method" id="select_{{$index}}">
  *             <option>phone</option>
  *             <option>email</option>
- *          </select>
+ *          </autocomplete>
  *          <input type="text" ng-model="contact.value" aria-labelledby="select_{{$index}}" />
  *          <button ng-click="settings.clearContact(contact)">clear</button>
  *          <button ng-click="settings.removeContact(contact)" aria-label="Remove">X</button>
@@ -25535,10 +25535,10 @@ var ngCloakDirective = ngDirective({
  *     Contact:
  *     <ul>
  *       <li ng-repeat="contact in contacts">
- *         <select ng-model="contact.type" id="select_{{$index}}">
+ *         <autocomplete ng-model="contact.type" id="select_{{$index}}">
  *            <option>phone</option>
  *            <option>email</option>
- *         </select>
+ *         </autocomplete>
  *         <input type="text" ng-model="contact.value" aria-labelledby="select_{{$index}}" />
  *         <button ng-click="clearContact(contact)">clear</button>
  *         <button ng-click="removeContact(contact)">X</button>
@@ -26209,7 +26209,7 @@ forEach(
  * AngularJS executes the expression using `scope.$evalAsync` if the event is fired
  * during an `$apply` to ensure a consistent state.
  *
- * @element window, input, select, textarea, a
+ * @element window, input, autocomplete, textarea, a
  * @priority 0
  * @param {expression} ngFocus {@link guide/expression Expression} to evaluate upon
  * focus. ({@link guide/expression#-event- Event object is available as `$event`})
@@ -26233,7 +26233,7 @@ forEach(
  * AngularJS executes the expression using `scope.$evalAsync` if the event is fired
  * during an `$apply` to ensure a consistent state.
  *
- * @element window, input, select, textarea, a
+ * @element window, input, autocomplete, textarea, a
  * @priority 0
  * @param {expression} ngBlur {@link guide/expression Expression} to evaluate upon
  * blur. ({@link guide/expression#-event- Event object is available as `$event`})
@@ -26249,7 +26249,7 @@ forEach(
  * @description
  * Specify custom behavior on copy event.
  *
- * @element window, input, select, textarea, a
+ * @element window, input, autocomplete, textarea, a
  * @priority 0
  * @param {expression} ngCopy {@link guide/expression Expression} to evaluate upon
  * copy. ({@link guide/expression#-event- Event object is available as `$event`})
@@ -26270,7 +26270,7 @@ forEach(
  * @description
  * Specify custom behavior on cut event.
  *
- * @element window, input, select, textarea, a
+ * @element window, input, autocomplete, textarea, a
  * @priority 0
  * @param {expression} ngCut {@link guide/expression Expression} to evaluate upon
  * cut. ({@link guide/expression#-event- Event object is available as `$event`})
@@ -26291,7 +26291,7 @@ forEach(
  * @description
  * Specify custom behavior on paste event.
  *
- * @element window, input, select, textarea, a
+ * @element window, input, autocomplete, textarea, a
  * @priority 0
  * @param {expression} ngPaste {@link guide/expression Expression} to evaluate upon
  * paste. ({@link guide/expression#-event- Event object is available as `$event`})
@@ -26485,9 +26485,9 @@ var ngIfDirective = ['$animate', '$compile', function($animate, $compile) {
   <example module="includeExample" deps="angular-animate.js" animations="true">
     <file name="index.html">
      <div ng-controller="ExampleController">
-       <select ng-model="template" ng-options="t.name for t in templates">
+       <autocomplete ng-model="template" ng-options="t.name for t in templates">
         <option value="">(blank)</option>
-       </select>
+       </autocomplete>
        url of the template: <code>{{template.url}}</code>
        <hr/>
        <div class="slide-animate-container">
@@ -27704,7 +27704,7 @@ var NgModelController = ['$scope', '$exceptionHandler', '$attrs', '$element', '$
    *
    * This method should be called when a control wants to change the view value; typically,
    * this is done from within a DOM event handler. For example, the {@link ng.directive:input input}
-   * directive calls it when the value of the input changes and {@link ng.directive:select select}
+   * directive calls it when the value of the input changes and {@link ng.directive:autocomplete autocomplete}
    * calls it when an option is selected.
    *
    * When `$setViewValue` is called, the new `value` will be staged for committing through the `$parsers`
@@ -27831,13 +27831,13 @@ var NgModelController = ['$scope', '$exceptionHandler', '$attrs', '$element', '$
  * @priority 1
  *
  * @description
- * The `ngModel` directive binds an `input`,`select`, `textarea` (or custom form control) to a
+ * The `ngModel` directive binds an `input`,`autocomplete`, `textarea` (or custom form control) to a
  * property on the scope using {@link ngModel.NgModelController NgModelController},
  * which is created and exposed by this directive.
  *
  * `ngModel` is responsible for:
  *
- * - Binding the view into the model, which other directives such as `input`, `textarea` or `select`
+ * - Binding the view into the model, which other directives such as `input`, `textarea` or `autocomplete`
  *   require.
  * - Providing validation behavior (i.e. required, number, email, url).
  * - Keeping the state of the control (valid/invalid, dirty/pristine, touched/untouched, validation errors).
@@ -27867,7 +27867,7 @@ var NgModelController = ['$scope', '$exceptionHandler', '$attrs', '$element', '$
  *    - {@link input[time] time}
  *    - {@link input[month] month}
  *    - {@link input[week] week}
- *  - {@link ng.directive:select select}
+ *  - {@link ng.directive:autocomplete autocomplete}
  *  - {@link ng.directive:textarea textarea}
  *
  * # Complex Models (objects or collections)
@@ -27880,14 +27880,14 @@ var NgModelController = ['$scope', '$exceptionHandler', '$attrs', '$element', '$
  *
  * Some directives have options that will cause them to use a custom `$watchCollection` on the model expression
  * - for example, `ngOptions` will do so when a `track by` clause is included in the comprehension expression or
- * if the select is given the `multiple` attribute.
+ * if the autocomplete is given the `multiple` attribute.
  *
  * The `$watchCollection()` method only does a shallow comparison, meaning that changing properties deeper than the
  * first level of the object (or only changing the properties of an item in the collection if it's an array) will still
  * not trigger a re-rendering of the model.
  *
  * # CSS classes
- * The following CSS classes are added and removed on the associated input/select/textarea element
+ * The following CSS classes are added and removed on the associated input/autocomplete/textarea element
  * depending on the validity of the model.
  *
  *  - `ng-valid`: the model is valid
@@ -28404,29 +28404,29 @@ var ngOptionsMinErr = minErr('ngOptions');
  * @description
  *
  * The `ngOptions` attribute can be used to dynamically generate a list of `<option>`
- * elements for the `<select>` element using the array or object obtained by evaluating the
+ * elements for the `<autocomplete>` element using the array or object obtained by evaluating the
  * `ngOptions` comprehension expression.
  *
  * In many cases, `ngRepeat` can be used on `<option>` elements instead of `ngOptions` to achieve a
  * similar result. However, `ngOptions` provides some benefits such as reducing memory and
  * increasing speed by not creating a new scope for each repeated instance, as well as providing
- * more flexibility in how the `<select>`'s model is assigned via the `select` **`as`** part of the
- * comprehension expression. `ngOptions` should be used when the `<select>` model needs to be bound
+ * more flexibility in how the `<autocomplete>`'s model is assigned via the `autocomplete` **`as`** part of the
+ * comprehension expression. `ngOptions` should be used when the `<autocomplete>` model needs to be bound
  *  to a non-string value. This is because an option element can only be bound to string values at
  * present.
  *
- * When an item in the `<select>` menu is selected, the array element or object property
+ * When an item in the `<autocomplete>` menu is selected, the array element or object property
  * represented by the selected option will be bound to the model identified by the `ngModel`
  * directive.
  *
  * Optionally, a single hard-coded `<option>` element, with the value set to an empty string, can
- * be nested into the `<select>` element. This element will then represent the `null` or "not selected"
+ * be nested into the `<autocomplete>` element. This element will then represent the `null` or "not selected"
  * option. See example below for demonstration.
  *
  * ## Complex Models (objects or collections)
  *
  * By default, `ngModel` watches the model by reference, not value. This is important to know when
- * binding the select to a model that is an object or a collection.
+ * binding the autocomplete to a model that is an object or a collection.
  *
  * One issue occurs if you want to preselect an option. For example, if you set
  * the model to an object that is equal to an object in your collection, `ngOptions` won't be able to set the selection,
@@ -28439,7 +28439,7 @@ var ngOptionsMinErr = minErr('ngOptions');
  *
  * A different issue with objects or collections is that ngModel won't detect if an object property or
  * a collection item changes. For that reason, `ngOptions` additionally watches the model using
- * `$watchCollection`, when the expression contains a `track by` clause or the the select has the `multiple` attribute.
+ * `$watchCollection`, when the expression contains a `track by` clause or the the autocomplete has the `multiple` attribute.
  * This allows ngOptions to trigger a re-rendering of the options even if the actual object/collection
  * has not changed identity, but only a property on the object or an item in the collection changes.
  *
@@ -28447,18 +28447,18 @@ var ngOptionsMinErr = minErr('ngOptions');
  * if the model is an array). This means that changing a property deeper than the first level inside the
  * object/collection will not trigger a re-rendering.
  *
- * ## `select` **`as`**
+ * ## `autocomplete` **`as`**
  *
- * Using `select` **`as`** will bind the result of the `select` expression to the model, but
- * the value of the `<select>` and `<option>` html elements will be either the index (for array data sources)
+ * Using `autocomplete` **`as`** will bind the result of the `autocomplete` expression to the model, but
+ * the value of the `<autocomplete>` and `<option>` html elements will be either the index (for array data sources)
  * or property name (for object data sources) of the value within the collection. If a **`track by`** expression
- * is used, the result of that expression will be set as the value of the `option` and `select` elements.
+ * is used, the result of that expression will be set as the value of the `option` and `autocomplete` elements.
  *
  *
- * ### `select` **`as`** and **`track by`**
+ * ### `autocomplete` **`as`** and **`track by`**
  *
  * <div class="alert alert-warning">
- * Be careful when using `select` **`as`** and **`track by`** in the same expression.
+ * Be careful when using `autocomplete` **`as`** and **`track by`** in the same expression.
  * </div>
  *
  * Given this array of items on the $scope:
@@ -28478,7 +28478,7 @@ var ngOptionsMinErr = minErr('ngOptions');
  * This will work:
  *
  * ```html
- * <select ng-options="item as item.label for item in items track by item.id" ng-model="selected"></select>
+ * <autocomplete ng-options="item as item.label for item in items track by item.id" ng-model="selected"></autocomplete>
  * ```
  * ```js
  * $scope.selected = $scope.items[0];
@@ -28487,7 +28487,7 @@ var ngOptionsMinErr = minErr('ngOptions');
  * but this will not work:
  *
  * ```html
- * <select ng-options="item.subItem as item.label for item in items track by item.id" ng-model="selected"></select>
+ * <autocomplete ng-options="item.subItem as item.label for item in items track by item.id" ng-model="selected"></autocomplete>
  * ```
  * ```js
  * $scope.selected = $scope.items[0].subItem;
@@ -28499,7 +28499,7 @@ var ngOptionsMinErr = minErr('ngOptions');
  * `ngModel` value is `items[0]` and the **`track by`** expression evaluates to `items[0].id` with
  * no issue. In the second example, the `ngModel` value is `items[0].subItem` and the **`track by`**
  * expression evaluates to `items[0].subItem.id` (which is undefined). As a result, the model value
- * is not matched against any `<option>` and the `<select>` appears as having no selected value.
+ * is not matched against any `<option>` and the `<autocomplete>` appears as having no selected value.
  *
  *
  * @param {string} ngModel Assignable angular expression to data-bind to.
@@ -28512,7 +28512,7 @@ var ngOptionsMinErr = minErr('ngOptions');
  *
  *   * for array data sources:
  *     * `label` **`for`** `value` **`in`** `array`
- *     * `select` **`as`** `label` **`for`** `value` **`in`** `array`
+ *     * `autocomplete` **`as`** `label` **`for`** `value` **`in`** `array`
  *     * `label` **`group by`** `group` **`for`** `value` **`in`** `array`
  *     * `label` **`disable when`** `disable` **`for`** `value` **`in`** `array`
  *     * `label` **`group by`** `group` **`for`** `value` **`in`** `array` **`track by`** `trackexpr`
@@ -28521,12 +28521,12 @@ var ngOptionsMinErr = minErr('ngOptions');
  *        (for including a filter with `track by`)
  *   * for object data sources:
  *     * `label` **`for (`**`key` **`,`** `value`**`) in`** `object`
- *     * `select` **`as`** `label` **`for (`**`key` **`,`** `value`**`) in`** `object`
+ *     * `autocomplete` **`as`** `label` **`for (`**`key` **`,`** `value`**`) in`** `object`
  *     * `label` **`group by`** `group` **`for (`**`key`**`,`** `value`**`) in`** `object`
  *     * `label` **`disable when`** `disable` **`for (`**`key`**`,`** `value`**`) in`** `object`
- *     * `select` **`as`** `label` **`group by`** `group`
+ *     * `autocomplete` **`as`** `label` **`group by`** `group`
  *         **`for` `(`**`key`**`,`** `value`**`) in`** `object`
- *     * `select` **`as`** `label` **`disable when`** `disable`
+ *     * `autocomplete` **`as`** `label` **`disable when`** `disable`
  *         **`for` `(`**`key`**`,`** `value`**`) in`** `object`
  *
  * Where:
@@ -28537,8 +28537,8 @@ var ngOptionsMinErr = minErr('ngOptions');
  *   * `key`: local variable which will refer to a property name in `object` during iteration.
  *   * `label`: The result of this expression will be the label for `<option>` element. The
  *     `expression` will most likely refer to the `value` variable (e.g. `value.propertyName`).
- *   * `select`: The result of this expression will be bound to the model of the parent `<select>`
- *      element. If not specified, `select` expression will default to `value`.
+ *   * `autocomplete`: The result of this expression will be bound to the model of the parent `<autocomplete>`
+ *      element. If not specified, `autocomplete` expression will default to `value`.
  *   * `group`: The result of this expression will be used to group options using the `<optgroup>`
  *      DOM element.
  *   * `disable`: The result of this expression will be used to disable the rendered `<option>`
@@ -28577,24 +28577,24 @@ var ngOptionsMinErr = minErr('ngOptions');
           </ul>
           <hr/>
           <label>Color (null not allowed):
-            <select ng-model="myColor" ng-options="color.name for color in colors"></select>
+            <autocomplete ng-model="myColor" ng-options="color.name for color in colors"></autocomplete>
           </label><br/>
           <label>Color (null allowed):
           <span  class="nullable">
-            <select ng-model="myColor" ng-options="color.name for color in colors">
+            <autocomplete ng-model="myColor" ng-options="color.name for color in colors">
               <option value="">-- choose color --</option>
-            </select>
+            </autocomplete>
           </span></label><br/>
 
           <label>Color grouped by shade:
-            <select ng-model="myColor" ng-options="color.name group by color.shade for color in colors">
-            </select>
+            <autocomplete ng-model="myColor" ng-options="color.name group by color.shade for color in colors">
+            </autocomplete>
           </label><br/>
 
           <label>Color grouped by shade, with some disabled:
-            <select ng-model="myColor"
+            <autocomplete ng-model="myColor"
                   ng-options="color.name group by color.shade disable when color.notAnOption for color in colors">
-            </select>
+            </autocomplete>
           </label><br/>
 
 
@@ -28612,10 +28612,10 @@ var ngOptionsMinErr = minErr('ngOptions');
          it('should check ng-options', function() {
            expect(element(by.binding('{selected_color:myColor}')).getText()).toMatch('red');
            element.all(by.model('myColor')).first().click();
-           element.all(by.css('select[ng-model="myColor"] option')).first().click();
+           element.all(by.css('autocomplete[ng-model="myColor"] option')).first().click();
            expect(element(by.binding('{selected_color:myColor}')).getText()).toMatch('black');
-           element(by.css('.nullable select[ng-model="myColor"]')).click();
-           element.all(by.css('.nullable select[ng-model="myColor"] option')).first().click();
+           element(by.css('.nullable autocomplete[ng-model="myColor"]')).click();
+           element.all(by.css('.nullable autocomplete[ng-model="myColor"] option')).first().click();
            expect(element(by.binding('{selected_color:myColor}')).getText()).toMatch('null');
          });
       </file>
@@ -28797,7 +28797,7 @@ var ngOptionsDirective = ['$compile', '$document', '$parse', function($compile, 
 
 
   // we can't just jqLite('<option>') since jqLite is not smart enough
-  // to create it in <select> and IE barfs otherwise.
+  // to create it in <autocomplete> and IE barfs otherwise.
   var optionTemplate = window.document.createElement('option'),
       optGroupTemplate = window.document.createElement('optgroup');
 
@@ -28824,7 +28824,7 @@ var ngOptionsDirective = ['$compile', '$document', '$parse', function($compile, 
 
       var options;
       var ngOptions = parseOptionsExpression(attr.ngOptions, selectElement, scope);
-      // This stores the newly created options before they are appended to the select.
+      // This stores the newly created options before they are appended to the autocomplete.
       // Since the contents are removed from the fragment when it is appended,
       // we only need to create it once.
       var listFragment = $document[0].createDocumentFragment();
@@ -28864,7 +28864,7 @@ var ngOptionsDirective = ['$compile', '$document', '$parse', function($compile, 
 
           if (option) {
             // Don't update the option when it is already selected.
-            // For example, the browser will select the first option by default. In that case,
+            // For example, the browser will autocomplete the first option by default. In that case,
             // most properties are set automatically - except the `selected` attribute, which we
             // set always
 
@@ -28999,7 +28999,7 @@ var ngOptionsDirective = ['$compile', '$document', '$parse', function($compile, 
         element.disabled = option.disabled;
         // NOTE: The label must be set before the value, otherwise IE10/11/EDGE create unresponsive
         // selects in certain circumstances when multiple selects are next to each other and display
-        // the option list in listbox style, i.e. the select is [multiple], or specifies a [size].
+        // the option list in listbox style, i.e. the autocomplete is [multiple], or specifies a [size].
         // See https://github.com/angular/angular.js/issues/11314 for more info.
         // This is unfortunately untestable with unit / e2e tests
         if (option.label !== element.label) {
@@ -30351,8 +30351,8 @@ var ngStyleDirective = ngDirective(function(scope, element, attr) {
   <example module="switchExample" deps="angular-animate.js" animations="true">
     <file name="index.html">
       <div ng-controller="ExampleController">
-        <select ng-model="selection" ng-options="item for item in items">
-        </select>
+        <autocomplete ng-model="selection" ng-options="item for item in items">
+        </autocomplete>
         <code>selection={{selection}}</code>
         <hr/>
         <div class="animate-switch-container"
@@ -30404,17 +30404,17 @@ var ngStyleDirective = ngDirective(function(scope, element, attr) {
     </file>
     <file name="protractor.js" type="protractor">
       var switchElem = element(by.css('[ng-switch]'));
-      var select = element(by.model('selection'));
+      var autocomplete = element(by.model('selection'));
 
       it('should start in settings', function() {
         expect(switchElem.getText()).toMatch(/Settings Div/);
       });
       it('should change to home', function() {
-        select.all(by.css('option')).get(1).click();
+        autocomplete.all(by.css('option')).get(1).click();
         expect(switchElem.getText()).toMatch(/Home Span/);
       });
-      it('should select default', function() {
-        select.all(by.css('option')).get(2).click();
+      it('should autocomplete default', function() {
+        autocomplete.all(by.css('option')).get(2).click();
         expect(switchElem.getText()).toMatch(/default/);
       });
     </file>
@@ -30765,8 +30765,8 @@ var noopNgModelController = { $setViewValue: noop, $render: noop };
 
 function chromeHack(optionElement) {
   // Workaround for https://code.google.com/p/chromium/issues/detail?id=381459
-  // Adding an <option selected="selected"> element to a <select required="required"> should
-  // automatically select the new element
+  // Adding an <option selected="selected"> element to a <autocomplete required="required"> should
+  // automatically autocomplete the new element
   if (optionElement[0].hasAttribute('selected')) {
     optionElement[0].selected = true;
   }
@@ -30776,7 +30776,7 @@ function chromeHack(optionElement) {
  * @ngdoc type
  * @name  select.SelectController
  * @description
- * The controller for the `<select>` directive. This provides support for reading
+ * The controller for the `<autocomplete>` directive. This provides support for reading
  * and writing the selected value(s) of the control and also coordinates dynamically
  * added `<option>` elements, perhaps by an `ngRepeat` directive.
  */
@@ -30794,7 +30794,7 @@ var SelectController =
   // option is '? XXX ?' where XXX is the hashKey of the value that is not known.
   //
   // We can't just jqLite('<option>') since jqLite is not smart enough
-  // to create it in <select> and IE barfs otherwise.
+  // to create it in <autocomplete> and IE barfs otherwise.
   self.unknownOption = jqLite(window.document.createElement('option'));
   self.renderUnknownOption = function(val) {
     var unknownVal = '? ' + hashKey(val) + ' ?';
@@ -30804,7 +30804,7 @@ var SelectController =
   };
 
   $scope.$on('$destroy', function() {
-    // disable unknown option so that we don't do work when the whole select is being destroyed
+    // disable unknown option so that we don't do work when the whole autocomplete is being destroyed
     self.renderUnknownOption = noop;
   });
 
@@ -30813,16 +30813,16 @@ var SelectController =
   };
 
 
-  // Read the value of the select control, the implementation of this changes depending
-  // upon whether the select can have multiple values and whether ngOptions is at work.
+  // Read the value of the autocomplete control, the implementation of this changes depending
+  // upon whether the autocomplete can have multiple values and whether ngOptions is at work.
   self.readValue = function readSingleValue() {
     self.removeUnknownOption();
     return $element.val();
   };
 
 
-  // Write the value to the select control, the implementation of this changes depending
-  // upon whether the select can have multiple values and whether ngOptions is at work.
+  // Write the value to the autocomplete control, the implementation of this changes depending
+  // upon whether the autocomplete can have multiple values and whether ngOptions is at work.
   self.writeValue = function writeSingleValue(value) {
     if (self.hasOption(value)) {
       self.removeUnknownOption();
@@ -30839,7 +30839,7 @@ var SelectController =
   };
 
 
-  // Tell the select control that an option, with the given value, has been added
+  // Tell the autocomplete control that an option, with the given value, has been added
   self.addOption = function(value, element) {
     // Skip comment nodes, as they only pollute the `optionsMap`
     if (element[0].nodeType === NODE_TYPE_COMMENT) return;
@@ -30854,7 +30854,7 @@ var SelectController =
     chromeHack(element);
   };
 
-  // Tell the select control that an option, with the given value, has been removed
+  // Tell the autocomplete control that an option, with the given value, has been removed
   self.removeOption = function(value) {
     var count = optionsMap.get(value);
     if (count) {
@@ -30869,7 +30869,7 @@ var SelectController =
     }
   };
 
-  // Check whether the select control has an option matching the given value
+  // Check whether the autocomplete control has an option matching the given value
   self.hasOption = function(value) {
     return !!optionsMap.get(value);
   };
@@ -30916,18 +30916,18 @@ var SelectController =
  * @description
  * HTML `SELECT` element with angular data-binding.
  *
- * The `select` directive is used together with {@link ngModel `ngModel`} to provide data-binding
- * between the scope and the `<select>` control (including setting default values).
+ * The `autocomplete` directive is used together with {@link ngModel `ngModel`} to provide data-binding
+ * between the scope and the `<autocomplete>` control (including setting default values).
  * It also handles dynamic `<option>` elements, which can be added using the {@link ngRepeat `ngRepeat}` or
  * {@link ngOptions `ngOptions`} directives.
  *
- * When an item in the `<select>` menu is selected, the value of the selected option will be bound
+ * When an item in the `<autocomplete>` menu is selected, the value of the selected option will be bound
  * to the model identified by the `ngModel` directive. With static or repeated options, this is
  * the content of the `value` attribute or the textContent of the `<option>`, if the value attribute is missing.
  * If you want dynamic value attributes, you can use interpolation inside the value attribute.
  *
  * <div class="alert alert-warning">
- * Note that the value of a `select` directive used without `ngOptions` is always a string.
+ * Note that the value of a `autocomplete` directive used without `ngOptions` is always a string.
  * When the model needs to be bound to a non-string value, you must either explicitly convert it
  * using a directive (see example below) or use `ngOptions` to specify the set of options.
  * This is because an option element can only be bound to string values at present.
@@ -30937,13 +30937,13 @@ var SelectController =
  * will automatically add an "unknown" option, which it then removes when the mismatch is resolved.
  *
  * Optionally, a single hard-coded `<option>` element, with the value set to an empty string, can
- * be nested into the `<select>` element. This element will then represent the `null` or "not selected"
+ * be nested into the `<autocomplete>` element. This element will then represent the `null` or "not selected"
  * option. See example below for demonstration.
  *
  * <div class="alert alert-info">
  * In many cases, `ngRepeat` can be used on `<option>` elements instead of {@link ng.directive:ngOptions
  * ngOptions} to achieve a similar result. However, `ngOptions` provides some benefits, such as
- * more flexibility in how the `<select>`'s model is assigned via the `select` **`as`** part of the
+ * more flexibility in how the `<autocomplete>`'s model is assigned via the `autocomplete` **`as`** part of the
  * comprehension expression, and additionally in reducing memory and increasing speed by not creating
  * a new scope for each repeated instance.
  * </div>
@@ -30958,39 +30958,39 @@ var SelectController =
  * the element when the ngRequired expression evaluates to true. Use ngRequired instead of required
  * when you want to data-bind to the required attribute.
  * @param {string=} ngChange Angular expression to be executed when selected option(s) changes due to user
- *    interaction with the select element.
- * @param {string=} ngOptions sets the options that the select is populated with and defines what is
+ *    interaction with the autocomplete element.
+ * @param {string=} ngOptions sets the options that the autocomplete is populated with and defines what is
  * set on the model on selection. See {@link ngOptions `ngOptions`}.
  *
  * @example
- * ### Simple `select` elements with static options
+ * ### Simple `autocomplete` elements with static options
  *
- * <example name="static-select" module="staticSelect">
+ * <example name="static-autocomplete" module="staticSelect">
  * <file name="index.html">
  * <div ng-controller="ExampleController">
  *   <form name="myForm">
- *     <label for="singleSelect"> Single select: </label><br>
- *     <select name="singleSelect" ng-model="data.singleSelect">
+ *     <label for="singleSelect"> Single autocomplete: </label><br>
+ *     <autocomplete name="singleSelect" ng-model="data.singleSelect">
  *       <option value="option-1">Option 1</option>
  *       <option value="option-2">Option 2</option>
- *     </select><br>
+ *     </autocomplete><br>
  *
- *     <label for="singleSelect"> Single select with "not selected" option and dynamic option values: </label><br>
- *     <select name="singleSelect" id="singleSelect" ng-model="data.singleSelect">
- *       <option value="">---Please select---</option> <!-- not selected / blank option -->
+ *     <label for="singleSelect"> Single autocomplete with "not selected" option and dynamic option values: </label><br>
+ *     <autocomplete name="singleSelect" id="singleSelect" ng-model="data.singleSelect">
+ *       <option value="">---Please autocomplete---</option> <!-- not selected / blank option -->
  *       <option value="{{data.option1}}">Option 1</option> <!-- interpolation -->
  *       <option value="option-2">Option 2</option>
- *     </select><br>
+ *     </autocomplete><br>
  *     <button ng-click="forceUnknownOption()">Force unknown option</button><br>
  *     <tt>singleSelect = {{data.singleSelect}}</tt>
  *
  *     <hr>
- *     <label for="multipleSelect"> Multiple select: </label><br>
- *     <select name="multipleSelect" id="multipleSelect" ng-model="data.multipleSelect" multiple>
+ *     <label for="multipleSelect"> Multiple autocomplete: </label><br>
+ *     <autocomplete name="multipleSelect" id="multipleSelect" ng-model="data.multipleSelect" multiple>
  *       <option value="option-1">Option 1</option>
  *       <option value="option-2">Option 2</option>
  *       <option value="option-3">Option 3</option>
- *     </select><br>
+ *     </autocomplete><br>
  *     <tt>multipleSelect = {{data.multipleSelect}}</tt><br/>
  *   </form>
  * </div>
@@ -31011,15 +31011,15 @@ var SelectController =
  * </file>
  *</example>
  *
- * ### Using `ngRepeat` to generate `select` options
- * <example name="ngrepeat-select" module="ngrepeatSelect">
+ * ### Using `ngRepeat` to generate `autocomplete` options
+ * <example name="ngrepeat-autocomplete" module="ngrepeatSelect">
  * <file name="index.html">
  * <div ng-controller="ExampleController">
  *   <form name="myForm">
- *     <label for="repeatSelect"> Repeat select: </label>
- *     <select name="repeatSelect" id="repeatSelect" ng-model="data.repeatSelect">
+ *     <label for="repeatSelect"> Repeat autocomplete: </label>
+ *     <autocomplete name="repeatSelect" id="repeatSelect" ng-model="data.repeatSelect">
  *       <option ng-repeat="option in data.availableOptions" value="{{option.id}}">{{option.name}}</option>
- *     </select>
+ *     </autocomplete>
  *   </form>
  *   <hr>
  *   <tt>repeatSelect = {{data.repeatSelect}}</tt><br/>
@@ -31041,17 +31041,17 @@ var SelectController =
  *</example>
  *
  *
- * ### Using `select` with `ngOptions` and setting a default value
+ * ### Using `autocomplete` with `ngOptions` and setting a default value
  * See the {@link ngOptions ngOptions documentation} for more `ngOptions` usage examples.
  *
- * <example name="select-with-default-values" module="defaultValueSelect">
+ * <example name="autocomplete-with-default-values" module="defaultValueSelect">
  * <file name="index.html">
  * <div ng-controller="ExampleController">
  *   <form name="myForm">
  *     <label for="mySelect">Make a choice:</label>
- *     <select name="mySelect" id="mySelect"
+ *     <autocomplete name="mySelect" id="mySelect"
  *       ng-options="option.name for option in data.availableOptions track by option.id"
- *       ng-model="data.selectedOption"></select>
+ *       ng-model="data.selectedOption"></autocomplete>
  *   </form>
  *   <hr>
  *   <tt>option = {{data.selectedOption}}</tt><br/>
@@ -31066,22 +31066,22 @@ var SelectController =
  *         {id: '2', name: 'Option B'},
  *         {id: '3', name: 'Option C'}
  *       ],
- *       selectedOption: {id: '3', name: 'Option C'} //This sets the default value of the select in the ui
+ *       selectedOption: {id: '3', name: 'Option C'} //This sets the default value of the autocomplete in the ui
  *       };
  *   }]);
  * </file>
  *</example>
  *
  *
- * ### Binding `select` to a non-string value via `ngModel` parsing / formatting
+ * ### Binding `autocomplete` to a non-string value via `ngModel` parsing / formatting
  *
- * <example name="select-with-non-string-options" module="nonStringSelect">
+ * <example name="autocomplete-with-non-string-options" module="nonStringSelect">
  *   <file name="index.html">
- *     <select ng-model="model.id" convert-to-number>
+ *     <autocomplete ng-model="model.id" convert-to-number>
  *       <option value="0">Zero</option>
  *       <option value="1">One</option>
  *       <option value="2">Two</option>
- *     </select>
+ *     </autocomplete>
  *     {{ model }}
  *   </file>
  *   <file name="app.js">
@@ -31105,7 +31105,7 @@ var SelectController =
  *   </file>
  *   <file name="protractor.js" type="protractor">
  *     it('should initialize to model', function() {
- *       var select = element(by.css('select'));
+ *       var autocomplete = element(by.css('autocomplete'));
  *       expect(element(by.model('model.id')).$('option:checked').getText()).toEqual('Two');
  *     });
  *   </file>
@@ -31135,8 +31135,8 @@ var selectDirective = function() {
 
       selectCtrl.ngModelCtrl = ngModelCtrl;
 
-      // When the selected item(s) changes we delegate getting the value of the select control
-      // to the `readValue` method, which can be changed if the select can have multiple
+      // When the selected item(s) changes we delegate getting the value of the autocomplete control
+      // to the `readValue` method, which can be changed if the autocomplete can have multiple
       // selected values or if the options are being generated by `ngOptions`
       element.on('change', function() {
         scope.$apply(function() {
@@ -31144,7 +31144,7 @@ var selectDirective = function() {
         });
       });
 
-      // If the select allows multiple values then we need to modify how we read and write
+      // If the autocomplete allows multiple values then we need to modify how we read and write
       // values from and to the control; also what it means for the value to be empty and
       // we have to add an extra watch since ngModel doesn't work well with arrays - it
       // doesn't trigger rendering if only an item in the array changes.
@@ -31180,7 +31180,7 @@ var selectDirective = function() {
           lastViewRef = ngModelCtrl.$viewValue;
         });
 
-        // If we are a multiple select then value is now a collection
+        // If we are a multiple autocomplete then value is now a collection
         // so the meaning of $isEmpty changes
         ngModelCtrl.$isEmpty = function(value) {
           return !value || value.length === 0;
@@ -31197,7 +31197,7 @@ var selectDirective = function() {
       var selectCtrl = ctrls[0];
 
       // We delegate rendering to the `writeValue` method, which can be changed
-      // if the select can have multiple selected values or if the options are being
+      // if the autocomplete can have multiple selected values or if the options are being
       // generated by `ngOptions`.
       // This must be done in the postLink fn to prevent $render to be called before
       // all nodes have been linked correctly.
@@ -31209,7 +31209,7 @@ var selectDirective = function() {
 
 
 // The option directive is purely designed to communicate the existence (or lack of)
-// of dynamically created (and destroyed) option elements to their containing select
+// of dynamically created (and destroyed) option elements to their containing autocomplete
 // directive via its controller.
 var optionDirective = ['$interpolate', function($interpolate) {
   return {
@@ -31257,7 +31257,7 @@ var styleDirective = valueFn({
  * @description
  *
  * ngRequired adds the required {@link ngModel.NgModelController#$validators `validator`} to {@link ngModel `ngModel`}.
- * It is most often used for {@link input `input`} and {@link select `select`} controls, but can also be
+ * It is most often used for {@link input `input`} and {@link select `autocomplete`} controls, but can also be
  * applied to custom controls.
  *
  * The directive sets the `required` attribute on the element if the Angular expression inside

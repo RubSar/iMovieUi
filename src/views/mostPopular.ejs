@@ -15,7 +15,7 @@
     </header>
     <div class="our-tours text-center g-heading-v8 g-pt-85 g-pb-100">
         <div class="container-fluid">
-            <h2 class="h2"><strong>Most Popular movie characters</strong> Movies</h2>
+            <h2 class="h2"> Most Popular movie <strong> characters</strong></h2>
 
             <div ng-hide="contentLoaded" style="min-height: 550px; padding-top:200px;" class="text-center">
                 <img src="/img/loading.gif" alt="loading" />
@@ -24,15 +24,17 @@
                 <div class="our-tours-list text-left">
                     <div class="container">
                         <div class="row">
-                            <div class="col-md-3">
-                                <ul class="list-group" ng-repeat="artist in artists">
-                                    <li class="list-group-item">
-                                        <button type="submit" ng-click="getArtistMovies(artist._id)">{{artist._id}}</button>
-                                        <span class="badge">{{artist.count}}</span>
-                                    </li>
-                                </ul>
+                            <div class="col-md-4">
+                              <div class="row">
+                                  <div class="col-md-6">
+                                      <angular-dropdown items-list="artists" model="artist" term="_id" label="Artist"></angular-dropdown>
+                                  </div>
+                                  <div class="col-md-6">
+                                      <angular-dropdown items-list="years" model="year" term="_id" label="year"></angular-dropdown>
+                                  </div>
+                              </div>
                             </div>
-                            <div class="col-md-9">
+                            <div class="col-md-8">
                                 <div class="row">
                                     <div class="col-md-6" ng-repeat="character in topCharacters"
                                          style="min-height: 200px;margin-bottom: 15px;">
@@ -67,6 +69,9 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="form-group text-center">
+                                    <button type="button" ng-click="getAll()">Get All Characters</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -88,6 +93,8 @@
 
         <!-- inject helper module scripts-->
         <% include angular/helperSrc.ejs %>
+        <!-- inject ui module scripts-->
+        <% include angular/uiSrc.ejs %>
         <!-- inject mpmc module scripts-->
         <% include angular/mpmcSrc.ejs %>
 </main>

@@ -678,7 +678,7 @@ var i,
 			"*(\\d+)|))" + whitespace + "*\\)|)", "i" ),
 		"bool": new RegExp( "^(?:" + booleans + ")$", "i" ),
 		// For use in libraries implementing .is()
-		// We use this for POS matching in `select`
+		// We use this for POS matching in `autocomplete`
 		"needsContext": new RegExp( "^" + whitespace + "*[>+~]|:(even|odd|eq|gt|lt|nth|first|last)(?:\\(" +
 			whitespace + "*((?:-\\d)?\\d*)" + whitespace + "*\\)|)(?=[^-]|$)", "i" )
 	},
@@ -1178,8 +1178,8 @@ setDocument = Sizzle.setDocument = function( node ) {
 			// since its presence should be enough
 			// http://bugs.jquery.com/ticket/12359
 			docElem.appendChild( div ).innerHTML = "<a id='" + expando + "'></a>" +
-				"<select id='" + expando + "-\f]' msallowcapture=''>" +
-				"<option selected=''></option></select>";
+				"<autocomplete id='" + expando + "-\f]' msallowcapture=''>" +
+				"<option selected=''></option></autocomplete>";
 
 			// Support: IE8, Opera 11-12.16
 			// Nothing should be selected when empty strings follow ^= or $= or *=
@@ -4925,7 +4925,7 @@ var
 	wrapMap = {
 
 		// Support: IE9
-		option: [ 1, "<select multiple='multiple'>", "</select>" ],
+		option: [ 1, "<autocomplete multiple='multiple'>", "</autocomplete>" ],
 
 		thead: [ 1, "<table>", "</table>" ],
 		col: [ 2, "<table><colgroup>", "</colgroup></table>" ],
@@ -6923,7 +6923,7 @@ jQuery.fn.delay = function( time, type ) {
 	support.checkOn = input.value !== "";
 
 	// Support: IE<=11+
-	// Must access selectedIndex to make default options select
+	// Must access selectedIndex to make default options autocomplete
 	support.optSelected = opt.selected;
 
 	// Support: Android<=2.3
@@ -7398,7 +7398,7 @@ jQuery.extend({
 				var value, option,
 					options = elem.options,
 					index = elem.selectedIndex,
-					one = elem.type === "select-one" || index < 0,
+					one = elem.type === "autocomplete-one" || index < 0,
 					values = one ? null : [],
 					max = one ? index + 1 : options.length,
 					i = index < 0 ?
@@ -7478,7 +7478,7 @@ jQuery.each([ "radio", "checkbox" ], function() {
 
 jQuery.each( ("blur focus focusin focusout load resize scroll unload click dblclick " +
 	"mousedown mouseup mousemove mouseover mouseout mouseenter mouseleave " +
-	"change select submit keydown keypress keyup error contextmenu").split(" "), function( i, name ) {
+	"change autocomplete submit keydown keypress keyup error contextmenu").split(" "), function( i, name ) {
 
 	// Handle event binding
 	jQuery.fn[ name ] = function( data, fn ) {

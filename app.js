@@ -33,6 +33,7 @@ var authRouter = require('./src/routes/authRoutes')();
 var homeRouter = require('./src/routes/homeRoutes');
 var seedRouter = require('./src/routes/seedDB');
 
+
 //APIs
 var movieCharacterAPI =require('./src/api/movieCharacters.js');
 
@@ -41,6 +42,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 app.use(session({secret: 'comicsCharacters'}));
+
+
 
 require('./src/config/passport')(app);
 

@@ -1,0 +1,7 @@
+<div class="dropdown">
+    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Choose By {{label}}
+        <span class="caret"></span></button>
+    <ul class="dropdown-menu">
+        <li ng-repeat="item in itemsList track by $index" ng-click="setModel(item[term])"><a href="#">{{item[term]}}  <span class="pull-right">{{item.count}}</span></a></li>
+    </ul>
+</div>
