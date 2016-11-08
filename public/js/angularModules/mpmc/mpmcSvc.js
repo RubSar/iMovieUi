@@ -4,7 +4,7 @@
 //mpmcSvc.js
 
 (function () {
-    angular.module('mpmcApp').factory('mpmcSvc', function (helperSvc) {
+    angular.module('iMovieUiApp').factory('mpmcSvc', function (helperSvc) {
 
         function getAll(){
             return helperSvc.requestHandler({method: 'GET', url: '/api/movieCharacters/all'});

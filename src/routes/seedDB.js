@@ -4,8 +4,7 @@
 var express = require('express');
 
 var seedRouter = express.Router();
-var fs = require('fs');
-var array = JSON.parse(fs.readFileSync('user.json', 'utf8'));
+
 
 var User = require('../models/userModel');
 

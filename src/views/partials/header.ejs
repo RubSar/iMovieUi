@@ -1,4 +1,4 @@
-<nav class="one-page-header navbar navbar-default navbar-fixed-top one-page-nav-scrolling one-page-nav__fixed" data-role="navigation">
+<nav class="one-page-header navbar navbar-default navbar-fixed-top one-page-nav-scrolling one-page-nav__fixed" data-role="navigation" ng-controller="headerCtrl">
     <div class="container">
         <div class="menu-container page-scroll">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
@@ -9,7 +9,7 @@
             </button>
             <a class="navbar-brand" href="#body">
                 <!--<img src="assets/img/logo-light.png" alt="ALT">-->
-                Logo
+                iMovieUi
             </a>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -37,10 +37,12 @@
                     <li class="page-scroll">
                         <a href="#Testimonials"><span data-hover="Testimonials">Testimonials</span></a>
                     </li>
-                    <li class="page-scroll">
-                        <a href="#Contact"><span data-hover="Contact">Contact</span></a>
+                    <li>
+                        <button type="submit" class="btn btn-danger" ng-click="google()"><i class="fa fa-google"></i> Login </button>
                     </li>
+
                 </ul>
+
             </div>
         </div>
         <!-- /.navbar-collapse -->

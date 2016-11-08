@@ -15,7 +15,7 @@ cloudinary.config({
 
 var mongoose = require('mongoose');
 
-mongoose.connect('mongodb://comics-admin:born77villain77ml77c@ds031597.mlab.com:31597/comics', function(err) {
+mongoose.connect('mongodb://comics-admin:born77villain77ml77c@ds031597.mlab.com:31597/comics', function (err) {
     if (err) {
         console.err(err);
     } else {
@@ -35,7 +35,7 @@ var seedRouter = require('./src/routes/seedDB');
 
 
 //APIs
-var movieCharacterAPI =require('./src/api/movieCharacters.js');
+var movieCharacterAPI = require('./src/api/movieCharacters.js');
 
 app.use(express.static('public'));
 app.use(bodyParser.json());
@@ -43,6 +43,12 @@ app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 app.use(session({secret: 'comicsCharacters'}));
 
+app.use(function (req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE');
+    res.header('Access-Control-AllowHeaders', 'Content-Type, Authorization');
+    next();
+});
 
 
 require('./src/config/passport')(app);
@@ -59,7 +65,6 @@ app.use('/', homeRouter);
 
 //register APIs
 app.use('/api/movieCharacters', movieCharacterAPI);
-
 
 
 app.listen(port, function (err) {

@@ -3,7 +3,7 @@
  */
 var Character = require('../models/characterModel');
 var imdb = require('imdb-api');
-var MovieCharacter =require('../models/movieCharacter');
+var MovieCharacter =require('../models/movieCharacterModel');
 
 //middleware
 var middleware = function (req, res, next) {

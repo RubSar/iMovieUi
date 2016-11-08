@@ -3,7 +3,7 @@
 <head>
     <% include partials/head.ejs %>
 </head>
-<body id="body" data-spy="scroll" data-target=".one-page-header" class="demo-lightbox-gallery">
+<body id="body" data-spy="scroll" data-target=".one-page-header" class="demo-lightbox-gallery" ng-app="iMovieUiApp">
 <main class="wrapper">
     <header>
         <% include partials/header.ejs %>
@@ -90,6 +90,15 @@
     </footer>
 
     <% include partials/scripts.ejs %>
+
+    <!-- inject helper module scripts-->
+    <% include angular/helperSrc.ejs %>
+    <!-- inject ui module scripts-->
+    <% include angular/uiSrc.ejs %>
+    <!-- inject mpmc module scripts-->
+    <% include angular/mpmcSrc.ejs %>
+
+
 </main>
 </body>
 </html>

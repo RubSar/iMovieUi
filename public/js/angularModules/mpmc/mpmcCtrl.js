@@ -4,7 +4,7 @@
 //mpmcCtrl.js
 
 (function () {
-    angular.module('mpmcApp').controller('mpmcCtrl', function ($scope, $timeout, mpmcSvc) {
+    angular.module('iMovieUiApp').controller('mpmcCtrl', function ($scope, $timeout, mpmcSvc) {
 
         $scope.contentLoaded = false;
 

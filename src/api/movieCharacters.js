@@ -2,7 +2,7 @@
  * Created by Toshiba on 10/31/2016.
  */
 var express = require('express');
-var MovieCharacter = require('../models/movieCharacter');
+var MovieCharacter = require('../models/movieCharacterModel');
 
 var api = express.Router();
 
