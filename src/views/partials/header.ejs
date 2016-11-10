@@ -37,9 +37,13 @@
                     <li class="page-scroll">
                         <a href="#Testimonials"><span data-hover="Testimonials">Testimonials</span></a>
                     </li>
-                    <li>
-                        <button type="submit" class="btn btn-danger" ng-click="google()"><i class="fa fa-google"></i> Login </button>
+                    <li ng-hide="isAuthenticated()">
+                        <button ng-click="authenticate('facebook')"><i class="fa fa-facebook-f"></i> Sign in with Facebook</button>
                     </li>
+                    <li ng-show="isAuthenticated()">
+                       Welcome Chuvak
+                    </li>
+
 
                 </ul>
 

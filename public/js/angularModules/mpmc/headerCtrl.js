@@ -3,11 +3,15 @@
  */
 
 (function () {
-    angular.module('iMovieUiApp').controller('headerCtrl', function ($scope, mpmcSvc) {
+    angular.module('iMovieUiApp').controller('headerCtrl', function ($scope, mpmcSvc, $auth) {
 
-        $scope.google =function(){
-            console.log('yap');
-        }
+        $scope.authenticate = function(provider) {
+            $auth.authenticate(provider);
+        };
+
+        $scope.isAuthenticated = function() {
+            return $auth.isAuthenticated();
+        };
 
     })
 })();
