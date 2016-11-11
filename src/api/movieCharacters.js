@@ -3,6 +3,10 @@
  */
 var express = require('express');
 var MovieCharacter = require('../models/movieCharacterModel');
+var User = require('../models/userModel');
+var keys = require('../config/keys.js');
+var jwt = require('jwt-simple');
+
 
 var api = express.Router();
 
@@ -11,6 +15,9 @@ var router = function () {
     //GET actions
 
     api.route('/all').get(function (req, res) {
+        User.findOne({email: 'rubensunique@gmail.com'}, function (err, user) {
+
+        });
         MovieCharacter.find({}, function (err, results) {
             if (err) {
                 console.log(err);
@@ -65,6 +72,18 @@ var router = function () {
     });
 
     api.route('/byArtist').get(function (req, res) {
+        var token = req.headers['authorization'];
+        console.log(token);
+
+      var userId =jwt.encode(token, keys.TOKEN_SECRET);
+        User.findOne({_id:userId}, function(err, user){
+            if (err) {
+                console.log(err);
+            }
+            console.log(user);
+        });
+
+
         MovieCharacter.find({playedBy: req.query.artist}, function (err, results) {
             if (err) {
                 console.log(err);
@@ -116,6 +135,8 @@ var router = function () {
             }
         });
     });
+
+
 
     return api;
 };

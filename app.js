@@ -1,11 +1,9 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
-var passport = require('passport');
-var session = require('express-session');
+//var facebookAuth = require('./src/config/facebookAuth.js');
 
-var morgan = require('morgan');
-var jwt = require('jwt-simple');
+
 
 //connect to database
 require('./src/config/database.js')();

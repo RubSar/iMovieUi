@@ -7,8 +7,8 @@ var Schema = mongoose.Schema;
 
 var UserSchema = new Schema({
    email:String,
-   facebook:String,
-   userName:String
+   facebookId:String,
+   displayName:String
 });
 
 module.exports =mongoose.model('User', UserSchema);

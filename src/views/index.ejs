@@ -3,7 +3,7 @@
 <head>
     <% include partials/head.ejs %>
 </head>
-<body id="body" data-spy="scroll" data-target=".one-page-header" class="demo-lightbox-gallery" ng-app="iMovieUiApp">
+<body id="body" data-spy="scroll" data-target=".one-page-header" class="demo-lightbox-gallery" ng-app="iMovieUi">
 <main class="wrapper">
     <header>
         <% include partials/header.ejs %>
@@ -91,13 +91,14 @@
 
     <% include partials/scripts.ejs %>
 
-    <!-- inject helper module scripts-->
-    <% include angular/helperSrc.ejs %>
-    <!-- inject ui module scripts-->
-    <% include angular/uiSrc.ejs %>
-    <!-- inject mpmc module scripts-->
-    <% include angular/mpmcSrc.ejs %>
-
+    <script src="/js/owl.carousel.min.js"></script>
+    <script src="/js/init-owl-carousel.js"></script>
+    <script>
+        $(function () {
+            App.init();
+            OwlCarousel.initOwlCarousel();
+        });
+    </script>
 
 </main>
 </body>

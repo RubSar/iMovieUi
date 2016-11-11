@@ -10,7 +10,6 @@ var homeController = function () {
             if (err) {
                 console.log(err);
             } else{
-                console.log(results);
                 characters =results;
             }
         });
@@ -37,7 +36,6 @@ var homeController = function () {
             if (err) {
                 console.log(err);
             } else{
-                console.log(result);
                 res.render('view', {
                     character:result
                 });

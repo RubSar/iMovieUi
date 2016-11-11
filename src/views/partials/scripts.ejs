@@ -1,18 +1,20 @@
 <script src="/lib/jquery/dist/jquery.js"></script>
 <script src="/lib/bootstrap/dist/js/bootstrap.js"></script>
-<script src="/js/owl.carousel.min.js"></script>
 <script src="/js/one.app.js"></script>
-<script src="/js/init-owl-carousel.js"></script>
 <script src="/lib/angular/angular.min.js"></script>
 <script src="https://cdn.jsdelivr.net/satellizer/0.15.5/satellizer.min.js"></script>
 
+<!--angular module-->
+<script src="/angular/app.js" type="text/javascript"></script>
+<!--services-->
+<script src="/angular/services/helperSvc.js" type="text/javascript"></script>
+<script src="/angular/services/movieCharacterSvc.js" type="text/javascript"></script>
+<script src="/angular/services/authToken.js" type="text/javascript"></script>
+<script src="/angular/services/authInterceptor.js" type="text/javascript"></script>
+<!--directives-->
+<script src="/angular/directives/dropdown/dropdown.js" type="text/javascript"></script>
 
+<!--controllers-->
+<script src="/angular/controllers/headerCtrl.js" type="text/javascript"></script>
+<script src="/angular/controllers/movieCharacterCtrl.js" type="text/javascript"></script>
 
-
-
-<script>
-    $(function () {
-        App.init();
-        OwlCarousel.initOwlCarousel();
-    });
-</script>

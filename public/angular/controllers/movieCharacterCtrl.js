@@ -1,14 +1,14 @@
 /**
  * Created by Toshiba on 10/31/2016.
  */
-//mpmcCtrl.js
+//movieCharacterCtrl.js
 
 (function () {
-    angular.module('iMovieUiApp').controller('mpmcCtrl', function ($scope, $timeout, mpmcSvc) {
+    angular.module('iMovieUi').controller('MovieCharacterCtrl', function ($scope, $timeout, MovieCharacterSvs) {
 
         $scope.contentLoaded = false;
 
-        mpmcSvc.getTopCharacters()
+        MovieCharacterSvs.getTopCharacters()
             .then(function (response) {
                 $scope.topCharacters = response.data;
                 $timeout(function () {
@@ -19,7 +19,7 @@
                 console.log(msg);
             });
 
-        mpmcSvc.getArtists()
+        MovieCharacterSvs.getArtists()
             .then(function (response) {
                 $scope.artists = response.data;
             },
@@ -27,7 +27,7 @@
                 console.log(err);
             });
 
-        mpmcSvc.getOrderedYears()
+        MovieCharacterSvs.getOrderedYears()
             .then(function (response) {
                 $scope.years = response.data;
             }, function (err) {
@@ -37,7 +37,7 @@
 
         $scope.$watch('artist', function (newValue, oldValue) {
             if (!!newValue && newValue != oldValue) {
-                mpmcSvc.getCharactersByArtist($scope.artist._id)
+                MovieCharacterSvs.getCharactersByArtist($scope.artist._id)
                     .then(function (response) {
                         $scope.topCharacters = response.data;
                     },
@@ -49,7 +49,7 @@
         });
 
         $scope.getAll = function () {
-            mpmcSvc.getAll()
+            MovieCharacterSvs.getAll()
                 .then(function (response) {
                     $scope.topCharacters = response.data;
                 }, function (err) {
@@ -59,7 +59,7 @@
 
         $scope.$watch('year', function (newValue, oldValue) {
             if (!!newValue && newValue != oldValue) {
-                mpmcSvc.getCharactersByMovieReleaseDate(newValue._id[0])
+                MovieCharacterSvs.getCharactersByMovieReleaseDate(newValue._id[0])
                     .then(function (response) {
                         $scope.topCharacters = response.data;
                     },

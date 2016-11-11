@@ -1,10 +1,10 @@
 /**
- * Created by Toshiba on 10/31/2016.
+ * Created by Ruben on 10/31/2016.
  */
-//mpmcSvc.js
+//movieCharactersSvs.js
 
 (function () {
-    angular.module('iMovieUiApp').factory('mpmcSvc', function (helperSvc) {
+    angular.module('iMovieUi').factory('MovieCharacterSvs', function (helperSvc) {
 
         function getAll(){
             return helperSvc.requestHandler({method: 'GET', url: '/api/movieCharacters/all'});

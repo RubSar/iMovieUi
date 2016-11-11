@@ -4,7 +4,7 @@
 //helperSvc.js
 
 (function () {
-    angular.module('helperModule').factory('helperSvc', function ($http, $q, $log) {
+    angular.module('iMovieUi').factory('helperSvc', function ($http, $q) {
 
         function requestHandler(requestBody) {
             var task = $q.defer();
