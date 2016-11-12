@@ -2,39 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0c47ae67-fac8-4dc5-89b2-073f2f0bca81" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/angular/app.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/angular/services/authInterceptor.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/angular/services/authToken.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/angular/directives/dropdown/dropdown.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/config/facebookAuth.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/config/jwt.js" />
-      <change type="DELETED" beforePath="C:\Users\User\WebstormProjects\Comics\public\js\angularModules\core\helperModule.js" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\User\WebstormProjects\Comics\public\js\angularModules\mpmc\authSvc.js" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\User\WebstormProjects\Comics\public\js\angularModules\mpmc\mpmcApp.js" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\User\WebstormProjects\Comics\public\js\angularModules\ui\autocomplete\autocomplete.js" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\User\WebstormProjects\Comics\public\js\angularModules\ui\uiModule.js" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\User\WebstormProjects\Comics\src\config\passport.js" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\User\WebstormProjects\Comics\src\models\test.js" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\User\WebstormProjects\Comics\src\views\angular\helperSrc.ejs" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\User\WebstormProjects\Comics\src\views\angular\mpmcSrc.ejs" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\User\WebstormProjects\Comics\src\views\angular\uiSrc.ejs" afterPath="" />
-      <change type="MOVED" beforePath="C:\Users\User\WebstormProjects\Comics\public\js\angularModules\core\helperSvc.js" afterPath="$PROJECT_DIR$/public/angular/services/helperSvc.js" />
-      <change type="MOVED" beforePath="C:\Users\User\WebstormProjects\Comics\public\js\angularModules\mpmc\headerCtrl.js" afterPath="$PROJECT_DIR$/public/angular/controllers/headerCtrl.js" />
-      <change type="MOVED" beforePath="C:\Users\User\WebstormProjects\Comics\public\js\angularModules\mpmc\mpmcCtrl.js" afterPath="$PROJECT_DIR$/public/angular/controllers/movieCharacterCtrl.js" />
-      <change type="MOVED" beforePath="C:\Users\User\WebstormProjects\Comics\public\js\angularModules\mpmc\mpmcSvc.js" afterPath="$PROJECT_DIR$/public/angular/services/movieCharacterSvc.js" />
-      <change type="MOVED" beforePath="C:\Users\User\WebstormProjects\Comics\public\js\angularModules\ui\autocomplete\autocomplete.html" afterPath="$PROJECT_DIR$/public/angular/directives/dropdown/dropdown.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app.js" afterPath="$PROJECT_DIR$/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/routes/authRoutes.js" afterPath="$PROJECT_DIR$/src/routes/authRoutes.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/controllers/homeController.js" afterPath="$PROJECT_DIR$/src/controllers/homeController.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/routes/homeRoutes.js" afterPath="$PROJECT_DIR$/src/routes/homeRoutes.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/views/index.ejs" afterPath="$PROJECT_DIR$/src/views/index.ejs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/config/keys.js" afterPath="$PROJECT_DIR$/src/config/keys.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/views/mostPopular.ejs" afterPath="$PROJECT_DIR$/src/views/mostPopular.ejs" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/api/movieCharacters.js" afterPath="$PROJECT_DIR$/src/api/movieCharacters.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/views/partials/scripts.ejs" afterPath="$PROJECT_DIR$/src/views/partials/scripts.ejs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/models/userModel.js" afterPath="$PROJECT_DIR$/src/models/userModel.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Comics.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -59,7 +27,7 @@
         <entry file="file://$PROJECT_DIR$/src/routes/authRoutes.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="18" selection-end-column="1" />
+              <caret line="58" column="62" selection-start-line="58" selection-start-column="50" selection-end-line="58" selection-end-column="62" />
               <folding />
             </state>
           </provider>
@@ -69,7 +37,7 @@
         <entry file="file://$PROJECT_DIR$/src/config/facebookAuth.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="18" column="36" selection-start-line="18" selection-start-column="22" selection-end-line="18" selection-end-column="36" />
+              <caret line="15" column="29" selection-start-line="15" selection-start-column="29" selection-end-line="15" selection-end-column="29" />
               <folding />
             </state>
           </provider>
@@ -98,8 +66,8 @@
       <file leaf-file-name="movieCharacters.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/api/movieCharacters.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.82529116">
-              <caret line="97" column="0" selection-start-line="97" selection-start-column="0" selection-end-line="97" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.8935108">
+              <caret line="118" column="36" selection-start-line="118" selection-start-column="36" selection-end-line="118" selection-end-column="36" />
               <folding />
             </state>
           </provider>
@@ -546,7 +514,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1912" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="1912" y="-8" width="1936" height="1056" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Gulp" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -929,14 +897,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/config/facebookAuth.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="18" column="36" selection-start-line="18" selection-start-column="22" selection-end-line="18" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/routes/adminRoutes.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -981,18 +941,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/config/facebookAuth.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="15" column="29" selection-start-line="15" selection-start-column="29" selection-end-line="15" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/routes/authRoutes.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="18" selection-end-column="1" />
+          <caret line="58" column="62" selection-start-line="58" selection-start-column="50" selection-end-line="58" selection-end-column="62" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/api/movieCharacters.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.82529116">
-          <caret line="97" column="0" selection-start-line="97" selection-start-column="0" selection-end-line="97" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.8935108">
+          <caret line="118" column="36" selection-start-line="118" selection-start-column="36" selection-end-line="118" selection-end-column="36" />
           <folding />
         </state>
       </provider>

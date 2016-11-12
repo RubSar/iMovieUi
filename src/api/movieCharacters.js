@@ -15,9 +15,7 @@ var router = function () {
     //GET actions
 
     api.route('/all').get(function (req, res) {
-        User.findOne({email: 'rubensunique@gmail.com'}, function (err, user) {
 
-        });
         MovieCharacter.find({}, function (err, results) {
             if (err) {
                 console.log(err);
@@ -73,10 +71,11 @@ var router = function () {
 
     api.route('/byArtist').get(function (req, res) {
         var token = req.headers['authorization'];
-        console.log(token);
 
-      var userId =jwt.encode(token, keys.TOKEN_SECRET);
-        User.findOne({_id:userId}, function(err, user){
+
+        var userId = jwt.encode(token, keys.TOKEN_SECRET);
+        console.log(userId);
+        User.findOne({facebookId: userId}, function (err, user) {
             if (err) {
                 console.log(err);
             }
@@ -135,7 +134,6 @@ var router = function () {
             }
         });
     });
-
 
 
     return api;
