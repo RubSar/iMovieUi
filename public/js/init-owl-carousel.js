@@ -1,25 +1,6 @@
 var OwlCarousel = function () {
     return {
         initOwlCarousel: function () {
-            $('.our-services-list').owlCarousel({
-                loop: true,
-                margin: 0,
-                responsive: {
-                    0: {
-                        items: 1
-                    },
-                    500: {
-                        items: 2
-                    },
-                    700: {
-                        items: 3
-                    }
-                },
-                navText: [, ],
-                nav: true,
-                dots: false,
-                navContainerClass: 'owl-buttons'
-            });
             $('.our-tours-list').owlCarousel({
                 loop: true,
                 margin: 15,

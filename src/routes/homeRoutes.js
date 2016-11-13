@@ -1,24 +1,23 @@
 var express = require('express');
+var jwt = require('jwt-simple');
 var homeRouter = express.Router();
-var homeController = require('../controllers/homeController');
+var homeController = require('../controllers/homeController.js');
+var keys = require('../config/keys.js');
 
 var router = function () {
     //GET actions
 
     //index
     homeRouter.route('/').get(function (req, res) {
-        console.log(req.headers)
         return homeController.index(req, res);
     });
 
-    homeRouter.get('comics-character/:name', function (req, res) {
+    homeRouter.get('/comics-character/:name', function (req, res) {
         return homeController.view(req, res);
     });
 
 
     homeRouter.get('/most-popular-movie-characters/', isAuthenticated, function (req, res) {
-        console.log(req.headers);
-        console.log(req.headers['Authorization']);
         return homeController.mostPopular(req, res);
     });
 

@@ -1,7 +1,7 @@
 /**
  * Created by User on 10/18/2016.
  */
-var Character = require('../models/characterModel');
+var Character = require('../models/comicsCharacterModel');
 var imdb = require('imdb-api');
 var MovieCharacter =require('../models/movieCharacterModel');
 

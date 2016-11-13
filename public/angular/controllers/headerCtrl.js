@@ -9,7 +9,6 @@
         $scope.authenticate = function(provider) {
             $auth.authenticate(provider);
         };
-
         $scope.isAuthenticated = function() {
             return $auth.isAuthenticated();
         };

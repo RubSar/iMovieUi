@@ -1,0 +1,21 @@
+<div class="row noselect">
+    <div class="col-md-4">
+        <img ng-src="{{model.imgUrl}}" class="img-responsive" >
+    </div>
+    <div class="col-md-8 text-left">
+        <h4 style="text-transform: none"> {{ model.name}} <small> played by</small>  {{ model.playedBy}}</h4>
+        <h4>
+            <span style="margin-right: 10px;"><i style="color:goldenrod" class="fa fa-star"></i> 8.2</span>
+            <span ng-hide="rateMode" ng-click="rateMode=true"><i style="color:#21568b" class="fa fa-star"></i> 9</span>
+            <span ng-show="rateMode">
+                <star-rating class="star-rating"  rating-value="5" data-max="10" on-rating-selected="rateFunction(rating)"></star-rating>
+            </span>
+        </h4>
+
+        <p style="margin:0"> <strong>{{ model.movies[0].name}}</strong> ({{model.movies[0].year}})</p>
+        <p style="margin:0"><strong>IMDb</strong> Rating (<strong>{{ model.movies[0].IMDbRating}}/10</strong>)
+
+        </p>
+
+    </div>
+</div>

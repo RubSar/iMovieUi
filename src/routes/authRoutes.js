@@ -6,14 +6,11 @@ var request = require('request');
 var jwt = require('jwt-simple');
 var User = require('../models/userModel.js');
 
-
-var passport = require('passport');
-
 function createJWT(user) {
     var payload = {
         sub: user.facebookId,
         iat: moment().unix(),
-        exp: moment().add(14, 'days').unix()
+        exp: moment().add(30, 'days').unix()
     };
     return jwt.encode(payload, keys.TOKEN_SECRET);
 }
@@ -43,12 +40,13 @@ function createJWT(user) {
                         }
                         var token = req.header('Authorization').split(' ')[1];
                         var payload = jwt.decode(token, keys.TOKEN_SECRET);
-                        User.findById(payload.sub, function (err, user) {
+                        User.findOne({facebookId:payload.sub}, function (err, user) {
                             user.facebookId = profile.id;
-                            user.displayName = user.displayName || profile.name;
+                            user.displayName = user.displayName || profile.first_name;
+                            user.fullName=user.name;
                             user.save(function () {
                                 var token = createJWT(user);
-                                res.send({token: token});
+                                res.send({token: token, displayName:user.displayName});
                             });
                         });
                     });
@@ -57,14 +55,17 @@ function createJWT(user) {
                     User.findOne({facebookId: profile.id}, function (err, existingUser) {
                         if (existingUser) {
                             var token = createJWT(existingUser);
-                            return res.send({token: token});
+                            return   res.send({token: token, displayName:existingUser.displayName});
                         }
                         var user = new User();
                         user.facebookId = profile.id;
-                        user.displayName = profile.name;
+                        user.displayName = profile.first_name;
+                        user.fullName = profile.name;
+                        user.email = profile.email;
+
                         user.save(function () {
                             var token = createJWT(user);
-                            res.send({token: token});
+                            res.send({token: token, displayName:user.displayName});
                         });
                     });
                 }

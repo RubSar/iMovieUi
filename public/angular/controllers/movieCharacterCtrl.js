@@ -4,16 +4,14 @@
 //movieCharacterCtrl.js
 
 (function () {
-    angular.module('iMovieUi').controller('MovieCharacterCtrl', function ($scope, $timeout, MovieCharacterSvs) {
+    angular.module('iMovieUi').controller('MovieCharacterCtrl', function ($scope, $timeout, MovieCharacterSvs, helperSvc) {
 
         $scope.contentLoaded = false;
 
         MovieCharacterSvs.getTopCharacters()
             .then(function (response) {
-                $scope.topCharacters = response.data;
-                $timeout(function () {
-                    $scope.contentLoaded = true;
-                }, 2000)
+                $scope.topCharacters = helperSvc.chunk(response.data, 2);
+                $scope.contentLoaded = true;
             },
             function (msg) {
                 console.log(msg);
@@ -39,7 +37,7 @@
             if (!!newValue && newValue != oldValue) {
                 MovieCharacterSvs.getCharactersByArtist($scope.artist._id)
                     .then(function (response) {
-                        $scope.topCharacters = response.data;
+                        $scope.topCharacters = helperSvc.chunk(response.data, 2);
                     },
                     function (err) {
                         console.log(err);
@@ -51,7 +49,7 @@
         $scope.getAll = function () {
             MovieCharacterSvs.getAll()
                 .then(function (response) {
-                    $scope.topCharacters = response.data;
+                    $scope.topCharacters = helperSvc.chunk(response.data, 2);
                 }, function (err) {
                     console.log(err);
                 })
@@ -61,7 +59,7 @@
             if (!!newValue && newValue != oldValue) {
                 MovieCharacterSvs.getCharactersByMovieReleaseDate(newValue._id[0])
                     .then(function (response) {
-                        $scope.topCharacters = response.data;
+                        $scope.topCharacters = helperSvc.chunk(response.data, 2);
                     },
                     function (err) {
                         console.log(err);

@@ -53,4 +53,4 @@ var characterSchema = new Schema({
     actors: [actorSchema]
 });
 
-module.exports = mongoose.model('Character', characterSchema);
+module.exports = mongoose.model('ComicsCharacter', characterSchema);

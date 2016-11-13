@@ -17,7 +17,8 @@
     "font-awesome": "~4.4.0",
     "simple-line-icons": "^2.4.1",
     "animate.css": "^3.5.2",
-    "angular": "^1.5.8"
+    "angular": "^1.5.8",
+    "angular-ui": "^0.4.0"
   },
   "overrides": {
     "bootstrap": {

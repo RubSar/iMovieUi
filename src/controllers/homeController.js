@@ -1,12 +1,12 @@
 
-var Character = require('../models/characterModel');
+var ComicsCharacter = require('../models/comicsCharacterModel');
 var MovieCharacter = require('../models/movieCharacterModel');
 
 var homeController = function () {
 
     function index (req, res) {
         var characters ;
-        Character.find({}, 'name imgUrl description type', function(err, results){
+        ComicsCharacter.find({}, 'name imgUrl description type', function(err, results){
             if (err) {
                 console.log(err);
             } else{
@@ -32,7 +32,7 @@ var homeController = function () {
 
     function  view(req, res){
         console.log(req.params.name);
-        Character.findOne({name:req.params.name}, function(err, result){
+        ComicsCharacter.findOne({name:req.params.name}, function(err, result){
             if (err) {
                 console.log(err);
             } else{

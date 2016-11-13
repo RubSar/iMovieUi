@@ -1,26 +1,90 @@
-.rating {
-    unicode-bidi:bidi-override;
-    direction:rtl;
-    font-size:20px;
-}
-.rating span.star {
-    font-family:FontAwesome;
-    font-weight:normal;
-    font-style:normal;
-    display:inline-block;
-}
-.rating span.star:hover {
-    cursor:pointer;
-}
-.rating span.star:before {
-    content:"\f006";
-    padding-right:5px;
-    color:#999999;
-}
-.rating span.star:hover:before, .rating span.star:hover~span.star:before {
-    content:"\f005";
-    color:#e3cf7a;
+/*star rating */
+.rating{
+    color: #a9a9a9;
+    margin: 0;
+    padding: 0;
 }
 
+ul.rating {
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 0 5px;
+}
 
-span.star.filled:before{ color:#e3cf7a; content:"\f005";}
+.rating li {
+    list-style-type: none;
+    display: inline-block;
+    padding: 1px;
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.rating .filled {
+    color: #21568b;
+}
+/*end star rating*/
+/*=====================================*/
+
+
+/*angular carousel*/
+.info-container{
+    position:absolute;
+}
+
+.slider-item >img{
+    display: inline !important;
+    padding-top: 30px;;
+}
+.comics-character-Hulk{
+    background-color:#e74c3c ;
+    text-align: left;
+}
+.comics-character-Hulk .info-container{
+    right: 200px;
+    top: 100px;
+    color: #006600;
+}
+.comics-character-Spiderman{
+    background-color:#000d1a ;
+    text-align: right;
+
+}
+.comics-character-Spiderman >img{
+    display: inline !important;
+}
+
+.comics-character-Batman{
+    background-color:#339966 ;
+    text-align: center;
+}
+.comics-character-Batman >img{
+    display: inline !important;
+}
+.comics-character-Superman{
+    background-color:#008000 ;
+}
+.comics-character-Superman >img{
+    display: inline !important;
+}
+.comics-character-Joker{
+    background-color:#ff3399 ;
+}
+.comics-character-Joker >img{
+   display: inline !important;
+}
+/*end angular carousel*/
+
+/*==================================================*/
+
+.noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Chrome/Safari/Opera */
+    -khtml-user-select: none; /* Konqueror */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently
+                                  not supported by any browser */
+}
