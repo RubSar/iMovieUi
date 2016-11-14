@@ -2,8 +2,8 @@
  * Created by Toshiba on 10/31/2016.
  */
 var express = require('express');
-var MovieCharacter = require('../models/movieCharacterModel');
-var User = require('../models/userModel');
+var models = require('../models/movieCharacterModel');
+//var User = require('../models/userModel');
 var keys = require('../config/keys.js');
 var jwt = require('jwt-simple');
 
@@ -16,7 +16,7 @@ var router = function () {
 
     api.route('/all').get(function (req, res) {
 
-        MovieCharacter.find({}, function (err, results) {
+        models.MovieCharacter.find({}, function (err, results) {
             if (err) {
                 console.log(err);
             } else {
@@ -29,14 +29,7 @@ var router = function () {
     });
 
     api.route('/top').get(function (req, res) {
-        //implement letter
-        //var query = {};
-        //if (req.header('Authorization')) {
-        //    var token = req.header('Authorization').split(' ')[1];
-        //    var payload = jwt.decode(token, keys.TOKEN_SECRET);
-        //}
-
-        MovieCharacter.find({}).limit(10).exec(function(err, results){
+       models.MovieCharacter.find({}).limit(10).exec(function(err, results){
             if (err) {
                 console.log(err);
             }else{
@@ -46,14 +39,10 @@ var router = function () {
                 });
             }
         })
-
-
-
-
     });
 
     api.route('/artists').get(function (req, res) {
-        MovieCharacter.aggregate([
+        models.MovieCharacter.aggregate([
             {
                 $group: {
                     _id: '$playedBy',
@@ -80,15 +69,7 @@ var router = function () {
         var token = req.header('Authorization').split(' ')[1];
         var payload = jwt.decode(token, keys.TOKEN_SECRET);
 
-        User.findOne({facebookId: payload.sub}, function (err, user) {
-            if (err) {
-                console.log(err);
-            }
-            console.log(user);
-        });
-
-
-        MovieCharacter.find({playedBy: req.query.artist}, function (err, results) {
+        models.MovieCharacter.find({playedBy: req.query.artist}, function (err, results) {
             if (err) {
                 console.log(err);
             } else {
@@ -101,8 +82,7 @@ var router = function () {
     });
 
     api.route('/byYear').get(function (req, res) {
-        console.log(req.query.year);
-        MovieCharacter.find({'movies.year': req.query.year}, function (err, results) {
+       models.MovieCharacter.find({'movies.year': req.query.year}, function (err, results) {
             if (err) {
                 console.log(err);
             } else {
@@ -117,7 +97,7 @@ var router = function () {
 
 
     api.route('/years').get(function (req, res) {
-        MovieCharacter.aggregate([
+       models.MovieCharacter.aggregate([
             {
                 $group: {
                     _id: '$movies.year',

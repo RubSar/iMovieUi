@@ -1,6 +1,6 @@
 
 var ComicsCharacter = require('../models/comicsCharacterModel');
-var MovieCharacter = require('../models/movieCharacterModel');
+var models = require('../models/movieCharacterModel');
 
 var homeController = function () {
 
@@ -13,7 +13,7 @@ var homeController = function () {
                 characters =results;
             }
         });
-        MovieCharacter.find({}).limit(6).exec(
+        models.MovieCharacter.find({}).limit(6).exec(
             function(err, movieCharacters) {
                 if (err) {
                     console.log(err);

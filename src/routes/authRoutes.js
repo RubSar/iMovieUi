@@ -4,11 +4,11 @@ var moment = require('moment');
 var keys = require('../config/keys.js');
 var request = require('request');
 var jwt = require('jwt-simple');
-var User = require('../models/userModel.js');
+var models = require('../models/movieCharacterModel.js');
 
 function createJWT(user) {
     var payload = {
-        sub: user.facebookId,
+        sub: user._id,
         iat: moment().unix(),
         exp: moment().add(30, 'days').unix()
     };
@@ -34,13 +34,13 @@ function createJWT(user) {
             request.get({url: graphApiUrl, qs: accessToken, json: true}, function (err, response, profile) {
 
                 if (req.header('Authorization')) {
-                    User.findOne({facebookId: profile.id}, function (err, existingUser) {
+                   models.User.findOne({facebookId: profile.id}, function (err, existingUser) {
                         if (existingUser) {
                             return res.status(409).send({message: 'There is already a Facebook account that belongs to you'});
                         }
                         var token = req.header('Authorization').split(' ')[1];
                         var payload = jwt.decode(token, keys.TOKEN_SECRET);
-                        User.findOne({facebookId:payload.sub}, function (err, user) {
+                       models.User.findOne({_id:payload.sub}, function (err, user) {
                             user.facebookId = profile.id;
                             user.displayName = user.displayName || profile.first_name;
                             user.fullName=user.name;
@@ -52,12 +52,12 @@ function createJWT(user) {
                     });
                 } else {
                     // Step 3. Create a new user account or return an existing one.
-                    User.findOne({facebookId: profile.id}, function (err, existingUser) {
+                   models.User.findOne({facebookId: profile.id}, function (err, existingUser) {
                         if (existingUser) {
                             var token = createJWT(existingUser);
-                            return   res.send({token: token, displayName:existingUser.displayName});
+                            return  res.send({token: token, displayName:existingUser.displayName});
                         }
-                        var user = new User();
+                        var user = new models.User();
                         user.facebookId = profile.id;
                         user.displayName = profile.first_name;
                         user.fullName = profile.name;
@@ -72,7 +72,6 @@ function createJWT(user) {
             });
         });
     });
-
 
 
 module.exports = authRouter;

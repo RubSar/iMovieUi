@@ -5,9 +5,9 @@ var express = require('express');
 var jwt = require('jwt-simple');
 var keys = require('../config/keys');
 var rateApi = express.Router();
-var Rate = require('../models/rateModel');
-var User = require('../models/userModel');
-var MovieCharacter = require('../models/movieCharacterModel');
+//var Rate = require('../models/rateModel');
+//var User = require('../models/userModel');
+var models = require('../models/movieCharacterModel');
 
 var router = function () {
 
@@ -21,30 +21,19 @@ var router = function () {
             var userQuery = {facebookId: payload.sub};
             var characterQuery = {_id: req.body.characterId};
 
-
-            User.findOne(userQuery).exec()
+            models.User.findOne(userQuery).exec()
                 .then(function (user) {
                     if (user) {
-                        return MovieCharacter.findOne(characterQuery).exec();
+                        return models.MovieCharacter.findOne(characterQuery).exec();
                     }
                 })
                 .then(function (character) {
                     if (character) {
-                        return Rate.findOne({userId: payload.sub, characterId: req.body.characterId}).exec();
+                        return models.Rate.findOne({userId: payload.sub, characterId: req.body.characterId}).exec();
                     }
                 })
                 .then(function (rate) {
-
-
-
-
-
-                    console.log(rate);
                     if (rate) {
-                        var update  = { $inc: { rateValue: req.body.value - rate.value }};
-                        MovieCharacter.update(characterQuery, update , function(err, character){
-                            console.log(character);
-                        });
                         rate.value = req.body.value || rate.value;
                         rate.created = new Date();
                         rate.save();
@@ -54,11 +43,8 @@ var router = function () {
                             status: 200
                         })
                     } else {
-                        var create ={ $inc: { rateValue: req.body.value, rateCount:1 }};
-                        MovieCharacter.update(characterQuery, create, function(err, character){
-                            console.log(character);
-                        });
-                        var newRate = new Rate();
+
+                        var newRate = new models.Rate();
                         newRate.userId =payload.sub;
                         newRate.characterId =req.body.characterId;
                         newRate.value =req.body.value;
