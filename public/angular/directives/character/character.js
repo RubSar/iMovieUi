@@ -4,14 +4,26 @@
 (function () {
     'use strict';
 
-    angular.module('iMovieUi').directive('character', function () {
-        return{
+    angular.module('iMovieUi').directive('character', function (RateSvc) {
+        return {
             restrict: 'E',
-            scope:{
+            scope: {
                 model: '='
             },
-            link:function(scope, element, attrs){
-
+            link: function (scope, element, attrs) {
+                scope.rateFunction = function (value) {
+                    var dto = {
+                        value: value,
+                        characterId: scope.model._id
+                    };
+                    console.log(dto);
+                    RateSvc.rate(dto)
+                        .then(function (response) {
+                            console.log(response);
+                        }, function(err){
+                            console.log(err);
+                        })
+                }
             },
             templateUrl: '/angular/directives/character/character.html'
         }

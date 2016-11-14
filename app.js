@@ -21,6 +21,7 @@ var homeRouter = require('./src/routes/homeRoutes');
 //APIs
 var movieCharacterAPI = require('./src/api/movieCharacters.js');
 var comicsCharacterAPI = require('./src/api/comicsCharacters.js');
+var rateAPI = require('./src/api/rate.js');
 
 app.use(express.static('public'));
 app.use(bodyParser.json());
@@ -41,6 +42,7 @@ app.use('/', homeRouter);
 //register APIs
 app.use('/api/movieCharacters', movieCharacterAPI);
 app.use('/api/comicsCharacters', comicsCharacterAPI);
+app.use('/api/rate', rateAPI);
 
 
 app.listen(port, function (err) {

@@ -13,18 +13,15 @@ var MovieSchema = new Schema({
     poster:String
 });
 
-var VoteSchema =new Schema({
-    star:{type:Number, min:1, max:10},
-    userId:String
-});
 
 var MovieCharacterSchema = new Schema({
     name:String,
     imgUrl:String,
     playedBy :String,
     movies:[MovieSchema],
-    votes:[VoteSchema]
-
+    rateCount : 0,
+    rateValue : 0,
+    rateAverage: 0
 });
 
 module.exports =mongoose.model('MovieCharacter', MovieCharacterSchema);

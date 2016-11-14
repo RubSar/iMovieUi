@@ -30,56 +30,22 @@ var router = function () {
 
     api.route('/top').get(function (req, res) {
         //implement letter
-        var query = {};
-        if (req.header('Authorization')) {
-            var token = req.header('Authorization').split(' ')[1];
-            var payload = jwt.decode(token, keys.TOKEN_SECRET);
-        }
-        var userId  = "191247531331550";
+        //var query = {};
+        //if (req.header('Authorization')) {
+        //    var token = req.header('Authorization').split(' ')[1];
+        //    var payload = jwt.decode(token, keys.TOKEN_SECRET);
+        //}
 
-                  MovieCharacter.find({}, {"votes.userId": userId},function(err,doc) {
-                      res.send({
-                          data: doc,
-                          status: 200
-                      });
-                  });
-
-        //User.findOne({facebookId: payload.sub}, function (err, user) {
-        //    if (err) {
-        //        console.log(err);
-        //    }
-        //    var userQuery =!!user? {'votes.userId':user.facebookId} :{};
-        //
-        //    //MovieCharacter.find({}, userQuery ).limit(10).exec(function (err, results) {
-        //    //        if (err) {
-        //    //            console.log(err);
-        //    //        } else {
-        //    //            res.send({
-        //    //                data: results,
-        //    //                status: 200
-        //    //            });
-        //    //        }
-        //    //    });
-        //    //MovieCharacter.find({})
-        //    //    .populate({
-        //    //        path: 'votes',
-        //    //        match: { userId: user.facebookId},
-        //    //        select: 'star -_id'
-        //    //    })
-        //    //    .exec(function(err, results){
-        //    //        res.send({
-        //    //            data: results,
-        //    //            status: 200
-        //    //        });
-        //    //    })
-        //          MovieCharacter.find({}, { "votes.userId": user.facebookId },function(err,doc) {
-        //               res.send({
-        //                    data: results,
-        //                    status: 200
-        //                });
-        //    })
-        //
-        //});
+        MovieCharacter.find({}).limit(10).exec(function(err, results){
+            if (err) {
+                console.log(err);
+            }else{
+                res.send({
+                    data: results,
+                    status: 200
+                });
+            }
+        })
 
 
 
