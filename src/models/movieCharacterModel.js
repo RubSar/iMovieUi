@@ -23,16 +23,6 @@ var UserSchema = new Schema({
     fullName:String,
     rates:[{type:Schema.ObjectId, ref:'Rate'}]
 });
-
-var RateSchema = new Schema({
-   // userId:{type:Schema.ObjectId, ref:'User'},
-    userId:String,
-    characterId:{type:Schema.ObjectId, ref:'MovieCharacter'},
-    value:{type:Number, min:1, max:10},
-    created:{type:Date, default:Date.now}
-});
-
-
 var MovieCharacterSchema = new Schema({
     name:String,
     imgUrl:String,
@@ -40,6 +30,16 @@ var MovieCharacterSchema = new Schema({
     movies:[MovieSchema],
     rates: [{ type: Schema.ObjectId, ref: 'Rate'}]
 });
+
+var RateSchema = new Schema({
+    userId:{type:Schema.ObjectId, ref:'User'},
+    characterId:{type:Schema.ObjectId, ref:'MovieCharacter'},
+    value:{type:Number, min:1, max:10},
+    created:{type:Date, default:Date.now}
+});
+
+
+
 
 var User =mongoose.model('User', UserSchema);
 var Rate =mongoose.model('Rate', RateSchema);

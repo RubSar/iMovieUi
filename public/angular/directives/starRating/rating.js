@@ -25,6 +25,7 @@
                 };
 
                 scope.toggle = function (index) {
+                    scope.rateMode =false;
                     scope.ratingValue = index + 1;
                     scope.onRatingSelected({
                         rating: index + 1

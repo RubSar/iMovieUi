@@ -3,11 +3,6 @@
  */
 var express = require('express');
 var models = require('../models/movieCharacterModel');
-//var User = require('../models/userModel');
-var keys = require('../config/keys.js');
-var jwt = require('jwt-simple');
-
-
 var api = express.Router();
 
 
@@ -29,16 +24,18 @@ var router = function () {
     });
 
     api.route('/top').get(function (req, res) {
-       models.MovieCharacter.find({}).limit(10).exec(function(err, results){
-            if (err) {
-                console.log(err);
-            }else{
-                res.send({
-                    data: results,
-                    status: 200
-                });
-            }
-        })
+        models.MovieCharacter.find({})
+            .populate('rates', 'value')
+            .exec(function (err, results) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    res.send({
+                        data: results,
+                        status: 200
+                    });
+                }
+            })
     });
 
     api.route('/artists').get(function (req, res) {
@@ -66,10 +63,9 @@ var router = function () {
     });
 
     api.route('/byArtist').get(function (req, res) {
-        var token = req.header('Authorization').split(' ')[1];
-        var payload = jwt.decode(token, keys.TOKEN_SECRET);
-
-        models.MovieCharacter.find({playedBy: req.query.artist}, function (err, results) {
+        models.MovieCharacter.find({playedBy: req.query.artist})
+            .populate('rates', 'value')
+            .exec(function (err, results) {
             if (err) {
                 console.log(err);
             } else {
@@ -82,7 +78,9 @@ var router = function () {
     });
 
     api.route('/byYear').get(function (req, res) {
-       models.MovieCharacter.find({'movies.year': req.query.year}, function (err, results) {
+        models.MovieCharacter.find({'movies.year': req.query.year})
+            .populate('rates', 'value')
+            .exec(function (err, results) {
             if (err) {
                 console.log(err);
             } else {
@@ -97,7 +95,7 @@ var router = function () {
 
 
     api.route('/years').get(function (req, res) {
-       models.MovieCharacter.aggregate([
+        models.MovieCharacter.aggregate([
             {
                 $group: {
                     _id: '$movies.year',

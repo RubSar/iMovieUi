@@ -5,59 +5,86 @@ var express = require('express');
 var jwt = require('jwt-simple');
 var keys = require('../config/keys');
 var rateApi = express.Router();
-//var Rate = require('../models/rateModel');
-//var User = require('../models/userModel');
+
 var models = require('../models/movieCharacterModel');
+var auth = require('../services/authService');
 
 var router = function () {
 
     rateApi.post('/set', function (req, res) {
 
-        if (req.header('Authorization')) {
-            var token = req.header('Authorization').split(' ')[1];
-            var payload = jwt.decode(token, keys.TOKEN_SECRET);
+        var id = auth.user(req);
+        if (id) {
+            models.User.findOne({_id: id}, function (err, user) {
 
-
-            var userQuery = {facebookId: payload.sub};
-            var characterQuery = {_id: req.body.characterId};
-
-            models.User.findOne(userQuery).exec()
-                .then(function (user) {
-                    if (user) {
-                        return models.MovieCharacter.findOne(characterQuery).exec();
+                var characterQuery = {_id: req.body.characterId};
+                models.MovieCharacter.findOne(characterQuery).exec(function (err, character) {
+                    if (err) {
+                        console.log(err);
                     }
-                })
-                .then(function (character) {
                     if (character) {
-                        return models.Rate.findOne({userId: payload.sub, characterId: req.body.characterId}).exec();
-                    }
-                })
-                .then(function (rate) {
-                    if (rate) {
-                        rate.value = req.body.value || rate.value;
-                        rate.created = new Date();
-                        rate.save();
-                        res.send({
-                            message: 'updated',
-                            isSuccess: true,
-                            status: 200
-                        })
-                    } else {
+                        models.Rate.findOne({userId: user._id, characterId: character._id}).exec(function (err, rate) {
+                            if (err) {
+                                console.log(err);
+                            }
+                            if (rate) {
+                                rate.value = req.body.value || rate.value;
+                                rate.userId = user._id || rate.userId;
+                                rate.save();
+                                character.rates.push(rate._id);
+                                user.rates.push(rate._id);
+                                character.save();
+                                user.save();
+                                res.send({
+                                    message: 'updated',
+                                    success: true,
+                                    value: rate.value,
+                                    status: 200
+                                })
+                            } else {
+                                var newRate = new models.Rate();
+                                newRate.userId = user._id;
+                                newRate.characterId = req.body.characterId;
+                                newRate.value = req.body.value;
+                                newRate.save(function (err, doc) {
+                                    character.rates.push(doc._id);
+                                    user.rates.push(doc._id);
+                                    user.save();
+                                    character.save();
+                                    res.send({
+                                        message: 'created',
+                                        success: true,
+                                        value: newRate.value,
+                                        status: 200
+                                    })
+                                });
 
-                        var newRate = new models.Rate();
-                        newRate.userId =payload.sub;
-                        newRate.characterId =req.body.characterId;
-                        newRate.value =req.body.value;
-                        newRate.save();
-                        res.send({
-                            message: 'created',
-                            isSuccess: true,
-                            status: 200
-                        })
+                            }
+                        });
                     }
+
                 });
+            });
 
         }
+        else {
+
+        }
+
+    });
+
+    rateApi.get('/rates', function (req, res) {
+        models.Rate.find({characterId: req.query.characterId}, 'value', function (err, results) {
+            if (err) {
+                console.log(err);
+            }
+            res.send({
+                data: results,
+                success: true,
+                status: 200
+            });
+        });
+
 
     });
 

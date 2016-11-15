@@ -4,12 +4,14 @@
     </div>
     <div class="col-md-8 text-left">
         <h4 style="text-transform: none"> {{ model.name}} <small> played by</small>  {{ model.playedBy}}</h4>
-        <h4>
-            <span style="margin-right: 10px;"><i style="color:goldenrod" class="fa fa-star"></i> 8.2</span>
+        <h4 ng-hide="avgUpdate">
+            <span ng-show="rateAverage>0" style="margin-right: 10px;"><i style="color:goldenrod" class="fa fa-star"></i> {{rateAverage}}</span>
+            <span ng-hide="rateAverage>0" >rate first</span>
 
             <star-rating class="star-rating"  rating-value="5" data-max="10" on-rating-selected="rateFunction(rating)"></star-rating>
 
         </h4>
+        <i ng-show="avgUpdate" class="fa fa-spinner" aria-hidden="true"></i>
 
         <p style="margin:0"> <strong>{{ model.movies[0].name}}</strong> ({{model.movies[0].year}})</p>
         <p style="margin:0"><strong>IMDb</strong> Rating (<strong>{{ model.movies[0].IMDbRating}}/10</strong>)

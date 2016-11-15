@@ -10,9 +10,13 @@
         function rate(model) {
             return helperSvc.requestHandler({method: 'POST', url: '/api/rate/set', data:model});
         }
+        function getRates(characterId){
+            return helperSvc.requestHandler({method: 'GET', url: '/api/rate/rates', params:{characterId:characterId}});
+        }
 
         return {
-            rate: rate
+            rate: rate,
+            getRates:getRates
         };
     })
 })();
