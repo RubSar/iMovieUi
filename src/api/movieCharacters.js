@@ -26,6 +26,7 @@ var router = function () {
     api.route('/top').get(function (req, res) {
         models.MovieCharacter.find({})
             .populate('rates', 'value')
+            .limit(10)
             .exec(function (err, results) {
                 if (err) {
                     console.log(err);

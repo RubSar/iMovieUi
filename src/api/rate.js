@@ -4,6 +4,7 @@
 var express = require('express');
 var jwt = require('jwt-simple');
 var keys = require('../config/keys');
+var helper = require('../services/helperService');
 var rateApi = express.Router();
 
 var models = require('../models/movieCharacterModel');
@@ -68,6 +69,10 @@ var router = function () {
 
         }
         else {
+           res.send({
+               status:401,
+               message:'unauthenticated'
+            });
 
         }
 
@@ -86,6 +91,43 @@ var router = function () {
         });
 
 
+    });
+
+    rateApi.post('/userRatesByMovies', function(req, res){
+        var _movies =req.body.movies;
+        console.log(_movies);
+        var id = auth.user(req);
+        if(id){
+           models.User.findOne({_id:id}, function(err, user){
+                   if (err) {
+                       console.log(err);
+                   }
+                   models.Rate.find({userId:user._id}, 'characterId value', function(err, rates){
+                       //var response =helper.arrayUnique(_movies.concat(rates));
+                       var response=[];
+
+                       //TODO:improve implementation letter
+                       for(var i =0; i<rates.length; i++){
+                           for(var j =0; j<_movies.length; j++){
+                               if(rates[i].characterId==_movies[j]._id){
+                                  response.push(rates[i]);
+                               }
+                           }
+                       }
+                       res.send({
+                           status:200,
+                           success:true,
+                           data:response
+
+                       })
+                   })
+               })
+            } else{
+            res.send({
+                status:401,
+                message:'unauthenticated'
+            })
+        }
     });
 
     return rateApi;
