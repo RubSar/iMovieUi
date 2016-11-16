@@ -5,16 +5,27 @@
 (function () {
     'use strict';
 
-    angular.module('iMovieUi').directive('starRating', function () {
+    angular.module('iMovieUi').directive('starRating', function ($auth, $rootScope) {
         return {
             restrict: 'E',
             scope: {
                 ratingValue: '=',
                 max: '=',
+                userRate: '=',
                 onRatingSelected: '&'
             },
             link: function (scope, elem, attrs) {
                 scope.max = scope.max || 10;
+                scope.ratingValue = scope.ratingValue || 1;
+
+                scope.isAuthenticated = function () {
+                    return $auth.isAuthenticated();
+                };
+
+                scope.triggerModal = function(){
+                    $rootScope.$broadcast('trigger-modal');
+                };
+
                 var updateStars = function () {
                     scope.stars = [];
                     for (var i = 0; i < scope.max; i++) {
@@ -24,8 +35,10 @@
                     }
                 };
 
+
+
                 scope.toggle = function (index) {
-                    scope.rateMode =false;
+                    scope.rateMode = false;
                     scope.ratingValue = index + 1;
                     scope.onRatingSelected({
                         rating: index + 1
@@ -40,7 +53,7 @@
                     }
                 );
             },
-            templateUrl:'/angular/directives/starRating/rating.html'
+            templateUrl: '/angular/directives/starRating/rating.html'
         }
     });
 

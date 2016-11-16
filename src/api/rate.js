@@ -130,6 +130,8 @@ var router = function () {
         }
     });
 
+
+
     return rateApi;
 };
 

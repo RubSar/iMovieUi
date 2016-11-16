@@ -88,3 +88,14 @@ ul.rating {
     user-select: none; /* Non-prefixed version, currently
                                   not supported by any browser */
 }
+
+.btn-facebook{
+    background-color: #3b5998;
+    border-bottom: 2px solid #3b5998;
+    color: #fff;
+    margin-top: -18px;
+}
+.btn-facebook:hover{
+    color: #fff;
+    border-bottom: 2px solid #29487d;
+}

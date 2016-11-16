@@ -6,9 +6,9 @@
         <h4 style="text-transform: none"> {{ model.name}} <small> played by</small>  {{ model.playedBy}}</h4>
         <h4 ng-hide="avgUpdate">
             <span ng-show="rateAverage>0" style="margin-right: 10px;"><i style="color:goldenrod" class="fa fa-star"></i> {{rateAverage}}</span>
-            <span ng-hide="rateAverage>0" >rate first</span>
+            <span style="text-transform: none" ng-hide="rateAverage>0" >rate first</span>
 
-            <star-rating class="star-rating"  rating-value="5" data-max="10" on-rating-selected="rateFunction(rating)"></star-rating>
+            <star-rating class="star-rating"  rating-value="rateValue" data-max="10" user-rate="model.userRate" on-rating-selected="rateFunction(rating)"></star-rating>
 
         </h4>
         <i ng-show="avgUpdate" class="fa fa-spinner" aria-hidden="true"></i>
