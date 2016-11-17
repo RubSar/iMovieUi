@@ -30,6 +30,10 @@
             return helperSvc.requestHandler({method: 'GET', url: '/api/movieCharacters/byYear', params:{year:year}});
         }
 
+        function getCharactersList(paging){
+            return helperSvc.requestHandler({method: 'GET', url: '/api/movieCharacters/list', params:paging});
+        }
+
 
         return {
             getAll:getAll,
@@ -37,7 +41,8 @@
             getArtists: getArtists,
             getCharactersByArtist: getCharactersByArtist,
             getCharactersByMovieReleaseDate:getCharactersByMovieReleaseDate,
-            getOrderedYears:getOrderedYears
+            getOrderedYears:getOrderedYears,
+            getCharactersList:getCharactersList
         }
     })
 })();

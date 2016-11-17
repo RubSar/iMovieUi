@@ -14,40 +14,27 @@
                 console.log(err);
             });
 
+
         $scope.$watch('originalMovieCharacters', function (newVal, oldVal) {
-            if (newVal) {
+            if (!!newVal) {
                 $scope.movieCharacters = helperSvc.chunk(newVal, 2);
-                $scope.movieCharacterIds = newVal.map(function (a) {
-                    return {_id: a._id};
-                });
+                getUserRates();
             }
         }, true);
+
 
         $scope.isAuthenticated = function(){
             return $auth.isAuthenticated();
         };
 
+
         $scope.$watch('isAuthProp', function(newVal, oldVal){
             if (newVal) {
-
+                getUserRates();
             }
-            console.log('--------- yep --------');
+
         }, true);
 
-
-
-        $scope.$watch('movieCharacterIds', function (newVal, oldVal) {
-            if (newVal != oldVal) {
-                RateSvc.userRatesForMovies($scope.movieCharacterIds)
-                    .then(function (response) {
-                        if (response.success) {
-                            insertUserRating(response.data);
-                        }
-                    }, function (err) {
-                        console.log(err);
-                    });
-            }
-        }, true);
 
         //get comics characters
         ComicsCharactersSvc.getAll()
@@ -56,6 +43,7 @@
             }, function (err) {
                 console.log(err);
             });
+
 
         //TODO: improve implementation letter
         function insertUserRating(userRates) {
@@ -66,7 +54,23 @@
                     }
                 }
             }
-            console.log($scope.originalMovieCharacters);
+        }
+
+        function getUserRates(){
+            if (!!$scope.originalMovieCharacters && $scope.isAuthProp) {
+                var movieCharacterIds = $scope.originalMovieCharacters.map(function (a) {
+                    return {_id: a._id};
+                });
+                RateSvc.userRatesForMovies(movieCharacterIds)
+                    .then(function (response) {
+                        if (response.success) {
+                            insertUserRating(response.data);
+                        }
+                    }, function (err) {
+                        console.log(err);
+                    });
+            }
+
         }
 
 

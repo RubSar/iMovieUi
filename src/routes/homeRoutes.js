@@ -17,15 +17,15 @@ var router = function () {
     });
 
 
-    homeRouter.get('/most-popular-movie-characters/', isAuthenticated, function (req, res) {
+    homeRouter.get('/most-popular-movie-characters/',  function (req, res) {
         return homeController.mostPopular(req, res);
     });
 
+    homeRouter.get('/movie-character/:name',  function (req, res) {
+        return homeController.movieCharacter(req, res);
+    });
 
-    function isAuthenticated(req, res, next) {
 
-        next(null, req, res);
-    }
 
 
     //END GET actions

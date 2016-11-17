@@ -39,6 +39,40 @@ var router = function () {
             })
     });
 
+    api.route('/list').get(function (req, res) {
+        var paging = req.query;
+        var size = parseInt(paging.size) || 10;
+        var number = parseInt(paging.number) || 1;
+        models.MovieCharacter.find({})
+            .populate('rates', 'value')
+            .limit(size)
+            .skip((number-1)*size)
+            .exec(function (err, results) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    models.MovieCharacter.count({}, function (err, count) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        res.send({
+                            data: results,
+                            count: count,
+                            status: 200,
+                            paging:{
+                                number:number,
+                                size:size
+                            }
+                        });
+
+                    });
+
+
+                }
+            })
+    });
+
+
     api.route('/artists').get(function (req, res) {
         models.MovieCharacter.aggregate([
             {
@@ -67,31 +101,31 @@ var router = function () {
         models.MovieCharacter.find({playedBy: req.query.artist})
             .populate('rates', 'value')
             .exec(function (err, results) {
-            if (err) {
-                console.log(err);
-            } else {
-                res.send({
-                    data: results,
-                    status: 200
-                });
-            }
-        });
+                if (err) {
+                    console.log(err);
+                } else {
+                    res.send({
+                        data: results,
+                        status: 200
+                    });
+                }
+            });
     });
 
     api.route('/byYear').get(function (req, res) {
         models.MovieCharacter.find({'movies.year': req.query.year})
             .populate('rates', 'value')
             .exec(function (err, results) {
-            if (err) {
-                console.log(err);
-            } else {
-                console.log(results);
-                res.send({
-                    data: results,
-                    status: 200
-                });
-            }
-        });
+                if (err) {
+                    console.log(err);
+                } else {
+                    console.log(results);
+                    res.send({
+                        data: results,
+                        status: 200
+                    });
+                }
+            });
     });
 
 

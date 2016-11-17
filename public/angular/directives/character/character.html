@@ -1,6 +1,8 @@
 <div class="row noselect">
     <div class="col-md-4">
-        <img ng-src="{{model.imgUrl}}" class="img-responsive" >
+       <a ng-href="/movie-character/{{model.name}}">
+           <img ng-src="{{model.imgUrl}}" class="img-responsive" >
+       </a>
     </div>
     <div class="col-md-8 text-left">
         <h4 style="text-transform: none"> {{ model.name}} <small> played by</small>  {{ model.playedBy}}</h4>

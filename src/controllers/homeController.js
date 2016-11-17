@@ -28,7 +28,12 @@ var homeController = function () {
         );
     }
 
-
+    function movieCharacter(req, res){
+      //  models.MovieCharacter.findOne({name:req.params})
+        res.render('movieCharacter', {
+            title:'movie character ' +req.params.name
+        });
+    }
 
     function  view(req, res){
         console.log(req.params.name);
