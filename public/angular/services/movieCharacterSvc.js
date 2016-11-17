@@ -33,6 +33,11 @@
         function getCharactersList(paging){
             return helperSvc.requestHandler({method: 'GET', url: '/api/movieCharacters/list', params:paging});
         }
+        function getMovieCharacter(name){
+            return helperSvc.requestHandler({method: 'GET', url: '/api/movieCharacters/single', params:{name:name}});
+        }
+
+
 
 
         return {
@@ -42,7 +47,8 @@
             getCharactersByArtist: getCharactersByArtist,
             getCharactersByMovieReleaseDate:getCharactersByMovieReleaseDate,
             getOrderedYears:getOrderedYears,
-            getCharactersList:getCharactersList
+            getCharactersList:getCharactersList,
+            getMovieCharacter:getMovieCharacter
         }
     })
 })();

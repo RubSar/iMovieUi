@@ -95,7 +95,7 @@ var router = function () {
 
     rateApi.post('/userRatesByMovies', function(req, res){
         var _movies =req.body.movies;
-        console.log(_movies);
+
         var id = auth.user(req);
         if(id){
            models.User.findOne({_id:id}, function(err, user){

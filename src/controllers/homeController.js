@@ -54,7 +54,8 @@ var homeController = function () {
     return {
         index: index,
         view:view,
-        mostPopular:mostPopular
+        mostPopular:mostPopular,
+        movieCharacter:movieCharacter
     };
 };
 

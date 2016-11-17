@@ -4,6 +4,7 @@
 var express = require('express');
 var models = require('../models/movieCharacterModel');
 var api = express.Router();
+var auth =require('../services/authService');
 
 
 var router = function () {
@@ -72,7 +73,6 @@ var router = function () {
             })
     });
 
-
     api.route('/artists').get(function (req, res) {
         models.MovieCharacter.aggregate([
             {
@@ -128,7 +128,6 @@ var router = function () {
             });
     });
 
-
     api.route('/years').get(function (req, res) {
         models.MovieCharacter.aggregate([
             {
@@ -151,6 +150,37 @@ var router = function () {
                 });
             }
         });
+    });
+
+    api.route('/single').get(function(req, res){
+        var url = decodeURIComponent(req.query.name);
+        var id = auth.user(req);
+        console.log(id);
+
+        models.MovieCharacter.findOne({name:url})
+             .populate('rates', 'value')
+             .exec(function(err, result){
+                if(id){
+
+                    models.Rate.findOne({userId: id, characterId:result._id}, function(err, rate){
+                        res.send({
+                               character:result,
+                               userRate:!!rate? rate.value: null,
+                               success:true,
+                               status:200
+                           })
+                        });
+                }else{
+                    res.send({
+                        character:result,
+                        success:true,
+                        status:200
+                    });
+                }
+
+        });
+
+
     });
 
 
