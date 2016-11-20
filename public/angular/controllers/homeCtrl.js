@@ -5,7 +5,7 @@
 (function () {
     'use strict';
 
-    angular.module('iMovieUi').controller('HomeCtrl', function ($scope, MovieCharacterSvs, ComicsCharactersSvc, helperSvc, RateSvc, $auth) {
+    angular.module('iMovieUi').controller('HomeCtrl', function ($scope, MovieCharacterSvs, helperSvc, RateSvc, $auth) {
         //get movie characters
         MovieCharacterSvs.getTopCharacters()
             .then(function (response) {
@@ -34,15 +34,6 @@
             }
 
         }, true);
-
-
-        //get comics characters
-        ComicsCharactersSvc.getAll()
-            .then(function (response) {
-                $scope.comicsCharacters = response.data;
-            }, function (err) {
-                console.log(err);
-            });
 
 
         //TODO: improve implementation letter

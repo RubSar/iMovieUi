@@ -99,3 +99,53 @@ ul.rating {
     color: #fff;
     border-bottom: 2px solid #29487d;
 }
+.img-center{
+    margin:0 auto;
+}
+.character-view-wrapper{
+    border:1px solid #24478f;
+}
+.character-info{
+    padding: 20px;
+}
+.character-view{
+    background-color:  #24478f;
+    padding: 25px 10px;
+    position: relative;
+}
+.character-view:before{
+    content: "\f0da";
+    position: absolute;
+    font-family: FontAwesome;
+    font-size: 70px;
+    color: #24478f;
+    right:-22px;
+    top: 20px;
+}
+
+.character-view h2,
+.character-view h3{
+    color:#fff;
+
+}
+.info-container{
+    padding-left: 20px;
+}
+
+.info-head{
+    padding: 16px;
+    border-bottom: 2px solid #24478f;
+}
+.rnd-8{
+    border-radius: 8px;
+}
+
+.fs-60{
+    font-size: 60px;
+}
+.fs-20{
+    font-size: 20px;
+}
+.gold{
+    color: goldenrod;
+}

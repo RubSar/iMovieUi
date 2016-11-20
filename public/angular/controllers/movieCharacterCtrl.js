@@ -64,6 +64,13 @@
                 console.log(err);
             });
 
+        MovieCharacterSvs.getMovies()
+            .then(function(response){
+                $scope.movies = response.data;
+            }, function(err){
+                console.log(err);
+            });
+
 
         $scope.$watch('artist', function (newValue, oldValue) {
             if (!!newValue && newValue != oldValue) {
@@ -82,6 +89,18 @@
         $scope.$watch('year', function (newValue, oldValue) {
             if (!!newValue && newValue != oldValue) {
                 MovieCharacterSvs.getCharactersByMovieReleaseDate(newValue._id[0])
+                    .then(function (response) {
+                        $scope.originalMovieCharacters =response.data;
+                        $scope.listCharacters = helperSvc.chunk(response.data, 2);
+                    },
+                    function (err) {
+                        console.log(err);
+                    });
+            }
+        });
+        $scope.$watch('movie', function (newValue, oldValue) {
+            if (!!newValue && newValue != oldValue) {
+                MovieCharacterSvs.getCharactersByMovie(newValue._id[0])
                     .then(function (response) {
                         $scope.originalMovieCharacters =response.data;
                         $scope.listCharacters = helperSvc.chunk(response.data, 2);

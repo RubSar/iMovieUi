@@ -3,7 +3,7 @@
  */
 var Character = require('../models/comicsCharacterModel');
 var imdb = require('imdb-api');
-var MovieCharacter =require('../models/movieCharacterModel');
+var models =require('../models/movieCharacterModel');
 
 //middleware
 var middleware = function (req, res, next) {
@@ -109,7 +109,7 @@ module.exports.createMovie = function (req, res) {
 };
 
 module.exports.createMovieCharacter = function (req, res){
-    var newMovieCharacter = new MovieCharacter();
+    var newMovieCharacter = new models.MovieCharacter();
     newMovieCharacter.name =req.body.name.trim();
     newMovieCharacter.playedBy =req.body.playedBy.trim();
     var re = new RegExp(' ', 'g');

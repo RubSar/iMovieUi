@@ -11,23 +11,49 @@
     <input type="hidden" ng-value="isAuthProp =isAuthenticated()" >
     <div class="our-tours text-center g-heading-v8 g-pt-85 g-pb-100">
         <div class="container-fluid">
-            <carousel interval="myInterval">
-                <slide ng-repeat="item in comicsCharacters" active="slide.active" class="slider-item comics-character-{{item.name}}">
-                    <img ng-src="{{item.imgUrl}}" >
 
-                    <div class="info-container">
-                        <h2>{{item.name}}</h2>
-                        <p>{{item.description}}</p>
+            <h2 class="h2"> <strong>Comics based</strong> Movies</h2>
+            <div class="our-tours-list-wrapper">
+                <div class="our-tours-list text-left">
+                    <!-- Batman  -->
+                    <% characters.forEach(function(character){ %>
+                    <div class="our-tours-list-item">
+                        <div class="img-wrapper img-wrapper--shadow">
+                            <img src="<%= character.imgUrl%>"  class="img-responsive" style="height: 310px">
+                        </div>
+                        <h3><%= character.name%>    <small>  /  <%= character.type[0]%></small></h3>
+                        <ul class="list-inline star-vote">
+                            <li><i class="g-color-default fa fa-star"></i></li>
+                            <li><i class="g-color-default fa fa-star"></i></li>
+                            <li><i class="g-color-default fa fa-star-half-o"></i></li>
+                            <li><i class="g-color-default fa fa-star-o"></i></li>
+                            <li><i class="g-color-default fa fa-star-o"></i></li>
+                        </ul>
+                        <p><%= character.description%></p>
+                        <div class="our-tours-price">
+                            <a style="color:white" href="/comics-character/<%= character.name%>">See more</a>
+                        </div>
                     </div>
-                    <div class="carousel-caption">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star-half-empty"></i>
-                    </div>
-                </slide>
-            </carousel>
+                    <% })%>
+                </div>
+            </div>
+            <!--<carousel interval="myInterval">-->
+                <!--<slide ng-repeat="item in comicsCharacters" active="slide.active" class="slider-item comics-character-{{item.name}}">-->
+                    <!--<img ng-src="{{item.imgUrl}}" >-->
+
+                    <!--<div class="info-container">-->
+                        <!--<h2>{{item.name}}</h2>-->
+                        <!--<p>{{item.description}}</p>-->
+                    <!--</div>-->
+                    <!--<div class="carousel-caption">-->
+                        <!--<i class="fa fa-star"></i>-->
+                        <!--<i class="fa fa-star"></i>-->
+                        <!--<i class="fa fa-star"></i>-->
+                        <!--<i class="fa fa-star"></i>-->
+                        <!--<i class="fa fa-star-half-empty"></i>-->
+                    <!--</div>-->
+                <!--</slide>-->
+            <!--</carousel>-->
 
         </div>
     </div>
@@ -64,9 +90,12 @@
     <% include partials/scripts.ejs %>
 
 
+<script src="/js/owl.carousel.min.js" type="text/javascript"></script>
+<script src="/js/init-owl-carousel.js" type="text/javascript"></script>
     <script>
         $(function () {
             App.init();
+            OwlCarousel.initOwlCarousel();
         });
     </script>
 

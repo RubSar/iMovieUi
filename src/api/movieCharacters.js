@@ -128,6 +128,22 @@ var router = function () {
             });
     });
 
+    api.route('/byMovie').get(function (req, res) {
+        models.MovieCharacter.find({'movies.name': req.query.movieName})
+            .populate('rates', 'value')
+            .exec(function (err, results) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    console.log(results);
+                    res.send({
+                        data: results,
+                        status: 200
+                    });
+                }
+            });
+    });
+
     api.route('/years').get(function (req, res) {
         models.MovieCharacter.aggregate([
             {
@@ -146,6 +162,32 @@ var router = function () {
             } else {
                 res.send({
                     data: result,
+                    status: 200
+                });
+            }
+        });
+    });
+
+    //get top movies
+    api.route('/movies').get(function (req, res) {
+        models.MovieCharacter.aggregate([
+            {
+                $group: {
+                    _id: '$movies.name',
+                    count: {$sum: 1}
+                }
+            },
+            {
+                "$sort": {"count": -1}
+            },
+            {"$limit": 10}
+        ], function (err, result) {
+            if (err) {
+                next(err);
+            } else {
+                res.send({
+                    data: result,
+                    success:true,
                     status: 200
                 });
             }

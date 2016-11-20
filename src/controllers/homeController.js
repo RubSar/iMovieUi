@@ -10,22 +10,12 @@ var homeController = function () {
             if (err) {
                 console.log(err);
             } else{
-                characters =results;
+               res.render('index',{
+                   characters:results
+               })
             }
         });
-        models.MovieCharacter.find({}).limit(6).exec(
-            function(err, movieCharacters) {
-                if (err) {
-                    console.log(err);
-                }
-                else{
-                    res.render('index', {
-                        characters:characters,
-                        movieCharacters:movieCharacters
-                    });
-                }
-            }
-        );
+
     }
 
     function movieCharacter(req, res){

@@ -3,18 +3,16 @@
 <head>
     <% include partials/head.ejs %>
 </head>
-<body id="body" data-spy="scroll" data-target=".one-page-header" class="demo-lightbox-gallery">
+<body id="body" data-spy="scroll" data-target=".one-page-header" class="demo-lightbox-gallery" ng-app="iMovieUi">
 <main class="wrapper" >
     <header>
         <% include partials/header.ejs %>
     </header>
 
 
-    <div class="container" style="margin-top: 100px">
+    <div class="container" style="margin-top: 100px" ng-controller="ComicsCharacterCtrl">
         <div class="row">
-            <!--<div class="col-md-4">-->
-            <!--<img src="<%= character.imgUrl %>" class="img-responsive"/>-->
-            <!--</div>-->
+
             <div class="col-md-12">
                 <div class="tabs-container">
                     <ul class="nav nav-tabs">
@@ -42,43 +40,27 @@
                         <% var className = isFirst ? "active" : '' %>
                         <div id="<%= actor.firstName %>" class="<%= className %>  tab-pane">
                             <div class="panel-body">
-
-                                <% actor.movies.forEach(function(movie){ %>
                                 <div class="row">
-                                    <div class="col-md-3">
-                                        <img src="<%= movie.posterUrl %>" height="250">
+                                <% actor.movies.forEach(function(movie){ %>
 
-                                        <h3><strong><%= movie.name %></strong>
-                                            (<%= movie.year %>)
-                                        </h3>
+                                    <div class="col-md-3">
+                                     <div class="row">
+                                         <div class="col-md-8 col-md-offset-1">
+                                             <img src="<%= movie.posterUrl %>" class="img-center img-responsive">
+                                         </div>
+                                     </div>
+                                       <div class="text-center">
+                                           <h3><strong><%= movie.name %></strong>
+                                               <small> (<%= movie.year %>)</small>
+                                           </h3>
+                                       </div>
 
                                         <p>IMDb Rating : <strong><%= movie.IMDbRating %>/10</strong></p>
 
-                                    </div>
-                                    <div class="col-md-9">
-
-                                        <% movie.awards.forEach(function(award){ %>
-                                        <div class="row" style="margin-bottom:10px">
-                                            <div class="col-md-4">
-                                                <p><%= award.name %> (<%= award.year %>)</p>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <p><%= award.nomination %> </p>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <p>
-                                                    <% award.winners.forEach(function(winner){ %>
-                                                    <%= winner %>
-                                                    <% }) %>
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <% }) %>
-
-                                    </div>
                                 </div>
-                                <hr>
+
                                 <% }) %>
+                                </div>
 
                             </div>
                         </div>

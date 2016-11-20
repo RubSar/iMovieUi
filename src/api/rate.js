@@ -32,8 +32,6 @@ var router = function () {
                                 rate.value = req.body.value || rate.value;
                                 rate.userId = user._id || rate.userId;
                                 rate.save();
-                                character.rates.push(rate._id);
-                                user.rates.push(rate._id);
                                 character.save();
                                 user.save();
                                 res.send({
@@ -62,6 +60,12 @@ var router = function () {
 
                             }
                         });
+                    }else{
+                        res.send({
+                            message: 'character not found',
+                            success: false,
+                            status: 200
+                        })
                     }
 
                 });

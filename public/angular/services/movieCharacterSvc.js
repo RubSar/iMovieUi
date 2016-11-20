@@ -18,6 +18,10 @@
             return helperSvc.requestHandler({method: 'GET', url: '/api/movieCharacters/artists'});
         }
 
+        function getMovies(){
+            return helperSvc.requestHandler({method: 'GET', url: '/api/movieCharacters/movies'})
+        }
+
         function getOrderedYears(){
             return helperSvc.requestHandler({method: 'GET', url: '/api/movieCharacters/years'});
         }
@@ -30,12 +34,18 @@
             return helperSvc.requestHandler({method: 'GET', url: '/api/movieCharacters/byYear', params:{year:year}});
         }
 
+        function getCharactersByMovie(movieName){
+            return helperSvc.requestHandler({method: 'GET', url: '/api/movieCharacters/byMovie', params:{movieName:movieName}});
+        }
+
         function getCharactersList(paging){
             return helperSvc.requestHandler({method: 'GET', url: '/api/movieCharacters/list', params:paging});
         }
         function getMovieCharacter(name){
             return helperSvc.requestHandler({method: 'GET', url: '/api/movieCharacters/single', params:{name:name}});
         }
+
+        //movies
 
 
 
@@ -44,6 +54,8 @@
             getAll:getAll,
             getTopCharacters: getTopCharacters,
             getArtists: getArtists,
+            getMovies:getMovies,
+            getCharactersByMovie:getCharactersByMovie,
             getCharactersByArtist: getCharactersByArtist,
             getCharactersByMovieReleaseDate:getCharactersByMovieReleaseDate,
             getOrderedYears:getOrderedYears,
