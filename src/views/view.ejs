@@ -4,7 +4,7 @@
     <% include partials/head.ejs %>
 </head>
 <body id="body" data-spy="scroll" data-target=".one-page-header" class="demo-lightbox-gallery" ng-app="iMovieUi">
-<main class="wrapper" >
+<main class="wrapper">
     <header>
         <% include partials/header.ejs %>
     </header>
@@ -15,51 +15,64 @@
 
             <div class="col-md-12">
                 <div class="tabs-container">
+                    <!--<ul class="nav nav-tabs">-->
+                    <!--<% var isFirst = true %>-->
+                    <!--<% character.actors.forEach(function(actor){ %>-->
+
+                    <!--<% var className = isFirst ? "active" : '' %>-->
+                    <!--<li class="<%= className %>">-->
+
+                    <!--<a data-toggle="tab" href="#<%= actor.firstName %>" aria-expanded="false">-->
+                    <!--<img src="<%= actor.imgUrl %>" class="img-responsive">-->
+                    <!--<button type="submit" class="btn btn-primary btn-block" ng-click="rate(actor._id)"-->
+                    <!--style="display: block; margin:5px 0;">Vote-->
+                    <!--</button>-->
+                    <!--<%= actor.firstName %>-->
+                    <!--<%= actor.lastName %>-->
+                    <!--</a>-->
+                    <!--</li>-->
+                    <!--<% isFirst = false %>-->
+                    <!--<% }) %>-->
+                    <!--<% isFirst = true %>-->
+                    <!--</ul>-->
+
                     <ul class="nav nav-tabs">
-                        <% var isFirst = true %>
-                        <% character.actors.forEach(function(actor){ %>
-
-                        <% var className = isFirst ? "active" : '' %>
-                        <li class="<%= className %>">
-
-                            <a data-toggle="tab" href="#<%= actor.firstName %>" aria-expanded="false">
-                                <img src="<%= actor.imgUrl %>" class="img-responsive">
-                                <button type="submit" class="btn btn-primary btn-block"
+                        <li ng-repeat="actor in character.actors track by $index" ng-class="{'active':$index==0}">
+                            <a data-toggle="tab" href=".{{actor.firstName}}" aria-expanded="false">
+                                <img ng-src="{{actor.imgUrl}}" class="img-responsive">
+                                <button type="submit" class="btn btn-primary btn-block" ng-click="rate(actor._id)"
                                         style="display: block; margin:5px 0;">Vote
                                 </button>
-                                <%= actor.firstName %>
-                                <%= actor.lastName %>
+                                {{ actor.firstName }}
+                                {{ actor.lastName }}
                             </a>
                         </li>
-                        <% isFirst = false %>
-                        <% }) %>
-                        <% isFirst = true %>
                     </ul>
                     <div class="tab-content">
                         <% character.actors.forEach(function(actor){ %>
                         <% var className = isFirst ? "active" : '' %>
-                        <div id="<%= actor.firstName %>" class="<%= className %>  tab-pane">
+                        <div class="<%= actor.firstName %>" class="<%= className %>  tab-pane">
                             <div class="panel-body">
                                 <div class="row">
-                                <% actor.movies.forEach(function(movie){ %>
+                                    <% actor.movies.forEach(function(movie){ %>
 
-                                    <div class="col-md-3">
-                                     <div class="row">
-                                         <div class="col-md-8 col-md-offset-1">
-                                             <img src="<%= movie.posterUrl %>" class="img-center img-responsive">
-                                         </div>
-                                     </div>
-                                       <div class="text-center">
-                                           <h3><strong><%= movie.name %></strong>
-                                               <small> (<%= movie.year %>)</small>
-                                           </h3>
-                                       </div>
+                                    <div class="col-md-4">
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                                <img src="<%= movie.posterUrl %>" class="img-center img-responsive">
+                                            </div>
+                                            <div class="col-md-7">
+                                                <h4><strong><%= movie.name %></strong>
+                                                    <small> (<%= movie.year %>)</small>
+                                                </h4>
+                                                <p>IMDb Rating : <strong><%= movie.IMDbRating %>/10</strong></p>
+                                            </div>
+                                        </div>
 
-                                        <p>IMDb Rating : <strong><%= movie.IMDbRating %>/10</strong></p>
 
-                                </div>
+                                    </div>
 
-                                <% }) %>
+                                    <% }) %>
                                 </div>
 
                             </div>

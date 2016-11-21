@@ -9,7 +9,6 @@ var ComicsCharacter = require('../models/comicsCharacterModel');
 var User = require('../models/userModel');
 
 
-
 var api = express.Router();
 
 
@@ -17,7 +16,6 @@ var router = function () {
     //GET actions
 
     api.get('/all', function (req, res) {
-
         ComicsCharacter.find({}, 'name imgUrl description type', function (err, results) {
             if (err) {
                 console.log(err);
@@ -31,14 +29,19 @@ var router = function () {
     });
 
 
-
-
-
-
-
-
-
-
+    api.get('/single', function (req, res) {
+        var name = decodeURIComponent(req.query.name);
+        ComicsCharacter.find({name: name}, function (err, results) {
+            if (err) {
+                console.log(err);
+            } else {
+                res.send({
+                    data: results,
+                    status: 200
+                });
+            }
+        });
+    });
 
 
     return api;

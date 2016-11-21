@@ -11,8 +11,13 @@
            return helperSvc.requestHandler({method: 'GET', url: '/api/comicsCharacters/all'});
        }
 
+        function getSingle(name){
+            return helperSvc.requestHandler({method: 'GET', url: '/api/comicsCharacters/single', params:{name:name}});
+        }
+
        return{
-           getAll:getAll
+           getAll:getAll,
+           getSingle:getSingle
        }
     });
 })();
