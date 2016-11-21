@@ -18,8 +18,12 @@
                 console.log(err);
             });
 
-        $scope.rate = function (actorId) {
-            console.log(actorId);
+        $scope.rate = function (firstName, lastName) {
+           var dto ={
+               firstName:firstName,
+               lastName:lastName
+           };
+            console.log(dto);
         }
     });
 })();

@@ -31,7 +31,7 @@ var router = function () {
 
     api.get('/single', function (req, res) {
         var name = decodeURIComponent(req.query.name);
-        ComicsCharacter.find({name: name}, function (err, results) {
+        ComicsCharacter.findOne({name: name}, function (err, results) {
             if (err) {
                 console.log(err);
             } else {

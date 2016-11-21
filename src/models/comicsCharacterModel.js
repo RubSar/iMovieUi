@@ -38,7 +38,7 @@ var actorSchema = new Schema({
     imgUrl: String,
     age: Number,
     movies: [movieSchema]
-}, {_id: false});
+});
 
 
 //comicsCharacter
