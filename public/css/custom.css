@@ -139,6 +139,9 @@ ul.rating {
 .rnd-8{
     border-radius: 8px;
 }
+.btn-160{
+    width: 160px;
+}
 
 .fs-60{
     font-size: 60px;
@@ -148,4 +151,9 @@ ul.rating {
 }
 .gold{
     color: goldenrod;
+}
+.user-nav{
+    background-color: transparent !important;
+    margin-top: -5px;
+
 }

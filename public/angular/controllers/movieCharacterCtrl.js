@@ -1,145 +1,77 @@
 /**
- * Created by Toshiba on 10/31/2016.
+ * Created by Toshiba on 11/17/2016.
  */
+
 //movieCharacterCtrl.js
-
 (function () {
-    angular.module('iMovieUi').controller('MovieCharacterCtrl', function ($scope, $timeout, MovieCharacterSvs, RateSvc, helperSvc, $auth) {
+    'use strict';
 
-        $scope.contentLoaded = false;
+    angular.module('iMovieUi').controller('MovieCharacterCtrl', function ($scope, $window, MovieCharacterSvs, RateSvc, $auth) {
 
-        $scope.paging = {};
-        $scope.paging.number = 1;
-        $scope.paging.size = 10;
+        $scope.url =$window.location.pathname.split('/movie-character/')[1];
+        $scope.rateValue = 1;
+        $scope.avgUpdate =false;
 
-
-
-
-        $scope.$watch('paging.number', function(newVal, oldVal){
-            if (newVal) {
-                $scope.contentLoaded = false;
-                MovieCharacterSvs.getCharactersList($scope.paging)
-                    .then(function (response) {
-                        $scope.originalMovieCharacters =response.data;
-                        $scope.listCharacters = helperSvc.chunk(response.data, 2);
-                        $scope.count = response.count;
-                        $scope.contentLoaded = true;
-                    },
-                    function (msg) {
-                        console.log(msg);
-                    });
-            }
-        }, true);
 
         $scope.isAuthenticated = function(){
             return $auth.isAuthenticated();
         };
 
-
-        $scope.$watch('isAuthProp', function(newVal, oldVal){
-            if (newVal) {
-                getUserRates();
-            }
-
-        }, true);
-
-        $scope.$watch('originalMovieCharacters', function(newVal, oldVal){
-            if (!!newVal) {
-                getUserRates();
-            }
-        }, true);
-
-        MovieCharacterSvs.getArtists()
-            .then(function (response) {
-                $scope.artists = response.data;
-            },
-            function (err) {
-                console.log(err);
-            });
-
-        MovieCharacterSvs.getOrderedYears()
-            .then(function (response) {
-                $scope.years = response.data;
-            }, function (err) {
-                console.log(err);
-            });
-
-        MovieCharacterSvs.getMovies()
+        MovieCharacterSvs.getMovieCharacter($scope.url)
             .then(function(response){
-                $scope.movies = response.data;
+               $scope.character = response.character;
+                $scope.userRate =response.userRate;
+                $scope.rateAverage = !!$scope.character.rates.length ? average(sum($scope.character.rates, 'value'), $scope.character.rates.length) : 0;
+
             }, function(err){
                 console.log(err);
             });
 
-
-        $scope.$watch('artist', function (newValue, oldValue) {
-            if (!!newValue && newValue != oldValue) {
-                MovieCharacterSvs.getCharactersByArtist($scope.artist._id)
-                    .then(function (response) {
-                        $scope.originalMovieCharacters =response.data;
-                        $scope.listCharacters = helperSvc.chunk(response.data, 2);
-                    },
-                    function (err) {
-                        console.log(err);
-                    });
-            }
-        });
-
-
-        $scope.$watch('year', function (newValue, oldValue) {
-            if (!!newValue && newValue != oldValue) {
-                MovieCharacterSvs.getCharactersByMovieReleaseDate(newValue._id[0])
-                    .then(function (response) {
-                        $scope.originalMovieCharacters =response.data;
-                        $scope.listCharacters = helperSvc.chunk(response.data, 2);
-                    },
-                    function (err) {
-                        console.log(err);
-                    });
-            }
-        });
-        $scope.$watch('movie', function (newValue, oldValue) {
-            if (!!newValue && newValue != oldValue) {
-                MovieCharacterSvs.getCharactersByMovie(newValue._id[0])
-                    .then(function (response) {
-                        $scope.originalMovieCharacters =response.data;
-                        $scope.listCharacters = helperSvc.chunk(response.data, 2);
-                    },
-                    function (err) {
-                        console.log(err);
-                    });
-            }
-        });
-
-        //TODO: improve implementation letter
-        function insertUserRating(userRates) {
-            for (var i = 0; i < userRates.length; i++) {
-                for (var j = 0; j < $scope.originalMovieCharacters.length; j++) {
-                    if (userRates[i].characterId == $scope.originalMovieCharacters[j]._id) {
-                        $scope.originalMovieCharacters[j].userRate = userRates[i].value;
+           $scope.rateFunction = function (value) {
+            var dto = {
+                value: value,
+                characterId: $scope.character._id
+            };
+            RateSvc.rate(dto)
+                .then(function (response) {
+                    if (response.success) {
+                        $scope.avgUpdate = true;
+                        RateSvc.getRates($scope.character._id)
+                            .then(function (response) {
+                                $scope.character.rates = response.data;
+                                $scope.avgUpdate = false;
+                                $scope.userRate = value;
+                            }, function (err) {
+                                console.log(err);
+                            })
                     }
-                }
+                }, function (err) {
+                    console.log(err);
+                })
+        };
+
+        $scope.$watch('userRate', function (newVal, oldVal) {
+            if (newVal && newVal != oldVal) {
+                $scope.rateValue = newVal;
             }
+        });
+        $scope.$watch('character.rates', function (newVal, oldVal) {
+            if (newVal && newVal != oldVal) {
+                $scope.rateAverage = !!$scope.character.rates.length ? average(sum($scope.character.rates, 'value'), $scope.character.rates.length) : 0;
+            }
+        });
+
+        function sum(items, prop) {
+            return items.reduce(function (a, b) {
+                return a + b[prop];
+            }, 0);
         }
 
-        function getUserRates(){
-            if (!!$scope.originalMovieCharacters && $scope.isAuthProp) {
-                var movieCharacterIds = $scope.originalMovieCharacters.map(function (a) {
-                    return {_id: a._id};
-                });
-                RateSvc.userRatesForMovies(movieCharacterIds)
-                    .then(function (response) {
-                        if (response.success) {
-                            insertUserRating(response.data);
-                        }
-                    }, function (err) {
-                        console.log(err);
-                    });
-            }
-
+        function average(sum, length) {
+            return (sum / length).toFixed(1);
         }
 
-    })
+
+
+    });
 })();
-
-

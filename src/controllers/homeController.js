@@ -5,7 +5,6 @@ var models = require('../models/movieCharacterModel');
 var homeController = function () {
 
     function index (req, res) {
-        var characters ;
         ComicsCharacter.find({}, 'name imgUrl description type', function(err, results){
             if (err) {
                 console.log(err);
@@ -19,33 +18,29 @@ var homeController = function () {
     }
 
     function movieCharacter(req, res){
-      //  models.MovieCharacter.findOne({name:req.params})
         res.render('movieCharacter', {
             title:'movie character ' +req.params.name
         });
     }
 
-    function  view(req, res){
-        console.log(req.params.name);
-        ComicsCharacter.findOne({name:req.params.name}, function(err, result){
-            if (err) {
-                console.log(err);
-            } else{
-                res.render('view', {
-                    character:result
-                });
-            }
-        });
+    function comicsCharacter(req, res){
+        res.render('comicsCharacter');
     }
-    function mostPopular(req, res){
-        res.render('mostPopular');
+    function movieCharactersList(req, res){
+        res.render('movieCharactersList');
+    }
+
+    function userRates(req, res){
+        res.render('userRates');
     }
 
     return {
         index: index,
-        view:view,
-        mostPopular:mostPopular,
-        movieCharacter:movieCharacter
+        comicsCharacter:comicsCharacter,
+        movieCharacter:movieCharacter,
+        movieCharactersList:movieCharactersList,
+        userRates:userRates
+
     };
 };
 

@@ -19,7 +19,7 @@
     <input type="hidden" ng-value="authProp =isAuthenticated()"/>
 
 
-    <div class="container" style="margin-top: 100px" ng-controller="ViewCtrl">
+    <div class="container" style="margin-top: 100px" ng-controller="MovieCharacterCtrl">
         <div class="row">
             <div class="col-md-9">
                 <div class="character-view-wrapper">
@@ -52,7 +52,7 @@
                                     </div>
                                 </div>
                                   <h3>{{character.movies[0].name}} <small>({{character.movies[0].year}})</small></h3>
-                                  <p>iMDb Rating :( {{character.movies[0].IMDbRating}}/10)</p>
+                                  <p>iMDb Rating (<strong>{{character.movies[0].IMDbRating}}</strong>/10)</p>
                               </div>
                           </div>
 

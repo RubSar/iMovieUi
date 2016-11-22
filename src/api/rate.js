@@ -15,7 +15,7 @@ var router = function () {
     rateApi.post('/set', function (req, res) {
 
         var id = auth.user(req);
-        if (id) {
+            if (id) {
             models.User.findOne({_id: id}, function (err, user) {
 
                 var characterQuery = {_id: req.body.characterId};

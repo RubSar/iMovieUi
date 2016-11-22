@@ -5,7 +5,6 @@ var homeController = require('../controllers/homeController.js');
 var keys = require('../config/keys.js');
 
 var router = function () {
-    //GET actions
 
     //index
     homeRouter.route('/').get(function (req, res) {
@@ -13,26 +12,22 @@ var router = function () {
     });
 
     homeRouter.get('/comics-character/:name', function (req, res) {
-        return homeController.view(req, res);
+        return homeController.comicsCharacter(req, res);
     });
 
 
     homeRouter.get('/most-popular-movie-characters/',  function (req, res) {
-        return homeController.mostPopular(req, res);
+        return homeController.movieCharactersList(req, res);
     });
 
     homeRouter.get('/movie-character/:name',  function (req, res) {
         return homeController.movieCharacter(req, res);
     });
+    homeRouter.get('/myRates',  function (req, res) {
+        return homeController.userRates(req, res);
+    });
 
 
-
-
-    //END GET actions
-
-    /*
-     * ----------------------------------------------------------------------------------
-     */
 
     return homeRouter;
 };

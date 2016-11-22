@@ -87,7 +87,7 @@ var router = function () {
             {"$limit": 10}
         ], function (err, result) {
             if (err) {
-                next(err);
+                console.log(err);
             } else {
                 res.send({
                     data: result,
@@ -119,7 +119,6 @@ var router = function () {
                 if (err) {
                     console.log(err);
                 } else {
-                    console.log(results);
                     res.send({
                         data: results,
                         status: 200
@@ -135,7 +134,6 @@ var router = function () {
                 if (err) {
                     console.log(err);
                 } else {
-                    console.log(results);
                     res.send({
                         data: results,
                         status: 200
@@ -144,6 +142,7 @@ var router = function () {
             });
     });
 
+    //get top years
     api.route('/years').get(function (req, res) {
         models.MovieCharacter.aggregate([
             {
@@ -194,6 +193,7 @@ var router = function () {
         });
     });
 
+    //get single character
     api.route('/single').get(function(req, res){
         var url = decodeURIComponent(req.query.name);
         var id = auth.user(req);
@@ -203,7 +203,6 @@ var router = function () {
              .populate('rates', 'value')
              .exec(function(err, result){
                 if(id){
-
                     models.Rate.findOne({userId: id, characterId:result._id}, function(err, rate){
                         res.send({
                                character:result,

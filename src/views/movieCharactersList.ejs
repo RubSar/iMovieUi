@@ -6,7 +6,7 @@
 </head>
 
 <body id="body" data-spy="scroll" data-target=".one-page-header" class="demo-lightbox-gallery" ng-app="iMovieUi">
-<main class="wrapper" ng-controller="MovieCharacterCtrl">
+<main class="wrapper" ng-controller="MovieCharactersListCtrl">
     <header>
         <% include partials/header.ejs %>
     </header>
@@ -47,7 +47,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group text-center">
-                                    <div paging ng-show="count"
+                                    <div paging ng-show="count>paging.size"
                                          page="paging.number"
                                          page-size="paging.size"
                                          total="count">

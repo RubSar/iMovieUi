@@ -1,7 +1,10 @@
 <div class="dropdown">
-    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Choose By {{label}}
+    <button class="btn btn-primary btn-160 dropdown-toggle" type="button" data-toggle="dropdown">Choose By {{label}}
         <span class="caret"></span></button>
     <ul class="dropdown-menu">
-        <li ng-repeat="item in itemsList track by $index" ng-click="setModel(item[term])"><a href="#">{{item[term]}}  <span class="pull-right">{{item.count}}</span></a></li>
+        <li ng-repeat="item in itemsList track by $index" ng-click="setModel(item[term])">
+            <a ng-show="itemIsArray" href="#">{{item[term][0]}}  <span class="pull-right">{{item.count}}</span></a>
+            <a ng-hide="itemIsArray" href="#">{{item[term]}}  <span class="pull-right">{{item.count}}</span></a>
+        </li>
     </ul>
 </div>

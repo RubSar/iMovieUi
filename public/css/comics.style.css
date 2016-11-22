@@ -581,6 +581,7 @@ a:hover {
 @media(min-width: 992px) {
   .one-page-header.navbar {
     padding: 12px 0;
+    background-image: url("../img/red-curtains.jpg");
     transition: background .3s ease-in-out,padding .3s ease-in-out;
   }
 

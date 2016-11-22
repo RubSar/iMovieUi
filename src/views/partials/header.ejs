@@ -34,7 +34,15 @@
                             </button>
                         </li>
                         <li ng-show="isAuthenticated()">
-                            Welcome Chuvak
+                        <li class="dropdown open">
+                            <a href="#" class="dropdown-toggle user-nav" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
+                                <i class="fa fa-2x fa-user"></i> <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/myRates">Action</a></li>
+                                <li><a href="#">Another action</a></li>
+
+                            </ul>
                         </li>
                     </ul>
 
