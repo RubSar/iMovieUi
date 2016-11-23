@@ -61,11 +61,11 @@
                 <input type="hidden" id="imgData" name="imageData"/>
 
                 <div class="form-group text-center">
-                    <button style="width: 280px" type="submit" class="btn btn-primary">Submit</button>
+                    <button style="width: 280px" type="button" id="submitForm" class="btn btn-primary">Submit</button>
                 </div>
             </form>
 
-            <canvas id="canvas1"></canvas>
+            <canvas id="canvas1" width="170" height="260" style="display:none"></canvas>
 
         </div>
     </div>
@@ -73,16 +73,14 @@
     <script type="text/javascript" src="/lib/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="/lib/cropper/js/cropper.min.js"></script>
 
-    <script type="text/javascript">
 
-        $(document).ready(function () {
-            var $image = $(".image-crop > img")
+    <script type="text/javascript">
+        $(document).ready(function(){
+            var $image = $(".image-crop > img");
             $($image).cropper({
                 aspectRatio: 17 / 26,
                 preview: ".img-preview",
-                done: function (data) {
-                    console.log(data);
-                }
+
             });
 
             var $inputImage = $("#inputImage");
@@ -105,78 +103,26 @@
                             $image.cropper("reset", true).cropper("replace", this.result);
                         };
                     } else {
-                        showMessage("Please choose an image file.");
+                        alert("Please choose an image file.");
                     }
                 });
             } else {
                 $inputImage.addClass("hide");
             }
-
-            $("#download").click(function () {
-                window.open($image.cropper("getDataURL"));
-            });
-
-            $("#zoomIn").click(function () {
-                $image.cropper("zoom", 0.1);
-            });
-
-            $("#zoomOut").click(function () {
-                $image.cropper("zoom", -0.1);
-            });
-
-            $("#rotateLeft").click(function () {
-                $image.cropper("rotate", 45);
-            });
-
-            $("#rotateRight").click(function () {
-                $image.cropper("rotate", -45);
-            });
-
-            $("#setDrag").click(function () {
-                $image.cropper("setDragMode", "crop");
-            });
-
-            $('#createCharacter').submit(function () {
-
-                $image.cropper("getCroppedCanvas", { width: 320, height: 180 })
-
-                createCanvas($image.cropper("getDataURL"));
-                console.log(canvas.toDataURL('image/jpeg'));
-                $('#imgData').val($image.cropper("getDataURL"));
+            $('#submitForm').on('click',function () {
+                    var canvas = document.getElementById('canvas1');
+                    var ctx = canvas.getContext('2d');
+                    var img = new Image();
+                    img.addEventListener('load', function () {
+                        ctx.drawImage(this, 0, 0, 170, 260);
+                        $('#imgData').val(canvas.toDataURL('image/jpeg'));
+                        $('#createCharacter').submit();
+                    });
+                    img.src = $image.cropper("getDataURL");
 
             });
-
-var canvas;
-            function createCanvas(imgSrc){
-                var can = document.getElementById('canvas1');
-                var ctx = can.getContext('2d');
-
-                var img = new Image();
-                var w = 170;
-                var h = 260;
-                img.onload = function() {
-                    // step it down only once to 1/6 size:
-                    ctx.drawImage(img, 0, 0, w, h);
-
-                    // Step it down several times
-                    canvas = document.createElement('canvas');
-                    canvas.width = w/2;
-                    canvas.height = w/2;
-                    var ctx2 = canvas.getContext('2d');
-
-                    // Draw it at 1/2 size 3 times (step down three times)
-
-                    ctx2.drawImage(img, 0, 0, w, h);
-//                    ctx2.drawImage(can2, 0, 0, w/2, h/2, 0, 0, w/4, h/4);
-//                    ctx2.drawImage(can2, 0, 0, w/4, h/4, 0, 0, w/6, h/6);
-//                    ctx.drawImage(can2, 0, 0, w/6, h/6, 0, 200, w/6, h/6);
-                }
-                img.src = imgSrc;
-
-            }
-
-
         });
+
 
     </script>
 

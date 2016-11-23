@@ -1,6 +1,7 @@
 .img-preview-sm {
     height: 260px;
     background-color: #f2f2f2;
+    border: 1px solid black;
     width: 170px;
 }
 .img-preview {

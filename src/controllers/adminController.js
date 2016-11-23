@@ -109,46 +109,36 @@ module.exports.createMovie = function (req, res) {
 
 };
 
+//TODO: improve implementation letter
+//check if exist before create new character
 module.exports.createMovieCharacter = function (req, res){
     var newMovieCharacter = new models.MovieCharacter();
     newMovieCharacter.name =req.body.name.trim();
     newMovieCharacter.playedBy =req.body.playedBy.trim();
-   // newMovieCharacter.imgUrl =req.body.imageData;
     console.log(req.body.imageData);
-
     cloudinary.uploader.upload(req.body.imageData, function(result){
-       res.send({
-           data:result
-       })
+        newMovieCharacter.imgUrl =result.url;
+        imdb.getReq({name:req.body.movie},function(err, movie) {
+            if (err) {
+                res.render('admin/movieCharacter', {
+                    name:newMovieCharacter.name,
+                    playedBy:newMovieCharacter.playedBy,
+                    errorMessage:err.message
+                })
+            }else{
+                newMovieCharacter.movies.push({
+                    name: movie.title,
+                    year:movie.year,
+                    IMDbRating: parseFloat(movie.rating),
+                    poster:movie.poster,
+                    IMDbId:movie.imdbID
+                });
+                newMovieCharacter.save();
+                res.render('admin/movieCharacter')
+            }
+
+        });
     });
-
-
-    var re = new RegExp(' ', 'g');
-
-    //res.send({
-    //    data:newMovieCharacter
-    //});
-    //newMovieCharacter.imgUrl ='/img/movieCharacters/' +newMovieCharacter.name.replace(re, '-').toLowerCase() +'.jpg';
-    //imdb.getReq({name:req.body.movie},function(err, things) {
-    //    if (err) {
-    //        res.render('admin/movieCharacter', {
-    //            name:newMovieCharacter.name,
-    //            playedBy:newMovieCharacter.playedBy,
-    //            errorMessage:err.message
-    //        })
-    //    }else{
-    //        newMovieCharacter.movies.push({
-    //            name: things.title,
-    //            year:things.year,
-    //            IMDbRating: parseFloat(things.rating),
-    //            poster:things.poster,
-    //            IMDbId:things.imdbID
-    //        });
-    //        newMovieCharacter.save();
-    //        res.render('admin/movieCharacter')
-    //    }
-    //
-    //});
 
 };
 
