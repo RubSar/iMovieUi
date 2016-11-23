@@ -19,7 +19,7 @@
                     <% characters.forEach(function(character){ %>
                     <div class="our-tours-list-item">
                         <div class="img-wrapper img-wrapper--shadow">
-                            <img src="<%= character.imgUrl%>"  class="img-responsive" style="height: 310px">
+                            <img src="<%= character.imgUrl%>"  class="img-responsive">
                         </div>
                         <h3><%= character.name%>    <small>  /  <%= character.type[0]%></small></h3>
                         <ul class="list-inline star-vote">
@@ -37,23 +37,6 @@
                     <% })%>
                 </div>
             </div>
-            <!--<carousel interval="myInterval">-->
-                <!--<slide ng-repeat="item in comicsCharacters" active="slide.active" class="slider-item comics-character-{{item.name}}">-->
-                    <!--<img ng-src="{{item.imgUrl}}" >-->
-
-                    <!--<div class="info-container">-->
-                        <!--<h2>{{item.name}}</h2>-->
-                        <!--<p>{{item.description}}</p>-->
-                    <!--</div>-->
-                    <!--<div class="carousel-caption">-->
-                        <!--<i class="fa fa-star"></i>-->
-                        <!--<i class="fa fa-star"></i>-->
-                        <!--<i class="fa fa-star"></i>-->
-                        <!--<i class="fa fa-star"></i>-->
-                        <!--<i class="fa fa-star-half-empty"></i>-->
-                    <!--</div>-->
-                <!--</slide>-->
-            <!--</carousel>-->
 
         </div>
     </div>

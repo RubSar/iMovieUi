@@ -65,6 +65,8 @@
                 </div>
             </form>
 
+            <canvas id="canvas1"></canvas>
+
         </div>
     </div>
 
@@ -134,9 +136,45 @@
                 $image.cropper("setDragMode", "crop");
             });
 
-            $('#createCharacter').submit(function() {
+            $('#createCharacter').submit(function () {
+
+                $image.cropper("getCroppedCanvas", { width: 320, height: 180 })
+
+                createCanvas($image.cropper("getDataURL"));
+                console.log(canvas.toDataURL('image/jpeg'));
                 $('#imgData').val($image.cropper("getDataURL"));
+
             });
+
+var canvas;
+            function createCanvas(imgSrc){
+                var can = document.getElementById('canvas1');
+                var ctx = can.getContext('2d');
+
+                var img = new Image();
+                var w = 170;
+                var h = 260;
+                img.onload = function() {
+                    // step it down only once to 1/6 size:
+                    ctx.drawImage(img, 0, 0, w, h);
+
+                    // Step it down several times
+                    canvas = document.createElement('canvas');
+                    canvas.width = w/2;
+                    canvas.height = w/2;
+                    var ctx2 = canvas.getContext('2d');
+
+                    // Draw it at 1/2 size 3 times (step down three times)
+
+                    ctx2.drawImage(img, 0, 0, w, h);
+//                    ctx2.drawImage(can2, 0, 0, w/2, h/2, 0, 0, w/4, h/4);
+//                    ctx2.drawImage(can2, 0, 0, w/4, h/4, 0, 0, w/6, h/6);
+//                    ctx.drawImage(can2, 0, 0, w/6, h/6, 0, 200, w/6, h/6);
+                }
+                img.src = imgSrc;
+
+            }
+
 
         });
 

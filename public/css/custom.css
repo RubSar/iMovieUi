@@ -157,3 +157,37 @@ ul.rating {
     margin-top: -5px;
 
 }
+
+.character-info >.info{
+    /*border-top: 1px solid #FF3300;*/
+    border-top: 1px solid black;
+    text-align: center;
+    color: black;
+}
+
+.character-box{
+    background-image: linear-gradient(to bottom right,#0066FF,#009933);
+}
+.artist-info{
+    text-align: center;
+    position: relative;
+    padding: 5px;
+    border-bottom: 2px solid #31353e;
+    margin-bottom: 15px;
+}
+.artist-info:before{
+    font-family: FontAwesome;
+    position: absolute;
+    content: "\f0d7";
+    font-size: 40px;
+    bottom: -38px;
+    color: #31353e;
+}
+.artist-info >img{
+    margin-bottom: 8px;
+    border-radius: 5px;
+}
+
+.artist-movies{
+    text-align: center;
+}

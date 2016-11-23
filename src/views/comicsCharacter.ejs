@@ -12,45 +12,83 @@
 
     <div class="container" style="margin-top: 100px" ng-controller="ComicsCharacterCtrl">
         <div class="row">
+            <div class="col-md-3">
+                <div class="character-box">
+                    <img ng-src="{{character.imgUrl}}" class="img-responsive"/>
+                   <div class="character-info">
+                      <div class="info">
+                          <h4>{{character.name}}</h4>
 
-            <div class="col-md-12">
-                <div class="tabs-container">
-                    <ul class="nav nav-tabs">
-                        <li ng-repeat="actor in character.actors track by $index" ng-class="{'active':$index==0}">
-                            <a data-toggle="tab" ng-href=".{{actor.firstName}}" aria-expanded="false">
-                                <img ng-src="{{actor.imgUrl}}" class="img-responsive">
-                                <button type="submit" class="btn btn-primary btn-block" ng-click="rate(actor.firstName, actor.lastName)"
-                                        style="display: block; margin:5px 0;">Vote
-                                </button>
-                                {{ actor.firstName }}
-                                {{ actor.lastName }}
-                            </a>
-                        </li>
-                    </ul>
-                    <div class="tab-content">
-                        <div ng-repeat="actor in character.actors track by $index" class="{{actor.firstName}} tab-pane" ng-class="{'active':$index==0}" >
-                            <div class="panel-body">
+                          <p>{{character.type[0]}}</p>
+                      </div>
+                   </div>
+                </div>
+            </div>
+
+            <div class="col-md-9">
+
+                <div class="row">
+                    <div class="col-md-4" ng-repeat="artist in character.actors track by $index">
+                        <div class="artist-info">
+                            <img ng-src="{{artist.imgUrl}}" class="img-responsive img-center"/>
+                            <button type="submit" class="btn btn-primary"
+                                    ng-click="rate(artist.firstName, artist.lastName)"> Vote
+                            </button>
+                            <h4>{{artist.firstName}} {{artist.lastName}}</h4>
+                            <i>{{($index+1) *200}}</i> users vote
+                        </div>
+                        <div class="artist-movies">
+                            <div ng-repeat="movie in artist.movies track by $index">
                                 <div class="row">
-                                    <div ng-repeat="movie in actor.movies" class="col-md-4">
-                                        <div class="row">
-                                            <div class="col-md-5">
-                                                <img ng-src="{{movie.posterUrl}}" class="img-center img-responsive">
-                                            </div>
-                                            <div class="col-md-7">
-                                                <h4>
-                                                    <strong>{{movie.name}}</strong>
-                                                    <small> ({{movie.year}})</small>
-                                                </h4>
-                                                <p>IMDb Rating : <strong>{{movie.IMDbRating}}/10</strong></p>
-                                            </div>
-                                        </div>
+                                    <div class="col-md-8 col-md-offset-2">
+                                        <img ng-src="{{movie.posterUrl}}" class="img-responsive">
                                     </div>
                                 </div>
-
+                                <h4>{{movie.name}}
+                                    <small>({{movie.year}})</small>
+                                </h4>
+                                <p>iMDb Rating ({{movie.IMDbRating}}/10) </p>
                             </div>
                         </div>
                     </div>
                 </div>
+                <!--<div class="tabs-container">-->
+                <!--<ul class="nav nav-tabs">-->
+                <!--<li ng-repeat="actor in character.actors track by $index" ng-class="{'active':$index==0}">-->
+                <!--<a data-toggle="tab" ng-href=".{{actor.firstName}}" aria-expanded="false">-->
+                <!--<img ng-src="{{actor.imgUrl}}" class="img-responsive">-->
+                <!--<button type="submit" class="btn btn-primary btn-block" ng-click="rate(actor.firstName, actor.lastName)"-->
+                <!--style="display: block; margin:5px 0;">Vote-->
+                <!--</button>-->
+                <!--{{ actor.firstName }}-->
+                <!--{{ actor.lastName }}-->
+                <!--</a>-->
+                <!--</li>-->
+                <!--</ul>-->
+                <!--<div class="tab-content">-->
+                <!--<div ng-repeat="actor in character.actors track by $index" class="{{actor.firstName}} tab-pane" ng-class="{'active':$index==0}" >-->
+                <!--<div class="panel-body">-->
+                <!--<div class="row">-->
+                <!--<div ng-repeat="movie in actor.movies" class="col-md-4">-->
+                <!--<div class="row">-->
+                <!--<div class="col-md-5">-->
+                <!--<img ng-src="{{movie.posterUrl}}" class="img-center img-responsive">-->
+                <!--</div>-->
+                <!--<div class="col-md-7">-->
+                <!--<h4>-->
+                <!--<strong>{{movie.name}}</strong>-->
+                <!--<small> ({{movie.year}})</small>-->
+                <!--</h4>-->
+                <!--<p>IMDb Rating : <strong>{{movie.IMDbRating}}/10</strong></p>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--</div>-->
+
+                <!--</div>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--</div>-->
             </div>
         </div>
     </div>
