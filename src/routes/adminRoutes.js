@@ -36,6 +36,22 @@ var router = function () {
 
     //# GET actions
 
+    //index
+    adminRouter.get('/', function (req, res) {
+        return adminController.index(req, res);
+    });
+
+    //comicsCharacters
+    adminRouter.get('/comicsCharacters', function (req, res) {
+        return adminController.comicsCharacters(req, res);
+    });
+
+    adminRouter.get('/movieCharacters', function (req, res) {
+        return adminController.movieCharacters(req, res);
+    });
+    adminRouter.get('/create/movieCharacter', function (req, res) {
+        return adminController.createMovieCharacter(req, res);
+    });
 
     adminRouter.route('/new').get(function (req, res) {
         return adminController.character(req, res);
@@ -50,9 +66,7 @@ var router = function () {
     });
 
 
-    adminRouter.route('/').get(function (req, res) {
-        return adminController.index(req, res);
-    });
+
 
     adminRouter.route('/newMovieCharacter').get(function(req, res){
        return adminController.movieCharacter(req, res);

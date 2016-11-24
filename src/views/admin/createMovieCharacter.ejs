@@ -23,7 +23,9 @@
                 <span class="alert-danger"> <%= errorMessage %> </span>
             </div>
             <% } %>
-            <h1> Create new Movie Character</h1>
+            <div class="form-group text-center">
+                <h2> Create new Movie Character</h2>
+            </div>
             <% var name = locals.name ? locals.name : '' %>
             <% var playedBy = locals.playedBy ? locals.playedBy : '' %>
             <form action="/admin/movieCharacter/create" method="post" id="createCharacter">
@@ -75,7 +77,7 @@
 
 
     <script type="text/javascript">
-        $(document).ready(function(){
+        $(document).ready(function () {
             var $image = $(".image-crop > img");
             $($image).cropper({
                 aspectRatio: 17 / 26,
@@ -109,16 +111,16 @@
             } else {
                 $inputImage.addClass("hide");
             }
-            $('#submitForm').on('click',function () {
-                    var canvas = document.getElementById('canvas1');
-                    var ctx = canvas.getContext('2d');
-                    var img = new Image();
-                    img.addEventListener('load', function () {
-                        ctx.drawImage(this, 0, 0, 170, 260);
-                        $('#imgData').val(canvas.toDataURL('image/jpeg'));
-                        $('#createCharacter').submit();
-                    });
-                    img.src = $image.cropper("getDataURL");
+            $('#submitForm').on('click', function () {
+                var canvas = document.getElementById('canvas1');
+                var ctx = canvas.getContext('2d');
+                var img = new Image();
+                img.addEventListener('load', function () {
+                    ctx.drawImage(this, 0, 0, 170, 260);
+                    $('#imgData').val(canvas.toDataURL('image/jpeg'));
+                    $('#createCharacter').submit();
+                });
+                img.src = $image.cropper("getDataURL");
 
             });
         });

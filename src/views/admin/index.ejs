@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="app">
+<html lang="en" >
 <head>
     <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css"/>
     <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css"/>
-    <link rel="stylesheet" href="/css/tree.view.css"/>
+    <link rel="stylesheet" href="/css/admin/custom.css"/>
+
 </head>
 
 <body id="body" data-spy="scroll" data-target=".one-page-header" class="demo-lightbox-gallery">
@@ -11,87 +12,38 @@
     <header>
         <% include partials/header.ejs %>
     </header>
-<div class="container" ng-controller="IndexCtrl" style="margin-top: 60px;">
-    <h1>{{welcome}}</h1>
+<div class="container"  style="margin-top: 200px;">
 
-    <ul class="treeview">
-    <% characters.forEach(function(character){ %>
-     <li>
-         <%= character.name %>
-         <ul>
-             <li>
-                 Description :  <%= character.description %>
-             </li>
-             <li>
-               Type :  <%= character.type[0] %>
-             </li>
-             <li>
-                 Sex :  <%= character.sex[0] %>
-             </li>
-             <li>
-                 Artists
-                 <ul>
-                     <!-- repeat over artists-->
-                   <%  character.actors.forEach(function(actor) {  %>
-                     <li>
-                          <%= actor.firstName  %>   <%= actor.lastName  %>
+    <div class="jumbotron">
+        <div class="row">
+            <div class="col-md-6">
+               <div class="nav-wrapper nav-comics">
+                   <i class="fa fa-star fa-5x fa-rounded"></i>
+                   <h3>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</h3>
 
-                         <ul>
-                             <li>
-                                Age : <%= actor.age  %>
-                             </li>
-                             <li>
-                                 Movies
-                                 <ul>
-                                     <!-- repeat over movies-->
-                                     <%  actor.movies.forEach(function(movie){ %>
-                                     <li>
-                                       <%=  movie.name  %>  ---  <%=  movie.year  %>
-                                     </li>
+                   <a href="/admin/comicsCharacters" class="btn btn-success btn-lg btn-block">
+                       Manage Comics Characters
+                   </a>
+               </div>
+            </div>
+            <div class="col-md-6">
+                <div class="nav-wrapper nav-character">
+                    <i class="fa fa-star fa-5x fa-rounded"></i>
+                    <h3>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</h3>
 
-                                     <% }) %>
-                                     <!-- END movies-->
-                                     <li class="add">
-                                         <a href="/admin/new/<%= character.name %>/<%= actor.firstName %>"> <i class="fa fa-plus"></i> Add new Movie</a>
-                                     </li>
-                                 </ul>
-                             </li>
-                         </ul>
-                     </li>
-                     <% }) %>
-                     <!-- END repeat over artists-->
-                     <li class="add">
-                         <a href="/admin/new/<%= character.name %>"> <i class="fa fa-plus"></i> Add new artist</a>
-                     </li>
-                 </ul>
-             </li>
-         </ul>
-     </li>
-    <% }) %>
-        <li class="add">
-            <a href="/admin/new"> <i class="fa fa-plus"></i>  Add new Character</a>
-        </li>
-    </ul>
+                    <a href="/admin/movieCharacters" class="btn btn-success btn-lg btn-block">
+                        Manage Movie Characters
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 </main>
 
 <script src="/lib/jquery/dist/jquery.js"></script>
 <script src="/lib/bootstrap/dist/js/bootstrap.js"></script>
-<script src="/lib/angular/angular.min.js"></script>
 
-<script src="/js/tree.view.js"></script>
 
-<script>
-    $(window).on('load', function () {
-        $('.treeview').each(function () {
-            var tree = $(this);
-            tree.treeview();
-        })
-    })
-    var app = angular.module('app', []);
-    app.controller('IndexCtrl', function($scope){
-        $scope.welcome ="Hello dear Admin welcome to our amazing website";
-    })
-
-</script>
 </body>

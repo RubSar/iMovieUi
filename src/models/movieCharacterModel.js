@@ -28,6 +28,7 @@ var MovieCharacterSchema = new Schema({
     imgUrl:String,
     playedBy :String,
     movies:[MovieSchema],
+    imdbID:String,
     rates: [{ type: Schema.ObjectId, ref: 'Rate'}]
 });
 
