@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css"/>
+    <link rel="stylesheet" href="/lib/cropper/css/cropper.min.css"/>
+    <link rel="stylesheet" href="/lib/cropper/css/main.css"/>
+
+
+</head>
+
+<body id="body" data-spy="scroll" data-target=".one-page-header" class="demo-lightbox-gallery">
+<main class="wrapper">
+    <header>
+        <% include partials/header.ejs %>
+    </header>
+
+
+    <div class="container" style="margin-top: 60px;">
+
+        <% if (locals.errorMessage){ %>
+        <div class="text-center">
+            <span class="alert-danger"> <%= errorMessage %> </span>
+        </div>
+        <% } %>
+        <div class="form-group text-center">
+            <h2 class="text-danger"> Edit Movie Character
+                <a href="/admin/moviecharacters" class="btn btn-danger">
+                    <i class="fa fa-close"></i> Cancel</a>
+            </h2>
+        </div>
+
+        <% var name = locals.name ? locals.name : '' %>
+        <% var playedBy = locals.playedBy ? locals.playedBy : '' %>
+
+        <div class="row">
+            <div class="col-md-5">
+                <div class="text-center form-group">
+                    <h4>Edit Movie character basic info</h4>
+                </div>
+
+                <form action="/admin/edit/movieCharacter/info" method="post">
+                    <input type="hidden" value="<%= movieCharacter._id %>" name="id">
+
+                    <div class="form-group">
+                        <input type="text" name="name" value="<%= movieCharacter.name %>"
+                               class="form-control"
+                               placeholder="Name"/>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" name="playedBy" value="<%= movieCharacter.playedBy %>"
+                               class="form-control"
+                               placeholder="Played By"/>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="movie" value="<%= movieCharacter.movies[0].name %>"
+                               class="form-control"
+                               placeholder="Movie name"/>
+                    </div>
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa fa-edit"></i> Update
+                        </button>
+
+                    </div>
+                </form>
+            </div>
+
+            <div class="col-md-7">
+                <div class="text-center form-group">
+                    <h4>Edit Movie character Image</h4>
+                </div>
+                <form action="/admin/edit/movieCharacter/image" method="post" id="updateImage">
+                    <input type="hidden" name="id" value="<%= movieCharacter._id %>">
+
+                    <div class="row form-group">
+                        <div class="col-md-7">
+                            <div class="image-crop">
+                                <img src="<%= movieCharacter.imgUrl %>">
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="img-preview img-preview-sm"></div>
+                            <hr>
+                            <div class="btn-group">
+                                <label title="Upload image file" for="inputImage" class="btn btn-primary">
+                                    <input type="file" accept="image/*" name="file" id="img" class="hide">
+                                    Upload new image
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" id="imgData" name="imageData"/>
+
+                    <div class="form-group text-center">
+                        <button type="button" id="submitForm" class="btn btn-primary">
+                            <i class="fa fa-edit"></i> Update
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <script type="text/javascript" src="/lib/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="/lib/cropper/js/cropper.min.js"></script>
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            var $image = $(".image-crop > img");
+            $($image).cropper({
+                aspectRatio: 17 / 26,
+                preview: ".img-preview"
+
+            });
+
+            var $inputImage = $("#img");
+            if (window.FileReader) {
+                $inputImage.change(function () {
+                    var fileReader = new FileReader(),
+                            files = this.files,
+                            file;
+
+                    if (!files.length) {
+                        return;
+                    }
+
+                    file = files[0];
+
+                    if (/^image\/\w+$/.test(file.type)) {
+                        fileReader.readAsDataURL(file);
+                        fileReader.onload = function () {
+                            $inputImage.val("");
+                            $image.cropper("reset", true).cropper("replace", this.result);
+                        };
+                    } else {
+                        alert("Please choose an image file.");
+                    }
+                });
+            } else {
+                $inputImage.addClass("hide");
+            }
+            $('#submitForm').on('click', function () {
+                var canvas = document.getElementById('canvas1');
+                var ctx = canvas.getContext('2d');
+                var img = new Image();
+                img.addEventListener('load', function () {
+                    ctx.drawImage(this, 0, 0, 170, 260);
+                    $('#imgData').val(canvas.toDataURL('image/jpeg'));
+                    $('#updateImage').submit();
+                });
+                img.src = $image.cropper("getDataURL");
+
+            });
+        });
+
+
+    </script>
+
+</main>
+
+
+</body>

@@ -2,15 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0c47ae67-fac8-4dc5-89b2-073f2f0bca81" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/views/admin/comicsCharacters.ejs" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/css/admin/custom.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/views/admin/movieCharacters.ejs" />
-      <change type="MOVED" beforePath="C:\Users\User\WebstormProjects\Comics\src\views\admin\movieCharacter.ejs" afterPath="$PROJECT_DIR$/src/views/admin/createMovieCharacter.ejs" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/views/admin/editMovieCharacter.ejs" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/views/admin/notFound.ejs" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/controllers/adminController.js" afterPath="$PROJECT_DIR$/src/controllers/adminController.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/routes/adminRoutes.js" afterPath="$PROJECT_DIR$/src/routes/adminRoutes.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/views/admin/partials/header.ejs" afterPath="$PROJECT_DIR$/src/views/admin/partials/header.ejs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/views/admin/index.ejs" afterPath="$PROJECT_DIR$/src/views/admin/index.ejs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/models/movieCharacterModel.js" afterPath="$PROJECT_DIR$/src/models/movieCharacterModel.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/views/admin/createMovieCharacter.ejs" afterPath="$PROJECT_DIR$/src/views/admin/createMovieCharacter.ejs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/views/admin/movieCharacters.ejs" afterPath="$PROJECT_DIR$/src/views/admin/movieCharacters.ejs" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Comics.iws" />
@@ -36,39 +33,29 @@
         <entry file="file://$PROJECT_DIR$/src/routes/adminRoutes.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="52" column="51" selection-start-line="52" selection-start-column="31" selection-end-line="52" selection-end-column="51" />
+              <caret line="68" column="55" selection-start-line="68" selection-start-column="31" selection-end-line="68" selection-end-column="55" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.ejs" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/views/admin/index.ejs">
+      <file leaf-file-name="createMovieCharacter.ejs" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/views/admin/createMovieCharacter.ejs">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-20.0">
-              <caret line="30" column="43" selection-start-line="30" selection-start-column="41" selection-end-line="30" selection-end-column="43" />
+            <state vertical-scroll-proportion="36.541668">
+              <caret line="32" column="42" selection-start-line="0" selection-start-column="0" selection-end-line="134" selection-end-column="0" />
               <folding>
-                <element signature="n#style#0;n#div#0;n#main#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#canvas#0;n#div#0;n#div#0;n#main#0;n#body#0;n#html#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="createMovieCharacter.ejs" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/views/admin/createMovieCharacter.ejs">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.3119266">
-              <caret line="20" column="43" selection-start-line="20" selection-start-column="43" selection-end-line="20" selection-end-column="43" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="custom.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/css/admin/custom.css">
+      <file leaf-file-name="authRoutes.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/routes/authRoutes.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="2" column="1" selection-start-line="2" selection-start-column="1" selection-end-line="2" selection-end-column="11" />
+              <caret line="17" column="14" selection-start-line="17" selection-start-column="4" selection-end-line="17" selection-end-column="14" />
               <folding />
             </state>
           </provider>
@@ -77,28 +64,40 @@
       <file leaf-file-name="comicsCharacters.ejs" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/views/admin/comicsCharacters.ejs">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-26.333334">
-              <caret line="81" column="38" selection-start-line="81" selection-start-column="38" selection-end-line="81" selection-end-column="38" />
+            <state vertical-scroll-proportion="24.541666">
+              <caret line="18" column="37" selection-start-line="0" selection-start-column="0" selection-end-line="90" selection-end-column="7" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="adminController.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="comicsCharacter.ejs" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/views/comicsCharacter.ejs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-6.6666665">
+              <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="adminController.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/controllers/adminController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="233" column="29" selection-start-line="233" selection-start-column="13" selection-end-line="233" selection-end-column="29" />
-              <folding />
+            <state vertical-scroll-proportion="0.90199083">
+              <caret line="215" column="10" selection-start-line="215" selection-start-column="10" selection-end-line="215" selection-end-column="10" />
+              <folding>
+                <element signature="e#7688#10056#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="movieCharacters.ejs" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/views/admin/movieCharacters.ejs">
+      <file leaf-file-name="editMovieCharacter.ejs" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/views/admin/editMovieCharacter.ejs">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-7.3333335">
-              <caret line="11" column="41" selection-start-line="11" selection-start-column="41" selection-end-line="11" selection-end-column="41" />
+            <state vertical-scroll-proportion="-10.666667">
+              <caret line="73" column="62" selection-start-line="73" selection-start-column="57" selection-end-line="73" selection-end-column="62" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#main#0;n#body#0;n#html#0;n#!!top" expanded="true" />
               </folding>
@@ -109,18 +108,8 @@
       <file leaf-file-name="header.ejs" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/views/admin/partials/header.ejs">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-14.666667">
-              <caret line="22" column="6" selection-start-line="22" selection-start-column="6" selection-end-line="22" selection-end-column="6" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="homeController.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/controllers/homeController.js">
-          <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+              <caret line="22" column="6" selection-start-line="22" selection-start-column="6" selection-end-line="22" selection-end-column="6" />
               <folding />
             </state>
           </provider>
@@ -143,9 +132,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/public/angular/directives/character/character.js" />
-        <option value="$PROJECT_DIR$/public/angular/directives/paging/paging.js" />
-        <option value="$PROJECT_DIR$/public/angular/directives/character/character.html" />
         <option value="$PROJECT_DIR$/public/angular/controllers/viewCtrl.js" />
         <option value="$PROJECT_DIR$/public/angular/services/movieCharacterSvc.js" />
         <option value="$PROJECT_DIR$/public/angular/controllers/homeCtrl.js" />
@@ -189,11 +175,14 @@
         <option value="$PROJECT_DIR$/public/admin/appAdmin.js" />
         <option value="$PROJECT_DIR$/src/views/admin/index.ejs" />
         <option value="$PROJECT_DIR$/src/views/admin/comicsCharacters.ejs" />
+        <option value="$PROJECT_DIR$/src/views/admin/partials/header.ejs" />
+        <option value="$PROJECT_DIR$/src/views/admin/createMovieCharacter.ejs" />
+        <option value="$PROJECT_DIR$/src/views/admin/movieCharacters.ejs" />
+        <option value="$PROJECT_DIR$/src/views/admin/editeMovieCharacter.ejs" />
+        <option value="$PROJECT_DIR$/src/views/admin/notFound.ejs" />
+        <option value="$PROJECT_DIR$/src/views/admin/editMovieCharacter.ejs" />
         <option value="$PROJECT_DIR$/src/routes/adminRoutes.js" />
         <option value="$PROJECT_DIR$/src/controllers/adminController.js" />
-        <option value="$PROJECT_DIR$/src/views/admin/partials/header.ejs" />
-        <option value="$PROJECT_DIR$/src/views/admin/movieCharacters.ejs" />
-        <option value="$PROJECT_DIR$/src/views/admin/createMovieCharacter.ejs" />
       </list>
     </option>
   </component>
@@ -238,7 +227,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
@@ -361,9 +349,28 @@
               <option name="myItemId" value="public" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="lib" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Comics" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Comics" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="public" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -464,11 +471,10 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32972974" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32683983" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32952693" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23160173" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23160173" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.19599578" sideWeight="0.5049505" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -476,6 +482,7 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32683983" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
@@ -517,20 +524,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/public/angular/directives/starRating/rating.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.40963855">
-          <caret line="10" column="58" selection-start-line="10" selection-start-column="50" selection-end-line="10" selection-end-column="58" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/js/owl.carousel.min.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/js/one.app.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -631,9 +624,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="23" column="29" selection-start-line="23" selection-start-column="29" selection-end-line="23" selection-end-column="29" />
-          <folding>
-            <element signature="e#0#44#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -722,7 +712,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="33" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -773,7 +762,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.2580645">
           <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -797,14 +785,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="87" column="31" selection-start-line="87" selection-start-column="30" selection-end-line="87" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/comicsCharacter.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-26.666666">
-          <caret line="52" column="26" selection-start-line="52" selection-start-column="26" selection-end-line="52" selection-end-column="26" />
           <folding />
         </state>
       </provider>
@@ -851,61 +831,103 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/views/admin/index.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-20.0">
+        <state vertical-scroll-proportion="0.0">
           <caret line="30" column="43" selection-start-line="30" selection-start-column="41" selection-end-line="30" selection-end-column="43" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#main#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/admin/comicsCharacters.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-26.333334">
-          <caret line="81" column="38" selection-start-line="81" selection-start-column="38" selection-end-line="81" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/routes/adminRoutes.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="52" column="51" selection-start-line="52" selection-start-column="31" selection-end-line="52" selection-end-column="51" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/controllers/adminController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="233" column="29" selection-start-line="233" selection-start-column="13" selection-end-line="233" selection-end-column="29" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/views/admin/partials/header.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-14.666667">
+        <state vertical-scroll-proportion="0.0">
           <caret line="22" column="6" selection-start-line="22" selection-start-column="6" selection-end-line="22" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/admin/character.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.24279211">
+          <caret line="19" column="44" selection-start-line="19" selection-start-column="44" selection-end-line="19" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/admin/createMovieCharacter.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="36.541668">
+          <caret line="32" column="42" selection-start-line="0" selection-start-column="0" selection-end-line="134" selection-end-column="0" />
+          <folding>
+            <element signature="n#style#0;n#canvas#0;n#div#0;n#div#0;n#main#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/comicsCharacter.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-6.6666665">
+          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/admin/comicsCharacters.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="24.541666">
+          <caret line="18" column="37" selection-start-line="0" selection-start-column="0" selection-end-line="90" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/routes/authRoutes.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="17" column="14" selection-start-line="17" selection-start-column="4" selection-end-line="17" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/admin/notFound.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/views/admin/movieCharacters.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.3333335">
-          <caret line="11" column="41" selection-start-line="11" selection-start-column="41" selection-end-line="11" selection-end-column="41" />
+        <state vertical-scroll-proportion="0.82549316">
+          <caret line="42" column="46" selection-start-line="42" selection-start-column="46" selection-end-line="42" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/admin/editMovieCharacter.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-10.666667">
+          <caret line="73" column="62" selection-start-line="73" selection-start-column="57" selection-end-line="73" selection-end-column="62" />
           <folding>
             <element signature="n#style#0;n#div#0;n#main#0;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/admin/createMovieCharacter.ejs">
+    <entry file="file://$PROJECT_DIR$/src/routes/adminRoutes.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3119266">
-          <caret line="20" column="43" selection-start-line="20" selection-start-column="43" selection-end-line="20" selection-end-column="43" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="68" column="55" selection-start-line="68" selection-start-column="31" selection-end-line="68" selection-end-column="55" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/controllers/adminController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.90199083">
+          <caret line="215" column="10" selection-start-line="215" selection-start-column="10" selection-end-line="215" selection-end-column="10" />
+          <folding>
+            <element signature="e#7688#10056#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

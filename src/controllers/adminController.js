@@ -245,17 +245,141 @@ var adminController = function () {
     }
 
     //create movie character
-
     function createMovieCharacter(req, res) {
         res.render('admin/createMovieCharacter');
     }
 
+    //save comics character
+    function saveMovieCharacter(req, res) {
+        var model = req.body;
+        //if model is valid continue to next action
+        if (!!model.name && !!model.playedBy && model.imageData && model.movie) {
+
+            models.MovieCharacter.findOne({name: model.name}, function (err, character) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    //if found character,
+                    if (character) {
+                        res.render('admin/movieCharacter', {
+                            errorMessage: 'Movie Character already exist'
+                        })
+                    } else {
+                        var newCharacter = new models.MovieCharacter();
+                        newCharacter.name = req.body.name.trim();
+                        newCharacter.playedBy = req.body.playedBy.trim();
+                        cloudinary.uploader.upload(req.body.imageData, function (result) {
+                            newCharacter.imgUrl = result.url;
+                            imdb.getReq({name: req.body.movie}, function (err, movie) {
+                                if (err) {
+                                    res.render('admin/movieCharacter', {
+                                        name: newCharacter.name,
+                                        playedBy: newCharacter.playedBy,
+                                        errorMessage: err.message
+                                    })
+                                } else {
+                                    newCharacter.movies.push({
+                                        name: movie.title,
+                                        year: movie.year,
+                                        IMDbRating: parseFloat(movie.rating),
+                                        poster: movie.poster,
+                                        IMDbId: movie.imdbID
+                                    });
+                                    newCharacter.save();
+                                    res.redirect('/admin/movieCharacters')
+                                }
+
+                            });
+                        });
+                    }
+                }
+            });
+
+
+        }
+        //return view with error message
+        else {
+            res.render('admin/movieCharacter', {
+                errorMessage: 'Model invalid'
+            })
+        }
+
+    }
+
+    //edit movie character
+    function editMovieCharacter(req, res) {
+        var id = req.params.id;
+        models.MovieCharacter.findOne({_id: id}, '_id name playedBy imgUrl movies.name ', function (err, result) {
+            if (err) {
+                console.log(err);
+            } else {
+                if (result) {
+                    console.log(result);
+                    res.render('admin/editMovieCharacter', {
+                        movieCharacter: result
+                    });
+                } else {
+                    res.render('admin/notFound', {
+                        message: 'Sorry the Movie character that You looking for not found'
+                    });
+                }
+            }
+        });
+
+    }
+
+    //update movie character
+    function updateMovieCharacterInfo(req, res) {
+        var model = req.body;
+        //if model is valid continue to next action
+        models.MovieCharacter.findOne({_id: model.id}, function (err, character) {
+            if (err) {
+                console.log(err);
+            } else {
+                //if found character,
+                if (character) {
+                    res.render('admin/movieCharacter', {
+                        errorMessage: 'Movie Character already exist'
+                    })
+                } else {
+                    var newCharacter = new models.MovieCharacter();
+                    newCharacter.name = req.body.name.trim();
+                    newCharacter.playedBy = req.body.playedBy.trim();
+                    cloudinary.uploader.upload(req.body.imageData, function (result) {
+                        newCharacter.imgUrl = result.url;
+                        imdb.getReq({name: req.body.movie}, function (err, movie) {
+                            if (err) {
+                                res.render('admin/movieCharacter', {
+                                    name: newCharacter.name,
+                                    playedBy: newCharacter.playedBy,
+                                    errorMessage: err.message
+                                })
+                            } else {
+                                newCharacter.movies.push({
+                                    name: movie.title,
+                                    year: movie.year,
+                                    IMDbRating: parseFloat(movie.rating),
+                                    poster: movie.poster,
+                                    IMDbId: movie.imdbID
+                                });
+                                newCharacter.save();
+                                res.redirect('/admin/movieCharacters')
+                            }
+
+                        });
+                    });
+                }
+            }
+        });
+    }
 
     return {
         index: index,
         movieCharacters: movieCharacters,
         comicsCharacters: comicsCharacters,
-        createMovieCharacter: createMovieCharacter
+        createMovieCharacter: createMovieCharacter,
+        saveMovieCharacter: saveMovieCharacter,
+        editMovieCharacter: editMovieCharacter
     }
 };
 

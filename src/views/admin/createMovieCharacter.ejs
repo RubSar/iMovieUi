@@ -28,7 +28,7 @@
             </div>
             <% var name = locals.name ? locals.name : '' %>
             <% var playedBy = locals.playedBy ? locals.playedBy : '' %>
-            <form action="/admin/movieCharacter/create" method="post" id="createCharacter">
+            <form action="/admin/create/movieCharacter" method="post" id="createCharacter">
                 <div class="row form-group">
                     <div class="col-md-6">
                         <input type="text" name="name" value="<%= name %>" class="form-control" placeholder="Name"/>

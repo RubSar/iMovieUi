@@ -36,6 +36,12 @@ var router = function () {
 
     //# GET actions
 
+    ////index
+    //adminRouter.get('/notFound', function (req, res) {
+    //    return adminController.notFound(req, res);
+    //});
+
+
     //index
     adminRouter.get('/', function (req, res) {
         return adminController.index(req, res);
@@ -52,6 +58,19 @@ var router = function () {
     adminRouter.get('/create/movieCharacter', function (req, res) {
         return adminController.createMovieCharacter(req, res);
     });
+    adminRouter.post('/create/movieCharacter', function (req, res) {
+        return adminController.saveMovieCharacter(req, res);
+    });
+
+    adminRouter.get('/edit/movieCharacter/:id', function (req, res) {
+        return adminController.editMovieCharacter(req, res);
+    });
+    adminRouter.post('/edit/movieCharacter/info', function (req, res) {
+        return adminController.updateMovieCharacterInfo(req, res);
+    });
+    adminRouter.post('/edit/movieCharacter/image', function (req, res) {
+        return adminController.updateMovieCharacter(req, res);
+    });
 
     adminRouter.route('/new').get(function (req, res) {
         return adminController.character(req, res);
@@ -65,12 +84,6 @@ var router = function () {
         return adminController.movie(req, res);
     });
 
-
-
-
-    adminRouter.route('/newMovieCharacter').get(function(req, res){
-       return adminController.movieCharacter(req, res);
-    });
 
     //# end GET actions
 
