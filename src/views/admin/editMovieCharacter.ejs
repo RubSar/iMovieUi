@@ -18,88 +18,95 @@
 
     <div class="container" style="margin-top: 60px;">
 
-        <% if (locals.errorMessage){ %>
-        <div class="text-center">
-            <span class="alert-danger"> <%= errorMessage %> </span>
-        </div>
-        <% } %>
         <div class="form-group text-center">
             <h2 class="text-danger"> Edit Movie Character
-                <a href="/admin/moviecharacters" class="btn btn-danger">
+                <a href="/admin/moviecharacters" class="btn btn-danger pull-right">
                     <i class="fa fa-close"></i> Cancel</a>
             </h2>
         </div>
 
-        <% var name = locals.name ? locals.name : '' %>
-        <% var playedBy = locals.playedBy ? locals.playedBy : '' %>
 
         <div class="row">
             <div class="col-md-5">
-                <div class="text-center form-group">
-                    <h4>Edit Movie character basic info</h4>
-                </div>
+               <div class="jumbotron">
+                   <div class="text-center form-group">
+                       <h3 class="text-info">Edit Movie character basic info</h3>
+                   </div>
 
-                <form action="/admin/edit/movieCharacter/info" method="post">
-                    <input type="hidden" value="<%= movieCharacter._id %>" name="id">
+                   <form action="/admin/edit/movieCharacter/info" method="post">
+                       <input type="hidden" value="<%= movieCharacter._id %>" name="id">
 
-                    <div class="form-group">
-                        <input type="text" name="name" value="<%= movieCharacter.name %>"
-                               class="form-control"
-                               placeholder="Name"/>
-                    </div>
+                       <div class="form-group">
+                           <label for="name">Character name</label>
+                           <input type="text" name="name" value="<%= movieCharacter.name %>"
+                                  id="name"
+                                  class="form-control"
+                                  placeholder="Name"/>
+                       </div>
 
-                    <div class="form-group">
-                        <input type="text" name="playedBy" value="<%= movieCharacter.playedBy %>"
-                               class="form-control"
-                               placeholder="Played By"/>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" name="movie" value="<%= movieCharacter.movies[0].name %>"
-                               class="form-control"
-                               placeholder="Movie name"/>
-                    </div>
-                    <div class="form-group text-center">
-                        <button type="submit" class="btn btn-primary">
-                            <i class="fa fa-edit"></i> Update
-                        </button>
+                       <div class="form-group">
+                           <label for="playedBy">Played by</label>
+                           <input type="text" name="playedBy" value="<%= movieCharacter.playedBy %>"
+                                  id="playedBy"
+                                  class="form-control"
+                                  placeholder="Played By"/>
+                       </div>
+                       <div class="form-group">
+                           <label for="movie">Movie</label>
+                           <input type="text" name="movie" value="<%= movieCharacter.movies[0].name %>"
+                                  id="movie"
+                                  class="form-control"
+                                  placeholder="Movie name"/>
+                       </div>
+                       <div class="form-group text-center">
+                           <button type="submit" class="btn btn-success">
+                               <i class="fa fa-edit"></i> Update info
+                           </button>
 
-                    </div>
-                </form>
+                       </div>
+                   </form>
+               </div>
             </div>
 
             <div class="col-md-7">
-                <div class="text-center form-group">
-                    <h4>Edit Movie character Image</h4>
-                </div>
-                <form action="/admin/edit/movieCharacter/image" method="post" id="updateImage">
-                    <input type="hidden" name="id" value="<%= movieCharacter._id %>">
+               <div class="jumbotron">
+                   <div class="text-center form-group">
+                       <h3 class="text-info">Edit Movie character Image</h3>
+                   </div>
+                   <form action="/admin/edit/movieCharacter/image" method="post" id="updateImage">
+                       <input type="hidden" name="id" value="<%= movieCharacter._id %>">
+                       <input type="hidden" id="imgData" name="imageData"/>
 
-                    <div class="row form-group">
-                        <div class="col-md-7">
-                            <div class="image-crop">
-                                <img src="<%= movieCharacter.imgUrl %>">
-                            </div>
-                        </div>
-                        <div class="col-md-5">
-                            <div class="img-preview img-preview-sm"></div>
-                            <hr>
-                            <div class="btn-group">
-                                <label title="Upload image file" for="inputImage" class="btn btn-primary">
-                                    <input type="file" accept="image/*" name="file" id="img" class="hide">
-                                    Upload new image
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <input type="hidden" id="imgData" name="imageData"/>
+                       <div class="row form-group">
+                           <div class="col-md-7">
+                               <div class="image-crop">
+                                   <img src="<%= movieCharacter.imgUrl %>">
+                               </div>
+                           </div>
+                           <div class="col-md-5">
+                               <div class="img-preview img-preview-sm form-group"></div>
+                               <hr>
+                              <div class="form-group">
+                                  <label title="Upload image file" for="img" class="btn btn-primary">
+                                      <input type="file" accept="image/*" name="file" id="img" class="hide">
+                                      <i class="fa fa-upload"></i> Upload new image
+                                  </label>
+                              </div>
+                               <button type="button" id="submitForm" class="btn btn-success">
+                                   <i class="fa fa-edit"></i> Update image
+                               </button>
+                           </div>
+                       </div>
 
-                    <div class="form-group text-center">
-                        <button type="button" id="submitForm" class="btn btn-primary">
-                            <i class="fa fa-edit"></i> Update
-                        </button>
-                    </div>
 
-                </form>
+                       <div class="form-group text-center">
+
+                       </div>
+
+                   </form>
+               </div>
+
+                <canvas id="canvas1" height="260" width="170" style="display: none"></canvas>
             </div>
         </div>
     </div>

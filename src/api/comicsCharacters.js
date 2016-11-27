@@ -31,7 +31,8 @@ var router = function () {
 
     api.get('/single', function (req, res) {
         var name = decodeURIComponent(req.query.name);
-        ComicsCharacter.findOne({name: name}, function (err, results) {
+
+        ComicsCharacter.findOneAndUpdate({name: name}, {upsert:true}, function (err, results) {
             if (err) {
                 console.log(err);
             } else {

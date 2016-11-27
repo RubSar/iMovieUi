@@ -161,13 +161,36 @@ ul.rating {
 .character-info >.info{
     /*border-top: 1px solid #FF3300;*/
     border-top: 1px solid black;
-    text-align: center;
+    text-align: left;
+    padding: 10px;
     color: black;
 }
 
 .character-box{
     background-image: linear-gradient(to bottom right,#0066FF,#009933);
+    background-image: linear-gradient(to bottom right,#31353e,#e74c3c);
+    background-image: linear-gradient(to bottom ,#e74c3c,#31353e);
+
+
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 5px;
+    cursor: pointer;
 }
+
+.character-box h4{
+    color:#fff;
+    margin-bottom: 2px;
+}
+.character-box p{
+    color: #f5f5ef;
+    margin-bottom: 0;
+}
+.character-box span{
+    color:#e74c3c;
+}
+
 .artist-info{
     text-align: center;
     position: relative;
@@ -190,4 +213,7 @@ ul.rating {
 
 .artist-movies{
     text-align: center;
+}
+h4 {
+    color: #31353e;
 }

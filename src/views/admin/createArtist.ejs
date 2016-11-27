@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css"/>
+    <link rel="stylesheet" href="/lib/cropper/css/cropper.min.css"/>
+    <link rel="stylesheet" href="/lib/cropper/css/main.css"/>
+</head>
+
+<body id="body" data-spy="scroll" data-target=".one-page-header" class="demo-lightbox-gallery">
+<main class="wrapper">
+    <header>
+        <% include partials/header.ejs %>
+    </header>
+
+    <div class="container" style="margin-top: 60px;">
+        <div class="jumbotron">
+            <% if (locals.errorMessage){ %>
+            <div class="text-center">
+                <h4 class="text-danger"> <%= errorMessage %> </h4>
+            </div>
+            <% } %>
+           <div class="text-center form-group">
+               <h2 class="text-info"> Create Artist for <span><%= comicsCharacterName %></span></h2>
+           </div>
+            <form action="/admin/create/<%=comicsCharacterId%>/artist" method="post" id="createArtist">
+                <input  type="hidden" name="comicsCharacterId" value ="<%= comicsCharacterId %>"/>
+                <input  type="hidden" name="comicsCharacterName" value ="<%= comicsCharacterName %>"/>
+                <input type="hidden" id="imgData" name="imageData"/>
+
+                <div class="row form-group">
+                   <div class="col-md-4">
+                           <div class="form-group">
+                               <input type="text" name="firstName" class="form-control" placeholder="First Name"/>
+                           </div>
+                           <div class="form-group">
+                               <input type="text" name="lastName" class="form-control" placeholder="Last Name"/>
+                           </div>
+                   </div>
+                   <div class="col-md-8">
+                       <div class="col-md-6">
+                           <div class="image-crop">
+                               <img src="">
+                           </div>
+                       </div>
+                       <div class="col-md-6">
+                           <div class="img-preview img-preview-xs"></div>
+                           <hr>
+                           <div class="btn-group">
+                               <label title="Upload image file" for="inputImage" class="btn btn-primary">
+                                   <input type="file" accept="image/*" name="file" id="inputImage" class="hide">
+                                   <i class="fa fa-upload"></i> Upload new image
+                               </label>
+                           </div>
+                       </div>
+                   </div>
+                </div>
+
+
+
+                <div class="form-group text-center">
+                    <button type="button" id="submitForm" class="btn btn-success btn-lg">
+                       <i class="fa fa-save"></i> Save
+                    </button>
+                </div>
+
+            </form>
+            <canvas id="canvas2" width="125" height="186" style="display:none"></canvas>
+        </div>
+
+
+    </div>
+
+</main>
+
+<script type="text/javascript" src="/lib/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="/lib/cropper/js/cropper.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var $image = $(".image-crop > img");
+        $($image).cropper({
+            aspectRatio: 125 /186,
+            preview: ".img-preview"
+        });
+
+        var $inputImage = $("#inputImage");
+        if (window.FileReader) {
+            $inputImage.change(function () {
+                var fileReader = new FileReader(),
+                        files = this.files,
+                        file;
+
+                if (!files.length) {
+                    return;
+                }
+
+                file = files[0];
+
+                if (/^image\/\w+$/.test(file.type)) {
+                    fileReader.readAsDataURL(file);
+                    fileReader.onload = function () {
+                        $inputImage.val("");
+                        $image.cropper("reset", true).cropper("replace", this.result);
+                    };
+                } else {
+                    alert("Please choose an image file.");
+                }
+            });
+        } else {
+            $inputImage.addClass("hide");
+        }
+        $('#submitForm').on('click', function () {
+            var canvas = document.getElementById('canvas2');
+            var ctx = canvas.getContext('2d');
+            var img = new Image();
+            img.addEventListener('load', function () {
+                ctx.drawImage(this, 0, 0, 125, 186);
+                $('#imgData').val(canvas.toDataURL('image/jpeg'));
+                $('#createArtist').submit();
+            });
+            img.src = $image.cropper("getDataURL");
+
+        });
+    });
+
+</script>
+
+</body>

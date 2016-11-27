@@ -24,25 +24,38 @@
             </div>
             <% } %>
             <div class="form-group text-center">
-                <h2> Create new Movie Character</h2>
+                <h2> Create new Comics Character</h2>
             </div>
             <% var name = locals.name ? locals.name : '' %>
-            <% var playedBy = locals.playedBy ? locals.playedBy : '' %>
+            <% var description = locals.description ? locals.description : '' %>
             <% var movie = locals.movie ? locals.movie : '' %>
-            <form action="/admin/create/movieCharacter" method="post" id="createCharacter">
+            <form action="/admin/create/comicsCharacter" method="post" id="createCharacter">
                 <div class="row form-group">
                     <div class="col-md-6">
                         <input type="text" name="name" value="<%= name %>" class="form-control" placeholder="Name"/>
                     </div>
                     <div class="col-md-6">
-                        <input type="text" name="playedBy" value="<%= playedBy %>" class="form-control"
-                               placeholder="Played By"/>
+                        <input type="text" name="description" value="<%= description %>" class="form-control"
+                               placeholder="Description"/>
                     </div>
-
-
                 </div>
-                <div class="form-group">
-                    <input type="text" name="movie" value="<%= movie %>" class="form-control" placeholder="Movie name"/>
+                <div class="row form-group">
+                    <div class="col-md-6">
+                        <label for="type">Character Type</label>
+                        <select name="type" class="form-control" id="type">
+                            <option>Hero</option>
+                            <option>Villain</option>
+                            <option>Complicated</option>
+                        </select>
+                        </div>
+                    <div class="col-md-6">
+                        <label for="sex">Character Sex</label>
+                        <select name="sex" class="form-control" id="sex">
+                            <option>Male</option>
+                            <option>Female</option>
+                            <option>Complicated</option>
+                        </select>
+                    </div>
                 </div>
                 <div class="row form-group">
                     <div class="col-md-6">
@@ -51,7 +64,7 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="img-preview img-preview-sm"></div>
+                        <div class="img-preview img-preview-md"></div>
                         <hr>
                         <div class="btn-group">
                             <label title="Upload image file" for="inputImage" class="btn btn-primary">
@@ -68,7 +81,7 @@
                 </div>
             </form>
 
-            <canvas id="canvas1" width="170" height="260" style="display:none"></canvas>
+            <canvas id="canvas2" width="400" height="500" style="display:none"></canvas>
 
         </div>
     </div>
@@ -81,9 +94,8 @@
         $(document).ready(function () {
             var $image = $(".image-crop > img");
             $($image).cropper({
-                aspectRatio: 17 / 26,
-                preview: ".img-preview",
-
+                aspectRatio: 20 / 25,
+                preview: ".img-preview"
             });
 
             var $inputImage = $("#inputImage");
@@ -113,19 +125,18 @@
                 $inputImage.addClass("hide");
             }
             $('#submitForm').on('click', function () {
-                var canvas = document.getElementById('canvas1');
+                var canvas = document.getElementById('canvas2');
                 var ctx = canvas.getContext('2d');
                 var img = new Image();
                 img.addEventListener('load', function () {
-                    ctx.drawImage(this, 0, 0, 170, 260);
-                    $('#imgData').val(canvas.toDataURL('image/jpeg'));
+                    ctx.drawImage(this, 0, 0, 400, 500);
+                    $('#imgData').val(canvas.toDataURL());
                     $('#createCharacter').submit();
                 });
                 img.src = $image.cropper("getDataURL");
 
             });
         });
-
 
     </script>
 

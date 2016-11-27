@@ -24,8 +24,11 @@ var comicsCharacterAPI = require('./src/api/comicsCharacters.js');
 var rateAPI = require('./src/api/rate.js');
 
 app.use(express.static('public'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded());
+
+app.use(bodyParser.json({limit: '10mb'}));
+app.use(bodyParser.urlencoded({limit: '10mb', extended: true}));
+//app.use(bodyParser.json());
+//app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 
 

@@ -1182,12 +1182,13 @@ a:hover {
 }
 .our-tours-list-item {
 	color: rgba(255,255,255,.8);
-  background: #31353e;
+  background-image: linear-gradient(to bottom ,#e74c3c,#31353e);
   padding-bottom: 30px;
   transition: all 0.3s ease-in-out;
 }
 .our-tours-list-item:hover {
-  background: #ee4136;
+  /*background: #ee4136;*/
+  background-image: linear-gradient(to bottom ,#31353e,#e74c3c);
 }
 .our-tours-list-item .img-wrapper {
   margin-bottom: 20px;

@@ -22,10 +22,10 @@
                         Description :  <%= character.description %>
                     </li>
                     <li>
-                        Type :  <%= character.type[0] %>
+                        Type :  <%= character.type %>
                     </li>
                     <li>
-                        Sex :  <%= character.sex[0] %>
+                        Sex :  <%= character.sex %>
                     </li>
                     <li>
                         Artists
@@ -36,9 +36,6 @@
                                 <%= actor.firstName  %>   <%= actor.lastName  %>
 
                                 <ul>
-                                    <li>
-                                        Age : <%= actor.age  %>
-                                    </li>
                                     <li>
                                         Movies
                                         <ul>
@@ -51,7 +48,7 @@
                                             <% }) %>
                                             <!-- END movies-->
                                             <li class="add">
-                                                <a href="/admin/new/<%= character.name %>/<%= actor.firstName %>"> <i class="fa fa-plus"></i> Add new Movie</a>
+                                                <a href="/admin/create/<%= character._id %>/<%=actor._id%>/movie"> <i class="fa fa-plus"></i> Add new Movie</a>
                                             </li>
                                         </ul>
                                     </li>
@@ -60,7 +57,7 @@
                             <% }) %>
                             <!-- END repeat over artists-->
                             <li class="add">
-                                <a href="/admin/new/<%= character.name %>"> <i class="fa fa-plus"></i> Add new artist</a>
+                                <a href="/admin/create/<%= character._id %>/artist"> <i class="fa fa-plus"></i> Add new artist</a>
                             </li>
                         </ul>
                     </li>
@@ -68,7 +65,7 @@
             </li>
             <% }) %>
             <li class="add">
-                <a href="/admin/new"> <i class="fa fa-plus"></i>  Add new Character</a>
+                <a href="/admin/create/comicsCharacter"> <i class="fa fa-plus"></i>  Add new Character</a>
             </li>
         </ul>
     </div>

@@ -4,53 +4,13 @@ var adminController = require('../controllers/adminController.js');
 
 var router = function () {
 
-    //# POST actions
-
-    //create new character
-    adminRouter.route('/character/create').post(function (req, res) {
-        return adminController.createCharacter(req, res);
-    });
-
-    //create new  artist for  character
-    adminRouter.route('/artist/create').post(function (req, res) {
-        return adminController.createArtist(req, res);
-    });
-
-    //create new  movie for  artist
-    adminRouter.route('/movie/create').post(function (req, res) {
-        return adminController.createMovie(req, res);
-    });
-
-    //create new movie character
-    adminRouter.route('/movieCharacter/create').post(function (req, res) {
-        return adminController.createMovieCharacter(req, res);
-    });
-
-    // # end POST actions
-
-    /*
-     * -----------------------------------------------------------------------
-     */
-
-
-
-    //# GET actions
-
-    ////index
-    //adminRouter.get('/notFound', function (req, res) {
-    //    return adminController.notFound(req, res);
-    //});
-
-
     //index
     adminRouter.get('/', function (req, res) {
         return adminController.index(req, res);
     });
 
-    //comicsCharacters
-    adminRouter.get('/comicsCharacters', function (req, res) {
-        return adminController.comicsCharacters(req, res);
-    });
+    //------------------------------------------------------------------------------------------------------------
+    //START Movie Character Actions
 
     adminRouter.get('/movieCharacters', function (req, res) {
         return adminController.movieCharacters(req, res);
@@ -69,23 +29,45 @@ var router = function () {
         return adminController.updateMovieCharacterInfo(req, res);
     });
     adminRouter.post('/edit/movieCharacter/image', function (req, res) {
-        return adminController.updateMovieCharacter(req, res);
+        return adminController.updateMovieCharacterImage(req, res);
     });
 
-    adminRouter.route('/new').get(function (req, res) {
-        return adminController.character(req, res);
+    //END Movie Character Actions
+    //------------------------------------------------------------------------------------------------------------
+    //
+    //************************************************************************************************************
+    //
+    //------------------------------------------------------------------------------------------------------------
+    //START Comics Character Actions
+
+    adminRouter.get('/comicsCharacters', function (req, res) {
+        return adminController.comicsCharacters(req, res);
     });
 
-    adminRouter.route('/new/:character').get(function (req, res) {
-        return adminController.artist(req, res);
+    adminRouter.get('/create/comicsCharacter', function (req, res) {
+        return adminController.createComicsCharacter(req, res);
     });
 
-    adminRouter.route('/new/:character/:artist').get(function (req, res) {
-        return adminController.movie(req, res);
+    adminRouter.post('/create/comicsCharacter', function (req, res) {
+        return adminController.saveComicsCharacter(req, res);
+    });
+    adminRouter.get('/create/:comicsCharacter/artist', function (req, res) {
+        return adminController.createComicsCharacterArtist(req, res);
+    });
+    adminRouter.post('/create/:comicsCharacter/artist', function (req, res) {
+        return adminController.saveComicsCharacterArtist(req, res);
     });
 
+    adminRouter.get('/create/:comicsCharacter/:artist/movie', function (req, res) {
+        return adminController.createArtistMovie(req, res);
+    });
 
-    //# end GET actions
+    adminRouter.post('/create/:comicsCharacter/:artist/movie', function (req, res) {
+        return adminController.saveArtistMovie(req, res);
+    });
+
+    //END Comics Character Actions
+    //------------------------------------------------------------------------------------------------------------
 
     return adminRouter;
 };

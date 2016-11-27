@@ -1,5 +1,5 @@
 /**
- * Created by User on 10/17/2016.
+ * Created by Ruben on 10/17/2016.
  */
 
 var mongoose = require('mongoose');
@@ -12,21 +12,12 @@ var starSchema = new Schema({
     userId: String
 }, {_id: false});
 
-//awards
-var awardsSchema = new Schema({
-    name: String,
-    year: Number,
-    nomination:String,
-    winners:[String]
-}, {_id: false});
-
 //movies
 var movieSchema = new Schema({
     name: String,
     year: Number,
     IMDbRating:Number,
-    posterUrl: String,
-    awards: [awardsSchema]
+    posterUrl: String
 }, {_id: false});
 
 
@@ -47,8 +38,8 @@ var characterSchema = new Schema({
     description: String,
     imgUrl: String,
     createdOn: {type: Date, default: Date.now},
-    type: ['SuperHero', 'Villain', 'Complicated'],
-    sex: ['Male', 'Female', 'Complicated'],
+    type: String,
+    sex: String,
     rating: [starSchema],
     actors: [actorSchema]
 });

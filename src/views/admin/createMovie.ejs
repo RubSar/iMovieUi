@@ -20,12 +20,13 @@
         <span class="alert-danger"> <%= errorMessage%> </span>
     </div>
     <%}%>
-    <h1>Add Movie for <span> <%= artist %></span> in <span><%= character %></span> role</h1>
+      <div class="text-center form-group">
+          <h2 class="text-info">Add Movie</h2>
+      </div>
 
-    <form action="/admin/movie/create" method="post">
-
-        <input type="hidden" name="character" value="<%= character %>"/>
-        <input type="hidden" name="artist" value="<%= artist %>"/>
+    <form action="/admin/create/<%=characterId%>/<%=artistId%>/movie" method="post">
+        <input type="hidden" name="artist" value="<%= artistId %>"/>
+        <input type="hidden" name="character" value="<%= characterId %>"/>
 
         <div class="form-group">
             <input type="text" name="name" class="form-control" placeholder="Name"/>
