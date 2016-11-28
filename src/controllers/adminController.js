@@ -16,6 +16,7 @@ var adminController = function () {
         });
     }
 
+
     //---------------------------------------------------------------------------------------------------------------
     // START Movie Characters Actions
 
@@ -338,6 +339,7 @@ var adminController = function () {
 
     return {
         index: index,
+        //-------------------------------------------------------
         movieCharacters: movieCharacters,
         createMovieCharacter: createMovieCharacter,
         saveMovieCharacter: saveMovieCharacter,
