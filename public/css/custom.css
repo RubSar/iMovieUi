@@ -217,3 +217,14 @@ ul.rating {
 h4 {
     color: #31353e;
 }
+
+.navbar-awesome{
+   
+    /*background-image: linear-gradient(to bottom ,#31353e, #d4d7dd ,#31353e);*/
+    background: #127184
+
+;
+}
+.inverse-navbar{
+    background-image: linear-gradient(to bottom ,#d4d7dd, #31353e ,#d4d7dd);
+}

@@ -9,19 +9,14 @@ var Schema = mongoose.Schema;
 
 var AdminSchema = new Schema({
     email: String,
-    userName: String,
     password: String,
+    userName: String,
     role: String
 });
 
-// generating a hash
-AdminSchema.methods.generateHash = function (password) {
-    return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
-};
-
 // checking if password is valid
 AdminSchema.methods.validPassword = function (password) {
-    return bcrypt.compareSync(password, this.local.password);
+    return password === this.password;
 };
 
 module.exports = mongoose.model('Admin', AdminSchema);
