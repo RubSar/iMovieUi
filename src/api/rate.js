@@ -2,12 +2,12 @@
  * Created by User on 11/14/2016.
  */
 var express = require('express');
-var jwt = require('jwt-simple');
-var keys = require('../config/keys');
-var helper = require('../services/helperService');
 var rateApi = express.Router();
 
 var models = require('../models/movieCharacterModel');
+var User =models.User;
+var Rate =models.Rate;
+var MovieCharacter =models.MovieCharacter;
 var auth = require('../services/authService');
 
 var router = function () {
@@ -16,15 +16,15 @@ var router = function () {
 
         var id = auth.user(req);
             if (id) {
-            models.User.findOne({_id: id}, function (err, user) {
+            User.findOne({_id: id}, function (err, user) {
 
                 var characterQuery = {_id: req.body.characterId};
-                models.MovieCharacter.findOne(characterQuery).exec(function (err, character) {
+                MovieCharacter.findOne(characterQuery).exec(function (err, character) {
                     if (err) {
                         console.log(err);
                     }
                     if (character) {
-                        models.Rate.findOne({userId: user._id, characterId: character._id}).exec(function (err, rate) {
+                        Rate.findOne({userId: user._id, characterId: character._id}).exec(function (err, rate) {
                             if (err) {
                                 console.log(err);
                             }
@@ -32,8 +32,6 @@ var router = function () {
                                 rate.value = req.body.value || rate.value;
                                 rate.userId = user._id || rate.userId;
                                 rate.save();
-                                character.save();
-                                user.save();
                                 res.send({
                                     message: 'updated',
                                     success: true,
@@ -41,7 +39,7 @@ var router = function () {
                                     status: 200
                                 })
                             } else {
-                                var newRate = new models.Rate();
+                                var newRate = new Rate();
                                 newRate.userId = user._id;
                                 newRate.characterId = req.body.characterId;
                                 newRate.value = req.body.value;
@@ -83,7 +81,7 @@ var router = function () {
     });
 
     rateApi.get('/rates', function (req, res) {
-        models.Rate.find({characterId: req.query.characterId}, 'value', function (err, results) {
+        Rate.find({characterId: req.query.characterId}, 'value', function (err, results) {
             if (err) {
                 console.log(err);
             }
@@ -102,11 +100,11 @@ var router = function () {
 
         var id = auth.user(req);
         if(id){
-           models.User.findOne({_id:id}, function(err, user){
+           User.findOne({_id:id}, function(err, user){
                    if (err) {
                        console.log(err);
                    }
-                   models.Rate.find({userId:user._id}, 'characterId value', function(err, rates){
+                   Rate.find({userId:user._id}, 'characterId value', function(err, rates){
                        //var response =helper.arrayUnique(_movies.concat(rates));
                        var response=[];
 

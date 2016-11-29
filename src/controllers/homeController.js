@@ -1,6 +1,5 @@
 
-var ComicsCharacter = require('../models/comicsCharacterModel');
-var models = require('../models/movieCharacterModel');
+var ComicsCharacter = require('../models/comicsCharacterModel').ComicsCharacter;
 
 var homeController = function () {
 

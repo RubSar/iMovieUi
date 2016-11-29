@@ -5,10 +5,7 @@
  * Created by Toshiba on 10/31/2016.
  */
 var express = require('express');
-var ComicsCharacter = require('../models/comicsCharacterModel');
-var User = require('../models/userModel');
-
-
+var ComicsCharacter = require('../models/comicsCharacterModel').ComicsCharacter;
 var api = express.Router();
 
 
@@ -32,16 +29,25 @@ var router = function () {
     api.get('/single', function (req, res) {
         var name = decodeURIComponent(req.query.name);
 
-        ComicsCharacter.findOneAndUpdate({name: name}, {upsert:true}, function (err, results) {
-            if (err) {
-                console.log(err);
-            } else {
+        ComicsCharacter.findOne({name: name})
+            .populate({path: 'votes', select: 'chosen'})
+            .exec(function (err, character) {
+                var groupBy = function(xs, key) {
+                    return xs.reduce(function(rv, x) {
+                        (rv[x[key]] = rv[x[key]] || []).push(x);
+                        return rv;
+                    }, {});
+                };
+                character.votes.forEach(function(item){
+
+                });
                 res.send({
-                    data: results,
+                    data: character,
                     status: 200
                 });
-            }
-        });
+
+            });
+
     });
 
 

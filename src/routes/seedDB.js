@@ -6,7 +6,7 @@ var express = require('express');
 var seedRouter = express.Router();
 
 
-var User = require('../models/userModel');
+//var User = require('../models/userModel');
 
 
 

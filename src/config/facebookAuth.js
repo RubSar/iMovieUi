@@ -2,7 +2,7 @@ var request = require('request');
 var qs = require('querystring');
 var createSendToken = require('./jwt.js');
 var keys = require('./keys.js');
-var User = require('../models/UserModel.js');
+var model = require('../models/movieCharacterModel.js');
 
 module.exports = function (req, res) {
     var fields = ['id', 'email', 'first_name', 'last_name', 'link', 'name'];
@@ -20,11 +20,11 @@ module.exports = function (req, res) {
         accessToken = qs.parse(accessToken);
 
         request.get({url: graphApiUrl, qs: accessToken, json: true}, function (err, response, profile) {
-            User.findOne({facebookId: profile.id}, function (err, existingUser) {
+            model.User.findOne({facebookId: profile.id}, function (err, existingUser) {
                 if (existingUser)
                     return createSendToken(existingUser, res);
 
-                var newUser = new User();
+                var newUser = new model.User();
                 newUser.facebookId = profile.id;
                 newUser.displayName = profile.name;
                 newUser.email = profile.email;

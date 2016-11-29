@@ -3,6 +3,7 @@
  */
 
 var mongoose = require('mongoose');
+var Vote =require('../models/comicsCharacterModel.js').Vote;
 var Schema = mongoose.Schema;
 
 
@@ -21,8 +22,10 @@ var UserSchema = new Schema({
     email:String,
     displayName:String,
     fullName:String,
-    rates:[{type:Schema.ObjectId, ref:'Rate'}]
+    rates:[{type:Schema.ObjectId, ref:'Rate'}],
+    votes:[{type:Schema.ObjectId, ref:'Vote'}]
 });
+
 var MovieCharacterSchema = new Schema({
     name:String,
     imgUrl:String,

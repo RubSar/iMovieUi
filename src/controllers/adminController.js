@@ -1,10 +1,10 @@
 /**
  * Created by User on 10/18/2016.
  */
-var ComicsCharacter = require('../models/comicsCharacterModel');
+var ComicsCharacter = require('../models/comicsCharacterModel').ComicsCharacter;
 var imdb = require('imdb-api');
 var cloudinary = require('cloudinary');
-var models = require('../models/movieCharacterModel');
+var MovieCharacter = require('../models/movieCharacterModel').MovieCharacter;
 
 
 var adminController = function () {
@@ -22,7 +22,7 @@ var adminController = function () {
 
     //list movie characters
     function movieCharacters(req, res) {
-        models.MovieCharacter.find({}, function (err, results) {
+        MovieCharacter.find({}, function (err, results) {
             res.render('admin/movieCharacters', {
                 title: 'Manage Movie Character',
                 movieCharacters: results
@@ -41,7 +41,7 @@ var adminController = function () {
         //if model is valid continue to next action
         if (!!model.name && !!model.playedBy && model.imageData && model.movie) {
 
-            models.MovieCharacter.findOne({name: model.name}, function (err, character) {
+            MovieCharacter.findOne({name: model.name}, function (err, character) {
                 if (err) {
                     console.log(err);
                 } else {
@@ -49,7 +49,7 @@ var adminController = function () {
                     if (character) {
                         res.redirect('/admin/edit/movieCharacter/'+character._id)
                     } else {
-                        var newCharacter = new models.MovieCharacter();
+                        var newCharacter = new MovieCharacter();
                         newCharacter.name = req.body.name.trim();
                         newCharacter.playedBy = req.body.playedBy.trim();
                         cloudinary.uploader.upload(req.body.imageData, function (result) {
@@ -96,7 +96,7 @@ var adminController = function () {
     //edit movie character
     function editMovieCharacter(req, res) {
         var id = req.params.id;
-        models.MovieCharacter.findOne({_id: id}, '_id name playedBy imgUrl movies.name ', function (err, result) {
+        MovieCharacter.findOne({_id: id}, '_id name playedBy imgUrl movies.name ', function (err, result) {
             if (err) {
                 console.log(err);
             } else {
@@ -118,7 +118,7 @@ var adminController = function () {
     //update movie character info
     function updateMovieCharacterInfo(req, res) {
         var model = req.body;
-        models.MovieCharacter.findOne({_id: model.id}, function (err, character) {
+        MovieCharacter.findOne({_id: model.id}, function (err, character) {
             if (err) {
                 console.log(err);
             } else {
@@ -163,7 +163,7 @@ var adminController = function () {
     //update movie character image
     function updateMovieCharacterImage(req, res){
         var body = req.body;
-        models.MovieCharacter.findOne({_id:body.id}, function(err, character){
+        MovieCharacter.findOne({_id:body.id}, function(err, character){
             if (err) {
                 console.log(err);
             }else{

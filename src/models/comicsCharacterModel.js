@@ -3,6 +3,7 @@
  */
 
 var mongoose = require('mongoose');
+var User = require('../models/movieCharacterModel.js').User;
 var Schema = mongoose.Schema;
 
 
@@ -13,7 +14,7 @@ var starSchema = new Schema({
 }, {_id: false});
 
 //movies
-var movieSchema = new Schema({
+var MovieSchema = new Schema({
     name: String,
     year: Number,
     IMDbRating:Number,
@@ -27,21 +28,35 @@ var actorSchema = new Schema({
     lastName: String,
     fullNameUri: String,
     imgUrl: String,
-    age: Number,
-    movies: [movieSchema]
+    movies: [MovieSchema]
+});
+
+var VoteSchema = new Schema({
+    userId:{type:Schema.ObjectId, ref:'User'},
+    characterId:{type:Schema.ObjectId, ref:'ComicsCharacter'},
+    chosen:String,
+    created:{type:Date, default:Date.now}
 });
 
 
+
 //comicsCharacter
-var characterSchema = new Schema({
+var CharacterSchema = new Schema({
     name: String,
     description: String,
     imgUrl: String,
     createdOn: {type: Date, default: Date.now},
     type: String,
     sex: String,
+    votes:[{ type: Schema.ObjectId, ref: 'Vote'}],
     rating: [starSchema],
     actors: [actorSchema]
 });
 
-module.exports = mongoose.model('ComicsCharacter', characterSchema);
+var ComicsCharacter=  mongoose.model('ComicsCharacter', CharacterSchema);
+var Vote=  mongoose.model('Vote', VoteSchema);
+
+module.exports ={
+    ComicsCharacter:ComicsCharacter,
+    Vote:Vote
+};
