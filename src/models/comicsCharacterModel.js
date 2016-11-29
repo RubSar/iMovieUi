@@ -26,7 +26,7 @@ var MovieSchema = new Schema({
 var actorSchema = new Schema({
     firstName: String,
     lastName: String,
-    fullNameUri: String,
+    votesCount:{type:Number, default:0},
     imgUrl: String,
     movies: [MovieSchema]
 });

@@ -221,10 +221,22 @@ h4 {
 .navbar-awesome{
    
     /*background-image: linear-gradient(to bottom ,#31353e, #d4d7dd ,#31353e);*/
-    background: #127184
-
-;
+    background: #127184;
 }
 .inverse-navbar{
     background-image: linear-gradient(to bottom ,#d4d7dd, #31353e ,#d4d7dd);
+}
+
+.artist-image-wrapper{
+    position: relative;
+}
+.vote-box {
+    position: absolute;
+    bottom: 0;
+    color: #fff;
+    padding: 7px;
+    cursor: pointer;
+    right: 0;
+    left: 0;
+    background-color: rgba(18, 115, 135,.7);
 }

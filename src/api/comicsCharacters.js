@@ -29,18 +29,7 @@ var router = function () {
     api.get('/single', function (req, res) {
         var name = decodeURIComponent(req.query.name);
 
-        ComicsCharacter.findOne({name: name})
-            .populate({path: 'votes', select: 'chosen'})
-            .exec(function (err, character) {
-                var groupBy = function(xs, key) {
-                    return xs.reduce(function(rv, x) {
-                        (rv[x[key]] = rv[x[key]] || []).push(x);
-                        return rv;
-                    }, {});
-                };
-                character.votes.forEach(function(item){
-
-                });
+        ComicsCharacter.findOne({name: name},'name description type imgUrl actors', function (err, character) {
                 res.send({
                     data: character,
                     status: 200
