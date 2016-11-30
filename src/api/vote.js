@@ -6,7 +6,7 @@ var voteApi = express.Router();
 
 var User = require('../models/movieCharacterModel').User;
 var models = require('../models/comicsCharacterModel');
-var ComicsCharacter =models.ComicsCharacter;
+var ComicsCharacter = models.ComicsCharacter;
 var Vote = models.Vote;
 
 var auth = require('../services/authService');
@@ -20,7 +20,7 @@ var router = function () {
             User.findOne({_id: id}, function (err, user) {
 
                 var characterQuery = {_id: req.body.characterId};
-               ComicsCharacter.findOne(characterQuery).exec(function (err, character) {
+                ComicsCharacter.findOne(characterQuery).exec(function (err, character) {
                     if (err) {
                         console.log(err);
                     }
@@ -30,23 +30,32 @@ var router = function () {
                                 console.log(err);
                             }
                             if (vote) {
-                                character.actors.filter(function(artist){
-                                    if (artist._id == req.body.artistId) {
-                                        artist.votesCount +=1;
-                                    }else if(artist._id == vote.chosen){
-                                        console.log(artist._id == vote.chosen);
-                                        artist.votesCount -=1;
-                                    }
-                                });
-                                character.save();
-                                vote.chosen =req.body.artistId;
-                                vote.save();
-                                res.send({
-                                    message: 'updated',
-                                    success: true,
-                                    value: vote.chosen,
-                                    status: 200
-                                })
+                                if (vote.chosen !== req.body.artistId) {
+                                    character.actors.filter(function (artist) {
+                                        if (artist._id == req.body.artistId) {
+                                            artist.votesCount += 1;
+                                        } else if (artist._id == vote.chosen) {
+                                            console.log(artist._id == vote.chosen);
+                                            artist.votesCount -= 1;
+                                        }
+                                    });
+                                    character.save();
+                                    vote.chosen = req.body.artistId;
+                                    vote.save();
+                                    res.send({
+                                        message: 'updated',
+                                        success: true,
+                                        value: vote.chosen,
+                                        status: 200
+                                    })
+                                }else{
+                                    res.send({
+                                        message: 'unchanged',
+                                        success: true,
+                                        value: vote.chosen,
+                                        status: 200
+                                    })
+                                }
                             } else {
                                 var newVote = new Vote();
                                 newVote.userId = user._id;
@@ -54,9 +63,9 @@ var router = function () {
                                 newVote.chosen = req.body.artistId;
                                 newVote.save(function (err, doc) {
                                     character.votes.push(doc._id);
-                                    character.actors.filter(function(artist){
+                                    character.actors.filter(function (artist) {
                                         if (artist._id == req.body.artistId) {
-                                            artist.votesCount +=1;
+                                            artist.votesCount += 1;
                                         }
                                     });
                                     user.votes.push(doc._id);
@@ -72,7 +81,7 @@ var router = function () {
 
                             }
                         });
-                    }else{
+                    } else {
                         res.send({
                             message: 'character not found',
                             success: false,
@@ -86,8 +95,8 @@ var router = function () {
         }
         else {
             res.send({
-                status:401,
-                message:'unauthenticated'
+                status: 401,
+                message: 'unauthenticated'
             });
 
         }
@@ -144,7 +153,6 @@ var router = function () {
     //        })
     //    }
     //});
-
 
 
     return voteApi;

@@ -1,8 +1,26 @@
 /*star rating */
-.rating{
+.rating {
     color: #a9a9a9;
     margin: 0;
     padding: 0;
+}
+
+body {
+    background-color: #efefef;
+}
+
+h2.g-heading {
+    text-transform: uppercase;
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 1.3;
+    position: relative;
+    margin: 0 0 40px;
+    color: #31353e;
+}
+
+h2.g-heading strong {
+    color: #127387;
 }
 
 ul.rating {
@@ -25,57 +43,25 @@ ul.rating {
 .rating .filled {
     color: #21568b;
 }
+
 /*end star rating*/
 /*=====================================*/
 
-
 /*angular carousel*/
-.info-container{
-    position:absolute;
+.info-container {
+    position: absolute;
 }
 
-.slider-item >img{
-    display: inline !important;
-    padding-top: 30px;;
-}
-.comics-character-Hulk{
-    background-color:#e74c3c ;
-    text-align: left;
-}
-.comics-character-Hulk .info-container{
-    right: 200px;
-    top: 100px;
-    color: #006600;
-}
-.comics-character-Spiderman{
-    background-color:#000d1a ;
-    text-align: right;
-
-}
-.comics-character-Spiderman >img{
-    display: inline !important;
+.movie-character {
+    margin-bottom: 15px;
 }
 
-.comics-character-Batman{
-    background-color:#339966 ;
-    text-align: center;
+.movie-character h4,
+.movie-character h5,
+.movie-character h6 {
+    text-transform: none;
+    margin-bottom: 0;
 }
-.comics-character-Batman >img{
-    display: inline !important;
-}
-.comics-character-Superman{
-    background-color:#008000 ;
-}
-.comics-character-Superman >img{
-    display: inline !important;
-}
-.comics-character-Joker{
-    background-color:#ff3399 ;
-}
-.comics-character-Joker >img{
-   display: inline !important;
-}
-/*end angular carousel*/
 
 /*==================================================*/
 
@@ -85,80 +71,93 @@ ul.rating {
     -khtml-user-select: none; /* Konqueror */
     -moz-user-select: none; /* Firefox */
     -ms-user-select: none; /* Internet Explorer/Edge */
-    user-select: none; /* Non-prefixed version, currently
-                                  not supported by any browser */
+    user-select: none;
+    /* Non-prefixed version, currently
+                                     not supported by any browser */
 }
 
-.btn-facebook{
+.btn-facebook {
     background-color: #3b5998;
     border-bottom: 2px solid #3b5998;
     color: #fff;
     margin-top: -18px;
 }
-.btn-facebook:hover{
+
+.btn-facebook:hover {
     color: #fff;
     border-bottom: 2px solid #29487d;
 }
-.img-center{
-    margin:0 auto;
+
+.img-center {
+    margin: 0 auto;
 }
-.character-view-wrapper{
-    border:1px solid #24478f;
+
+.character-view-wrapper {
+    border: 1px solid #24478f;
 }
-.character-info{
+
+.character-info {
     padding: 20px;
 }
-.character-view{
-    background-color:  #24478f;
+
+.character-view {
+    background-color: #24478f;
     padding: 25px 10px;
     position: relative;
 }
-.character-view:before{
+
+.character-view:before {
     content: "\f0da";
     position: absolute;
     font-family: FontAwesome;
     font-size: 70px;
     color: #24478f;
-    right:-22px;
+    right: -22px;
     top: 20px;
 }
 
 .character-view h2,
-.character-view h3{
-    color:#fff;
+.character-view h3 {
+    color: #fff;
 
 }
-.info-container{
+
+.info-container {
     padding-left: 20px;
 }
 
-.info-head{
+.info-head {
     padding: 16px;
     border-bottom: 2px solid #24478f;
 }
-.rnd-8{
+
+.rnd-8 {
     border-radius: 8px;
 }
-.btn-160{
+
+.btn-160 {
     width: 160px;
 }
 
-.fs-60{
+.fs-60 {
     font-size: 60px;
 }
-.fs-20{
+
+.fs-20 {
     font-size: 20px;
 }
-.gold{
+
+.gold {
     color: goldenrod;
 }
-.user-nav{
+
+.user-nav {
     background-color: transparent !important;
     margin-top: -5px;
 
 }
 
-.character-info >.info{
+.character-info > .info {
     /*border-top: 1px solid #FF3300;*/
     border-top: 1px solid black;
     text-align: left;
@@ -166,11 +165,10 @@ ul.rating {
     color: black;
 }
 
-.character-box{
-    background-image: linear-gradient(to bottom right,#0066FF,#009933);
-    background-image: linear-gradient(to bottom right,#31353e,#e74c3c);
-    background-image: linear-gradient(to bottom ,#e74c3c,#31353e);
-
+.character-box {
+    background-image: linear-gradient(to bottom right, #0066FF, #009933);
+    background-image: linear-gradient(to bottom right, #31353e, #e74c3c);
+    background-image: linear-gradient(to bottom, #e74c3c, #31353e);
 
     background-color: white;
     border: 1px solid #ccc;
@@ -179,26 +177,29 @@ ul.rating {
     cursor: pointer;
 }
 
-.character-box h4{
-    color:#fff;
+.character-box h4 {
+    color: #fff;
     margin-bottom: 2px;
 }
-.character-box p{
+
+.character-box p {
     color: #f5f5ef;
     margin-bottom: 0;
 }
-.character-box span{
-    color:#e74c3c;
+
+.character-box span {
+    color: #e74c3c;
 }
 
-.artist-info{
+.artist-info {
     text-align: center;
     position: relative;
     padding: 5px;
     border-bottom: 2px solid #31353e;
     margin-bottom: 15px;
 }
-.artist-info:before{
+
+.artist-info:before {
     font-family: FontAwesome;
     position: absolute;
     content: "\f0d7";
@@ -206,37 +207,64 @@ ul.rating {
     bottom: -38px;
     color: #31353e;
 }
-.artist-info >img{
+
+.artist-info > img {
     margin-bottom: 8px;
     border-radius: 5px;
 }
 
-.artist-movies{
+.artist-movies {
     text-align: center;
 }
+
 h4 {
     color: #31353e;
 }
 
-.navbar-awesome{
-   
-    /*background-image: linear-gradient(to bottom ,#31353e, #d4d7dd ,#31353e);*/
-    background: #127184;
-}
-.inverse-navbar{
-    background-image: linear-gradient(to bottom ,#d4d7dd, #31353e ,#d4d7dd);
+/***********************************************************************************************************************/
+
+.navbar-awesome {
+    background-image: url("http://res.cloudinary.com/dk1chsp5h/image/upload/c_scale,h_81/v1480497151/header_xxwkww.jpg");
+    margin-bottom: 0;
+    height: 80px;
+
 }
 
-.artist-image-wrapper{
+.navbar-awesome .navbar-nav > li > a {
+    color: #fff;
+    font-size: 19px;
+    font-weight: 500;
+}
+
+.navbar-awesome .navbar-brand a {
+
+}
+
+/**********************************************************************************************************************/
+
+.artist-image-wrapper {
     position: relative;
 }
+
 .vote-box {
     position: absolute;
     bottom: 0;
     color: #fff;
-    padding: 7px;
+    padding: 5px;
+    max-width: 125px;
+    margin: auto;
     cursor: pointer;
     right: 0;
     left: 0;
-    background-color: rgba(18, 115, 135,.7);
+    background-color: rgba(18, 115, 135, .7);
+}
+
+.vote-box:hover {
+    padding: 9px;
+    background-color: rgb(18, 115, 135);
+}
+
+.vote-box.in-progress {
+    padding: 9px;
+    background-color: rgb(18, 115, 135);
 }

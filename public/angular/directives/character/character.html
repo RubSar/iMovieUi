@@ -1,22 +1,23 @@
-<div class="row noselect">
-    <div class="col-md-4">
+<div class="row movie-character">
+    <div class="col-md-4 col-sm-5 col-xs-6">
        <a ng-href="/movie-character/{{model.name}}">
-           <img ng-src="{{model.imgUrl}}" class="img-responsive" >
+           <img ng-src="{{model.imgUrl}}" class="img-responsive noselect img-center" >
        </a>
     </div>
-    <div class="col-md-8 text-left">
-        <h4 style="text-transform: none"> {{ model.name}} <small> played by</small>  {{ model.playedBy}}</h4>
+    <div class="col-md-8 col-sm-7 col-xs-6 text-left">
+        <h4 style="text-transform: none"> {{ model.name}} </h4>
+        <h5><small> by</small>  {{ model.playedBy}}</h5>
         <h4 ng-hide="avgUpdate">
-            <span ng-show="rateAverage>0" style="margin-right: 10px;"><i style="color:goldenrod" class="fa fa-star"></i> {{rateAverage}}</span>
-            <span style="text-transform: none" ng-hide="rateAverage>0" >rate first</span>
+            <span ng-show="rateAverage>0" class="rate-avg"><i class="fa fa-star"></i> {{rateAverage}}</span>
+            <span  ng-hide="rateAverage>0" >rate first</span>
 
             <star-rating class="star-rating"  rating-value="rateValue" data-max="10" user-rate="model.userRate" on-rating-selected="rateFunction(rating)"></star-rating>
 
         </h4>
         <i ng-show="avgUpdate" class="fa fa-spinner" aria-hidden="true"></i>
 
-        <p style="margin:0"> <strong>{{ model.movies[0].name}}</strong> ({{model.movies[0].year}})</p>
-        <p style="margin:0"><strong>IMDb</strong> Rating (<strong>{{ model.movies[0].IMDbRating}}/10</strong>)
+        <p> <strong>{{ model.movies[0].name}}</strong> ({{model.movies[0].year}})</p>
+        <p><strong>IMDb</strong> Rating (<strong>{{ model.movies[0].IMDbRating}}/10</strong>)
 
         </p>
 

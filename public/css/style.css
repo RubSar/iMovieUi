@@ -1,0 +1,74 @@
+.movie-character {
+  margin-bottom: 15px;
+}
+.movie-character h4 {
+  text-transform: none;
+  font-weight: 600;
+  color: #31353e;
+  margin-bottom: 0;
+}
+.movie-character h5 {
+  color: #127387;
+}
+.movie-character p {
+  margin-top: 8px;
+  margin-bottom: 0;
+  font-size: 13px;
+}
+@media only screen and (min-width: 1129px) {
+  .star-rating {
+    font-size: 16px;
+  }
+  .rate-avg {
+    font-size: 16px;
+    margin-right: 10px;
+  }
+  .rate-avg i.fa {
+    color: goldenrod;
+  }
+}
+@media only screen and (min-width: 530px) and (max-width: 949px) {
+  .rating {
+    margin-right: -15px !important;
+    margin-left: -15px !important;
+  }
+  .rating li {
+    font-size: 13px !important;
+    padding: 0 !important;
+  }
+  .star-rating {
+    font-size: 14px;
+  }
+  .rate-avg {
+    font-size: 14px;
+    margin-right: 10px;
+  }
+  .rate-avg i.fa {
+    color: goldenrod;
+  }
+}
+@media only screen and (max-width: 529px) {
+  h2.g-heading {
+    font-size: 30px !important;
+    font-weight: 500 !important;
+  }
+  .rating {
+    margin-right: -15px !important;
+    margin-left: -28px !important;
+    padding: 0 2px !important;
+  }
+  .rating li {
+    font-size: 13px !important;
+    padding: 0 !important;
+  }
+  .star-rating {
+    font-size: 14px;
+  }
+  .rate-avg {
+    font-size: 14px;
+    margin-right: 8px;
+  }
+  .rate-avg i.fa {
+    color: goldenrod;
+  }
+}

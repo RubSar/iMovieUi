@@ -39,12 +39,10 @@
                         <div class="artist-info">
                           <div class="artist-image-wrapper">
                               <img ng-src="{{artist.imgUrl}}" class="img-responsive img-center noselect"/>
-                              <span class="vote-box">Vote</span>
+                              <span ng-hide="voteStart" class="vote-box" ng-class="{'in-progress': (voteStart && current ==$index)}" ng-click="rate(artist._id, $index)"><i class="fa fa-chevron-circle-up"></i>  Vote</span>
+                              <span ng-show="voteStart" class="vote-box" ng-class="{'in-progress': voteStart}" ng-click="rate(artist._id)"><i class="fa fa-spinner"></i> </span>
                           </div>
-                            <h4>{{artist.firstName}} {{artist.lastName}}</h4>
-                            <!--<button type="submit" class="btn btn-primary"-->
-                                    <!--ng-click="rate(artist._id)"> Vote-->
-                            <!--</button>-->
+                            <h4 style="margin-bottom: 0">{{artist.firstName}} {{artist.lastName}}</h4>
                             <div><i><strong>{{artist.votesCount}}</strong></i> users vote</div>
                         </div>
                         <div class="artist-movies">
