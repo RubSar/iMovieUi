@@ -11,6 +11,8 @@
         $scope.paging = {};
         $scope.paging.number = 1;
         $scope.paging.size = 10;
+        $scope.filteredBy =undefined;
+
 
         $scope.$watch('paging.number', function(newVal, oldVal){
             if (newVal) {
@@ -79,6 +81,11 @@
                         $scope.originalMovieCharacters =response.data;
                         $scope.count =response.data.length;
                         $scope.listCharacters = helperSvc.chunk(response.data, 2);
+
+                        $scope.filteredBy ={
+                            key:'By Artist',
+                            value:newValue._id
+                        }
                     },
                     function (err) {
                         console.log(err);
@@ -94,6 +101,10 @@
                         $scope.originalMovieCharacters =response.data;
                         $scope.count =response.data.length;
                         $scope.listCharacters = helperSvc.chunk(response.data, 2);
+                        $scope.filteredBy ={
+                            key:'By Year',
+                            value:newValue._id[0]
+                        }
                     },
                     function (err) {
                         console.log(err);
@@ -107,6 +118,10 @@
                         $scope.originalMovieCharacters =response.data;
                         $scope.count =response.data.length;
                         $scope.listCharacters = helperSvc.chunk(response.data, 2);
+                        $scope.filteredBy ={
+                            key:'By Movie',
+                            value:newValue._id[0]
+                        }
                     },
                     function (err) {
                         console.log(err);

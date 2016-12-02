@@ -11,13 +11,20 @@
 
 
     <div class="container" style="margin-top: 100px" ng-controller="ComicsCharacterCtrl">
+
+        <input type="hidden" ng-value="isAuthProp =isAuthenticated()" >
         <div class="row">
-            <div class="col-md-3">
-                <div class="character-box">
-                    <img ng-src="{{character.imgUrl}}" class="img-responsive"/>
-                   <div class="character-info">
-                      <div class="info">
-                          <h4>{{character.name}} <small style="color: #fff">/ {{character.type}}</small></h4>
+            <div class="col-md-3 ">
+                <div class="row">
+                    <div class="col-md-12 col-sm-7">
+                        <div class="character-box">
+                            <img ng-src="{{character.imgUrl}}" class="img-responsive img-center"/>
+
+                            <div class="character-info">
+                                <div class="info">
+                                    <h4>{{character.name}}
+                                        <small style="color: #fff">/ {{character.type}}</small>
+                                    </h4>
                           <span>
                               <i class="fa fa-star"></i>
                               <i class="fa fa-star"></i>
@@ -25,37 +32,56 @@
                               <i class="fa fa-star"></i>
                               <i class="fa fa-star"></i>
                           </span>
-                          <p>{{character.description}} lorem ipsum dolor set ime tay</p>
 
-                      </div>
-                   </div>
+                                    <p>{{character.description}} lorem ipsum dolor set ime tay</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <div class="col-md-9">
 
                 <div class="row">
-                    <div class="col-md-3" ng-repeat="artist in character.actors track by $index">
+                    <div class="col-md-3 col-sm-3 col-xs-6" ng-repeat="artist in character.actors track by $index">
                         <div class="artist-info">
-                          <div class="artist-image-wrapper">
-                              <img ng-src="{{artist.imgUrl}}" class="img-responsive img-center noselect"/>
-                              <span ng-hide="voteStart" class="vote-box" ng-class="{'in-progress': (voteStart && current ==$index)}" ng-click="rate(artist._id, $index)"><i class="fa fa-chevron-circle-up"></i>  Vote</span>
-                              <span ng-show="voteStart" class="vote-box" ng-class="{'in-progress': voteStart}" ng-click="rate(artist._id)"><i class="fa fa-spinner"></i> </span>
-                          </div>
+                            <div class="artist-image-wrapper">
+                                <img ng-src="{{artist.imgUrl}}" class="img-responsive img-center noselect"/>
+                                <span ng-hide="voteStart" class="vote-box"
+                                      ng-class="{'in-progress': (voteStart && current ==$index)}"
+                                      ng-click="rate(artist._id, $index)">
+                                    <span ng-show="artist.votedByUser"><i class="fa fa-check"></i>  Voted</span>
+                                    <span ng-hide="artist.votedByUser"><i class="fa fa-chevron-circle-up"></i>  Vote</span>
+
+                                </span>
+                                <span ng-show="voteStart" class="vote-box" ng-class="{'in-progress': voteStart}"
+                                      ng-click="rate(artist._id)"><i class="fa fa-spin fa-spinner"></i> </span>
+                            </div>
                             <h4 style="margin-bottom: 0">{{artist.firstName}} {{artist.lastName}}</h4>
+
                             <div><i><strong>{{artist.votesCount}}</strong></i> users vote</div>
+                            <button type="button"
+                                    class="btn btn-block navbar-toggle collapsed hidden-lg hidden-md hidden-sm"
+                                    data-toggle="collapse" data-target="#movies-toggle-{{$index}}"
+                                    aria-expanded="false">
+                                <span class="sr-only">Toggle navigation</span>
+                                <i class="fa fa-sliders"></i>&nbsp; Show Movies
+                            </button>
                         </div>
                         <div class="artist-movies">
-                            <div ng-repeat="movie in artist.movies track by $index">
-                                <div class="row">
-                                    <div class="col-md-8 col-md-offset-2">
-                                        <img ng-src="{{movie.posterUrl}}" class="img-responsive">
+                            <div class="collapse navbar-collapse" id="movies-toggle-{{$index}}">
+                                <div ng-repeat="movie in artist.movies track by $index">
+                                    <div class="row">
+                                        <div class="col-md-8 col-sm-10 col-md-offset-2 col-sm-offset-1">
+                                            <img ng-src="{{movie.posterUrl}}" class="img-responsive">
+                                        </div>
                                     </div>
+                                    <h5>{{movie.name}}
+                                        <small>({{movie.year}})</small>
+                                    </h5>
+                                    <i>iMDb Rating (<strong>{{movie.IMDbRating}}/10</strong>) </i>
                                 </div>
-                                <h5>{{movie.name}}
-                                    <small>({{movie.year}})</small>
-                                </h5>
-                                <i>iMDb Rating (<strong>{{movie.IMDbRating}}/10</strong>) </i>
                             </div>
                         </div>
                     </div>

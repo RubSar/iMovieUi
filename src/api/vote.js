@@ -48,7 +48,7 @@ var router = function () {
                                         value: vote.chosen,
                                         status: 200
                                     })
-                                }else{
+                                } else {
                                     res.send({
                                         message: 'unchanged',
                                         success: true,
@@ -103,56 +103,28 @@ var router = function () {
 
     });
 
-    //voteApi.get('/rates', function (req, res) {
-    //    models.Rate.find({characterId: req.query.characterId}, 'value', function (err, results) {
-    //        if (err) {
-    //            console.log(err);
-    //        }
-    //        res.send({
-    //            data: results,
-    //            success: true,
-    //            status: 200
-    //        });
-    //    });
-    //
-    //
-    //});
+    voteApi.get('/user', function (req, res) {
+        var id = auth.user(req);
+        if (id) {
+            Vote.findOne({characterId: req.query.characterId, userId:id}, 'chosen', function (err, result) {
+                if (err) {
+                    console.log(err);
+                }
+                res.send({
+                    data: result,
+                    success: true,
+                    status: 200
+                });
+            });
+        } else {
+            res.send({
+                status: 401,
+                message: 'unauthenticated'
+            });
+        }
 
-    //voteApi.post('/userRatesByMovies', function(req, res){
-    //    var _movies =req.body.movies;
-    //
-    //    var id = auth.user(req);
-    //    if(id){
-    //        User.findOne({_id:id}, function(err, user){
-    //            if (err) {
-    //                console.log(err);
-    //            }
-    //            models.Rate.find({userId:user._id}, 'characterId value', function(err, rates){
-    //                var response=[];
-    //
-    //                //TODO:improve implementation letter
-    //                for(var i =0; i<rates.length; i++){
-    //                    for(var j =0; j<_movies.length; j++){
-    //                        if(rates[i].characterId==_movies[j]._id){
-    //                            response.push(rates[i]);
-    //                        }
-    //                    }
-    //                }
-    //                res.send({
-    //                    status:200,
-    //                    success:true,
-    //                    data:response
-    //
-    //                })
-    //            })
-    //        })
-    //    } else{
-    //        res.send({
-    //            status:401,
-    //            message:'unauthenticated'
-    //        })
-    //    }
-    //});
+
+    });
 
 
     return voteApi;

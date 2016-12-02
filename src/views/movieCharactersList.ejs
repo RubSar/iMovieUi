@@ -12,53 +12,62 @@
     </header>
 
     <input type="hidden" ng-value="isAuthProp =isAuthenticated()"/>
-    <div class="our-tours text-center g-heading-v8 g-pt-85 g-pb-100">
+
+    <div class="text-center  pt-85 pb-100">
         <div class="container-fluid">
-            <h2 class="h2"> Most Popular movie <strong> characters</strong></h2>
+            <h2 class="g-heading"> Most Popular movie <strong> characters</strong></h2>
+
+
 
             <div ng-hide="contentLoaded" style="min-height: 550px; padding-top:200px;" class="text-center">
                 <img src="/img/loading.gif" alt="loading"/>
             </div>
-            <div class="our-tours-list-wrapper" ng-show="contentLoaded">
-                <div class="our-tours-list text-left">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-2">
-                                <div class="row">
-                                    <div class="form-group">
-                                        <mc-dropdown items-list="artists" model="artist" term="_id"
-                                                     label="Artist"></mc-dropdown>
-                                    </div>
-                                    <div class="form-group">
-                                        <mc-dropdown items-list="years" model="year" term="_id"
-                                                     label="Year"></mc-dropdown>
-                                    </div>
-                                    <div class="form-group">
-                                        <mc-dropdown items-list="movies" model="movie" term="_id"
-                                                     label="Movie"></mc-dropdown>
-                                    </div>
 
+            <div class="container" ng-show="contentLoaded">
+                <div ng-show="filteredBy" class="alert alert-info fade in alert-dismissable" style="max-width: 600px">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">x</a>
+                    Filtered {{filteredBy.key}} : <strong>{{filteredBy.value}}</strong>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 form-group">
+                        <div class="row">
+                            <div class="col-md-12 col-sm-3">
+                                <div class="form-group">
+                                    <mc-dropdown items-list="artists" model="artist" term="_id"
+                                                 label="Artist"></mc-dropdown>
                                 </div>
                             </div>
-                            <div class="col-md-10">
-                                <div class="row form-group" ng-repeat="row in listCharacters">
-                                    <div class="col-md-6" ng-repeat="character in row track by character._id">
-                                        <character model="character"></character>
-                                    </div>
+                            <div class="col-md-12 col-sm-3">
+                                <div class="form-group">
+                                    <mc-dropdown items-list="years" model="year" term="_id"
+                                                 label="Year"></mc-dropdown>
                                 </div>
-                                <div class="form-group text-center">
-                                    <div paging ng-show="count>paging.size"
-                                         page="paging.number"
-                                         page-size="paging.size"
-                                         total="count">
-                                    </div>
+                            </div>
+                            <div class="col-md-12 col-sm-3">
+                                <div class="form-group">
+                                    <mc-dropdown items-list="movies" model="movie" term="_id"
+                                                 label="Movie"></mc-dropdown>
                                 </div>
                             </div>
                         </div>
                     </div>
-
+                    <div class="col-md-10 pr-xs-0 pl-xs-0">
+                        <div class="row form-group" ng-repeat="row in listCharacters">
+                            <div class="col-md-6 col-sm-6" ng-repeat="character in row track by character._id">
+                                <character model="character"></character>
+                            </div>
+                        </div>
+                        <div class="form-group text-center">
+                            <div paging ng-show="count>paging.size"
+                                 page="paging.number"
+                                 page-size="paging.size"
+                                 total="count">
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+
         </div>
 
 

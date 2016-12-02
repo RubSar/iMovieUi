@@ -8,7 +8,7 @@
 
     angular.module('iMovieUi').controller('MovieCharacterCtrl', function ($scope, $window, MovieCharacterSvs, RateSvc, $auth) {
 
-        $scope.url = $window.location.pathname.split('/movie-character/')[1];
+        var url = $window.location.pathname.split('/movie-character/')[1];
         $scope.rateValue = 1;
         $scope.avgUpdate = false;
 
@@ -17,7 +17,7 @@
             return $auth.isAuthenticated();
         };
 
-        MovieCharacterSvs.getMovieCharacter($scope.url)
+        MovieCharacterSvs.getMovieCharacter(url)
             .then(function (response) {
                 $scope.character = response.character;
                 $scope.userRate = response.userRate;
@@ -70,6 +70,8 @@
         function average(sum, length) {
             return (sum / length).toFixed(1);
         }
+
+
 
     });
 })();

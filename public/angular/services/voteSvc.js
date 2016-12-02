@@ -9,15 +9,18 @@
         function vote(model) {
             return helperSvc.requestHandler({method: 'POST', url: '/api/vote/set', data:model});
         }
-        function getRates(characterId){
-            return helperSvc.requestHandler({method: 'GET', url: '/api/rate/rates', params:{characterId:characterId}});
+        function getUserVote(characterId){
+            return helperSvc.requestHandler({method: 'GET', url: '/api/vote/user', params:{characterId:characterId}});
         }
+
+
         function userRatesForMovies(movies){
             return helperSvc.requestHandler({method: 'Post', url: '/api/rate/userRatesByMovies', data:{movies:movies}});
         }
 
         return {
-            vote: vote
+            vote: vote,
+            getUserVote:getUserVote
             //getRates:getRates,
             //userRatesForMovies:userRatesForMovies
         };

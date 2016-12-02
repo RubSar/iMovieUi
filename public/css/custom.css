@@ -92,35 +92,6 @@ ul.rating {
     margin: 0 auto;
 }
 
-.character-view-wrapper {
-    border: 1px solid #24478f;
-}
-
-.character-info {
-    padding: 20px;
-}
-
-.character-view {
-    background-color: #24478f;
-    padding: 25px 10px;
-    position: relative;
-}
-
-.character-view:before {
-    content: "\f0da";
-    position: absolute;
-    font-family: FontAwesome;
-    font-size: 70px;
-    color: #24478f;
-    right: -22px;
-    top: 20px;
-}
-
-.character-view h2,
-.character-view h3 {
-    color: #fff;
-
-}
 
 .info-container {
     padding-left: 20px;
@@ -140,13 +111,19 @@ ul.rating {
 }
 
 .fs-60 {
-    font-size: 60px;
+     font-size: 60px;
+ }
+
+.fs-50 {
+    font-size: 50px;
 }
 
 .fs-20 {
     font-size: 20px;
 }
-
+.pl-0{
+    padding-left: 0;
+}
 .gold {
     color: goldenrod;
 }
@@ -166,12 +143,9 @@ ul.rating {
 }
 
 .character-box {
-    background-image: linear-gradient(to bottom right, #0066FF, #009933);
-    background-image: linear-gradient(to bottom right, #31353e, #e74c3c);
-    background-image: linear-gradient(to bottom, #e74c3c, #31353e);
-
-    background-color: white;
+    background-image: linear-gradient(to bottom ,#127387,#31353e);
     border: 1px solid #ccc;
+    margin-bottom: 25px;
     border-radius: 10px;
     padding: 5px;
     cursor: pointer;
@@ -191,31 +165,7 @@ ul.rating {
     color: #e74c3c;
 }
 
-.artist-info {
-    text-align: center;
-    position: relative;
-    padding: 5px;
-    border-bottom: 2px solid #31353e;
-    margin-bottom: 15px;
-}
 
-.artist-info:before {
-    font-family: FontAwesome;
-    position: absolute;
-    content: "\f0d7";
-    font-size: 40px;
-    bottom: -38px;
-    color: #31353e;
-}
-
-.artist-info > img {
-    margin-bottom: 8px;
-    border-radius: 5px;
-}
-
-.artist-movies {
-    text-align: center;
-}
 
 h4 {
     color: #31353e;

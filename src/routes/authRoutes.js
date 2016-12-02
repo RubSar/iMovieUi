@@ -40,7 +40,7 @@ function createJWT(user) {
                         }
                         var token = req.header('Authorization').split(' ')[1];
                         var payload = jwt.decode(token, keys.TOKEN_SECRET);
-                       models.User.findOne({_id:payload.sub}, function (err, user) {
+                        models.User.findOne({_id:payload.sub}, function (err, user) {
                             user.facebookId = profile.id;
                             user.displayName = user.displayName || profile.first_name;
                             user.fullName=user.name;
