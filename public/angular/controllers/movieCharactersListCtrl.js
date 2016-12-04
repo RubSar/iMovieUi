@@ -12,23 +12,7 @@
         $scope.paging.number = 1;
         $scope.paging.size = 10;
         $scope.filteredBy =undefined;
-
-
-        $scope.$watch('paging.number', function(newVal, oldVal){
-            if (newVal) {
-                $scope.contentLoaded = false;
-                MovieCharacterSvs.getCharactersList($scope.paging)
-                    .then(function (response) {
-                        $scope.originalMovieCharacters =response.data;
-                        $scope.listCharacters = helperSvc.chunk(response.data, 2);
-                        $scope.count = response.count;
-                        $scope.contentLoaded = true;
-                    },
-                    function (msg) {
-                        console.log(msg);
-                    });
-            }
-        }, true);
+        $scope.predicate='movie';
 
         $scope.isAuthenticated = function(){
             return $auth.isAuthenticated();
@@ -58,7 +42,33 @@
                 console.log(err);
             });
 
+        $scope.search = function(form){
+            if ($scope.searchForm.$valid) {
+                var model ={
+                    term:$scope.searchTerm,
+                    predicate:$scope.predicate
+                };
+                console.log(model);
+            }else{
+                return;
+            }
+        };
 
+        $scope.$watch('paging.number', function(newVal, oldVal){
+            if (newVal) {
+                $scope.contentLoaded = false;
+                MovieCharacterSvs.getCharactersList($scope.paging)
+                    .then(function (response) {
+                        $scope.originalMovieCharacters =response.data;
+                        $scope.listCharacters = helperSvc.chunk(response.data, 2);
+                        $scope.count = response.count;
+                        $scope.contentLoaded = true;
+                    },
+                    function (msg) {
+                        console.log(msg);
+                    });
+            }
+        }, true);
 
         $scope.$watch('isAuthProp', function(newVal, oldVal){
             if (newVal) {
@@ -72,7 +82,6 @@
                 getUserRates();
             }
         }, true);
-
 
         $scope.$watch('artist', function (newValue, oldValue) {
             if (!!newValue && newValue != oldValue) {
@@ -93,7 +102,6 @@
             }
         });
 
-
         $scope.$watch('year', function (newValue, oldValue) {
             if (!!newValue && newValue != oldValue) {
                 MovieCharacterSvs.getCharactersByMovieReleaseDate(newValue._id[0])
@@ -111,6 +119,7 @@
                     });
             }
         });
+
         $scope.$watch('movie', function (newValue, oldValue) {
             if (!!newValue && newValue != oldValue) {
                 MovieCharacterSvs.getCharactersByMovie(newValue._id[0])

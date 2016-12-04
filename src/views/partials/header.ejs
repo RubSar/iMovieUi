@@ -1,77 +1,53 @@
 <div ng-controller="headerCtrl">
-    <nav class="navbar navbar-default navbar-awesome">
+
+
+    <nav class="one-page-header navbar navbar-default navbar-fixed-top one-page-nav-scrolling one-page-nav__fixed"
+         data-role="navigation">
         <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <div class="menu-container page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">iMovieUi</a>
+                <a class="navbar-brand" href="/">
+                    <img src="http://res.cloudinary.com/dk1chsp5h/image/upload/v1480865020/logo_ixv8ki.png" alt="iMovieUi">
+                </a>
             </div>
-            <div  class="navbar-collapse collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="../navbar/">Default</a></li>
-                    <li><a href="../navbar-static-top/">Static top</a></li>
-                </ul>
-            </div><!--/.nav-collapse -->
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <div class="menu-container">
+                    <ul class="nav navbar-nav">
+                        <li class="page-scroll">
+                            <a href="/most-popular-movie-characters"><span data-hover="Movie Characters">Movie Characters</span></a>
+                        </li>
+                        <li class="page-scroll">
+                            <a href="#Services"><span data-hover="Cartoon Characters">Cartoon Characters</span></a>
+                        </li>
+
+                        <li ng-hide="isAuthenticated()">
+                            <button class="btn btn-facebook" ng-click="authenticate('facebook')"><i
+                                        class="fa fa-facebook-f"></i> Sign in with Facebook
+                            </button>
+                        </li>
+                        <li ng-show="isAuthenticated()" class="dropdown open">
+                            <a href="#" class="dropdown-toggle user-nav" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
+                                <i class="fa fa-2x fa-user"></i> <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/myRates">Action</a></li>
+                                <li><a href="#">Another action</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+            <!-- /.navbar-collapse -->
         </div>
+        <!-- /.container -->
     </nav>
-
-    <!--<nav class="one-page-header navbar navbar-default navbar-fixed-top one-page-nav-scrolling one-page-nav__fixed"-->
-         <!--data-role="navigation">-->
-        <!--<div class="container">-->
-            <!--<div class="menu-container page-scroll">-->
-                <!--<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">-->
-                    <!--<span class="sr-only">Toggle navigation</span>-->
-                    <!--<span class="icon-bar"></span>-->
-                    <!--<span class="icon-bar"></span>-->
-                    <!--<span class="icon-bar"></span>-->
-                <!--</button>-->
-                <!--<a class="navbar-brand" href="/">-->
-                    <!--&lt;!&ndash;<img src="assets/img/logo-light.png" alt="ALT">&ndash;&gt;-->
-                    <!--iMovieUi-->
-                <!--</a>-->
-            <!--</div>-->
-            <!--&lt;!&ndash; Collect the nav links, forms, and other content for toggling &ndash;&gt;-->
-            <!--<div class="collapse navbar-collapse navbar-ex1-collapse">-->
-                <!--<div class="menu-container">-->
-                    <!--<ul class="nav navbar-nav">-->
-                        <!--<li class="page-scroll">-->
-                            <!--<a href="#Our-Tours"><span data-hover="Our Tours">Our Tours</span></a>-->
-                        <!--</li>-->
-                        <!--<li class="page-scroll">-->
-                            <!--<a href="#Popular-Tours"><span data-hover="Popular Tours">Popular Tours</span></a>-->
-                        <!--</li>-->
-                        <!--<li class="page-scroll">-->
-                            <!--<a href="#Services"><span data-hover="Services">Services</span></a>-->
-                        <!--</li>-->
-
-                        <!--<li ng-hide="isAuthenticated()">-->
-                            <!--<button class="btn btn-facebook" ng-click="authenticate('facebook')"><i-->
-                                        <!--class="fa fa-facebook-f"></i> Sign in with Facebook-->
-                            <!--</button>-->
-                        <!--</li>-->
-                        <!--<li ng-show="isAuthenticated()">-->
-                        <!--<li class="dropdown open">-->
-                            <!--<a href="#" class="dropdown-toggle user-nav" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">-->
-                                <!--<i class="fa fa-2x fa-user"></i> <span class="caret"></span>-->
-                            <!--</a>-->
-                            <!--<ul class="dropdown-menu">-->
-                                <!--<li><a href="/myRates">Action</a></li>-->
-                                <!--<li><a href="#">Another action</a></li>-->
-
-                            <!--</ul>-->
-                        <!--</li>-->
-                    <!--</ul>-->
-
-                <!--</div>-->
-            <!--</div>-->
-            <!--&lt;!&ndash; /.navbar-collapse &ndash;&gt;-->
-        <!--</div>-->
-        <!--&lt;!&ndash; /.container &ndash;&gt;-->
-    <!--</nav>-->
     <modal visible="showModal">
         <div class="jumbotron text-center">
             <p>Please Log In to provide more User Experience</p>

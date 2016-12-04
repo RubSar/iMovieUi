@@ -127,6 +127,25 @@ var router = function () {
             });
     });
 
+    api.route('/search').get(function (req, res) {
+        var model =req.query
+            ,predicate=model.predicate
+            ,term= model.searcTerm;
+
+        models.MovieCharacter.find({predicate: term})
+            .populate('rates', 'value')
+            .exec(function (err, results) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    res.send({
+                        data: results,
+                        status: 200
+                    });
+                }
+            });
+    });
+
     api.route('/byMovie').get(function (req, res) {
         models.MovieCharacter.find({'movies.name': req.query.movieName})
             .populate('rates', 'value')

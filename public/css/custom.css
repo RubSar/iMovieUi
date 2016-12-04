@@ -41,7 +41,7 @@ ul.rating {
 }
 
 .rating .filled {
-    color: #21568b;
+    color: #127387;
 }
 
 /*end star rating*/
@@ -80,7 +80,7 @@ ul.rating {
     background-color: #3b5998;
     border-bottom: 2px solid #3b5998;
     color: #fff;
-    margin-top: -18px;
+    margin-top: -9px;
 }
 
 .btn-facebook:hover {
@@ -162,7 +162,7 @@ ul.rating {
 }
 
 .character-box span {
-    color: #e74c3c;
+    color: goldenrod;
 }
 
 
@@ -217,4 +217,26 @@ h4 {
 .vote-box.in-progress {
     padding: 9px;
     background-color: rgb(18, 115, 135);
+}
+
+.footer{
+    background-color:  #d9d9d9;
+}
+.trapezoid {
+    border-bottom: 40px solid #31353e;
+    border-left: 40px solid transparent;
+    border-right: 40px solid transparent;
+    height: 0;
+    width: 240px;
+    position: relative;
+    margin: 0 auto;
+    font-size: 20px;
+    line-height: 40px;
+}
+
+.social-wrapper{
+    padding:50px;
+    padding-bottom: 10px;
+    background-color:#31353e ;
+    text-align: center;
 }

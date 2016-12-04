@@ -255,25 +255,8 @@ a:hover {
   margin-bottom: 10px;
   display: inline-block;
 }
-.g-social-icons-v2 a {
-  width: 35px;
-  height: 35px;
-  line-height: 35px;
-  display: block;
-  background: #fff;
-  color: #e74c3c;
-  transition: all 0.3s ease-in-out;
-}
-.g-social-icons-v2 a:hover {
-  background: #31353e;
-  color: #fff;
-}
-.g-social-icons-v2 a i {
-  color: #e74c3c;
-}
-.g-social-icons-v2 a:hover i {
-  color: #fff;
-}
+
+
 
 .g-heading-v8 h2,
 .g-heading-v8 .h2 {
@@ -422,7 +405,7 @@ a:hover {
 /* Navbar */
 .one-page-header {
   border-bottom: none;
-  background: rgba(0,0,0,0);
+  background: rgba(49, 53, 62, 1);
 }
 .one-page-header .container {
   position: relative;
@@ -461,7 +444,7 @@ a:hover {
   position: absolute;
   top: 100%;
   font-weight: bold;
-  color: #e74c3c;
+  color: goldenrod;
   content: attr(data-hover);
   transform: translate3d(0, 0, 0);
   transition: color .4s;
@@ -493,7 +476,7 @@ a:hover {
   .one-page-header .navbar-nav > li > a:hover span[data-hover] {
     transform: translate3d(0, 0, 0);
     transition: color .3s;
-    color: #e74c3c;
+    color: goldenrod;
     font-weight: bold;
   }
 }
@@ -559,7 +542,8 @@ a:hover {
 @media(min-width: 992px) {
   .one-page-header.navbar {
     padding: 12px 0;
-    background-image: url("../img/red-curtains.jpg");
+    /*background-image:linear-gradient(to bottom ,#127387, #0c4d5a, #0f6070 );*/
+    background-color: #31353e;
     transition: background .3s ease-in-out,padding .3s ease-in-out;
   }
 
@@ -658,9 +642,6 @@ a:hover {
     color: #777;
   }
 
-  .one-page-header.top-nav-collapse .dropdown-menu > li > a:hover {
-    color: #72c02c;
-  }
 }
 @media (max-width: 991px) {
   .one-page-header .dropdown-menu {
@@ -686,7 +667,7 @@ a:hover {
 /* Fixed Header */
 .one-page-header.top-nav-collapse {
   box-shadow: none;
-  background: rgba(49,53,62,.8);
+  background-color: rgba(49, 53, 62,.7);
 }
 
 @media (max-width: 768px) {
@@ -712,7 +693,7 @@ a:hover {
 }
 .one-page-header.navbar-default .navbar-toggle:hover .icon-bar,
 .one-page-header.top-nav-collapse .navbar-toggle:hover .icon-bar {
-  background: #e74c3c;
+  background: #127387;
 }
 
 
