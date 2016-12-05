@@ -61,6 +61,25 @@
             }
         });
 
+        $scope.$watch('character', function (newVal, oldVal) {
+            if (!!newVal && newVal !== oldVal) {
+               // if (newVal.rates == oldVal.rates) {
+                    var dto = {
+                        movie: newVal.movies[0].name,
+                        artist: newVal.playedBy,
+                        year: newVal.movies[0].year
+                    };
+                    MovieCharacterSvs.getRecommended(dto)
+                        .then(function (result) {
+                          $scope.recommended =result.data;
+                        }, function (err) {
+                            console.log(err);
+                        });
+               // }
+            }
+
+        }, true);
+
         function sum(items, prop) {
             return items.reduce(function (a, b) {
                 return a + b[prop];
@@ -70,7 +89,6 @@
         function average(sum, length) {
             return (sum / length).toFixed(1);
         }
-
 
 
     });

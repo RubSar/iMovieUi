@@ -165,8 +165,6 @@ ul.rating {
     color: goldenrod;
 }
 
-
-
 h4 {
     color: #31353e;
 }
@@ -237,6 +235,25 @@ h4 {
 .social-wrapper{
     padding:50px;
     padding-bottom: 10px;
-    background-color:#31353e ;
+    background-color:#31353e;
     text-align: center;
+}
+
+.pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus {
+    z-index: 2;
+    color: #fff;
+    cursor: default;
+    background-color: #127387;
+    border-color: #127387;
+}
+.pagination > li > a, .pagination > li > span {
+    position: relative;
+    float: left;
+    padding: 6px 12px;
+    margin-left: -1px;
+    line-height: 1.42857143;
+    color: #127387;
+    text-decoration: none;
+    background-color: #fff;
+    border: 1px solid #ddd;
 }

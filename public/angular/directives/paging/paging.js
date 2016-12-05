@@ -5,32 +5,13 @@
 (function () {
     "use strict";
 
-    /**
-     * @ngDoc directive
-     * @name ng.directive:paging
-     *
-     * @description
-     * A directive to aid in paging large datasets
-     * while requiring a small amount of page
-     * information.
-     *
-     * @element EA
-     *
-     */
+
     angular.module('iMovieUi').directive('paging', function () {
 
 
-        /**
-         * The regex expression to use for any replace methods
-         * Feel free to tweak / fork values for your application
-         */
+
         var regex = /\{page\}/g;
 
-
-        /**
-         * The angular return value required for the directive
-         * Feel free to tweak / fork values for your application
-         */
         return {
 
             // Restrict to elements and attributes

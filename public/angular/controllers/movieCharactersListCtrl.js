@@ -42,17 +42,24 @@
                 console.log(err);
             });
 
-        $scope.search = function(form){
-            if ($scope.searchForm.$valid) {
-                var model ={
-                    term:$scope.searchTerm,
-                    predicate:$scope.predicate
-                };
-                console.log(model);
-            }else{
-                return;
-            }
-        };
+        //$scope.search = function(form){
+        //    if ($scope.searchForm.$valid) {
+        //        var model ={
+        //            term:$scope.searchTerm,
+        //            predicate:$scope.predicate
+        //        };
+        //        console.log(model);
+        //        MovieCharacterSvs.getSearchResult(model)
+        //            .then(function(result){
+        //                console.log(result);
+        //            }, function(err){
+        //                console.log(err);
+        //            })
+        //
+        //    }else{
+        //        return;
+        //    }
+        //};
 
         $scope.$watch('paging.number', function(newVal, oldVal){
             if (newVal) {

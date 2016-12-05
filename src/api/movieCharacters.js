@@ -4,7 +4,7 @@
 var express = require('express');
 var models = require('../models/movieCharacterModel');
 var api = express.Router();
-var auth =require('../services/authService');
+var auth = require('../services/authService');
 
 
 var router = function () {
@@ -47,7 +47,7 @@ var router = function () {
         models.MovieCharacter.find({})
             .populate('rates', 'value')
             .limit(size)
-            .skip((number-1)*size)
+            .skip((number - 1) * size)
             .exec(function (err, results) {
                 if (err) {
                     console.log(err);
@@ -60,9 +60,9 @@ var router = function () {
                             data: results,
                             count: count,
                             status: 200,
-                            paging:{
-                                number:number,
-                                size:size
+                            paging: {
+                                number: number,
+                                size: size
                             }
                         });
 
@@ -127,24 +127,24 @@ var router = function () {
             });
     });
 
-    api.route('/search').get(function (req, res) {
-        var model =req.query
-            ,predicate=model.predicate
-            ,term= model.searcTerm;
-
-        models.MovieCharacter.find({predicate: term})
-            .populate('rates', 'value')
-            .exec(function (err, results) {
-                if (err) {
-                    console.log(err);
-                } else {
-                    res.send({
-                        data: results,
-                        status: 200
-                    });
-                }
-            });
-    });
+    //api.route('/search').get(function (req, res) {
+    //    var model = req.query
+    //        , predicate = model.predicate
+    //        , term = model.term;
+    //
+    //    models.MovieCharacter.find({'playedBy': {"$regex": term,"$options": i}})
+    //        .populate('rates', 'value')
+    //        .exec(function (err, results) {
+    //            if (err) {
+    //                console.log(err);
+    //            } else {
+    //                res.send({
+    //                    data: results,
+    //                    status: 200
+    //                });
+    //            }
+    //        });
+    //});
 
     api.route('/byMovie').get(function (req, res) {
         models.MovieCharacter.find({'movies.name': req.query.movieName})
@@ -205,7 +205,7 @@ var router = function () {
             } else {
                 res.send({
                     data: result,
-                    success:true,
+                    success: true,
                     status: 200
                 });
             }
@@ -213,36 +213,75 @@ var router = function () {
     });
 
     //get single character
-    api.route('/single').get(function(req, res){
+    api.route('/single').get(function (req, res) {
         var url = decodeURIComponent(req.query.name);
         var id = auth.user(req);
-        console.log(id);
 
-        models.MovieCharacter.findOne({name:url})
-             .populate('rates', 'value')
-             .exec(function(err, result){
-                if(id){
-                    models.Rate.findOne({userId: id, characterId:result._id}, function(err, rate){
+        models.MovieCharacter.findOne({name: url})
+            .populate('rates', 'value')
+            .exec(function (err, result) {
+                if (id) {
+                    models.Rate.findOne({userId: id, characterId: result._id}, function (err, rate) {
                         res.send({
-                               character:result,
-                               userRate:!!rate? rate.value: null,
-                               success:true,
-                               status:200
-                           })
-                        });
-                }else{
+                            character: result,
+                            userRate: !!rate ? rate.value : null,
+                            success: true,
+                            status: 200
+                        })
+                    });
+                } else {
                     res.send({
-                        character:result,
-                        success:true,
-                        status:200
+                        character: result,
+                        success: true,
+                        status: 200
                     });
                 }
 
-        });
+            });
+    });
+    api.route('/recommended').get(function (req, res) {
+
+        var model = req.query;
+
+        //TODO: improve implementation letter
+        models.MovieCharacter.find({$or: [{'movies.name': model.movie}, {playedBy: model.artist}]})
+            .limit(3)
+            .select('name playedBy imgUrl movies')
+            .exec(function (err, result) {
+
+
+                var retModel = [];
+                for (var i = 0; i < result.length; i++) {
+                    if (result[i].playedBy == model.artist && result[i].movies[0].name == model.movie) {
+                        //do nothing
+                    } else {
+                        retModel.push(result[i]);
+                    }
+                }
+
+                models.MovieCharacter.find({'movies.year': model.year})
+                    .limit(5)
+                    .select('name playedBy imgUrl movies')
+                    .exec(function (err, yResult) {
+
+                        for (var i = 0; i < yResult.length; i++) {
+                            if (yResult[i].playedBy == model.artist && yResult[i].movies[0].name == model.movie) {
+                                //do nothing
+                            } else {
+                                retModel.push(yResult[i]);
+                            }
+                        }
+                        res.send({
+                            data: retModel,
+                            success: true,
+                            status: 200
+                        });
+                    });
+
+            });
 
 
     });
-
 
     return api;
 };

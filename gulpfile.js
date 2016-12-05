@@ -2,6 +2,8 @@ var gulp = require('gulp');
 var jshint = require('gulp-jshint');
 var jscs = require('gulp-jscs');
 var nodemon = require('gulp-nodemon');
+var less = require('gulp-less');
+var path = require('path');
 
 var jsFiles = ['*.js', 'src/**/*.js'];
 
@@ -55,4 +57,12 @@ gulp.task('serve',  function () {
         .on('restart', function (ev) {
             console.log('Restarting....');
         });
+});
+
+gulp.task('less', function () {
+    return gulp.src('./less/**/*.less')
+        .pipe(less({
+            paths: [ path.join(__dirname, 'less', 'includes') ]
+        }))
+        .pipe(gulp.dest('./public/css'));
 });
