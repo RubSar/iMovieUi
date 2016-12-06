@@ -4,6 +4,8 @@ var jscs = require('gulp-jscs');
 var nodemon = require('gulp-nodemon');
 var less = require('gulp-less');
 var path = require('path');
+var rename  = require('gulp-rename');
+var cssmin = require('gulp-cssmin');
 
 var jsFiles = ['*.js', 'src/**/*.js'];
 
@@ -43,7 +45,7 @@ gulp.task('inject', function () {
 });
 
 //gulp.task('serve', ['style', 'inject'], function () {
-gulp.task('serve',  function () {
+gulp.task('serve', function () {
     var options = {
         script: 'app.js',
         delayTime: 1,
@@ -59,10 +61,22 @@ gulp.task('serve',  function () {
         });
 });
 
+
+gulp.task('watch', function () {
+    gulp.watch('./*.less', ['less']);
+});
+
 gulp.task('less', function () {
-    return gulp.src('./less/**/*.less')
-        .pipe(less({
-            paths: [ path.join(__dirname, 'less', 'includes') ]
+
+    return gulp.src('./public/css/style.less')
+        .pipe(less().on('error', function (err) {
+            console.log(err);
         }))
+        .pipe(cssmin().on('error', function (err) {
+            console.log(err);
+        }))
+        .pipe(rename({suffix: '.min'}))
         .pipe(gulp.dest('./public/css'));
 });
+
+gulp.task('default', ['less', 'watch']);

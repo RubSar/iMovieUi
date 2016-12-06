@@ -16,8 +16,8 @@
         <div class="container-fluid">
             <h2 class="h2">Movie Characters Rated<strong> By Me</strong></h2>
 
-            <div ng-hide="contentLoaded" style="min-height: 550px; padding-top:200px;" class="text-center">
-                <img src="/img/loading.gif" alt="loading"/>
+            <div ng-hide="contentLoaded" class="lazy-load-box">
+              <i class="fa fa-spin fa-cog fa-5x"></i>
             </div>
             <div class="our-tours-list-wrapper" ng-show="contentLoaded">
                 <div class="our-tours-list text-left">

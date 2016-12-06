@@ -43,6 +43,10 @@ ul.rating {
 .rating .filled {
     color: #127387;
 }
+.user-info{
+    color: #ccc;
+    font-size: 28px;
+}
 
 /*end star rating*/
 /*=====================================*/
@@ -92,7 +96,6 @@ ul.rating {
     margin: 0 auto;
 }
 
-
 .info-container {
     padding-left: 20px;
 }
@@ -111,8 +114,8 @@ ul.rating {
 }
 
 .fs-60 {
-     font-size: 60px;
- }
+    font-size: 60px;
+}
 
 .fs-50 {
     font-size: 50px;
@@ -121,11 +124,18 @@ ul.rating {
 .fs-20 {
     font-size: 20px;
 }
-.pl-0{
+
+.pl-0 {
     padding-left: 0;
 }
+
 .gold {
     color: goldenrod;
+}
+
+.copyright {
+    color: #ccc;
+    margin-top: 10px;
 }
 
 .user-nav {
@@ -143,12 +153,34 @@ ul.rating {
 }
 
 .character-box {
-    background-image: linear-gradient(to bottom ,#127387,#31353e);
+    background-image: linear-gradient(to bottom, #127387, #31353e);
     border: 1px solid #ccc;
     margin-bottom: 25px;
     border-radius: 10px;
     padding: 5px;
     cursor: pointer;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #127387;
+    border-color: #127387;
+}
+
+.btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
+    color: #fff;
+    background-color: #0f6070;
+    border-color: #0f6070;
+}
+.btn-primary:hover {
+    color: #fff;
+    background-color: #0f6070;
+    border-color: #0f6070;
+}
+.btn-primary:active:hover, .btn-primary.active:hover, .open > .dropdown-toggle.btn-primary:hover, .btn-primary:active:focus, .btn-primary.active:focus, .open > .dropdown-toggle.btn-primary:focus, .btn-primary:active.focus, .btn-primary.active.focus, .open > .dropdown-toggle.btn-primary.focus {
+    color: #fff;
+    background-color: #0f6070;
+    border-color: #0f6070;
 }
 
 .character-box h4 {
@@ -170,23 +202,6 @@ h4 {
 }
 
 /***********************************************************************************************************************/
-
-.navbar-awesome {
-    background-image: url("http://res.cloudinary.com/dk1chsp5h/image/upload/c_scale,h_81/v1480497151/header_xxwkww.jpg");
-    margin-bottom: 0;
-    height: 80px;
-
-}
-
-.navbar-awesome .navbar-nav > li > a {
-    color: #fff;
-    font-size: 19px;
-    font-weight: 500;
-}
-
-.navbar-awesome .navbar-brand a {
-
-}
 
 /**********************************************************************************************************************/
 
@@ -217,9 +232,10 @@ h4 {
     background-color: rgb(18, 115, 135);
 }
 
-.footer{
-    background-color:  #d9d9d9;
+.footer {
+    background-color: #d9d9d9;
 }
+
 .trapezoid {
     border-bottom: 40px solid #31353e;
     border-left: 40px solid transparent;
@@ -232,10 +248,10 @@ h4 {
     line-height: 40px;
 }
 
-.social-wrapper{
-    padding:50px;
+.social-wrapper {
+    padding: 50px;
     padding-bottom: 10px;
-    background-color:#31353e;
+    background-color: #31353e;
     text-align: center;
 }
 
@@ -246,6 +262,7 @@ h4 {
     background-color: #127387;
     border-color: #127387;
 }
+
 .pagination > li > a, .pagination > li > span {
     position: relative;
     float: left;

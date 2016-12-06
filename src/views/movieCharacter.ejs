@@ -20,9 +20,12 @@
     <input type="hidden" ng-value="authProp =isAuthenticated()"/>
 
 
-    <div class="container  pt-85 pb-100" ng-controller="MovieCharacterCtrl">
+    <div class="container pt-85 pb-100" ng-controller="MovieCharacterCtrl">
+        <div ng-hide="contentLoaded" class="lazy-load-box">
+            <i class="fa fa-spin fa-cog fa-5x"></i>
+        </div>
         <div class="row">
-            <div class="col-md-9">
+            <div class="col-md-9" ng-show="contentLoaded">
                 <h2 class="g-heading"><strong>{{character.name}}</strong>
                     <small>by</small>
                     {{character.playedBy}}
@@ -73,7 +76,7 @@
                                                     <h4>{{character.movies[0].name}}
                                                         <small>({{character.movies[0].year}})</small>
                                                     </h4>
-                                                    <p class="mt-xs-5">iMDb Rating
+                                                    <p class="mt-xs-0 mb-xs-0">iMDb Rating
                                                         (<strong>{{character.movies[0].IMDbRating}}/10</strong>)</p>
 
                                                 </div>
@@ -90,31 +93,40 @@
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <div class="fb-comments" data-href="http://localhost:3000/docs/plugins/comments#{{character._id}}"
-                         data-numposts="5"></div>
+                <div class="form-group bg-color-white pl-30">
+                    <div class="fb-comments" data-href="{{dataHref}}" data-numposts="5"></div>
                 </div>
             </div>
             <div class="col-md-3 hidden-sm hidden-xs">
-              <div class="recommended-box">
-                  <div class="rec-heading">
-                      recommended
-                  </div>
-                  <div ng-repeat="item in recommended track by $index">
-                      <div class="rec-item">
-                          <div class="row">
-                              <div class="col-md-4">
-                                  <img ng-src="{{item.imgUrl}}" class="img-responsive">
-                                  <h4>{{item.name}} </h4>
-                                  <h5><small>by</small> {{item.playedBy}}</h5>
-                              </div>
-                              <div class="col-md-8">
-                                  <h3>{{item.movies[0].name}}</h3>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
+                <div class="recommended-box">
+                    <div class="rec-heading">
+                        recommended
+                    </div>
+                    <div ng-repeat="item in recommended track by $index">
+                        <div class="rec-item">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <a ng-href="{{item.name}}">
+                                        <img ng-src="{{item.imgUrl}}" class="img-responsive">
+                                    </a>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="rec-info">
+                                        <h5>{{item.movies[0].name}}</h5>
+                                        <h5>{{item.movies[0].year}}</h5>
+                                    </div>
+                                </div>
+                            </div>
+                            <h5>
+                                <a ng-href="{{item.name}}">
+                                    {{item.name}}
+                                    <small>by</small>
+                                    {{item.playedBy}}
+                                </a>
+                            </h5>
+                        </div>
+                    </div>
+                </div>
 
             </div>
 
@@ -126,6 +138,11 @@
     </footer>
 
     <% include partials/scripts.ejs %>
+    <script>
+        $(function () {
+            App.init();
+        });
+    </script>
 </main>
 </body>
 </html>

@@ -17,10 +17,8 @@
         <div class="container-fluid">
             <h2 class="g-heading"> Most Popular movie <strong> characters</strong></h2>
 
-
-
-            <div ng-hide="contentLoaded" style="min-height:550px; padding-top:200px;" class="text-center">
-                <img src="/img/loading.gif" alt="loading"/>
+            <div ng-hide="contentLoaded" class="lazy-load-box">
+                <i class="fa fa-spin fa-cog fa-5x"></i>
             </div>
 
             <div class="container" ng-show="contentLoaded">
@@ -50,19 +48,19 @@
                 <div class="row">
                     <div class="col-md-2 form-group">
                         <div class="row">
-                            <div class="col-md-12 col-sm-3">
+                            <div class="col-md-12 col-sm-3 col-xs-4">
                                 <div class="form-group">
                                     <mc-dropdown items-list="artists" model="artist" term="_id"
                                                  label="Artist"></mc-dropdown>
                                 </div>
                             </div>
-                            <div class="col-md-12 col-sm-3">
-                                <div class="form-group">
+                            <div class="col-md-12 col-sm-3 col-xs-4">
+                                <div class="form-group ">
                                     <mc-dropdown items-list="years" model="year" term="_id"
                                                  label="Year"></mc-dropdown>
                                 </div>
                             </div>
-                            <div class="col-md-12 col-sm-3">
+                            <div class="col-md-12 col-sm-3 col-xs-4">
                                 <div class="form-group">
                                     <mc-dropdown items-list="movies" model="movie" term="_id"
                                                  label="Movie"></mc-dropdown>

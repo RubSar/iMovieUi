@@ -9,7 +9,9 @@
     angular.module('iMovieUi').controller('ComicsCharacterCtrl', function ($scope, $window, $rootScope, ComicsCharactersSvc, VoteSvc, $auth) {
 
         var url = $window.location.pathname.split('/comics-character/')[1];
+        $scope.dataHref =document.URL;
         $scope.voteStart = false;
+        $scope.contentLoaded =false;
 
         $scope.isAuthenticated = function () {
             return $auth.isAuthenticated();
@@ -18,6 +20,7 @@
         ComicsCharactersSvc.getSingle(url)
             .then(function (response) {
                 $scope.character = response.data;
+                $scope.contentLoaded =true;
                 getUserRate();
             }, function (err) {
                 console.log(err);

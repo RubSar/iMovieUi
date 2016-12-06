@@ -10,6 +10,8 @@
 
         var url = $window.location.pathname.split('/movie-character/')[1];
         $scope.rateValue = 1;
+        $scope.dataHref=document.URL;
+        $scope.contentLoaded =false;
         $scope.avgUpdate = false;
 
 
@@ -22,6 +24,7 @@
                 $scope.character = response.character;
                 $scope.userRate = response.userRate;
                 $scope.rateAverage = !!$scope.character.rates.length ? average(sum($scope.character.rates, 'value'), $scope.character.rates.length) : 0;
+                $scope.contentLoaded =true;
 
             }, function (err) {
                 console.log(err);

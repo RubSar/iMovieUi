@@ -1,5 +1,6 @@
 <div class="dropdown">
-    <button class="btn btn-primary btn-160 dropdown-toggle" type="button" data-toggle="dropdown">Choose By {{label}}
+    <button class="btn btn-primary btn-fixed-size dropdown-toggle" type="button" data-toggle="dropdown">
+        <span class="hidden-xs">Choose </span> By {{label}}
         <span class="caret"></span></button>
     <ul class="dropdown-menu">
         <li ng-repeat="item in itemsList track by $index" ng-click="setModel(item[term])">
