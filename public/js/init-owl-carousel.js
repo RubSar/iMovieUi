@@ -1,7 +1,7 @@
 var OwlCarousel = function () {
     return {
         initOwlCarousel: function () {
-            $('.our-tours-list').owlCarousel({
+            $('.comics-character-list').owlCarousel({
                 loop: true,
                 margin: 15,
                 responsive: {

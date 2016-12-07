@@ -713,41 +713,41 @@ a:hover {
   margin-left: 0;
   margin-right: 0;
 }
-.our-tours-list-wrapper {
+.comics-characters-list-wrapper {
   padding: 0 30px;
 }
-.our-tours-list-item {
+.comics-character-list-item {
   color: rgba(255,255,255,.8);
   background-image: linear-gradient(to bottom ,#127387,#31353e);
   padding-bottom: 30px;
   transition: all 0.3s ease-in-out;
 }
-.our-tours-list-item:hover {
+.comics-character-list-item:hover {
   /*background: #127387;*/
   background-image: linear-gradient(to bottom ,#31353e,#127387);
 }
-.our-tours-list-item .img-wrapper {
+.comics-character-list-item .img-wrapper {
   margin-bottom: 20px;
 }
-.our-tours-list-item h3 {
+.comics-character-list-item h3 {
   color: #fff;
   font-size: 14px;
   margin: 0 0 5px;
 }
-.our-tours-list-item .star-vote {
+.comics-character-list-item .star-vote {
   margin-bottom: 5px;
 }
-.our-tours-list-item .star-vote li {
+.comics-character-list-item .star-vote li {
   padding: 0;
   margin-right: 5px;
 }
-.our-tours-list-item .g-color-default {
+.comics-character-list-item .g-color-default {
   transition: all 0.3s ease-in-out;
 }
-.our-tours-list-item:hover .g-color-default {
+.comics-character-list-item:hover .g-color-default {
   color: #31353e;
 }
-.our-tours-list-item p {
+.comics-character-list-item p {
   margin-bottom: 15px;
 }
 .our-tours-price {
@@ -760,24 +760,24 @@ a:hover {
   padding: 10px 11px;
   transition: all 0.3s ease-in-out;
 }
-.our-tours-list-item:hover .our-tours-price {
+.comics-character-list-item:hover .our-tours-price {
   background: #31353e;
 }
-.our-tours-list-item h3,
-.our-tours-list-item p,
-.our-tours-list-item .star-vote,
-.our-tours-list-item .our-tours-price {
+.comics-character-list-item h3,
+.comics-character-list-item p,
+.comics-character-list-item .star-vote,
+.comics-character-list-item .our-tours-price {
   margin-left: 20px;
   margin-right: 20px;
 }
-.our-tours-list .owl-buttons {
+.comics-character-list .owl-buttons {
   position: absolute;
   top: 190px;
   left: 0;
   right: 0;
 }
-.our-tours-list .owl-prev,
-.our-tours-list .owl-next {
+.comics-character-list .owl-prev,
+.comics-character-list .owl-next {
   width: 45px;
   height: 45px;
   background: #127387;
@@ -786,12 +786,12 @@ a:hover {
   display: inline-block;
   cursor: pointer;
 }
-.our-tours-list .owl-prev:hover,
-.our-tours-list .owl-next:hover {
+.comics-character-list .owl-prev:hover,
+.comics-character-list .owl-next:hover {
   background: #31353e;
 }
-.our-tours-list .owl-prev:after,
-.our-tours-list .owl-next:after {
+.comics-character-list .owl-prev:after,
+.comics-character-list .owl-next:after {
   top: 10px;
   color: #fff;
   font-size: 18px;
@@ -800,17 +800,17 @@ a:hover {
   display: inline-block;
   font-family: FontAwesome;
 }
-.our-tours-list .owl-prev {
+.comics-character-list .owl-prev {
   left: -30px;
 }
-.our-tours-list .owl-next {
+.comics-character-list .owl-next {
   right: -30px;
 }
-.our-tours-list .owl-prev:after {
+.comics-character-list .owl-prev:after {
   left: 18px;
   content: "\f104";
 }
-.our-tours-list .owl-next:after {
+.comics-character-list .owl-next:after {
   right: 18px;
   content: "\f105";
 }

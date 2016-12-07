@@ -8,48 +8,53 @@
     <header>
         <% include partials/header.ejs %>
     </header>
-    <input type="hidden" ng-value="isAuthProp =isAuthenticated()" >
+    <input type="hidden" ng-value="isAuthProp =isAuthenticated()">
 
     <div class="text-center pt-85 pb-100">
         <div class="container-fluid">
 
-            <h2 class="g-heading"> <strong>Comics based</strong> Movies</h2>
-            <div class="our-tours-list-wrapper">
-                <div class="our-tours-list text-left">
-                    <!-- Batman  -->
+            <h2 class="g-heading"><strong>Comics based</strong> Movies</h2>
+
+            <div class="comics-characters-list-wrapper">
+                <div class="comics-character-list text-left">
                     <% characters.forEach(function(character){ %>
-                    <div class="our-tours-list-item">
+                    <div class="comics-character-list-item">
                         <div class="img-wrapper img-wrapper--shadow">
-                            <img src="<%= character.imgUrl%>"  class="img-responsive">
+                            <img src="<%= character.imgUrl %>" class="img-responsive">
                         </div>
-                        <h3><%= character.name%>    <small>  /  <%= character.type%></small></h3>
-                        <ul class="list-inline star-vote">
-                            <li><i class="g-color-default fa fa-star"></i></li>
-                            <li><i class="g-color-default fa fa-star"></i></li>
-                            <li><i class="g-color-default fa fa-star-half-o"></i></li>
-                            <li><i class="g-color-default fa fa-star-o"></i></li>
-                            <li><i class="g-color-default fa fa-star-o"></i></li>
-                        </ul>
-                        <p><%= character.description%></p>
+                        <h3><%= character.name %>
+                            <small style="color: #fff"> / <%= character.type %></small>
+                        </h3>
+                        <!--<ul class="list-inline star-vote">-->
+                        <!--<li><i class="g-color-default fa fa-star"></i></li>-->
+                        <!--<li><i class="g-color-default fa fa-star"></i></li>-->
+                        <!--<li><i class="g-color-default fa fa-star-half-o"></i></li>-->
+                        <!--<li><i class="g-color-default fa fa-star-o"></i></li>-->
+                        <!--<li><i class="g-color-default fa fa-star-o"></i></li>-->
+                        <!--</ul>-->
+                        <p><%= character.description %></p>
+
                         <div class="our-tours-price">
-                            <a style="color:white" href="/comics-character/<%= character.name%>">See more</a>
+                            <a style="color:white" href="/comics-character/<%= character.name %>">See more</a>
                         </div>
                     </div>
-                    <% })%>
+                    <% }) %>
                 </div>
             </div>
 
         </div>
     </div>
 
-    <div class="text-center  pt-85 pb-100" >
-        <h2 class="g-heading"> <strong>Most popular movie</strong> Characters</h2>
+    <div class="text-center  pt-85 pb-100">
+        <h2 class="g-heading"><strong>Most popular movie</strong> Characters</h2>
+
         <div class="container">
-         <div class="row" ng-repeat="row in movieCharacters">
-             <div class="col-md-6 col-sm-6 " ng-repeat="item in row track by item._id" style="min-height: 100px;margin-bottom: 15px;">
+            <div class="row" ng-repeat="row in movieCharacters">
+                <div class="col-md-6 col-sm-6 " ng-repeat="item in row track by item._id"
+                     style="min-height: 100px;margin-bottom: 15px;">
                     <character model="item"></character>
-             </div>
-         </div>
+                </div>
+            </div>
 
 
             <div class="text-left">
@@ -63,19 +68,14 @@
     </div>
 
 
-
-
-
     <footer>
         <% include partials/footer.ejs %>
     </footer>
 
-
     <% include partials/scripts.ejs %>
 
-
-<script src="/js/owl.carousel.min.js" type="text/javascript"></script>
-<script src="/js/init-owl-carousel.js" type="text/javascript"></script>
+    <script src="/js/owl.carousel.min.js" type="text/javascript"></script>
+    <script src="/js/init-owl-carousel.js" type="text/javascript"></script>
     <script>
         $(function () {
 
