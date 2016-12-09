@@ -26,7 +26,7 @@
                    <div class="col-md-6">
                        <div ng-show="filteredBy" class="alert alert-info fade in alert-dismissable">
                            <a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">x</a>
-                           Filtered {{filteredBy.key}} : <strong>{{filteredBy.value}}</strong>
+                           Filtered <span ng-bind="filteredBy.key"></span> : <strong ng-bind="filteredBy.value"></strong>
                        </div>
                    </div>
                    <!--<div class="col-md-6">-->

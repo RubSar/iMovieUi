@@ -2,12 +2,10 @@
  * Created by Toshiba on 11/22/2016.
  */
 var express = require('express');
+var mongoose = require('mongoose');
 var models = require('../models/movieCharacterModel');
 var api = express.Router();
-var auth =require('../services/authService');
-
-
-
+var auth = require('../services/authService');
 
 
 var router = function () {
@@ -15,29 +13,72 @@ var router = function () {
 
     api.get('/rates', function (req, res) {
         var id = auth.user(req);
-        //if (id) {
-        //    models.MovieCharacter.find({})
-        //        .populate('rates', 'value')
-        //        .exec(function(err, results){
-        //            if (err) {
-        //                console.log(err);
-        //            }else{
-        //                entries = results.filter(function(character) {
-        //                    return character.rates.userId ;
-        //                });
-        //            }
-        //        });
-        //
-        //}
-        res.send({
-            status:200,
-            success:true,
-            message:'Sorry i didn\'t now how implement it yet'
-        })
+        var value = req.query.value;
+        if (id) {
+            models.Rate.find({userId: id, value: value})
+                // .sort({value:-1})
+                // .limit(10)
+                .populate('characterId', 'name playedBy imgUrl')
+                .exec(function (err, results) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        res.send({
+                            status: 200,
+                            success: true,
+                            data: results
+                        });
+                    }
+                });
 
+        } else {
+            res.send({
+                status: 200,
+                success: true,
+                message: 'unauthorized'
+            })
+        }
     });
 
+    api.get('/topRatings', function (req, res) {
+        var id = auth.user(req);
+        if (id) {
+            models.Rate.aggregate([
+                {
+                    $match: {
+                        userId: mongoose.Types.ObjectId(id)
+                    }
+                },
+                {
+                    $group: {
+                        _id: "$value",
+                        count: {$sum: 1}
+                    }
+                },
+                {
+                    "$sort": {"_id": -1}
+                }
+            ], function (err, results) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    res.send({
+                        status: 200,
+                        success: true,
+                        data: results
+                    })
+                }
 
+            });
+        } else {
+            res.send({
+                status: 200,
+                success: true,
+                message: 'unauthorized'
+            })
+        }
+
+    });
 
 
     return api;

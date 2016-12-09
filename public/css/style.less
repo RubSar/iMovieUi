@@ -50,38 +50,51 @@
   }
 }
 
+.btn-facebook {
+  background-color: #3b5998;
+  border-bottom: 2px solid #3b5998;
+  color: #fff;
+  &:hover {
+    color: #fff;
+    border-bottom: 2px solid #29487d;
+  }
+}
+
+
 @media @desktop-xl {
 
   .btn-fixed-size {
     width: 160px;
   }
 
+  .btn-facebook {
+    margin-top: -9px;
+  }
 
-  .artist-movies{
+  .artist-movies {
     max-height: 430px;
     overflow-y: scroll;
-    .movie-item{
+    .movie-item {
       background-color: #fff;
       padding: 5px;
       border-bottom: 1px solid #313131;
       margin-bottom: 10px;
 
-      h5{
-        color:#313131;
+      h5 {
+        color: #313131;
         font-weight: 600;
         margin-bottom: 0;
       }
-      i{
+      i {
         font-size: 13px;
       }
     }
 
-
   }
 
-  .lazy-load-box{
+  .lazy-load-box {
     min-height: 500px;
-    padding-top:220px;
+    padding-top: 220px;
     text-align: center;
   }
 
@@ -526,8 +539,8 @@
   }
 
   h2.g-heading {
-    font-size: 25px!important;
-    font-weight: 600!important;
+    font-size: 25px !important;
+    font-weight: 600 !important;
     margin: 0 0 20px !important;
   }
 

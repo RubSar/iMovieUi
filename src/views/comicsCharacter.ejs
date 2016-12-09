@@ -22,10 +22,11 @@
     <div class="container mt-100 mb-50" ng-controller="ComicsCharacterCtrl">
 
         <input type="hidden" ng-value="isAuthProp =isAuthenticated()">
+
         <div ng-hide="contentLoaded" class="lazy-load-box">
             <i class="fa fa-spin fa-cog fa-5x"></i>
         </div>
-        <div class="row mb-25" ng-show="contentLoaded" >
+        <div class="row mb-25" ng-show="contentLoaded">
             <div class="col-md-3 ">
                 <div class="row">
                     <div class="col-md-12 col-sm-7">
@@ -34,18 +35,10 @@
 
                             <div class="character-info">
                                 <div class="info">
-                                    <h4>{{character.name}}
-                                        <small style="color: #fff">/ {{character.type}}</small>
+                                    <h4><span ng-bind="character.name"></span>
+                                        <small style="color: #fff">/ <span ng-bind="character.type"></span></small>
                                     </h4>
-                          <!--<span>-->
-                              <!--<i class="fa fa-star"></i>-->
-                              <!--<i class="fa fa-star"></i>-->
-                              <!--<i class="fa fa-star"></i>-->
-                              <!--<i class="fa fa-star"></i>-->
-                              <!--<i class="fa fa-star"></i>-->
-                          <!--</span>-->
-
-                                    <p>{{character.description}} lorem ipsum dolor set ime tay</p>
+                                    <p ng-bind="character.description"></p>
                                 </div>
                             </div>
                         </div>
@@ -71,9 +64,10 @@
                                 <span ng-show="voteStart" class="vote-box" ng-class="{'in-progress': voteStart}"
                                       ng-click="rate(artist._id)"><i class="fa fa-spin fa-spinner"></i> </span>
                             </div>
-                            <h4 style="margin-bottom: 0">{{artist.firstName}} {{artist.lastName}}</h4>
+                            <h4 style="margin-bottom: 0"><span ng-bind="artist.firstName"></span> <span
+                                        ng-bind="artist.lastName"></span></h4>
 
-                           <strong>{{artist.votesCount}}</strong> users vote
+                            <strong ng-bind="artist.votesCount"></strong> users vote
                             <button type="button"
                                     class="btn btn-block navbar-toggle collapsed hidden-lg hidden-md hidden-sm"
                                     data-toggle="collapse" data-target="#movies-toggle-{{$index}}"
@@ -90,10 +84,10 @@
                                             <img ng-src="{{movie.posterUrl}}" class="img-responsive">
                                         </div>
                                     </div>
-                                    <h5>{{movie.name}}
-                                        <small>({{movie.year}})</small>
+                                    <h5 ng-bind="movie.name">
+                                        <small>(<span ng-bind="movie.year"></span>)</small>
                                     </h5>
-                                    <i>iMDb Rating (<strong>{{movie.IMDbRating}}/10</strong>) </i>
+                                    <i>iMDb Rating (<strong><span ng-bind="movie.IMDbRating"></span>/10</strong>) </i>
                                 </div>
                             </div>
                         </div>
@@ -102,13 +96,13 @@
 
             </div>
         </div>
-       <div class="row">
-           <div class="col-md-8">
-               <div class="form-group bg-color-white pl-30">
-                   <div class="fb-comments" data-href="{{dataHref}}" data-numposts="5"></div>
-               </div>
-           </div>
-       </div>
+        <div class="row">
+            <div class="col-md-8">
+                <div class="form-group bg-color-white pl-30">
+                    <div class="fb-comments" data-href="{{dataHref}}" data-numposts="5"></div>
+                </div>
+            </div>
+        </div>
     </div>
     <footer>
         <% include partials/footer.ejs %>

@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <% include partials/head.ejs %>
+    <link rel="stylesheet" href="/css/owl.carousel.css"/>
 </head>
 <body id="body" data-spy="scroll" data-target=".one-page-header" class="demo-lightbox-gallery" ng-app="iMovieUi">
 <main class="wrapper" ng-controller="HomeCtrl">
@@ -25,13 +26,6 @@
                         <h3><%= character.name %>
                             <small style="color: #fff"> / <%= character.type %></small>
                         </h3>
-                        <!--<ul class="list-inline star-vote">-->
-                        <!--<li><i class="g-color-default fa fa-star"></i></li>-->
-                        <!--<li><i class="g-color-default fa fa-star"></i></li>-->
-                        <!--<li><i class="g-color-default fa fa-star-half-o"></i></li>-->
-                        <!--<li><i class="g-color-default fa fa-star-o"></i></li>-->
-                        <!--<li><i class="g-color-default fa fa-star-o"></i></li>-->
-                        <!--</ul>-->
                         <p><%= character.description %></p>
 
                         <div class="our-tours-price">
@@ -73,6 +67,7 @@
     </footer>
 
     <% include partials/scripts.ejs %>
+
 
     <script src="/js/owl.carousel.min.js" type="text/javascript"></script>
     <script src="/js/init-owl-carousel.js" type="text/javascript"></script>

@@ -11,40 +11,59 @@
         <% include partials/header.ejs %>
     </header>
 
-    <input type="hidden" ng-value="isAuthProp =isAuthenticated()"/>
-    <div class="our-tours text-center g-heading-v8 g-pt-85 g-pb-100">
-        <div class="container-fluid">
-            <h2 class="h2">Movie Characters Rated<strong> By Me</strong></h2>
+    <div class="container mt-100 mb-50" ng-controller="UserRatesCtrl">
 
-            <div ng-hide="contentLoaded" class="lazy-load-box">
-              <i class="fa fa-spin fa-cog fa-5x"></i>
-            </div>
-            <div class="our-tours-list-wrapper" ng-show="contentLoaded">
-                <div class="our-tours-list text-left">
-                    <div class="container">
-                        <div class="row">
+        <input type="hidden" ng-value="isAuthProp =isAuthenticated()">
 
-                            <div class="col-md-10">
-                                <div class="row form-group" ng-repeat="row in ratedCharacters">
-                                    <div class="col-md-6" ng-repeat="character in row track by character._id">
-                                        <character model="character"></character>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+        <div ng-hide="contentLoaded" class="lazy-load-box">
+            <i class="fa fa-spin fa-cog fa-5x"></i>
+        </div>
+        <div class="row" ng-show="contentLoaded">
+
+            <div class="container">
+                <div class="text-center">
+                    <h2 class="g-heading">
+                        Movie Characters Rated
+                        <small>by</small>
+                        <strong>Me</strong>
+                    </h2>
+                </div>
+
+                <div class="row">
+                    <ul class="nav nav-tabs">
+
+                        <li ng-repeat="rating in topRatings track by $index">
+                            <a ng-click="getRates(rating._id)" href="#">
+                                <p><strong ng-bind="rating._id"></strong> <i class="fa fa-star"></i></p>
+                                <span ng-bind="rating.count"></span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="row form-group" ng-repeat="rate in curentRates track by rate._id">
+                    <div class="col-md-3">
+                        <img ng-src="{{rate.characterId.imgUrl}}" class="img-responsive noselect img-center">
                     </div>
-
+                    <div class="col-md-9">
+                        <h2 ng-bind="rate.characterId.name"></h2>
+                    </div>
                 </div>
             </div>
+
         </div>
 
-
-        <footer>
-            <% include partials/footer.ejs %>
-        </footer>
-        <% include partials/scripts.ejs %>
-
     </div>
+    <footer>
+        <% include partials/footer.ejs %>
+    </footer>
+
+    <% include partials/scripts.ejs %>
+    <script>
+        $(function () {
+            App.init();
+        });
+    </script>
 </main>
 </body>
 </html>

@@ -21,6 +21,7 @@ var movieCharacterAPI = require('./src/api/movieCharacters.js');
 var comicsCharacterAPI = require('./src/api/comicsCharacters.js');
 var rateAPI = require('./src/api/rate.js');
 var voteAPI = require('./src/api/vote.js');
+var userAPI = require('./src/api/user.js');
 
 app.use(express.static('public'));
 
@@ -55,6 +56,7 @@ app.use('/api/movieCharacters', movieCharacterAPI);
 app.use('/api/comicsCharacters', comicsCharacterAPI);
 app.use('/api/rate', rateAPI);
 app.use('/api/vote', voteAPI);
+app.use('/api/user', userAPI);
 
 
 app.listen(port, function (err) {

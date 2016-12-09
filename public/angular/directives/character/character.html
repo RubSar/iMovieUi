@@ -5,13 +5,14 @@
         </a>
     </div>
     <div class="col-md-8 col-sm-7 col-xs-7 text-left pl-xs-2 pr-xs-2">
-        <h4 class="mt-xs-2"><a ng-href="/movie-character/{{model.name}}">{{model.name}}</a></h4>
+        <h4 class="mt-xs-2"><a ng-href="/movie-character/{{model.name}}"> <span ng-bind="model.name"></span> </a></h4>
         <h5 class="mt-xs-5">
             <small> by</small>
-            {{ model.playedBy}}
+            <span ng-bind="model.playedBy"></span>
         </h5>
         <h4 ng-hide="avgUpdate">
-            <span ng-show="rateAverage>0" class="rate-avg"><i class="fa fa-star"></i> {{rateAverage}}</span>
+            <span ng-show="rateAverage>0" class="rate-avg"><i class="fa fa-star"></i> <span
+                    ng-bind="rateAverage"></span> </span>
             <span ng-hide="rateAverage>0">rate first</span>
 
             <star-rating class="star-rating" rating-value="rateValue" data-max="10" user-rate="model.userRate"
@@ -20,9 +21,9 @@
         </h4>
         <i ng-show="avgUpdate" class="fa fa-spin fa-spinner" aria-hidden="true"></i>
 
-        <p><strong>{{ model.movies[0].name}}</strong> ({{model.movies[0].year}})</p>
+        <p><strong ng-bind="model.movies[0].name"></strong> (<span ng-bind="model.movies[0].year"></span>)</p>
 
-        <p><strong>IMDb</strong> Rating (<strong>{{ model.movies[0].IMDbRating}}/10</strong>) </p>
+        <p><strong>IMDb</strong> Rating (<strong><span ng-bind="model.movies[0].IMDbRating"></span>/10</strong>) </p>
 
     </div>
 </div>

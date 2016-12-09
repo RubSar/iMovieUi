@@ -1,4 +1,3 @@
-
 //userSvc.js
 
 (function () {
@@ -6,12 +5,17 @@
 
     angular.module('iMovieUi').factory('UserSvc', function (helperSvc) {
 
-       function userRates(){
-           return helperSvc.requestHandler({method: 'GET', url: '/api/user/rates'});
-       }
+        function userRates(model) {
+            return helperSvc.requestHandler({method: 'GET', url: '/api/user/rates', params: model});
+        }
 
-       return{
-           userRates:userRates
-       }
+        function ratings() {
+            return helperSvc.requestHandler({method: 'GET', url: '/api/user/topRatings'});
+        }
+
+        return {
+            userRates: userRates,
+            ratings:ratings
+        }
     });
 })();

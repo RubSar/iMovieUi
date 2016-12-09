@@ -1,11 +1,11 @@
 /**
- * Created by Toshiba on 11/12/2016.
+ * Created by Ruben on 11/12/2016.
  */
 
 (function () {
     'use strict';
 
-    angular.module('iMovieUi').controller('HomeCtrl', function ($scope, MovieCharacterSvs, helperSvc, RateSvc, $auth) {
+    angular.module('iMovieUi').controller('HomeCtrl', ['$scope', 'MovieCharacterSvs', 'helperSvc', 'RateSvc', '$auth', function ($scope, MovieCharacterSvs, helperSvc, RateSvc, $auth) {
         //get movie characters
         MovieCharacterSvs.getTopCharacters()
             .then(function (response) {
@@ -23,12 +23,12 @@
         }, true);
 
 
-        $scope.isAuthenticated = function(){
+        $scope.isAuthenticated = function () {
             return $auth.isAuthenticated();
         };
 
 
-        $scope.$watch('isAuthProp', function(newVal, oldVal){
+        $scope.$watch('isAuthProp', function (newVal, oldVal) {
             if (newVal) {
                 getUserRates();
             }
@@ -47,7 +47,7 @@
             }
         }
 
-        function getUserRates(){
+        function getUserRates() {
             if (!!$scope.originalMovieCharacters && $scope.isAuthProp) {
                 var movieCharacterIds = $scope.originalMovieCharacters.map(function (a) {
                     return {_id: a._id};
@@ -65,5 +65,5 @@
         }
 
 
-    });
+    }]);
 })();

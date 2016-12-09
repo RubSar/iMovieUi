@@ -24,11 +24,11 @@
         <div ng-hide="contentLoaded" class="lazy-load-box">
             <i class="fa fa-spin fa-cog fa-5x"></i>
         </div>
-        <div class="row">
-            <div class="col-md-9" ng-show="contentLoaded">
-                <h2 class="g-heading"><strong>{{character.name}}</strong>
+        <div class="row" ng-show="contentLoaded">
+            <div class="col-md-9" >
+                <h2 class="g-heading"><strong ng-bind="character.name"></strong>
                     <small>by</small>
-                    {{character.playedBy}}
+                    <span ng-bind="character.playedBy"></span>
                 </h2>
                 <div class="character-view-wrapper">
                     <div class="row">
@@ -41,10 +41,10 @@
                             <div class="character-info">
                                 <div class="info-heading">
                                     <div class="row">
-                                        <div class="col-md-5 col-sm-5 col-xs-6">
+                                        <div class="col-md-4 col-sm-5 col-xs-6">
                                             <h4><strong>Rate</strong></h4>
                                         </div>
-                                        <div class="col-md-7 col-sm-7 col-xs-6">
+                                        <div class="col-md-8 col-sm-7 col-xs-6">
                                             <h4><strong>Movie</strong></h4>
                                         </div>
                                     </div>
@@ -52,9 +52,11 @@
                                 <div class="info-body">
                                     <div class="row">
                                         <div class="col-md-4 col-sm-5 col-xs-6">
-                                            <p class="rate-lg gold"> {{rateAverage}} <i class="fa fa-star"></i></p>
+                                            <p class="rate-lg gold"><span ng-bind="rateAverage"></span> <i
+                                                        class="fa fa-star"></i></p>
 
-                                            <p class="fs-20"> {{character.rates.length}} users rate</p>
+                                            <p class="fs-20"><span ng-bind="character.rates.length"></span> users rate
+                                            </p>
                                             <span ng-hide="avgUpdate">
                                                 <star-rating class="star-rating" rating-value="rateValue"
                                                              data-max="10"
@@ -73,11 +75,14 @@
                                                 </div>
                                                 <div class="col-md-7 pl-0 col-sm-7">
 
-                                                    <h4>{{character.movies[0].name}}
-                                                        <small>({{character.movies[0].year}})</small>
+                                                    <h4><span ng-bind="character.movies[0].name"></span>
+                                                        <small>
+                                                            (<span ng-bind="character.movies[0].year"></span>)
+                                                        </small>
                                                     </h4>
                                                     <p class="mt-xs-0 mb-xs-0">iMDb Rating
-                                                        (<strong>{{character.movies[0].IMDbRating}}/10</strong>)</p>
+                                                        (<strong><span ng-bind="character.movies[0].IMDbRating"></span>/10</strong>)
+                                                    </p>
 
                                                 </div>
                                             </div>
@@ -112,16 +117,16 @@
                                 </div>
                                 <div class="col-md-8">
                                     <div class="rec-info">
-                                        <h5>{{item.movies[0].name}}</h5>
-                                        <h5>{{item.movies[0].year}}</h5>
+                                        <h5 ng-bind="item.movies[0].name"></h5>
+                                        <h5 ng-bind="item.movies[0].year"></h5>
                                     </div>
                                 </div>
                             </div>
                             <h5>
                                 <a ng-href="{{item.name}}">
-                                    {{item.name}}
+                                   <span ng-bind="item.name"></span>
                                     <small>by</small>
-                                    {{item.playedBy}}
+                                    <span ng-bind="item.playedBy"></span>
                                 </a>
                             </h5>
                         </div>
