@@ -19,5 +19,9 @@
             $scope.showModal = !$scope.showModal;
         });
 
+        $scope.logOut= function(){
+            $auth.logout();
+        }
+
     }])
 })();

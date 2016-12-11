@@ -33,12 +33,13 @@
                         </li>
                         <li ng-show="isAuthenticated()" ng-cloak class="dropdown open">
                             <a href="#" class="dropdown-toggle user-nav" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
-                                <i class="fa user-info fa-caret-down"></i>
-                                <!--<i class="fa fa-2x fa-chevron-down"></i>-->
+                                <div class="user-box">
+                                    <img src="../img/user.png" width="20">
+                                </div>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a href="/myRates">Action</a></li>
-                                <li><a href="#">Another action</a></li>
+                                <li><a href="/myRates">Rates</a></li>
+                                <li><a href="#" ng-click="logOut()">Log Out</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -50,7 +51,7 @@
         <!-- /.container -->
     </nav>
     <modal visible="showModal" ng-cloak style="display: none" id="authModal">
-        <div class="jumbotron text-center">
+        <div class="jumbotron ask-login text-center">
             <p>Please Log In to provide more User Experience</p>
             <button class="btn btn-facebook" ng-click="authenticate('facebook')"><i class="fa fa-facebook-f"></i> Sign in with Facebook</button>
         </div>

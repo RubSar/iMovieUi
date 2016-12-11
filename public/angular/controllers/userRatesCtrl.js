@@ -6,42 +6,73 @@
 (function () {
     'use strict';
 
-    angular.module('iMovieUi').controller('UserRatesCtrl', ['$scope', 'UserSvc', function ($scope, UserSvc) {
+    angular.module('iMovieUi').controller('UserRatesCtrl', ['$scope', 'UserSvc','RateSvc', 'helperSvc','$auth', function ($scope, UserSvc,RateSvc, helperSvc, $auth) {
 
-        $scope.contentLoaded = true;
+        $scope.contentLoaded = false;
 
+        if ($auth.isAuthenticated()) {
+            UserSvc.ratings()
+                .then(function(response) {
+                    $scope.topRatings = response.data;
 
-        //for implementation active tab
-        //http://jsfiddle.net/simonbingham/bFWUM/
+                    $scope.curentRate =response.data[0];
+                    $scope.activeTab =$scope.curentRate._id;
+                    UserSvc.userRates({value: $scope.curentRate._id})
+                        .then(function (response) {
+                            $scope.rateValue =response.data.value;
+                            $scope.characters = helperSvc.chunk(response.data.characters, 4);
+                            $scope.contentLoaded = true;
+                        }, function (err) {
+                            console.log(err);
+                        })
 
-        UserSvc.ratings()
-            .then(function(response) {
-                $scope.topRatings = response.data;
+                }, function(err){
+                    console.log(err);
+                });
+        }else{
+            window.location='/'
+        }
 
-                $scope.curentRate =response.data[0];
-                UserSvc.userRates({value: $scope.curentRate._id})
-                    .then(function (response) {
-                        $scope.curentRates = response.data;
-                        $scope.contentLoaded = true;
-                    }, function (err) {
-                        console.log(err);
-                    })
-
-            }, function(err){
-                console.log(err);
-            });
-
-        $scope.getRates = function (value) {
+        $scope.getRates = function (index) {
+            $scope.activeTab =index;
             $scope.contentLoaded = false;
-            UserSvc.userRates({value: value})
+            UserSvc.userRates({value: index})
                 .then(function (response) {
-                    $scope.curentRates = response.data;
+                    $scope.rateValue =response.data.value;
+                    $scope.characters = helperSvc.chunk(response.data.characters, 4);
                     $scope.contentLoaded = true;
                 }, function (err) {
                     console.log(err);
                 })
         };
 
+        $scope.rateFunction = function (value, characterId) {
+            if (value == $scope.rateValue) {
+                return ;
+            }else{
+                var dto = {
+                    value: value,
+                    characterId: characterId
+                };
+
+                RateSvc.rate(dto)
+                    .then(function (response) {
+                        if (response.success) {
+                            console.log(response.value);
+                        }
+                    }, function (err) {
+                        console.log(err);
+                    })
+            }
+        };
+
+
+
+        $scope.isActiveTab = function(index){
+            return $scope.activeTab ==index;
+        }
+
 
     }]);
 })();
+

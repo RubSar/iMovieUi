@@ -16,17 +16,24 @@ var router = function () {
         var value = req.query.value;
         if (id) {
             models.Rate.find({userId: id, value: value})
-                // .sort({value:-1})
-                // .limit(10)
-                .populate('characterId', 'name playedBy imgUrl')
+                .select('characterId')
+                .populate('characterId', 'name imgUrl')
                 .exec(function (err, results) {
                     if (err) {
                         console.log(err);
                     } else {
-                        res.send({
-                            status: 200,
+                        var l = results.length;
+                        var characters=[];
+                        for (var x = 0; x < l; x++) {
+                            characters.push(results[x].characterId);
+                        }
+
+                        res.send(200,{
                             success: true,
-                            data: results
+                            data: {
+                                value:value,
+                                characters:characters
+                            }
                         });
                     }
                 });

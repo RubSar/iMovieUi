@@ -10,7 +10,7 @@
     <li>
         <i class="fa fa-times-circle-o" ng-click="rateMode=false"></i>
     </li>
-    <li ng-repeat="star in stars" ng-class="star" ng-click="toggle($index)">
+    <li ng-repeat="star in stars track by $index" ng-class="star" ng-click="toggle($index)">
         <i class="fa fa-star"></i>
     </li>
 </ul>

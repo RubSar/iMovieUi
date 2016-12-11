@@ -3,6 +3,11 @@
 @desktop: ~"only screen and (min-width: 950px) and (max-width: 1128px)";
 @desktop-xl: ~"only screen and (min-width: 1129px)";
 
+.ask-login{
+  color: #31353e;
+  margin-bottom: 0;
+}
+
 .movie-character {
   margin-bottom: 15px;
   h4 {
@@ -59,7 +64,70 @@
     border-bottom: 2px solid #29487d;
   }
 }
+.my-rates-nav{
+  width: 100%;
+  display: table;
+  border-bottom: none;
+  li{
+    display: table-cell;
+    float: none;
+    width: auto;
+    text-align: center;
+    border-bottom: 1px solid #127387;
+    a{
+      margin-right:0;
+      border-radius:0;
+    }
+  }
+  li.active{
+    border-bottom: 1px solid #fff;
 
+    a{
+      border: 1px solid #127387;
+      border-bottom-color: transparent;
+      &:focus{
+        border: 1px solid #127387;
+        border-bottom-color: transparent;
+      }
+      &:hover{
+        border: 1px solid #127387;
+        border-bottom-color: transparent;
+      }
+      &:active{
+        border: 1px solid #127387;
+        border-bottom-color: transparent;
+      }
+    }
+  }
+}
+.user-box{
+  width: 20px;
+  height: 20px;
+  position: relative;
+  &:before {
+    content: "\f0d7";
+    font-family: FontAwesome;
+    font-style: normal;
+    color: #cccccc;
+    font-size: 16px;
+    position: absolute;
+    top: 3px;
+    right: -14px;
+  }
+}
+
+.rated-box{
+  padding:30px;
+  border: 1px solid #127387;
+  border-top: none;
+
+  .rated-items{
+
+    h4{
+      color: #127387;
+    }
+  }
+}
 
 @media @desktop-xl {
 
@@ -95,6 +163,11 @@
   .lazy-load-box {
     min-height: 500px;
     padding-top: 220px;
+    text-align: center;
+  }
+  .lazy-load-box-s {
+    min-height: 300px;
+    padding-top: 120px;
     text-align: center;
   }
 
@@ -184,6 +257,23 @@
 }
 
 @media  @tablet {
+  .artist-info {
+    text-align: center;
+    position: relative;
+    padding: 5px;
+    border-bottom: 2px solid #31353e;
+    margin-bottom: 15px;
+  }
+  .artist-info:before {
+    font-family: FontAwesome;
+    position: absolute;
+    content: "\f0d7";
+    font-size: 40px;
+    bottom: -38px;
+    color: #31353e;
+  }
+
+
   .rating {
     margin-right: -15px !important;
     margin-left: -15px !important;
@@ -230,6 +320,11 @@
   .lazy-load-box {
     min-height: 500px;
     padding-top: 220px;
+    text-align: center;
+  }
+  .lazy-load-box-s {
+    min-height: 300px;
+    padding-top: 120px;
     text-align: center;
   }
 
@@ -628,6 +723,11 @@
   .lazy-load-box {
     min-height: 300px;
     padding-top: 110px;
+    text-align: center;
+  }
+  .lazy-load-box-s {
+    min-height: 200px;
+    padding-top: 80px;
     text-align: center;
   }
 

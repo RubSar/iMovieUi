@@ -15,11 +15,6 @@
 
         <input type="hidden" ng-value="isAuthProp =isAuthenticated()">
 
-        <div ng-hide="contentLoaded" class="lazy-load-box">
-            <i class="fa fa-spin fa-cog fa-5x"></i>
-        </div>
-        <div class="row" ng-show="contentLoaded">
-
             <div class="container">
                 <div class="text-center">
                     <h2 class="g-heading">
@@ -29,29 +24,37 @@
                     </h2>
                 </div>
 
-                <div class="row">
-                    <ul class="nav nav-tabs">
 
-                        <li ng-repeat="rating in topRatings track by $index">
-                            <a ng-click="getRates(rating._id)" href="#">
-                                <p><strong ng-bind="rating._id"></strong> <i class="fa fa-star"></i></p>
-                                <span ng-bind="rating.count"></span>
+                <div class="text-center">
+                    <ul class="nav nav-tabs my-rates-nav">
+                        <li ng-repeat="rating in topRatings track by rating._id" ng-class="{'active':isActiveTab(rating._id)}">
+                            <a ng-click="getRates(rating._id)" href="#" >
+                                <p><strong ng-bind="rating._id"></strong> <i class="fa fa-star"></i>   /<span ng-bind="rating.count"></span></p>
                             </a>
                         </li>
-
                     </ul>
                 </div>
-                <div class="row form-group" ng-repeat="rate in curentRates track by rate._id">
-                    <div class="col-md-3">
-                        <img ng-src="{{rate.characterId.imgUrl}}" class="img-responsive noselect img-center">
+
+                <div class="bg-white rated-box">
+                    <div ng-hide="contentLoaded" class="lazy-load-box-s">
+                        <i class="fa fa-spin fa-cog fa-5x"></i>
                     </div>
-                    <div class="col-md-9">
-                        <h2 ng-bind="rate.characterId.name"></h2>
-                    </div>
+                   <div class="rated-items" ng-show="contentLoaded">
+                       <div class="row form-group" ng-repeat="row in characters track by $index" >
+                           <div class="col-md-3 text-center" ng-repeat="character in row track by character._id">
+                                 <a ng-href="/movie-character/{{character.name}}">
+                                     <img ng-src="{{character.imgUrl}}" class="img-responsive noselect img-center">
+                                     <h4 ng-bind="character.name"></h4>
+                                 </a>
+                               <star-rating class="star-rating" rating-value="rateValue" data-max="10" user-rate="rateValue"
+                                            on-rating-selected="rateFunction(rating, character._id)"></star-rating>
+                           </div>
+                       </div>
+                   </div>
                 </div>
+
             </div>
 
-        </div>
 
     </div>
     <footer>

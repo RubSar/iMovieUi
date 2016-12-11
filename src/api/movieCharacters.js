@@ -10,20 +10,6 @@ var auth = require('../services/authService');
 var router = function () {
     //GET actions
 
-    api.route('/all').get(function (req, res) {
-
-        models.MovieCharacter.find({}, function (err, results) {
-            if (err) {
-                console.log(err);
-            } else {
-                res.send({
-                    data: results,
-                    status: 200
-                });
-            }
-        });
-    });
-
     api.route('/top').get(function (req, res) {
         models.MovieCharacter.find({})
             .populate('rates', 'value')
@@ -47,6 +33,7 @@ var router = function () {
         models.MovieCharacter.find({})
             .populate('rates', 'value')
             .limit(size)
+            .sort({'name':1})
             .skip((number - 1) * size)
             .exec(function (err, results) {
                 if (err) {
