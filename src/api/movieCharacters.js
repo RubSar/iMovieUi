@@ -202,26 +202,38 @@ var router = function () {
     //get single character
     api.route('/single').get(function (req, res) {
         var url = decodeURIComponent(req.query.name);
+        var regex = new RegExp(url, 'i');
         var id = auth.user(req);
 
-        models.MovieCharacter.findOne({name: url})
+        models.MovieCharacter.findOne({name: regex})
             .populate('rates', 'value')
             .exec(function (err, result) {
-                if (id) {
-                    models.Rate.findOne({userId: id, characterId: result._id}, function (err, rate) {
-                        res.send({
-                            character: result,
-                            userRate: !!rate ? rate.value : null,
-                            success: true,
-                            status: 200
-                        })
-                    });
-                } else {
-                    res.send({
-                        character: result,
-                        success: true,
-                        status: 200
-                    });
+                if (err) {
+                    console.log(err);
+                }else{
+                    if(result){
+                        if (id) {
+                            models.Rate.findOne({userId: id, characterId: result._id}, function (err, rate) {
+                                res.send({
+                                    character: result,
+                                    userRate: !!rate ? rate.value : null,
+                                    success: true,
+                                    status: 200
+                                })
+                            });
+                        } else {
+                            res.send({
+                                character: result,
+                                success: true,
+                                status: 200
+                            });
+                        }
+                    }else{
+                        console.log('not found');
+                        res.render('notFound', {
+                              message:'Character that you looking for not exist'
+                          });
+                    }
                 }
 
             });

@@ -28,8 +28,9 @@ var router = function () {
 
     api.get('/single', function (req, res) {
         var name = decodeURIComponent(req.query.name);
+        var regex = new RegExp(name, 'i');
 
-        ComicsCharacter.findOne({name: name},'name description type imgUrl actors', function (err, character) {
+        ComicsCharacter.findOne({name: regex},'name description type imgUrl actors', function (err, character) {
                 res.send({
                     data: character,
                     status: 200
