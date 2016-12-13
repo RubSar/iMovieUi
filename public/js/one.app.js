@@ -41,7 +41,7 @@ var App = function () {
 
         // Collapse Navbar When It's Clickicked
         $(window).scroll(function () {
-            $('.navbar-collapse.in').collapse('hide');
+            $('nav.navbar .navbar-collapse.in').collapse('hide');
         });
     }
 

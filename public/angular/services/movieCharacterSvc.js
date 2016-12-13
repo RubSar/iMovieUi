@@ -45,9 +45,9 @@
             return helperSvc.requestHandler({method: 'GET', url: '/api/movieCharacters/single', params:{name:name}});
         }
 
-        //function getSearchResult(model){
-        //    return helperSvc.requestHandler({method: 'GET', url: '/api/movieCharacters/search', params:model});
-        //}
+        function searchCharacters(model){
+            return helperSvc.requestHandler({method: 'GET', url: '/api/movieCharacters/search', params:model});
+        }
 
         function getRecommended(model){
             return helperSvc.requestHandler({method: 'GET', url: '/api/movieCharacters/recommended', params:model});
@@ -64,8 +64,8 @@
             getOrderedYears:getOrderedYears,
             getCharactersList:getCharactersList,
             getMovieCharacter:getMovieCharacter,
-            getRecommended:getRecommended
-            //getSearchResult:getSearchResult
+            getRecommended:getRecommended,
+            searchCharacters:searchCharacters
         }
     })
 })();

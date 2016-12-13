@@ -26,6 +26,23 @@ var router = function () {
             })
     });
 
+    api.route('/search').get(function (req, res) {
+        var term = decodeURIComponent(req.query.term);
+        models.MovieCharacter.find({$text: {$search: term}})
+            .populate('rates', 'value')
+            .limit(10)
+            .exec(function (err, results) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    res.send({
+                        data: results,
+                        status: 200
+                    });
+                }
+            })
+    });
+
     api.route('/list').get(function (req, res) {
         var paging = req.query;
         var size = parseInt(paging.size) || 10;
@@ -113,25 +130,6 @@ var router = function () {
                 }
             });
     });
-
-    //api.route('/search').get(function (req, res) {
-    //    var model = req.query
-    //        , predicate = model.predicate
-    //        , term = model.term;
-    //
-    //    models.MovieCharacter.find({'playedBy': {"$regex": term,"$options": i}})
-    //        .populate('rates', 'value')
-    //        .exec(function (err, results) {
-    //            if (err) {
-    //                console.log(err);
-    //            } else {
-    //                res.send({
-    //                    data: results,
-    //                    status: 200
-    //                });
-    //            }
-    //        });
-    //});
 
     api.route('/byMovie').get(function (req, res) {
         models.MovieCharacter.find({'movies.name': req.query.movieName})

@@ -22,45 +22,40 @@
             </div>
 
             <div class="container" ng-show="contentLoaded">
-               <div class="row form-group">
-                   <div class="col-md-6">
-                       <div ng-show="filteredBy" class="alert alert-info fade in alert-dismissable">
-                           <a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">x</a>
-                           Filtered <span ng-bind="filteredBy.key"></span> : <strong ng-bind="filteredBy.value"></strong>
-                       </div>
-                   </div>
-                   <!--<div class="col-md-6">-->
-                       <!--<form class="form-inline" name="searchForm" ng-submit="search(this)">-->
-                           <!--<div class="form-group">-->
-                               <!--<input type="search" ng-model="searchTerm" name="searchTerm" class="form-control" required />-->
-                           <!--</div>-->
-                           <!--<div class="form-group">-->
-                               <!--<select class="form-control" name="predicate" ng-model="predicate">-->
-                                   <!--<option value="movie">By Movie</option>-->
-                                   <!--<option value="name">By Name</option>-->
-                                   <!--<option value="playedBy">By Played Actor</option>-->
-                               <!--</select>-->
-                           <!--</div>-->
-                           <!--<button type="submit" class="btn btn-default"><i class="fa fa-search"></i> </button>-->
-                       <!--</form>-->
-                   <!--</div>-->
-               </div>
+                <div class="row form-group">
+                    <div class="col-md-6">
+                        <div ng-show="filteredBy" class="alert alert-info fade in alert-dismissable">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">x</a>
+                            <span ng-bind="filteredBy.key"></span> : <strong ng-bind="filteredBy.value"></strong>
+                        </div>
+                    </div>
+
+                </div>
                 <div class="row">
                     <div class="col-md-2 form-group">
                         <div class="row">
-                            <div class="col-md-12 col-sm-3 col-xs-4">
+
+                            <div class="col-md-12 col-sm-3 col-xs-6">
+                                <div class="form-group">
+                                    <button class="btn btn-primary btn-fixed-size" type="button"
+                                            ng-click="getAll()">
+                                        Get All
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-sm-3 col-xs-6">
                                 <div class="form-group">
                                     <mc-dropdown items-list="artists" model="artist" term="_id"
                                                  label="Artist"></mc-dropdown>
                                 </div>
                             </div>
-                            <div class="col-md-12 col-sm-3 col-xs-4">
+                            <div class="col-md-12 col-sm-3 col-xs-6">
                                 <div class="form-group ">
                                     <mc-dropdown items-list="years" model="year" term="_id"
                                                  label="Year"></mc-dropdown>
                                 </div>
                             </div>
-                            <div class="col-md-12 col-sm-3 col-xs-4">
+                            <div class="col-md-12 col-sm-3 col-xs-6">
                                 <div class="form-group">
                                     <mc-dropdown items-list="movies" model="movie" term="_id"
                                                  label="Movie"></mc-dropdown>
@@ -79,6 +74,12 @@
                                  page="paging.number"
                                  page-size="paging.size"
                                  total="count">
+                            </div>
+                        </div>
+                        <div ng-show="notFoundForTerm" class="text-center">
+                            <div class="alert alert-warning fade in alert-dismissable">
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">x</a>
+                                <strong>0 results</strong> for <span ng-bind="filteredBy.value"></span>
                             </div>
                         </div>
                     </div>

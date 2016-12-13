@@ -16,7 +16,7 @@ var router = function () {
     });
 
 
-    homeRouter.get('/most-popular-movie-characters/',  function (req, res) {
+    homeRouter.get('/most-popular-movie-characters/:term?',  function (req, res) {
         return homeController.movieCharactersList(req, res);
     });
 

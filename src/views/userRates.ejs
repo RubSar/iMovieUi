@@ -41,10 +41,10 @@
                     </div>
                    <div class="rated-items" ng-show="contentLoaded">
                        <div class="row form-group" ng-repeat="row in characters track by $index" >
-                           <div class="col-md-3 text-center" ng-repeat="character in row track by character._id">
+                           <div class="col-md-3 col-sm-3 text-center mb-xs-15" ng-repeat="character in row track by character._id">
                                  <a ng-href="/movie-character/{{character.name}}">
                                      <img ng-src="{{character.imgUrl}}" class="img-responsive noselect img-center">
-                                     <h4 ng-bind="character.name"></h4>
+                                     <h4 ng-bind="character.name" class="mb-xs-2 mt-xs-3"></h4>
                                  </a>
                                <star-rating class="star-rating" rating-value="rateValue" data-max="10" user-rate="rateValue"
                                             on-rating-selected="rateFunction(rating, character._id)"></star-rating>

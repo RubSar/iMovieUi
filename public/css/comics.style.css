@@ -890,17 +890,17 @@ h4 {
   background-color: #d9d9d9;
 }
 
-.trapezoid {
-  border-bottom: 40px solid #31353e;
-  border-left: 40px solid transparent;
-  border-right: 40px solid transparent;
-  height: 0;
-  width: 240px;
-  position: relative;
-  margin: 0 auto;
-  font-size: 20px;
-  line-height: 40px;
-}
+/*.trapezoid {*/
+  /*border-bottom: 40px solid #31353e;*/
+  /*border-left: 40px solid transparent;*/
+  /*border-right: 40px solid transparent;*/
+  /*height: 0;*/
+  /*width: 240px;*/
+  /*position: relative;*/
+  /*margin: 0 auto;*/
+  /*font-size: 20px;*/
+  /*line-height: 40px;*/
+/*}*/
 
 .social-wrapper {
   padding: 50px;
