@@ -8,7 +8,7 @@
 
     angular.module('iMovieUi').controller('MovieCharacterCtrl', ['$scope', '$window', 'MovieCharacterSvs', 'RateSvc', '$auth', function ($scope, $window, MovieCharacterSvs, RateSvc, $auth) {
 
-        var url = $window.location.pathname.split('/movie-character/')[1];
+        var name = $window.location.pathname.split('/movie-character/')[1];
         $scope.rateValue = 1;
         $scope.dataHref = document.URL;
         $scope.contentLoaded = false;
@@ -19,11 +19,11 @@
             return $auth.isAuthenticated();
         };
 
-        MovieCharacterSvs.getMovieCharacter(url)
+        MovieCharacterSvs.getMovieCharacter(name)
             .then(function (response) {
                 $scope.character = response.character;
                 $scope.userRate = response.userRate;
-                $scope.rateAverage = !!$scope.character.rates.length ? average(sum($scope.character.rates, 'value'), $scope.character.rates.length) : 0;
+                $scope.rateAverage = $scope.character.ratesValue>0 ? $scope.character.ratesValue/$scope.character.ratesCount : 0;
                 $scope.contentLoaded = true;
 
             }, function (err) {
@@ -39,14 +39,13 @@
                 .then(function (response) {
                     if (response.success) {
                         $scope.avgUpdate = true;
-                        RateSvc.getRates($scope.character._id)
-                            .then(function (response) {
-                                $scope.character.rates = response.data;
-                                $scope.avgUpdate = false;
-                                $scope.userRate = value;
-                            }, function (err) {
-                                console.log(err);
-                            })
+                        if (response.message == 'created') {
+                            $scope.character.ratesCount+=1;
+                            $scope.character.ratesValue+= response.value;
+                        }else{
+                            $scope.character.ratesValue+= response.dif;
+                        }
+                        $scope.rateAverage = $scope.character.ratesValue>0 ? $scope.character.ratesValue/$scope.character.ratesCount : 0;
                     }
                 }, function (err) {
                     console.log(err);

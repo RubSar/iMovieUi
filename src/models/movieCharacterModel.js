@@ -30,8 +30,9 @@ var MovieCharacterSchema = new Schema({
     imgUrl: String,
     playedBy: String,
     movies: [MovieSchema],
-    imdbID: String,
-    rates: [{type: Schema.ObjectId, ref: 'Rate'}]
+    rates: [{type: Schema.ObjectId, ref: 'Rate'}],
+    ratesValue:{type:Number, default:0},
+    ratesCount:{type:Number, default:0}
 });
 
 MovieCharacterSchema.index({name: 'text', playedBy: 'text'});

@@ -11,6 +11,29 @@ var auth = require('../services/authService');
 var router = function () {
     //GET actions
 
+    api.get('/all', function(req, res){
+        models.User.find({}, function(err, users){
+            if (err) {
+
+            }else{
+                res.send({
+                    data:users
+                })
+            }
+        })
+    });
+    api.get('/update', function(req, res){
+        models.User.update({}, {rates:[]}, {multi: true}, function(err, num){
+            if (err) {
+
+            }else{
+                res.send({
+                    data:num
+                })
+            }
+        })
+    });
+
     api.get('/rates', function (req, res) {
         var id = auth.user(req);
         var value = req.query.value;

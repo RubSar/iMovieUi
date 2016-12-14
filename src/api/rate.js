@@ -29,13 +29,15 @@ var router = function () {
                                 console.log(err);
                             }
                             if (rate) {
+                                var dif =req.body.value -rate.value;
+                                character.ratesValue +=dif;
                                 rate.value = req.body.value || rate.value;
-                                rate.userId = user._id || rate.userId;
                                 rate.save();
+                                character.save();
                                 res.send({
                                     message: 'updated',
                                     success: true,
-                                    value: rate.value,
+                                    dif: dif,
                                     status: 200
                                 })
                             } else {
@@ -45,6 +47,8 @@ var router = function () {
                                 newRate.value = req.body.value;
                                 newRate.save(function (err, doc) {
                                     character.rates.push(doc._id);
+                                    character.ratesValue += doc.value;
+                                    character.ratesCount += 1;
                                     user.rates.push(doc._id);
                                     user.save();
                                     character.save();

@@ -60,6 +60,8 @@
 
                         } else {
                             $scope.notFoundForTerm = true;
+                            $scope.listCharacters=[];
+
                         }
 
                         $scope.contentLoaded = true;
@@ -119,6 +121,7 @@
                                     $scope.count = response.count;
 
                                 } else {
+                                    $scope.listCharacters=[];
                                     $scope.notFoundForTerm = true;
                                 }
                                 $scope.contentLoaded = true;

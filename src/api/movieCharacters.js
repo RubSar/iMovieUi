@@ -12,8 +12,8 @@ var router = function () {
 
     api.route('/top').get(function (req, res) {
         models.MovieCharacter.find({})
-            .populate('rates', 'value')
             .limit(10)
+            .select('name playedBy imgUrl movies ratesCount ratesValue ')
             .exec(function (err, results) {
                 if (err) {
                     console.log(err);
@@ -29,7 +29,7 @@ var router = function () {
     api.route('/search').get(function (req, res) {
         var term = decodeURIComponent(req.query.term);
         models.MovieCharacter.find({$text: {$search: term}})
-            .populate('rates', 'value')
+            .select('name playedBy imgUrl movies ratesCount ratesValue ')
             .limit(10)
             .exec(function (err, results) {
                 if (err) {
@@ -48,7 +48,7 @@ var router = function () {
         var size = parseInt(paging.size) || 10;
         var number = parseInt(paging.number) || 1;
         models.MovieCharacter.find({})
-            .populate('rates', 'value')
+            .select('name playedBy imgUrl movies ratesCount ratesValue ')
             .limit(size)
             .sort({'name':1})
             .skip((number - 1) * size)
@@ -103,7 +103,7 @@ var router = function () {
 
     api.route('/byArtist').get(function (req, res) {
         models.MovieCharacter.find({playedBy: req.query.artist})
-            .populate('rates', 'value')
+            .select('name playedBy imgUrl movies ratesCount ratesValue')
             .exec(function (err, results) {
                 if (err) {
                     console.log(err);
@@ -204,7 +204,7 @@ var router = function () {
         var id = auth.user(req);
 
         models.MovieCharacter.findOne({name: regex})
-            .populate('rates', 'value')
+            .select('name playedBy imgUrl movies ratesCount ratesValue ')
             .exec(function (err, result) {
                 if (err) {
                     console.log(err);
@@ -227,7 +227,6 @@ var router = function () {
                             });
                         }
                     }else{
-                        console.log('not found');
                         res.render('notFound', {
                               message:'Character that you looking for not exist'
                           });

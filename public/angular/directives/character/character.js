@@ -14,15 +14,6 @@
 
                 scope.rateValue = 1;
                 scope.avgUpdate = false;
-                function sum(items, prop) {
-                    return items.reduce(function (a, b) {
-                        return a + b[prop];
-                    }, 0);
-                }
-
-                function average(sum, length) {
-                    return (sum / length).toFixed(1);
-                }
 
                 scope.$watch('model.userRate', function (newVal, oldVal) {
                     if (newVal && newVal != oldVal) {
@@ -30,12 +21,7 @@
                     }
                 });
 
-                scope.rateAverage = !!scope.model.rates.length ? average(sum(scope.model.rates, 'value'), scope.model.rates.length) : 0;
-
-                scope.$watch('model.rates', function (newVal, oldVal) {
-                    scope.rateAverage = !!scope.model.rates.length ? average(sum(scope.model.rates, 'value'), scope.model.rates.length) : 0;
-
-                }, true);
+                scope.rateAverage = scope.model.ratesValue>0 ? scope.model.ratesValue/scope.model.ratesCount : 0;
 
 
                 scope.rateFunction = function (value) {
@@ -47,14 +33,13 @@
                         .then(function (response) {
                             if (response.success) {
                                 scope.avgUpdate = true;
-                                RateSvc.getRates(scope.model._id)
-                                    .then(function (response) {
-                                        scope.model.rates = response.data;
-                                        scope.avgUpdate = false;
-                                        scope.model.userRate = value;
-                                    }, function (err) {
-                                        console.log(err);
-                                    })
+                                if (response.message == 'created') {
+                                    scope.model.ratesCount+=1;
+                                    scope.model.ratesValue+= response.value;
+                                }else{
+                                    scope.model.ratesValue+= response.dif;
+                                }
+                                scope.rateAverage = scope.model.ratesValue>0 ? scope.model.ratesValue/scope.model.ratesCount : 0;
                             }
                         }, function (err) {
                             console.log(err);
