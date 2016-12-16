@@ -371,7 +371,7 @@ a:hover {
 
   .one-page-header .navbar-toggle {
     display: block;
-    margin: 20px 0 5px;
+    margin: 13px 0 5px;
   }
 
   .one-page-header .navbar-collapse.collapse {
@@ -516,8 +516,8 @@ a:hover {
   }
 
   .one-page-header .dropdown-menu a {
-    color: #fff !important;
-    padding: 10px 20px;
+    color: #ccc !important;
+    padding: 5px 20px;
     background: none !important;
   }
 

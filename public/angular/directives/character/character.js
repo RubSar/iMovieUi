@@ -29,16 +29,18 @@
                         value: value,
                         characterId: scope.model._id
                     };
+                    scope.avgUpdate = true;
                     RateSvc.rate(dto)
                         .then(function (response) {
                             if (response.success) {
-                                scope.avgUpdate = true;
+
                                 if (response.message == 'created') {
                                     scope.model.ratesCount+=1;
                                     scope.model.ratesValue+= response.value;
                                 }else{
                                     scope.model.ratesValue+= response.dif;
                                 }
+                                scope.avgUpdate = false;
                                 scope.rateAverage = scope.model.ratesValue>0 ? scope.model.ratesValue/scope.model.ratesCount : 0;
                             }
                         }, function (err) {

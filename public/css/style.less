@@ -70,11 +70,23 @@
 
 .btn-facebook {
   background-color: #3b5998;
-  border-bottom: 2px solid #3b5998;
+  border-bottom: 1px solid #3b5998;
   color: #fff;
+  padding: 4px 15px;
   &:hover {
     color: #fff;
-    border-bottom: 2px solid #29487d;
+    background-color: #29487d;
+    border-bottom: 1px solid #29487d;
+  }
+  &:focus {
+    color: #fff;
+    background-color: #29487d;
+    border-bottom: 1px solid #29487d;
+  }
+  &:active {
+    color: #fff;
+    background-color: #29487d;
+    border-bottom: 1px solid #29487d;
   }
 }
 
@@ -578,15 +590,27 @@
   .sm-header-search-box{
     position: absolute;
     right: 60px;
-    top: 16px;
+    top: 15px;
 
-    input.form-control{
+    input.form-control {
       height: 28px;
-      padding: 4px 12px;
+      padding: 4px 8px;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+      border: 1px solid #ccc;
+      border-right: 1px solid transparent;
+      &:focus {
+        box-shadow: none;
+        -webkit-box-shadow: none;
+      }
     }
-    button.btn{
+    button.btn {
       padding: 3px 10px;
       margin-left: -6px;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      color: #127387;
+      border: 1px solid #ccc;
     }
   }
 
@@ -978,6 +1002,34 @@
 
   .btn-fixed-size {
     width: 100px;
+  }
+
+  .header-search-box{
+
+    input.form-control {
+      height: 28px;
+      padding: 3px 8px;
+      border-top-right-radius: 0;
+      width: 200px;
+      display:inline-block;
+      border-bottom-right-radius: 0;
+      border: 1px solid #ccc;
+      border-right: 1px solid transparent;
+      &:focus {
+        box-shadow: none;
+        -webkit-box-shadow: none;
+      }
+    }
+    button.btn {
+      padding: 3px 10px;
+      margin-top: -3px;
+      margin-left: -6px;
+      border-top-left-radius: 0;
+      display: inline-block;
+      border-bottom-left-radius: 0;
+      color: #127387;
+      border: 1px solid #ccc;
+    }
   }
 
   //End padding right

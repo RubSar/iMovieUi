@@ -35,16 +35,22 @@
                 value: value,
                 characterId: $scope.character._id
             };
+            $scope.avgUpdate = true;
             RateSvc.rate(dto)
                 .then(function (response) {
                     if (response.success) {
-                        $scope.avgUpdate = true;
+
                         if (response.message == 'created') {
-                            $scope.character.ratesCount+=1;
-                            $scope.character.ratesValue+= response.value;
-                        }else{
-                            $scope.character.ratesValue+= response.dif;
+                            $scope.character.ratesCount += 1;
+                            $scope.character.ratesValue += response.value;
+                            $scope.userRate = response.value;
                         }
+                        else{
+                            $scope.character.ratesValue+= response.dif;
+                            $scope.userRate +=response.dif;
+                        }
+
+                        $scope.avgUpdate = false;
                         $scope.rateAverage = $scope.character.ratesValue>0 ? $scope.character.ratesValue/$scope.character.ratesCount : 0;
                     }
                 }, function (err) {
