@@ -1,11 +1,6 @@
-/*
- * Template Name: Unify - Responsive Bootstrap Template
- * Author: @htmlstream
- * Website: http://htmlstream.com
- */
 
 var App = function () {
-    // We extend jQuery by method hasAttr
+    // extend jQuery by method hasAttr
     $.fn.hasAttr = function (name) {
         return this.attr(name) !== undefined;
     };
@@ -45,11 +40,41 @@ var App = function () {
         });
     }
 
+    //owl carousel
+    function initOwlCarousel() {
+        $('.comics-character-list').owlCarousel({
+            loop: true,
+            margin: 15,
+            responsive: {
+                0: {
+                    items: 1
+                },
+                500: {
+                    items: 2
+                },
+                650: {
+                    items: 3
+                },
+                850: {
+                    items: 4
+                },
+                1024: {
+                    items: 4
+                },
+                1270: {
+                    items: 4
+                }
+            },
+            navText: [,],
+            nav: true,
+            dots: false,
+            navContainerClass: 'owl-buttons'
+        });
+    }
 
     return {
-        init: function () {
-            handleHeader();
-        }
+        initHeader: handleHeader,
+        initOwlCarousel:initOwlCarousel
 
     };
 }();

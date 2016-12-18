@@ -1,50 +1,16 @@
-var gulp = require('gulp');
-var jshint = require('gulp-jshint');
-var jscs = require('gulp-jscs');
-var nodemon = require('gulp-nodemon');
-var less = require('gulp-less');
-var path = require('path');
-var rename  = require('gulp-rename');
-var cssmin = require('gulp-cssmin');
+var gulp = require('gulp'),
+    nodemon = require('gulp-nodemon'),
+    less = require('gulp-less'),
+    minifyCSS = require('gulp-minify-css'),
+
+    gp_concat = require('gulp-concat'),
+    gp_rename = require('gulp-rename'),
+    gp_uglify = require('gulp-uglify');
+
+
 
 var jsFiles = ['*.js', 'src/**/*.js'];
 
-gulp.task('style', function () {
-    return gulp.src(jsFiles)
-        .pipe(jshint())
-        .pipe(jshint.reporter('jshint-stylish', {
-            verbose: true
-        }))
-        .pipe(jscs());
-});
-
-gulp.task('inject', function () {
-    var wiredep = require('wiredep').stream;
-    var inject = require('gulp-inject');
-
-    //var injectSrc = gulp.src(['./public/css/*.css',
-    //                          './public/js/*.js'], {
-    //    read: false
-    //});
-
-    var injectOptions = {
-        ignorePath: '/public'
-    };
-
-    var options = {
-        bowerJson: require('./bower.json'),
-        directory: './public/lib',
-        ignorePath: '../../public'
-    };
-
-    return gulp.src('./src/views/*.ejs')
-        .pipe(wiredep(options))
-        .pipe(inject(injectSrc, injectOptions))
-        .pipe(gulp.dest('./src/views'));
-
-});
-
-//gulp.task('serve', ['style', 'inject'], function () {
 gulp.task('serve', function () {
     var options = {
         script: 'app.js',
@@ -75,8 +41,49 @@ gulp.task('less', function () {
         .pipe(cssmin().on('error', function (err) {
             console.log(err);
         }))
-        .pipe(rename({suffix: '.min'}))
+        .pipe(gp_rename({suffix: '.min'}))
         .pipe(gulp.dest('./public/css'));
 });
 
+gulp.task('css-concat' , function(){
+    return gulp.src('src/css/**/*.css')
+        .pipe(minifyCSS())
+        .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9'))
+        .pipe(concat('style.min.css'))
+        .pipe(gulp.dest('dist/css'))
+});
+
+gulp.task('js-uglify', function(){
+    return gulp.src([
+        './public/angular/app.js',
+        './public/angular/services/authToken.js',
+        './public/angular/services/authInterceptor.js',
+        './public/angular/services/helperSvc.js',
+        './public/angular/services/movieCharacterSvc.js',
+        './public/angular/services/comicsCharacterSvc.js',
+        './public/angular/services/rateSvc.js',
+        './public/angular/services/voteSvc.js',
+        './public/angular/services/userSvc.js',
+        './public/angular/directives/dropdown/dropdown.js',
+        './public/angular/directives/starRating/rating.js',
+        './public/angular/directives/character/character.js',
+        './public/angular/directives/modal/modal.js',
+        './public/angular/directives/paging/paging.js',
+        './public/angular/controllers/headerCtrl.js',
+        './public/angular/controllers/homeCtrl.js',
+        './public/angular/controllers/movieCharactersListCtrl.js',
+        './public/angular/controllers/movieCharacterCtrl.js',
+        './public/angular/controllers/comicsCharacterCtrl.js',
+        './public/angular/controllers/userRatesCtrl.js'
+    ])
+        .pipe(gp_concat('bundle.js'))
+        .pipe(gulp.dest('./public/js'))
+        .pipe(gp_rename('ng-app-uglify.js'))
+        .pipe(gp_uglify())
+        .pipe(gulp.dest('./public/js'));
+});
+
+
+
+gulp.task('default', ['js-uglify'], function(){});
 gulp.task('default', ['less', 'watch']);

@@ -1,10 +1,10 @@
 /**
- * Created by User on 11/29/2016.
+ * Created by Ruben on 11/29/2016.
  */
 (function () {
     "use strict";
 
-    angular.module('iMovieUi').factory('VoteSvc', function (helperSvc) {
+    angular.module('iMovieUi').factory('VoteSvc',['helperSvc', function (helperSvc) {
 
         function vote(model) {
             return helperSvc.requestHandler({method: 'POST', url: '/api/vote/set', data:model});
@@ -18,5 +18,5 @@
             getUserVote:getUserVote
 
         };
-    })
+    }])
 })();

@@ -66,13 +66,9 @@
             }
         };
 
-
-
         $scope.isActiveTab = function(index){
             return $scope.activeTab ==index;
         }
-
-
     }]);
 })();
 

@@ -56,14 +56,12 @@
                             $scope.notFoundForTerm = false;
                             $scope.originalMovieCharacters = response.data;
                             $scope.listCharacters = helperSvc.chunk(response.data, 2);
-                            $scope.count = response.count;
-
                         } else {
                             $scope.notFoundForTerm = true;
                             $scope.listCharacters=[];
 
                         }
-
+                        $scope.count = 0;
                         $scope.contentLoaded = true;
                         $scope.filteredBy = {
                             key: 'Searched By',

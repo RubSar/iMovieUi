@@ -1,5 +1,5 @@
 /**
- * Created by Toshiba on 11/17/2016.
+ * Created by Ruben on 11/17/2016.
  */
 
 //movieCharacterCtrl.js
@@ -25,6 +25,17 @@
                 $scope.userRate = response.userRate;
                 $scope.rateAverage = $scope.character.ratesValue>0 ? $scope.character.ratesValue/$scope.character.ratesCount : 0;
                 $scope.contentLoaded = true;
+                var dto = {
+                    movie: response.character.movies[0].name,
+                    artist: response.character.playedBy,
+                    year: response.character.movies[0].year
+                };
+                MovieCharacterSvs.getRecommended(dto)
+                    .then(function (result) {
+                        $scope.recommended = result.data;
+                    }, function (err) {
+                        console.log(err);
+                    });
 
             }, function (err) {
                 console.log(err);
@@ -39,7 +50,6 @@
             RateSvc.rate(dto)
                 .then(function (response) {
                     if (response.success) {
-
                         if (response.message == 'created') {
                             $scope.character.ratesCount += 1;
                             $scope.character.ratesValue += response.value;
@@ -63,41 +73,5 @@
                 $scope.rateValue = newVal;
             }
         });
-        $scope.$watch('character.rates', function (newVal, oldVal) {
-            if (newVal && newVal != oldVal) {
-                $scope.rateAverage = !!$scope.character.rates.length ? average(sum($scope.character.rates, 'value'), $scope.character.rates.length) : 0;
-            }
-        });
-
-        $scope.$watch('character', function (newVal, oldVal) {
-            if (!!newVal && newVal !== oldVal) {
-                // if (newVal.rates == oldVal.rates) {
-                var dto = {
-                    movie: newVal.movies[0].name,
-                    artist: newVal.playedBy,
-                    year: newVal.movies[0].year
-                };
-                MovieCharacterSvs.getRecommended(dto)
-                    .then(function (result) {
-                        $scope.recommended = result.data;
-                    }, function (err) {
-                        console.log(err);
-                    });
-                // }
-            }
-
-        }, true);
-
-        function sum(items, prop) {
-            return items.reduce(function (a, b) {
-                return a + b[prop];
-            }, 0);
-        }
-
-        function average(sum, length) {
-            return (sum / length).toFixed(1);
-        }
-
-
     }]);
 })();

@@ -12,6 +12,7 @@ var router = function () {
 
     api.route('/top').get(function (req, res) {
         models.MovieCharacter.find({})
+            .sort({ratesCount: -1, ratesValue: -1})
             .limit(10)
             .select('name playedBy imgUrl movies ratesCount ratesValue ')
             .exec(function (err, results) {
@@ -48,9 +49,9 @@ var router = function () {
         var size = parseInt(paging.size) || 10;
         var number = parseInt(paging.number) || 1;
         models.MovieCharacter.find({})
+            .sort({ratesCount: -1})
             .select('name playedBy imgUrl movies ratesCount ratesValue ')
             .limit(size)
-            .sort({'name':1})
             .skip((number - 1) * size)
             .exec(function (err, results) {
                 if (err) {

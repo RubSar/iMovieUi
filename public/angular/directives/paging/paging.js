@@ -8,8 +8,6 @@
 
     angular.module('iMovieUi').directive('paging', function () {
 
-
-
         var regex = /\{page\}/g;
 
         return {

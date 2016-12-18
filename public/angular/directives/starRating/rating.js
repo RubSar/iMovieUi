@@ -5,7 +5,7 @@
 (function () {
     'use strict';
 
-    angular.module('iMovieUi').directive('starRating', function ($auth, $rootScope) {
+    angular.module('iMovieUi').directive('starRating',['$auth','$rootScope', function ($auth, $rootScope) {
         return {
             restrict: 'E',
             scope: {
@@ -55,6 +55,6 @@
             },
             templateUrl: '/angular/directives/starRating/rating.html'
         }
-    });
+    }]);
 
 })();

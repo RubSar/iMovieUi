@@ -4,7 +4,7 @@
 //movieCharactersSvs.js
 
 (function () {
-    angular.module('iMovieUi').factory('MovieCharacterSvs', function (helperSvc) {
+    angular.module('iMovieUi').factory('MovieCharacterSvs',['helperSvc', function (helperSvc) {
 
         function getAll(){
             return helperSvc.requestHandler({method: 'GET', url: '/api/movieCharacters/all'});
@@ -67,5 +67,5 @@
             getRecommended:getRecommended,
             searchCharacters:searchCharacters
         }
-    })
+    }])
 })();

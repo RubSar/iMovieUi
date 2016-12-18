@@ -4,7 +4,7 @@
 (function () {
     'use strict';
 
-    angular.module('iMovieUi').directive('character', function (RateSvc) {
+    angular.module('iMovieUi').directive('character',['RateSvc', function (RateSvc) {
         return {
             restrict: 'E',
             scope: {
@@ -50,5 +50,5 @@
             },
             templateUrl: '/angular/directives/character/character.html'
         }
-    });
+    }]);
 })();

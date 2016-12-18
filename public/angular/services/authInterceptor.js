@@ -1,9 +1,9 @@
 /**
- * Created by User on 11/11/2016.
+ * Created by Ruben on 11/11/2016.
  */
 (function () {
-    var app = angular.module('iMovieUi')
-        .factory('authInterceptor', function (authToken) {
+    angular.module('iMovieUi')
+        .factory('authInterceptor',['authToken', function (authToken) {
             return {
                 request: function (config) {
                     var token = authToken.getToken();
@@ -17,6 +17,6 @@
                     return response;
                 }
             };
-        })
+        }])
 })();
 

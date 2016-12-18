@@ -6,7 +6,7 @@
 //authToken.js
 
 (function () {
-    angular.module('iMovieUi').factory('authToken', function ($window) {
+    angular.module('iMovieUi').factory('authToken',['$window', function ($window) {
         var storage = $window.localStorage;
         var cachedToken;
         var userToken = 'satellizer_token';
@@ -35,6 +35,6 @@
 
         return authToken;
 
-    })
+    }])
 })();
 

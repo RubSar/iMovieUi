@@ -1,10 +1,10 @@
 /**
- * Created by Toshiba on 10/31/2016.
+ * Created by Ruben on 10/31/2016.
  */
 //helperSvc.js
 
 (function () {
-    angular.module('iMovieUi').factory('helperSvc', function ($http, $q) {
+    angular.module('iMovieUi').factory('helperSvc',['$http','$q', function ($http, $q) {
 
         function requestHandler(requestBody) {
             var task = $q.defer();
@@ -31,5 +31,5 @@
             requestHandler: requestHandler,
             chunk:chunk
         }
-    });
+    }]);
 })();

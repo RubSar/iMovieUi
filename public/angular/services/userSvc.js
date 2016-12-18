@@ -3,7 +3,7 @@
 (function () {
     'use strict';
 
-    angular.module('iMovieUi').factory('UserSvc', function (helperSvc) {
+    angular.module('iMovieUi').factory('UserSvc',['helperSvc', function (helperSvc) {
 
         function userRates(model) {
             return helperSvc.requestHandler({method: 'GET', url: '/api/user/rates', params: model});
@@ -17,5 +17,5 @@
             userRates: userRates,
             ratings:ratings
         }
-    });
+    }]);
 })();
