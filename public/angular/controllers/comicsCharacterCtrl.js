@@ -27,10 +27,13 @@
                         console.log(err);
                     });
 
-                $scope.rate = function (artistId, index) {
+                $scope.vote = function (artistId, same) {
                     if ($scope.isAuthProp) {
+
+                        if (same) {
+                            return;
+                        }
                         $scope.voteStart = true;
-                        $scope.current = index;
                         var dto = {
                             artistId: artistId,
                             characterId: $scope.character._id

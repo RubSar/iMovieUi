@@ -12,8 +12,8 @@ module.exports = function (req, res) {
     var params = {
         client_id: keys.FACEBOOK_APP_ID,
         redirect_uri: req.body.redirectUri,
-        client_secret: keys.FACEBOOK_SECRET
-        //code: req.body.code
+        client_secret: keys.FACEBOOK_SECRET,
+        code: req.body.code
     };
 
     request.get({url: accessTokenUrl, qs: params}, function (err, response, accessToken) {

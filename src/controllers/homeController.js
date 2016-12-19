@@ -18,15 +18,19 @@ var homeController = function () {
 
     function movieCharacter(req, res){
         res.render('movieCharacter', {
-            title:'movie character ' +req.params.name
+            title:req.params.name
         });
     }
 
     function comicsCharacter(req, res){
-        res.render('comicsCharacter');
+        res.render('comicsCharacter', {
+            title:req.params.name
+        });
     }
     function movieCharactersList(req, res){
-        res.render('movieCharactersList');
+        res.render('movieCharactersList', {
+            title:'all popular movie characters'
+        });
     }
 
     function userRates(req, res){

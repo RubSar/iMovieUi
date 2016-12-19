@@ -1,13 +1,10 @@
 var gulp = require('gulp'),
     nodemon = require('gulp-nodemon'),
     less = require('gulp-less'),
-    minifyCSS = require('gulp-minify-css'),
-
-    gp_concat = require('gulp-concat'),
-    gp_rename = require('gulp-rename'),
-    gp_uglify = require('gulp-uglify');
-
-
+    concat = require('gulp-concat'),
+    rename = require('gulp-rename'),
+    cleanCSS = require('gulp-clean-css'),
+    uglify = require('gulp-uglify');
 
 var jsFiles = ['*.js', 'src/**/*.js'];
 
@@ -41,19 +38,37 @@ gulp.task('less', function () {
         .pipe(cssmin().on('error', function (err) {
             console.log(err);
         }))
-        .pipe(gp_rename({suffix: '.min'}))
+        .pipe(rename({suffix: '.min'}))
         .pipe(gulp.dest('./public/css'));
 });
 
 gulp.task('css-concat' , function(){
-    return gulp.src('src/css/**/*.css')
-        .pipe(minifyCSS())
-        .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9'))
-        .pipe(concat('style.min.css'))
-        .pipe(gulp.dest('dist/css'))
+    return gulp.src([
+        './public/lib/bootstrap/dist/css/bootstrap.min.css',
+        './public/css/owl.carousel.css',
+        './public/css/comics.style.css',
+        './public/css/style.min.css'
+    ])
+        .pipe(cleanCSS({compatibility: 'ie8'}))
+        .pipe(concat('app.min.css'))
+        .pipe(gulp.dest('./public/css'))
 });
 
-gulp.task('js-uglify', function(){
+gulp.task('main-uglify', function(){
+    return gulp.src([
+        './public/lib/jquery/dist/jquery.min.js',
+        './public/lib/bootstrap/dist/js/bootstrap.min.js',
+        './public/lib/angular/angular.min.js',
+        './public/js/owl.carousel.min.js'
+    ])
+        .pipe(concat('main-bundle.js'))
+        .pipe(gulp.dest('./public/js'))
+        .pipe(rename('main-uglify.js'))
+        .pipe(uglify())
+        .pipe(gulp.dest('./public/js'));
+});
+
+gulp.task('ng-uglify', function(){
     return gulp.src([
         './public/angular/app.js',
         './public/angular/services/authToken.js',
@@ -76,10 +91,10 @@ gulp.task('js-uglify', function(){
         './public/angular/controllers/comicsCharacterCtrl.js',
         './public/angular/controllers/userRatesCtrl.js'
     ])
-        .pipe(gp_concat('bundle.js'))
+        .pipe(concat('bundle.js'))
         .pipe(gulp.dest('./public/js'))
-        .pipe(gp_rename('ng-app-uglify.js'))
-        .pipe(gp_uglify())
+        .pipe(rename('ng-app-uglify.js'))
+        .pipe(uglify())
         .pipe(gulp.dest('./public/js'));
 });
 

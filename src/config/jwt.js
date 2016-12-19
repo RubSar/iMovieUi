@@ -9,13 +9,12 @@ var keys = require('../config/keys.js');
 module.exports = function (user, res) {
     var payload = {
         sub: user.id,
-        exp: moment().add(10, 'days').unix()
+        exp: moment().add(365, 'days').unix()
     };
 
     var token = jwt.encode(payload, keys.TOKEN_SECRET);
 
     res.status(200).send({
-        user: user.toJSON(),
         token: token
     });
 };

@@ -4,7 +4,7 @@
 //helperSvc.js
 
 (function () {
-    angular.module('iMovieUi').factory('helperSvc',['$http','$q', function ($http, $q) {
+    angular.module('iMovieUi').factory('helperSvc', ['$http', '$q', function ($http, $q) {
 
         function requestHandler(requestBody) {
             var task = $q.defer();
@@ -17,19 +17,28 @@
                 });
             return task.promise;
         }
+
         function chunk(arr, size) {
             var newArr = [];
-            for (var i=0; i<arr.length; i+=size) {
-                newArr.push(arr.slice(i, i+size));
+            for (var i = 0; i < arr.length; i += size) {
+                newArr.push(arr.slice(i, i + size));
             }
             return newArr;
         }
 
+        function decimalRound(number, decimals) {
+            if (arguments.length == 1)
+                return Math.round(number);
+
+            var multiplier = Math.pow(10, decimals);
+            return Math.round(number * multiplier) / multiplier;
+        }
 
 
         return {
             requestHandler: requestHandler,
-            chunk:chunk
+            chunk: chunk,
+            decimalRound:decimalRound
         }
     }]);
 })();

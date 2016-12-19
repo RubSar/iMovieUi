@@ -1,4 +1,3 @@
-
 var App = function () {
     // extend jQuery by method hasAttr
     $.fn.hasAttr = function (name) {
@@ -32,11 +31,11 @@ var App = function () {
             event.preventDefault();
         });
 
-        var $scrollspy = $('body').scrollspy({target: '.one-page-nav-scrolling', offset: $offset + 2});
-
         // Collapse Navbar When It's Clickicked
         $(window).scroll(function () {
-            $('nav.navbar .navbar-collapse.in').collapse('hide');
+            //if (window.innerWidth > 768) {
+               $('nav.navbar .navbar-collapse.in').collapse('hide');
+            //}
         });
     }
 
@@ -74,7 +73,7 @@ var App = function () {
 
     return {
         initHeader: handleHeader,
-        initOwlCarousel:initOwlCarousel
+        initOwlCarousel: initOwlCarousel
 
     };
 }();

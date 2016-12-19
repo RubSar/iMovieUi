@@ -2,7 +2,7 @@
  * Created by Ruben on 11/11/2016.
  */
 (function () {
-    angular.module('iMovieUi', ['satellizer', 'ui.bootstrap'])
+    angular.module('iMovieUi', ['satellizer'])
         .config(['$authProvider','$httpProvider',function ($authProvider, $httpProvider) {
             $httpProvider.interceptors.push('authInterceptor');
             $authProvider.facebook({
@@ -81,7 +81,7 @@
 //helperSvc.js
 
 (function () {
-    angular.module('iMovieUi').factory('helperSvc',['$http','$q', function ($http, $q) {
+    angular.module('iMovieUi').factory('helperSvc', ['$http', '$q', function ($http, $q) {
 
         function requestHandler(requestBody) {
             var task = $q.defer();
@@ -94,19 +94,28 @@
                 });
             return task.promise;
         }
+
         function chunk(arr, size) {
             var newArr = [];
-            for (var i=0; i<arr.length; i+=size) {
-                newArr.push(arr.slice(i, i+size));
+            for (var i = 0; i < arr.length; i += size) {
+                newArr.push(arr.slice(i, i + size));
             }
             return newArr;
         }
 
+        function decimalRound(number, decimals) {
+            if (arguments.length == 1)
+                return Math.round(number);
+
+            var multiplier = Math.pow(10, decimals);
+            return Math.round(number * multiplier) / multiplier;
+        }
 
 
         return {
             requestHandler: requestHandler,
-            chunk:chunk
+            chunk: chunk,
+            decimalRound:decimalRound
         }
     }]);
 })();
@@ -365,12 +374,12 @@
 
 })();
 /**
- * Created by Toshiba on 11/13/2016.
+ * Created by Ruben on 11/13/2016.
  */
 (function () {
     'use strict';
 
-    angular.module('iMovieUi').directive('character',['RateSvc', function (RateSvc) {
+    angular.module('iMovieUi').directive('character', ['RateSvc', 'helperSvc', function (RateSvc, helperSvc) {
         return {
             restrict: 'E',
             scope: {
@@ -387,7 +396,9 @@
                     }
                 });
 
-                scope.rateAverage = scope.model.ratesValue>0 ? scope.model.ratesValue/scope.model.ratesCount : 0;
+                scope.rateAverage = scope.model.ratesValue > 0
+                    ? helperSvc.decimalRound(scope.model.ratesValue / scope.model.ratesCount, 1)
+                    : 0;
 
 
                 scope.rateFunction = function (value) {
@@ -401,13 +412,15 @@
                             if (response.success) {
 
                                 if (response.message == 'created') {
-                                    scope.model.ratesCount+=1;
-                                    scope.model.ratesValue+= response.value;
-                                }else{
-                                    scope.model.ratesValue+= response.dif;
+                                    scope.model.ratesCount += 1;
+                                    scope.model.ratesValue += response.value;
+                                } else {
+                                    scope.model.ratesValue += response.dif;
                                 }
                                 scope.avgUpdate = false;
-                                scope.rateAverage = scope.model.ratesValue>0 ? scope.model.ratesValue/scope.model.ratesCount : 0;
+                                scope.rateAverage = scope.model.ratesValue > 0
+                                    ? helperSvc.decimalRound(scope.model.ratesValue / scope.model.ratesCount, 1)
+                                    : 0;
                             }
                         }, function (err) {
                             console.log(err);
@@ -1329,10 +1342,13 @@
                         console.log(err);
                     });
 
-                $scope.rate = function (artistId, index) {
+                $scope.vote = function (artistId, same) {
                     if ($scope.isAuthProp) {
+
+                        if (same) {
+                            return;
+                        }
                         $scope.voteStart = true;
-                        $scope.current = index;
                         var dto = {
                             artistId: artistId,
                             characterId: $scope.character._id

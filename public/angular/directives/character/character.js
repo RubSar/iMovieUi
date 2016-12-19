@@ -1,10 +1,10 @@
 /**
- * Created by Toshiba on 11/13/2016.
+ * Created by Ruben on 11/13/2016.
  */
 (function () {
     'use strict';
 
-    angular.module('iMovieUi').directive('character',['RateSvc', function (RateSvc) {
+    angular.module('iMovieUi').directive('character', ['RateSvc', 'helperSvc', function (RateSvc, helperSvc) {
         return {
             restrict: 'E',
             scope: {
@@ -21,7 +21,9 @@
                     }
                 });
 
-                scope.rateAverage = scope.model.ratesValue>0 ? scope.model.ratesValue/scope.model.ratesCount : 0;
+                scope.rateAverage = scope.model.ratesValue > 0
+                    ? helperSvc.decimalRound(scope.model.ratesValue / scope.model.ratesCount, 1)
+                    : 0;
 
 
                 scope.rateFunction = function (value) {
@@ -35,13 +37,15 @@
                             if (response.success) {
 
                                 if (response.message == 'created') {
-                                    scope.model.ratesCount+=1;
-                                    scope.model.ratesValue+= response.value;
-                                }else{
-                                    scope.model.ratesValue+= response.dif;
+                                    scope.model.ratesCount += 1;
+                                    scope.model.ratesValue += response.value;
+                                } else {
+                                    scope.model.ratesValue += response.dif;
                                 }
                                 scope.avgUpdate = false;
-                                scope.rateAverage = scope.model.ratesValue>0 ? scope.model.ratesValue/scope.model.ratesCount : 0;
+                                scope.rateAverage = scope.model.ratesValue > 0
+                                    ? helperSvc.decimalRound(scope.model.ratesValue / scope.model.ratesCount, 1)
+                                    : 0;
                             }
                         }, function (err) {
                             console.log(err);

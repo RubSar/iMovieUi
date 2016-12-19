@@ -18,27 +18,7 @@ function user(req) {
     }
 }
 
-function createAdminLoginToken(req) {
-    return function () {
-        Admin.findOne({email: req.body.email}, function (err, admin) {
-            if (err) {
-                console.log(err);
-            } else {
-                return function () {
-                    if (admin) {
-                        var payload = {
-                            sub: admin._id,
-                            exp: moment().add(1200, 'seconds').unix()
-                        };
-                        return jwt.encode(payload, keys.ADMIN_SECRET);
-                    } else {
-                        return null;
-                    }
-                }
-            }
-        });
-    }
-}
+
 
 function checkAdminPassword(req) {
     var model = req.body;
@@ -68,6 +48,5 @@ function checkAdminPassword(req) {
 
 module.exports = {
     user: user,
-    createAdminLoginToken: createAdminLoginToken,
     checkAdminPassword: checkAdminPassword
 };
