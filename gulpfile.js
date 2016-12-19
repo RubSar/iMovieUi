@@ -35,7 +35,7 @@ gulp.task('less', function () {
         .pipe(less().on('error', function (err) {
             console.log(err);
         }))
-        .pipe(cssmin().on('error', function (err) {
+        .pipe(cleanCSS().on('error', function (err) {
             console.log(err);
         }))
         .pipe(rename({suffix: '.min'}))

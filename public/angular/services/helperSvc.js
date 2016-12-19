@@ -34,11 +34,16 @@
             return Math.round(number * multiplier) / multiplier;
         }
 
+        function isDesktop(){
+            return window.innerWidth>768;
+        }
+
 
         return {
             requestHandler: requestHandler,
             chunk: chunk,
-            decimalRound:decimalRound
+            decimalRound:decimalRound,
+            isDesktop:isDesktop
         }
     }]);
 })();
