@@ -111,11 +111,16 @@
             return Math.round(number * multiplier) / multiplier;
         }
 
+        function isDesktop(){
+            return window.innerWidth>768;
+        }
+
 
         return {
             requestHandler: requestHandler,
             chunk: chunk,
-            decimalRound:decimalRound
+            decimalRound:decimalRound,
+            isDesktop:isDesktop
         }
     }]);
 })();
@@ -1244,13 +1249,14 @@
 (function () {
     'use strict';
 
-    angular.module('iMovieUi').controller('MovieCharacterCtrl', ['$scope', '$window', 'MovieCharacterSvs', 'RateSvc', '$auth', function ($scope, $window, MovieCharacterSvs, RateSvc, $auth) {
+    angular.module('iMovieUi').controller('MovieCharacterCtrl', ['$scope', '$window', 'MovieCharacterSvs', 'RateSvc', '$auth', 'helperSvc', function ($scope, $window, MovieCharacterSvs, RateSvc, $auth, helperSvc) {
 
         var name = $window.location.pathname.split('/movie-character/')[1];
         $scope.rateValue = 1;
         $scope.dataHref = document.URL;
         $scope.contentLoaded = false;
         $scope.avgUpdate = false;
+        $scope.isDesktop =helperSvc.isDesktop();
 
 
         $scope.isAuthenticated = function () {
@@ -1261,19 +1267,23 @@
             .then(function (response) {
                 $scope.character = response.character;
                 $scope.userRate = response.userRate;
-                $scope.rateAverage = $scope.character.ratesValue>0 ? $scope.character.ratesValue/$scope.character.ratesCount : 0;
+                $scope.rateAverage = $scope.character.ratesValue>0
+                    ? helperSvc.decimalRound($scope.character.ratesValue/$scope.character.ratesCount,1)
+                    : 0;
                 $scope.contentLoaded = true;
-                var dto = {
-                    movie: response.character.movies[0].name,
-                    artist: response.character.playedBy,
-                    year: response.character.movies[0].year
-                };
-                MovieCharacterSvs.getRecommended(dto)
-                    .then(function (result) {
-                        $scope.recommended = result.data;
-                    }, function (err) {
-                        console.log(err);
-                    });
+                if ($scope.isDesktop) {
+                    var dto = {
+                        movie: response.character.movies[0].name,
+                        artist: response.character.playedBy,
+                        year: response.character.movies[0].year
+                    };
+                    MovieCharacterSvs.getRecommended(dto)
+                        .then(function (result) {
+                            $scope.recommended = result.data;
+                        }, function (err) {
+                            console.log(err);
+                        });
+                }
 
             }, function (err) {
                 console.log(err);
