@@ -49,7 +49,7 @@ var router = function () {
         var size = parseInt(paging.size) || 10;
         var number = parseInt(paging.number) || 1;
         models.MovieCharacter.find({})
-            .sort({ratesCount: -1})
+            .sort({ ratesValue: -1, ratesCount: 1})
             .select('name playedBy imgUrl movies ratesCount ratesValue ')
             .limit(size)
             .skip((number - 1) * size)
