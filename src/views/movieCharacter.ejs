@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="iMovieUi" ng-controller="MovieCharacterCtrl">
 <head>
-    <title>Rate Most Popular Movie Characters |  <%=title%> </title>
-    <meta name="keyword" content="rate top popular  movie character favorite <%=title%> played by">
-    <meta name="description" content="Rate most popular movie character <%=title%> played by">
+    <title>Rate Most Popular Movie Characters | {{fullName}} </title>
+    <meta name="keyword" content="rate top popular  movie character favorite {{fullName}}">
+    <meta name="description" content="Rate most popular movie character {{fullName}}">
     <% include partials/head.ejs %>
 </head>
 <body id="body" data-spy="scroll" data-target=".one-page-header" class="demo-lightbox-gallery">
@@ -15,7 +15,7 @@
         js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.8&appId=175488799579769";
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));</script>
-<main class="wrapper" ng-app="iMovieUi">
+<main class="wrapper" >
     <header>
         <% include partials/header.ejs %>
     </header>
@@ -23,7 +23,7 @@
     <input type="hidden" ng-value="authProp =isAuthenticated()"/>
 
 
-    <div class="container pt-85 pb-100" ng-controller="MovieCharacterCtrl">
+    <div class="container pt-85 pb-100" >
         <div ng-hide="contentLoaded" class="lazy-load-box">
             <i class="fa fa-spin fa-cog fa-5x"></i>
         </div>
@@ -37,7 +37,7 @@
                     <div class="row">
                         <div class="col-md-4 col-sm-4">
                             <div class="character-view">
-                                <img ng-src="{{character.imgUrl}}" class="img-responsive img-center rnd-8"/>
+                                <img ng-src="{{character.imgUrl}}" class="img-responsive img-center rnd-8" alt="{{fullName}}" title="{{fullName}}"/>
                             </div>
                         </div>
                         <div class="col-md-8 col-sm-8">

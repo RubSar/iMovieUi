@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="iMovieUi" ng-controller="ComicsCharacterCtrl">
 <head>
     <title>Rate Most Popular Movie Characters | Vote for your favorite actor as <%=title%> </title>
     <meta name="keyword" content="rate movie comics character vote favorite ">
     <meta name="description" content="Rate most popular movie characters, the most played comic characters, Vote for your favorite actor as comic character">
     <% include partials/head.ejs %>
 </head>
-<body id="body" data-spy="scroll" data-target=".one-page-header" class="demo-lightbox-gallery" ng-app="iMovieUi">
+<body id="body" data-spy="scroll" data-target=".one-page-header" class="demo-lightbox-gallery" >
 <script>
     (function (d, s, id) {
         var js, fjs = d.getElementsByTagName(s)[0];
@@ -22,7 +22,7 @@
     </header>
 
 
-    <div class="container mt-100 mb-50" ng-controller="ComicsCharacterCtrl">
+    <div class="container mt-100 mb-50" >
 
         <input type="hidden" ng-value="isAuthProp =isAuthenticated()">
 
@@ -39,7 +39,7 @@
                             <div class="character-info">
                                 <div class="info">
                                     <h4><span ng-bind="character.name"></span>
-                                        <small style="color: #fff">/ <span ng-bind="character.type"></span></small>
+                                        <small >/ <span ng-bind="character.type"></span></small>
                                     </h4>
                                     <p ng-bind="character.description"></p>
                                 </div>
@@ -56,7 +56,7 @@
                          ng-repeat="artist in character.actors track by $index">
                         <div class="artist-info">
                             <div class="artist-image-wrapper">
-                                <img ng-src="{{artist.imgUrl}}" class="img-responsive img-center noselect"/>
+                                <img ng-src="{{artist.imgUrl}}" class="img-responsive img-center noselect" alt ="{{fullName(artist)}}" title="{{fullName(artist)}}"  />
                                 <span ng-hide="voteStart" class="vote-box"
                                       ng-class="{'in-progress': (voteStart)}"
                                       ng-click="vote(artist._id, artist.votedByUser)">
@@ -72,7 +72,7 @@
                                     <i class="fa fa-spin fa-spinner"></i>
                                 </span>
                             </div>
-                            <h4 style="margin-bottom: 0"><span ng-bind="artist.firstName"></span> <span
+                            <h4><span ng-bind="artist.firstName"></span> <span
                                         ng-bind="artist.lastName"></span></h4>
 
                             <strong ng-bind="artist.votesCount"></strong> users vote

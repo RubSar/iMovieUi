@@ -594,7 +594,7 @@ a:hover {
 .comics-character-list-item p {
   margin-bottom: 15px;
 }
-.our-tours-price {
+.btn-see-more {
   color: #fff;
   background: #127387;
   display: inline-block;
@@ -604,13 +604,16 @@ a:hover {
   padding: 10px 11px;
   transition: all 0.3s ease-in-out;
 }
-.comics-character-list-item:hover .our-tours-price {
+.btn-see-more a{
+  color:#fff;
+}
+.comics-character-list-item:hover .btn-see-more {
   background: #31353e;
 }
 .comics-character-list-item h3,
 .comics-character-list-item p,
 .comics-character-list-item .star-vote,
-.comics-character-list-item .our-tours-price {
+.comics-character-list-item .btn-see-more {
   margin-left: 20px;
   margin-right: 20px;
 }
@@ -841,6 +844,9 @@ ul.rating {
 .character-box p {
   color: #f5f5ef;
   margin-bottom: 0;
+}
+.character-box small {
+  color: #fff;
 }
 
 

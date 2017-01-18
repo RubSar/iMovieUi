@@ -15,7 +15,6 @@
             setToken: function(token) {
                 cachedToken = token;
                 storage.setItem(userToken, token);
-                console.log(storage);
                 isAuthenticated = true;
             },
             getToken: function() {
@@ -25,7 +24,6 @@
                 return cachedToken;
             },
             isAuthenticated: function() {
-
                 return !!authToken.getToken();
             },
             removeToken: function() {

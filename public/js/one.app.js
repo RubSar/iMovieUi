@@ -22,15 +22,6 @@ var App = function () {
         if ($('.one-page-nav-scrolling').hasClass('one-page-nav__fixed')) {
             $offset = $(".one-page-nav-scrolling").height() + 8;
         }
-        // jQuery for page scrolling feature - requires jQuery Easing plugin
-        $('.page-scroll a').bind('click', function (event) {
-            var $position = $($(this).attr('href')).offset().top;
-            $('html, body').stop().animate({
-                scrollTop: $position - $offset
-            }, 600);
-            event.preventDefault();
-        });
-
         // Collapse Navbar When It's Clickicked
         $(window).scroll(function () {
             //if (window.innerWidth > 768) {

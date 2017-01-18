@@ -61,7 +61,6 @@
             return {
                 request: function (config) {
                     var token = authToken.getToken();
-
                     if (token)
                         config.headers.Authorization = 'Bearer ' + token;
 
@@ -400,6 +399,8 @@
                         scope.rateValue = newVal;
                     }
                 });
+
+                scope.imgTitle =scope.model.name + ' played by ' + scope.model.playedBy + ' in ' +scope.model.movies[0].name;
 
                 scope.rateAverage = scope.model.ratesValue > 0
                     ? helperSvc.decimalRound(scope.model.ratesValue / scope.model.ratesCount, 1)
@@ -1256,21 +1257,24 @@
         $scope.dataHref = document.URL;
         $scope.contentLoaded = false;
         $scope.avgUpdate = false;
-        $scope.isDesktop =helperSvc.isDesktop();
+        $scope.isDesktop = helperSvc.isDesktop();
 
 
         $scope.isAuthenticated = function () {
             return $auth.isAuthenticated();
         };
 
+
+
         MovieCharacterSvs.getMovieCharacter(name)
             .then(function (response) {
                 $scope.character = response.character;
                 $scope.userRate = response.userRate;
-                $scope.rateAverage = $scope.character.ratesValue>0
-                    ? helperSvc.decimalRound($scope.character.ratesValue/$scope.character.ratesCount,1)
+                $scope.rateAverage = $scope.character.ratesValue > 0
+                    ? helperSvc.decimalRound($scope.character.ratesValue / $scope.character.ratesCount, 1)
                     : 0;
                 $scope.contentLoaded = true;
+                $scope.fullName = $scope.character.name + ' played by ' + $scope.character.playedBy + ' in ' + $scope.character.movies[0].name;
                 if ($scope.isDesktop) {
                     var dto = {
                         movie: response.character.movies[0].name,
@@ -1303,13 +1307,13 @@
                             $scope.character.ratesValue += response.value;
                             $scope.userRate = response.value;
                         }
-                        else{
-                            $scope.character.ratesValue+= response.dif;
-                            $scope.userRate +=response.dif;
+                        else {
+                            $scope.character.ratesValue += response.dif;
+                            $scope.userRate += response.dif;
                         }
 
                         $scope.avgUpdate = false;
-                        $scope.rateAverage = $scope.character.ratesValue>0 ? $scope.character.ratesValue/$scope.character.ratesCount : 0;
+                        $scope.rateAverage = $scope.character.ratesValue > 0 ? $scope.character.ratesValue / $scope.character.ratesCount : 0;
                     }
                 }, function (err) {
                     console.log(err);
@@ -1390,6 +1394,10 @@
                         }
                     }
                 }, true);
+
+                $scope.fullName =function(artist){
+                    return  artist.firstName + ' ' + artist.lastName;
+                };
 
                 function getUserRate() {
                     if ($scope.isAuthProp) {

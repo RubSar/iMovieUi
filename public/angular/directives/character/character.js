@@ -21,6 +21,8 @@
                     }
                 });
 
+                scope.imgTitle =scope.model.name + ' played by ' + scope.model.playedBy + ' in ' +scope.model.movies[0].name;
+
                 scope.rateAverage = scope.model.ratesValue > 0
                     ? helperSvc.decimalRound(scope.model.ratesValue / scope.model.ratesCount, 1)
                     : 0;

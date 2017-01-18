@@ -7,8 +7,6 @@
             return {
                 request: function (config) {
                     var token = authToken.getToken();
-
-                    console.log(token);
                     if (token)
                         config.headers.Authorization = 'Bearer ' + token;
 

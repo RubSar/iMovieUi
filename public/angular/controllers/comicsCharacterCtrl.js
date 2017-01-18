@@ -66,6 +66,10 @@
                     }
                 }, true);
 
+                $scope.fullName =function(artist){
+                    return  artist.firstName + ' ' + artist.lastName;
+                };
+
                 function getUserRate() {
                     if ($scope.isAuthProp) {
                         VoteSvc.getUserVote($scope.character._id)
