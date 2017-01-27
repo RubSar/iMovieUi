@@ -66,8 +66,21 @@
                     }
                 }, true);
 
-                $scope.fullName =function(artist){
-                    return  artist.firstName + ' ' + artist.lastName;
+                $scope.fullName = function (artist) {
+                    return artist.firstName + ' ' + artist.lastName;
+                };
+
+                $scope.shareOnFacebook = function () {
+
+                    var description = 'Choose from ' + $scope.character.actors.length + ' actors who created the best character of ' + $scope.character.name;
+                    FB.ui(
+                        {
+                            method: 'feed',
+                            name: 'Vote for the best ' + $scope.character.name.toUpperCase() + ' actor.',
+                            link: 'http://imovieui.herokuapp.com/movie-character/Joker',
+                            picture: $scope.character.imgUrl,
+                            description: description
+                        });
                 };
 
                 function getUserRate() {

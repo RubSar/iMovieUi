@@ -541,7 +541,7 @@
             });
         }
 
-        function fieldTemplate(el, attrs){
+        function fieldTemplate(el, attrs) {
             return '<ul data-ng-hide="Hide" data-ng-class="ulClass"> ' +
                 '<li ' +
                 'title="{{Item.title}}" ' +
@@ -551,7 +551,7 @@
                 (attrs.pgHref ? 'data-ng-href="{{Item.pgHref}}" ' : 'href ') +
                 'data-ng-class="Item.aClass" ' +
                 'data-ng-click="Item.action()" ' +
-                'data-ng-bind="Item.value">'+
+                'data-ng-bind="Item.value">' +
                 '</a> ' +
                 '</li>' +
                 '</ul>'
@@ -561,10 +561,11 @@
 
             scope.List = [];
             scope.Hide = false;
+            var _adj = window.innerWidth < 529 ? 1 : 2;
 
             scope.page = parseInt(scope.page) || 1;
             scope.total = parseInt(scope.total) || 0;
-            scope.adjacent = parseInt(scope.adjacent) || 2;
+            scope.adjacent = parseInt(scope.adjacent) || _adj;
 
             scope.pgHref = scope.pgHref || '';
             scope.dots = scope.dots || '...';
@@ -579,7 +580,7 @@
             scope.textPrev = scope.textPrev || '<';
 
             scope.textFirstClass = scope.textFirstClass || '';
-            scope.textLastClass= scope.textLastClass || '';
+            scope.textLastClass = scope.textLastClass || '';
             scope.textNextClass = scope.textNextClass || '';
             scope.textPrevClass = scope.textPrevClass || '';
 
@@ -597,7 +598,7 @@
         }
 
 
-        function evalBoolAttribute(scope, value){
+        function evalBoolAttribute(scope, value) {
             return angular.isDefined(value)
                 ? !!scope.$parent.$eval(value)
                 : false;
@@ -636,8 +637,7 @@
             }
 
             // Block if we are forcing disabled
-            if(scope.isDisabled)
-            {
+            if (scope.isDisabled) {
                 return;
             }
 
@@ -676,7 +676,7 @@
                 disabled = scope.page - 1 <= 0;
                 var prevPage = scope.page - 1 <= 0 ? 1 : scope.page - 1;
 
-                if(scope.showFirstLast){
+                if (scope.showFirstLast) {
                     alpha = {
                         value: scope.textFirst,
                         title: scope.textTitleFirst,
@@ -685,7 +685,7 @@
                     };
                 }
 
-                if(scope.showPrevNext){
+                if (scope.showPrevNext) {
                     beta = {
                         value: scope.textPrev,
                         title: scope.textTitlePrev,
@@ -699,7 +699,7 @@
                 disabled = scope.page + 1 > pageCount;
                 var nextPage = scope.page + 1 >= pageCount ? pageCount : scope.page + 1;
 
-                if(scope.showPrevNext){
+                if (scope.showPrevNext) {
                     alpha = {
                         value: scope.textNext,
                         title: scope.textTitleNext,
@@ -708,7 +708,7 @@
                     };
                 }
 
-                if(scope.showFirstLast){
+                if (scope.showFirstLast) {
                     beta = {
                         value: scope.textLast,
                         title: scope.textTitleLast,
@@ -736,25 +736,24 @@
             };
 
             // Force disabled if specified
-            if(scope.isDisabled){
+            if (scope.isDisabled) {
                 disabled = true;
             }
 
             // Add alpha items
-            if(alpha){
+            if (alpha) {
                 var alphaItem = buildItem(alpha, disabled);
                 scope.List.push(alphaItem);
             }
 
             // Add beta items
-            if(beta){
+            if (beta) {
                 var betaItem = buildItem(beta, disabled);
                 scope.List.push(betaItem);
             }
         }
 
         function addRange(start, finish, scope) {
-
             // Add our items where i is the page number
             var i = 0;
             for (i = start; i <= finish; i++) {
@@ -763,7 +762,7 @@
                 var liClass = scope.page == i ? scope.activeClass : '';
 
                 // Handle items that are affected by disabled
-                if(scope.isDisabled){
+                if (scope.isDisabled) {
                     pgHref = '';
                     liClass = scope.disabledClass;
                 }
@@ -810,7 +809,6 @@
 
             addRange(pageCount - 1, pageCount, scope);
         }
-
 
 
         function build(scope, attrs) {
@@ -1250,82 +1248,98 @@
 (function () {
     'use strict';
 
-    angular.module('iMovieUi').controller('MovieCharacterCtrl', ['$scope', '$window', 'MovieCharacterSvs', 'RateSvc', '$auth', 'helperSvc', function ($scope, $window, MovieCharacterSvs, RateSvc, $auth, helperSvc) {
+    angular.module('iMovieUi').controller('MovieCharacterCtrl', ['$scope', '$window', '$document', 'MovieCharacterSvs', 'RateSvc', '$auth', 'helperSvc',
+        function ($scope, $window, $document, MovieCharacterSvs, RateSvc, $auth, helperSvc) {
 
-        var name = $window.location.pathname.split('/movie-character/')[1];
-        $scope.rateValue = 1;
-        $scope.dataHref = document.URL;
-        $scope.contentLoaded = false;
-        $scope.avgUpdate = false;
-        $scope.isDesktop = helperSvc.isDesktop();
-
-
-        $scope.isAuthenticated = function () {
-            return $auth.isAuthenticated();
-        };
+            var name = $window.location.pathname.split('/movie-character/')[1];
+            $scope.rateValue = 1;
+            $scope.dataHref = $document.context.URL;
+            $scope.contentLoaded = false;
+            $scope.avgUpdate = false;
+            $scope.isDesktop = helperSvc.isDesktop();
 
 
-
-        MovieCharacterSvs.getMovieCharacter(name)
-            .then(function (response) {
-                $scope.character = response.character;
-                $scope.userRate = response.userRate;
-                $scope.rateAverage = $scope.character.ratesValue > 0
-                    ? helperSvc.decimalRound($scope.character.ratesValue / $scope.character.ratesCount, 1)
-                    : 0;
-                $scope.contentLoaded = true;
-                $scope.fullName = $scope.character.name + ' played by ' + $scope.character.playedBy + ' in ' + $scope.character.movies[0].name;
-                if ($scope.isDesktop) {
-                    var dto = {
-                        movie: response.character.movies[0].name,
-                        artist: response.character.playedBy,
-                        year: response.character.movies[0].year
-                    };
-                    MovieCharacterSvs.getRecommended(dto)
-                        .then(function (result) {
-                            $scope.recommended = result.data;
-                        }, function (err) {
-                            console.log(err);
-                        });
-                }
-
-            }, function (err) {
-                console.log(err);
-            });
-
-        $scope.rateFunction = function (value) {
-            var dto = {
-                value: value,
-                characterId: $scope.character._id
+            $scope.isAuthenticated = function () {
+                return $auth.isAuthenticated();
             };
-            $scope.avgUpdate = true;
-            RateSvc.rate(dto)
-                .then(function (response) {
-                    if (response.success) {
-                        if (response.message == 'created') {
-                            $scope.character.ratesCount += 1;
-                            $scope.character.ratesValue += response.value;
-                            $scope.userRate = response.value;
-                        }
-                        else {
-                            $scope.character.ratesValue += response.dif;
-                            $scope.userRate += response.dif;
-                        }
 
-                        $scope.avgUpdate = false;
-                        $scope.rateAverage = $scope.character.ratesValue > 0 ? $scope.character.ratesValue / $scope.character.ratesCount : 0;
+
+            MovieCharacterSvs.getMovieCharacter(name)
+                .then(function (response) {
+                    $scope.character = response.character;
+                    $scope.userRate = response.userRate;
+                    $scope.rateAverage = $scope.character.ratesValue > 0
+                        ? helperSvc.decimalRound($scope.character.ratesValue / $scope.character.ratesCount, 1)
+                        : 0;
+                    $scope.contentLoaded = true;
+                    $scope.fullName = $scope.character.name + ' played by ' + $scope.character.playedBy + ' in ' + $scope.character.movies[0].name;
+                    if ($scope.isDesktop) {
+                        var dto = {
+                            movie: response.character.movies[0].name,
+                            artist: response.character.playedBy,
+                            year: response.character.movies[0].year
+                        };
+                        MovieCharacterSvs.getRecommended(dto)
+                            .then(function (result) {
+                                $scope.recommended = result.data;
+                            }, function (err) {
+                                console.log(err);
+                            });
                     }
+
                 }, function (err) {
                     console.log(err);
-                })
-        };
+                });
 
-        $scope.$watch('userRate', function (newVal, oldVal) {
-            if (newVal && newVal != oldVal) {
-                $scope.rateValue = newVal;
-            }
-        });
-    }]);
+            $scope.rateFunction = function (value) {
+                var dto = {
+                    value: value,
+                    characterId: $scope.character._id
+                };
+                $scope.avgUpdate = true;
+                RateSvc.rate(dto)
+                    .then(function (response) {
+                        if (response.success) {
+                            if (response.message == 'created') {
+                                $scope.character.ratesCount += 1;
+                                $scope.character.ratesValue += response.value;
+                                $scope.userRate = response.value;
+                            }
+                            else {
+                                $scope.character.ratesValue += response.dif;
+                                $scope.userRate += response.dif;
+                            }
+
+                            $scope.avgUpdate = false;
+                            $scope.rateAverage = $scope.character.ratesValue > 0 ? $scope.character.ratesValue / $scope.character.ratesCount : 0;
+                        }
+                    }, function (err) {
+                        console.log(err);
+                    })
+            };
+
+            $scope.shareOnFacebook = function () {
+
+                var caption = ($auth.isAuthenticated() && !!$scope.userRate) ? 'My rating ' + $scope.userRate + ', ' : '';
+                var description = $scope.character.name + ' is a character from ' + $scope.character.movies[0].name + ' (' + $scope.character.movies[0].year + '). '
+                    + 'He is portrayed by ' + $scope.character.playedBy + '. '
+                    + caption + ' Rate Average : ' + $scope.rateAverage + ', Rates count : ' + $scope.character.ratesCount;
+                FB.ui(
+                    {
+                        method: 'feed',
+                        name: 'Rate for ' + $scope.character.name.toUpperCase(),
+                        link: 'http://imovieui.herokuapp.com/movie-character/Joker',
+                        picture: $scope.character.imgUrl,
+                        description: description
+                    });
+            };
+
+            $scope.$watch('userRate', function (newVal, oldVal) {
+                if (newVal && newVal != oldVal) {
+                    $scope.rateValue = newVal;
+                }
+            });
+        }]);
 })();
 /**
  * Created by Ruben on 11/20/2016.
@@ -1395,8 +1409,21 @@
                     }
                 }, true);
 
-                $scope.fullName =function(artist){
-                    return  artist.firstName + ' ' + artist.lastName;
+                $scope.fullName = function (artist) {
+                    return artist.firstName + ' ' + artist.lastName;
+                };
+
+                $scope.shareOnFacebook = function () {
+
+                    var description = 'Choose from ' + $scope.character.actors.length + ' actors who created the best character of ' + $scope.character.name;
+                    FB.ui(
+                        {
+                            method: 'feed',
+                            name: 'Vote for the best ' + $scope.character.name.toUpperCase() + ' actor.',
+                            link: 'http://imovieui.herokuapp.com/movie-character/Joker',
+                            picture: $scope.character.imgUrl,
+                            description: description
+                        });
                 };
 
                 function getUserRate() {

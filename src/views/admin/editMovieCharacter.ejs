@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <title>iMovieUi Admin | Edit Movie Character</title>
+    <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
     <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css"/>
     <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css"/>
     <link rel="stylesheet" href="/lib/cropper/css/cropper.min.css"/>
@@ -28,83 +30,92 @@
 
         <div class="row">
             <div class="col-md-5">
-               <div class="jumbotron">
-                   <div class="text-center form-group">
-                       <h3 class="text-info">Edit Movie character basic info</h3>
-                   </div>
+                <div class="jumbotron">
+                    <div class="text-center form-group">
+                        <h3 class="text-info">Edit Movie character basic info</h3>
+                    </div>
 
-                   <form action="/admin/edit/movieCharacter/info" method="post">
-                       <input type="hidden" value="<%= movieCharacter._id %>" name="id">
+                    <form action="/admin/edit/movieCharacter/info" method="post">
+                        <input type="hidden" value="<%= movieCharacter._id %>" name="id">
 
-                       <div class="form-group">
-                           <label for="name">Character name</label>
-                           <input type="text" name="name" value="<%= movieCharacter.name %>"
-                                  id="name"
-                                  class="form-control"
-                                  placeholder="Name"/>
-                       </div>
+                        <div class="form-group">
+                            <label for="name">Character name</label>
+                            <input type="text" name="name" value="<%= movieCharacter.name %>"
+                                   id="name"
+                                   class="form-control"
+                                   placeholder="Name"/>
+                        </div>
 
-                       <div class="form-group">
-                           <label for="playedBy">Played by</label>
-                           <input type="text" name="playedBy" value="<%= movieCharacter.playedBy %>"
-                                  id="playedBy"
-                                  class="form-control"
-                                  placeholder="Played By"/>
-                       </div>
-                       <div class="form-group">
-                           <label for="movie">Movie</label>
-                           <input type="text" name="movie" value="<%= movieCharacter.movies[0].name %>"
-                                  id="movie"
-                                  class="form-control"
-                                  placeholder="Movie name"/>
-                       </div>
-                       <div class="form-group text-center">
-                           <button type="submit" class="btn btn-success">
-                               <i class="fa fa-edit"></i> Update info
-                           </button>
+                        <div class="form-group">
+                            <label for="playedBy">Played by</label>
+                            <input type="text" name="playedBy" value="<%= movieCharacter.playedBy %>"
+                                   id="playedBy"
+                                   class="form-control"
+                                   placeholder="Played By"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="movie">Movie</label>
+                            <input type="text" name="movie" value="<%= movieCharacter.movies[0].name %>"
+                                   id="movie"
+                                   class="form-control"
+                                   placeholder="Movie name"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="about">About</label>
+                           <textarea name="about"
+                                     rows="5"
+                                     id="about"
+                                     class="form-control">
+                               <%=movieCharacter.about%>
+                           </textarea>
+                        </div>
+                        <div class="form-group text-center">
+                            <button type="submit" class="btn btn-success">
+                                <i class="fa fa-edit"></i> Update info
+                            </button>
 
-                       </div>
-                   </form>
-               </div>
+                        </div>
+                    </form>
+                </div>
             </div>
 
             <div class="col-md-7">
-               <div class="jumbotron">
-                   <div class="text-center form-group">
-                       <h3 class="text-info">Edit Movie character Image</h3>
-                   </div>
-                   <form action="/admin/edit/movieCharacter/image" method="post" id="updateImage">
-                       <input type="hidden" name="id" value="<%= movieCharacter._id %>">
-                       <input type="hidden" id="imgData" name="imageData"/>
+                <div class="jumbotron">
+                    <div class="text-center form-group">
+                        <h3 class="text-info">Edit Movie character Image</h3>
+                    </div>
+                    <form action="/admin/edit/movieCharacter/image" method="post" id="updateImage">
+                        <input type="hidden" name="id" value="<%= movieCharacter._id %>">
+                        <input type="hidden" id="imgData" name="imageData"/>
 
-                       <div class="row form-group">
-                           <div class="col-md-7">
-                               <div class="image-crop">
-                                   <img src="<%= movieCharacter.imgUrl %>">
-                               </div>
-                           </div>
-                           <div class="col-md-5">
-                               <div class="img-preview img-preview-sm form-group"></div>
-                               <hr>
-                              <div class="form-group">
-                                  <label title="Upload image file" for="img" class="btn btn-primary">
-                                      <input type="file" accept="image/*" name="file" id="img" class="hide">
-                                      <i class="fa fa-upload"></i> Upload new image
-                                  </label>
-                              </div>
-                               <button type="button" id="submitForm" class="btn btn-success">
-                                   <i class="fa fa-edit"></i> Update image
-                               </button>
-                           </div>
-                       </div>
+                        <div class="row form-group">
+                            <div class="col-md-7">
+                                <div class="image-crop">
+                                    <img src="<%= movieCharacter.imgUrl %>">
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="img-preview img-preview-sm form-group"></div>
+                                <hr>
+                                <div class="form-group">
+                                    <label title="Upload image file" for="img" class="btn btn-primary">
+                                        <input type="file" accept="image/*" name="file" id="img" class="hide">
+                                        <i class="fa fa-upload"></i> Upload new image
+                                    </label>
+                                </div>
+                                <button type="button" id="submitForm" class="btn btn-success">
+                                    <i class="fa fa-edit"></i> Update image
+                                </button>
+                            </div>
+                        </div>
 
 
-                       <div class="form-group text-center">
+                        <div class="form-group text-center">
 
-                       </div>
+                        </div>
 
-                   </form>
-               </div>
+                    </form>
+                </div>
 
                 <canvas id="canvas1" height="260" width="170" style="display: none"></canvas>
             </div>

@@ -575,7 +575,7 @@ a:hover {
 }
 .comics-character-list-item h3 {
   color: #fff;
-  font-size: 14px;
+  font-size: 18px;
   margin: 0 0 5px;
 }
 .comics-character-list-item .star-vote {
@@ -682,6 +682,14 @@ h2.g-heading {
   position: relative;
   margin: 0 0 40px;
   color: #31353e;
+}
+h3.d-heading {
+  text-transform: uppercase;
+  font-size: 30px;
+  font-weight: 500;
+  color: #31353e;
+  margin-top: -15px;
+  margin-bottom: 20px;
 }
 
 h2.g-heading strong {
@@ -830,12 +838,20 @@ ul.rating {
   background-color: #0f6070;
   border-color: #0f6070;
 }
-.btn-primary:active:hover, .btn-primary.active:hover, .open > .dropdown-toggle.btn-primary:hover, .btn-primary:active:focus, .btn-primary.active:focus, .open > .dropdown-toggle.btn-primary:focus, .btn-primary:active.focus, .btn-primary.active.focus, .open > .dropdown-toggle.btn-primary.focus {
+.btn-primary:active:hover,
+.btn-primary.active:hover,
+.open > .dropdown-toggle.btn-primary:hover,
+.btn-primary:active:focus, .btn-primary.active:focus,
+.open > .dropdown-toggle.btn-primary:focus,
+.btn-primary:active.focus,
+.btn-primary.active.focus,
+.btn-primary.focus,
+.btn-primary:focus,
+.open > .dropdown-toggle.btn-primary.focus {
   color: #fff;
   background-color: #0f6070;
   border-color: #0f6070;
 }
-
 .character-box h4 {
   color: #fff;
   margin-bottom: 2px;

@@ -23,3 +23,9 @@
     background-color: #0077b3;
     color: #fff;
 }
+p.one-line{
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+}

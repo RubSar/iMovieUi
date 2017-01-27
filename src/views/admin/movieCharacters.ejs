@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <title>iMovieUi Admin | List of Movie Characters</title>
+    <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
     <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css"/>
     <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css"/>
     <link rel="stylesheet" href="/css/tree.view.css"/>
+    <link rel="stylesheet" href="/css/admin/custom.css"/>
 </head>
 
 <body id="body" data-spy="scroll" data-target=".one-page-header" class="demo-lightbox-gallery">
@@ -21,6 +24,7 @@
             <tr>
                 <th>Name</th>
                 <th>Played By</th>
+                <th width="25%">About</th>
                 <th>Movie</th>
                 <th>Year</th>
                 <th>IMDb Rating</th>
@@ -31,6 +35,7 @@
             <tr>
                 <th>Name</th>
                 <th>Played By</th>
+                <th width="25%">About</th>
                 <th>Movie</th>
                 <th>Year</th>
                 <th>IMDb Rating</th>
@@ -42,6 +47,7 @@
             <tr>
                 <td><%= character.name %></td>
                 <td><%= character.playedBy %></td>
+                <td width="25%"><p class="one-line"><%= character.about %></p></td>
                 <td><%= character.movies[0].name %></td>
                 <td><%= character.movies[0].year %></td>
                 <td><%= character.movies[0].IMDbRating %></td>

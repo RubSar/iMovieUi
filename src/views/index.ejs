@@ -1,25 +1,28 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="iMovieUi" ng-controller="HomeCtrl">
 <head>
-    <title>Rate Most Popular Movie Characters | {{title}}</title>
-    <meta name="keyword" content="rate movie comics character vote favorite ">
+    <title>iMovieUi Rate for the most popular movie characters  | Vote for the Best Comic character actor</title>
+    <meta name="keyword" content="rate movie character comic character vote  ">
     <meta name="description"
-          content="Rate most popular movie characters, the most played comic characters, Vote for your favorite actor as comic character">
+          content="vote for the best comic character actor, the most played comic characters, best actor as comic character">
     <% include partials/head.ejs %>
 </head>
-<body id="body" data-spy="scroll" data-target=".one-page-header" class="demo-lightbox-gallery" >
+<body id="body" data-spy="scroll" data-target=".one-page-header" class="demo-lightbox-gallery">
 <main class="wrapper">
     <header>
         <% include partials/header.ejs %>
     </header>
     <input type="hidden" ng-value="isAuthProp =isAuthenticated()">
 
-    <div class="text-center pt-85 pb-100">
+    <div class="text-center pt-85">
         <div class="container-fluid">
 
             <h2 class="g-heading">
-                the most played <strong>comic characters</strong>
+
+                THE MOST PLAYED <strong>COMIC CHARACTERS</strong>
             </h2>
+
+            <h3 class="d-heading">Vote for the Best Comic character actor</h3>
 
             <div class="comics-characters-list-wrapper">
                 <div class="comics-character-list text-left">
@@ -33,8 +36,10 @@
                         </h3>
                         <p><%= character.description %></p>
 
+                        <p>Was played by <%= character.actors.length %> actors</p>
+
                         <div class="btn-see-more">
-                            <a  href="/comics-character/<%= character.name %>">See more</a>
+                            <a href="/comics-character/<%= character.name %>">See more</a>
                         </div>
                     </div>
                     <% }) %>

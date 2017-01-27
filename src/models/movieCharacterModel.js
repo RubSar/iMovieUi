@@ -29,6 +29,7 @@ var MovieCharacterSchema = new Schema({
     name: String,
     imgUrl: String,
     playedBy: String,
+    about:String,
     movies: [MovieSchema],
     rates: [{type: Schema.ObjectId, ref: 'Rate'}],
     ratesValue:{type:Number, default:0},

@@ -4,13 +4,14 @@ var ComicsCharacter = require('../models/comicsCharacterModel').ComicsCharacter;
 var homeController = function () {
 
     function index (req, res) {
-        ComicsCharacter.find({}, 'name imgUrl description type', function(err, results){
+        ComicsCharacter.find({}, 'name imgUrl description type actors._id', function(err, results){
             if (err) {
                 console.log(err);
             } else{
                res.render('index',{
                    characters:results
-               })
+               });
+
             }
         });
 

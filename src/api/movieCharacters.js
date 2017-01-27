@@ -49,7 +49,7 @@ var router = function () {
         var size = parseInt(paging.size) || 10;
         var number = parseInt(paging.number) || 1;
         models.MovieCharacter.find({})
-            .sort({ ratesValue: -1, ratesCount: 1})
+            .sort({ratesValue: -1, ratesCount: 1})
             .select('name playedBy imgUrl movies ratesCount ratesValue ')
             .limit(size)
             .skip((number - 1) * size)
@@ -205,12 +205,12 @@ var router = function () {
         var id = auth.user(req);
 
         models.MovieCharacter.findOne({name: regex})
-            .select('name playedBy imgUrl movies ratesCount ratesValue ')
+            .select('name playedBy imgUrl about movies ratesCount ratesValue ')
             .exec(function (err, result) {
                 if (err) {
                     console.log(err);
-                }else{
-                    if(result){
+                } else {
+                    if (result) {
                         if (id) {
                             models.Rate.findOne({userId: id, characterId: result._id}, function (err, rate) {
                                 res.send({
@@ -227,15 +227,16 @@ var router = function () {
                                 status: 200
                             });
                         }
-                    }else{
+                    } else {
                         res.render('notFound', {
-                              message:'Character that you looking for not exist'
-                          });
+                            message: 'Character that you looking for not exist'
+                        });
                     }
                 }
 
             });
     });
+
     api.route('/recommended').get(function (req, res) {
 
         var model = req.query;
@@ -265,14 +266,43 @@ var router = function () {
                             if (yResult[i].playedBy == model.artist && yResult[i].movies[0].name == model.movie) {
                                 //do nothing
                             } else {
-                                retModel.push(yResult[i]);
+                                var duplicate = retModel.filter(function (obj) {
+                                    return obj.name == yResult[i].name;
+                                });
+
+                                if (duplicate.length == 0) {
+                                    retModel.push(yResult[i]);
+                                }
+
                             }
                         }
-                        res.send({
-                            data: retModel,
-                            success: true,
-                            status: 200
-                        });
+
+                        if (retModel.length < 4) {
+                            var additionalCount = 6 - retModel.length;
+
+                            models.MovieCharacter.find({})
+                                .sort({ratesCount: -1, ratesValue: -1})
+                                .limit(additionalCount)
+                                .select('name playedBy imgUrl movies')
+                                .exec(function (err, topResult) {
+                                    if (err) {
+                                        console.log(err);
+                                    }
+                                    retModel = retModel.concat(topResult);
+                                    res.send({
+                                        data: retModel,
+                                        success: true,
+                                        status: 200
+                                    });
+                                });
+                        } else {
+                            res.send({
+                                data: retModel,
+                                success: true,
+                                status: 200
+                            });
+                        }
+
                     });
 
             });

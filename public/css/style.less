@@ -1,7 +1,7 @@
 @mobile: ~"only screen and (max-width: 529px)";
 @tablet: ~"only screen and (min-width: 530px) and (max-width: 949px)";
-@desktop: ~"only screen and (min-width: 950px) and (max-width: 1128px)";
-@desktop-xl: ~"only screen and (min-width: 1129px)";
+
+@desktop: ~"only screen and (min-width: 950px)";
 
 .ask-login {
   color: #31353e;
@@ -174,10 +174,14 @@
   }
 }
 
-@media @desktop-xl {
+@media @desktop {
 
   .btn-fixed-size {
     width: 160px;
+  }
+
+  .share-btn-wrapper {
+    padding: 25px;
   }
 
   .header-search-box {
@@ -209,7 +213,7 @@
   }
 
   .artist-movies {
-    max-height: 430px;
+    max-height: 396px;
     overflow-y: scroll;
     .movie-item {
       background-color: #fff;
@@ -327,6 +331,10 @@
 }
 
 @media  @tablet {
+
+  .share-btn-wrapper {
+    padding: 20px;
+  }
 
   .pt-sm-6 {
     padding-top: 6px;
@@ -1085,6 +1093,15 @@
     margin: 0 0 20px !important;
   }
 
+  h3.d-heading {
+    text-transform: uppercase;
+    font-size: 18px;
+    font-weight: 400;
+    color: #31353e;
+    margin-top: -10px;
+    margin-bottom: 15px;
+  }
+
   .rating {
     display: block;
     margin-right: -5px !important;
@@ -1215,3 +1232,50 @@
     text-align: center;
   }
 }
+.actors-box{
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 15px;
+}
+
+blockquote {
+  display: block;
+  background: #fff;
+  padding: 15px 20px 15px 45px;
+  margin: 0 0 20px;
+  position: relative;
+  /*Font*/
+  font-family: Georgia, serif;
+  font-size: 16px;
+  line-height: 1.2;
+  color: #666;
+  text-align: justify;
+
+  /*Borders - (Optional)*/
+  border-left: 15px solid #cc0404;
+  border-right: 2px solid #127387;
+
+  /*Box Shadow - (Optional)*/
+  -moz-box-shadow: 2px 2px 15px #ccc;
+  -webkit-box-shadow: 2px 2px 15px #ccc;
+  box-shadow: 2px 2px 15px #ccc;
+
+  &:before {
+    content: "\201C";
+
+    /*Font*/
+    font-family: Georgia, serif;
+    font-size: 60px;
+    font-weight: bold;
+    color: #daa520;
+
+    /*Positioning*/
+    position: absolute;
+    left: 10px;
+    top: 5px;
+  }
+  p {
+    padding: 0 3px;
+    color: #31353e;
+  }
+}
+

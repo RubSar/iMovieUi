@@ -4,11 +4,13 @@
         <span class="caret"></span></button>
     <ul class="dropdown-menu top-results-dropdown">
         <li ng-repeat="item in itemsList track by $index" ng-click="setModel(item[term])">
-            <a ng-show="itemIsArray" href="#">
-                <span  class="l-name" ng-bind="item[term][0]"></span>
-                <span class="pull-right" ng-bind="item.count"></span>
+            <!--<span  class="l-name" ng-bind="item[term][0]"></span>-->
+            <!--<span class="pull-right" ng-bind="item.count"></span>-->
+            <a ng-if="itemIsArray" href="#">
+            <span  class="l-name" ng-bind="item[term][0]"></span>
+            <span class="pull-right" ng-bind="item.count"></span>
             </a>
-            <a ng-hide="itemIsArray" href="#">
+            <a ng-if="!itemIsArray" href="#">
                 <span class="l-name" ng-bind="item[term]"></span>
                 <span class="pull-right" ng-bind="item.count"></span>
             </a>

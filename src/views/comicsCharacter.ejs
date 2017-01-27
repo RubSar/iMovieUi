@@ -1,21 +1,30 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="iMovieUi" ng-controller="ComicsCharacterCtrl">
 <head>
-    <title>Rate Most Popular Movie Characters | Vote for your favorite actor as <%=title%> </title>
-    <meta name="keyword" content="rate movie comics character vote favorite ">
-    <meta name="description" content="Rate most popular movie characters, the most played comic characters, Vote for your favorite actor as comic character">
+    <title>iMovieUi vote for the best {{character.name}} actor | the best actor as {{character.name}}</title>
+    <meta name="keyword" content="rate {{character.name}} movie comic character vote the best ">
+    <meta name="description"
+          content="vote for the best {{character.name}} actor, the most played comic characters, best actor as {{character.name}}">
     <% include partials/head.ejs %>
 </head>
 <body id="body" data-spy="scroll" data-target=".one-page-header" class="demo-lightbox-gallery" >
+<div id="fb-root"></div>
+
 <script>
-    (function (d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s);
-        js.id = id;
-        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.8&appId=175488799579769";
-        fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));</script>
+    window.fbAsyncInit = function () {
+        FB.init({
+            appId: '175488799579769', status: true, cookie: true,
+            xfbml: true
+        });
+    };
+    (function () {
+        var e = document.createElement('script');
+        e.async = true;
+        e.src = document.location.protocol +
+                '//connect.facebook.net/en_US/all.js';
+        document.getElementById('fb-root').appendChild(e);
+    }());
+</script>
 <main class="wrapper">
     <header>
         <% include partials/header.ejs %>
@@ -30,9 +39,16 @@
             <i class="fa fa-spin fa-cog fa-5x"></i>
         </div>
         <div class="row mb-25" ng-show="contentLoaded">
+          <div class="text-center">
+              <h2 class="g-heading">
+                  vote for the best
+                  <strong ng-bind="character.name"></strong>
+                  actor
+              </h2>
+          </div>
             <div class="col-md-3 ">
                 <div class="row">
-                    <div class="col-md-12 col-sm-7">
+                    <div class="col-md-12 col-md-offset-0 col-sm-6 col-sm-offset-3">
                         <div class="character-box">
                             <img ng-src="{{character.imgUrl}}" class="img-responsive img-center"/>
 
@@ -46,11 +62,16 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-md-8 col-md-offset-2 hidden-xs">
+
+                            <button type="button" class="btn btn-facebook center-block mt-30 mb-30" ng-click="shareOnFacebook()">
+                                <i class="fa fa-facebook-f"></i> Share
+                            </button>
+                    </div>
                 </div>
             </div>
 
-            <div class="col-md-9">
-
+            <div class="col-md-9 actors-box">
                 <div class="row ">
                     <div class="col-md-3 col-sm-3 col-xs-6 pl-sm-10 pr-sm-10 pr-xs-5 pl-xs-5 mb-xs-3"
                          ng-repeat="artist in character.actors track by $index">
@@ -101,14 +122,31 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
         <div class="row">
-            <div class="col-md-8">
-                <div class="form-group bg-color-white pl-30">
-                    <div class="fb-comments" data-href="{{dataHref}}" data-numposts="5"></div>
+            <div class="col-md-offset-3  col-md-9">
+                <div class="row bg-white">
+                    <div class="center-block hidden-md hidden-lg hidden-lg mt-10 mb-20">
+                        <button type="button" class="btn btn-facebook center-block" ng-click="shareOnFacebook()">
+                            <i class="fa fa-facebook-f"></i> Share
+                        </button>
+                    </div>
+                    <div class="col-md-9 col-sm-9">
+                        <div class="form-group ">
+                            <div class="fb-comments" data-href="{{dataHref}}" data-numposts="5"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-3">
+                        <div class="form-group mt-30 hidden-xs" >
+                            <button type="button" class="btn btn-facebook center-block" ng-click="shareOnFacebook()">
+                                <i class="fa fa-facebook-f"></i> Share
+                            </button>
+                        </div>
+                    </div>
                 </div>
+
+
             </div>
         </div>
     </div>
