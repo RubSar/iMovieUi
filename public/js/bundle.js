@@ -1254,6 +1254,7 @@
             var name = $window.location.pathname.split('/movie-character/')[1];
             $scope.rateValue = 1;
             $scope.dataHref = $document.context.URL;
+            $('.container').removeAttr();
             $scope.contentLoaded = false;
             $scope.avgUpdate = false;
             $scope.isDesktop = helperSvc.isDesktop();
@@ -1328,7 +1329,7 @@
                     {
                         method: 'feed',
                         name: 'Rate for ' + $scope.character.name.toUpperCase(),
-                        link: 'http://imovieui.herokuapp.com/movie-character/Joker',
+                        link: $scope.dataHref,
                         picture: $scope.character.imgUrl,
                         description: description
                     });
@@ -1420,7 +1421,7 @@
                         {
                             method: 'feed',
                             name: 'Vote for the best ' + $scope.character.name.toUpperCase() + ' actor.',
-                            link: 'http://imovieui.herokuapp.com/movie-character/Joker',
+                            link: $scope.dataHref,
                             picture: $scope.character.imgUrl,
                             description: description
                         });

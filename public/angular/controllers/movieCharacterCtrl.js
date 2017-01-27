@@ -86,7 +86,7 @@
                     {
                         method: 'feed',
                         name: 'Rate for ' + $scope.character.name.toUpperCase(),
-                        link: 'http://imovieui.herokuapp.com/movie-character/Joker',
+                        link: $scope.dataHref,
                         picture: $scope.character.imgUrl,
                         description: description
                     });

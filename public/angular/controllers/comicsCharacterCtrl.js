@@ -77,7 +77,7 @@
                         {
                             method: 'feed',
                             name: 'Vote for the best ' + $scope.character.name.toUpperCase() + ' actor.',
-                            link: 'http://imovieui.herokuapp.com/movie-character/Joker',
+                            link: $scope.dataHref,
                             picture: $scope.character.imgUrl,
                             description: description
                         });
