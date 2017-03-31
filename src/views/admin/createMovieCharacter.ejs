@@ -7,8 +7,6 @@
     <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css"/>
     <link rel="stylesheet" href="/lib/cropper/css/cropper.min.css"/>
     <link rel="stylesheet" href="/lib/cropper/css/main.css"/>
-
-
 </head>
 
 <body id="body" data-spy="scroll" data-target=".one-page-header" class="demo-lightbox-gallery">
@@ -48,12 +46,16 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="about">
-                                About character
+                            <label for="type">
+                                Character Type
                             </label>
-                            <textarea id="about" name="about"  class="form-control">
-                                <%= about %>
-                            </textarea>
+                            <select class="form-control" name="type">
+                                <option value="movie">Movie</option>
+                                <option value="tv-series">TV-Series</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="about" name="about"  class="form-control" placeholder="About Character"><%about%></textarea>
                         </div>
                     </div>
 

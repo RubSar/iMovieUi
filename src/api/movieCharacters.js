@@ -27,6 +27,22 @@ var router = function () {
             })
     });
 
+    api.route('/all').get(function (req, res) {
+        console.log('in proggerss');
+        models.MovieCharacter.find({})
+
+            .exec(function (err, results) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    res.send({
+                        data: results,
+                        status: 200
+                    });
+                }
+            })
+    });
+
     api.route('/search').get(function (req, res) {
         var term = decodeURIComponent(req.query.term);
         models.MovieCharacter.find({$text: {$search: term}})
@@ -201,10 +217,15 @@ var router = function () {
     //get single character
     api.route('/single').get(function (req, res) {
         var url = decodeURIComponent(req.query.name);
-        var regex = new RegExp(url, 'i');
+
+        var name =url.split(' by ')[0];
+        var playedBy =url.split(' by ')[1];
+        var nameReg = new RegExp(name, 'i');
+        var playedByReg = new RegExp(playedBy, 'i');
+
         var id = auth.user(req);
 
-        models.MovieCharacter.findOne({name: regex})
+        models.MovieCharacter.findOne({name: nameReg, playedBy:playedByReg})
             .select('name playedBy imgUrl about movies ratesCount ratesValue ')
             .exec(function (err, result) {
                 if (err) {
@@ -228,8 +249,10 @@ var router = function () {
                             });
                         }
                     } else {
-                        res.render('notFound', {
-                            message: 'Character that you looking for not exist'
+                        res.send({
+                            success: false,
+                            message: url,
+                            status: 200
                         });
                     }
                 }

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="iMovieUi" ng-controller="MovieCharacterCtrl">
 <head>
-    <title>iMovieUi Rate Most Popular Movie Characters | {{fullName}} </title>
-    <meta name="keyword" content="rate top popular  movie character favorite {{fullName}}">
-    <meta name="description" content="Rate most popular movie character {{fullName}}">
+    <title>iMovieUi: Rate for {{fullName}}</title>
+    <meta name="keyword" content="popular movie character, {{keyWords}}">
+    <meta name="description" content="Rate for {{character.name}}">
     <% include partials/head.ejs %>
 </head>
 <body id="body" data-spy="scroll" data-target=".one-page-header" class="demo-lightbox-gallery">
@@ -33,9 +33,11 @@
     <input type="hidden" ng-value="authProp =isAuthenticated()"/>
 
 
-    <div class="container pt-85 pb-100">
+    <div id="test" class="container pt-85 pb-100" style="display: none">
         <div ng-hide="contentLoaded" class="lazy-load-box">
-            <i class="fa fa-spin fa-cog fa-5x"></i>
+            <i ng-hide="notFound" class="fa fa-spin fa-cog fa-5x"></i>
+
+            <h2 ng-if="notFound"><strong ng-bind="message"></strong> character not found</h2>
         </div>
         <div class="row" ng-show="contentLoaded">
             <div class="col-md-9">
@@ -147,18 +149,20 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <a ng-href="{{item.name}}">
-                                        <img ng-src="{{item.imgUrl}}" class="img-responsive">
+                                        <img ng-src="{{item.imgUrl}}" class="img-responsive"
+                                             alt="{{item.name+' by '+item.playedBy}}"
+                                             title="{{item.name+' by '+item.playedBy}}">
                                     </a>
                                 </div>
                                 <div class="col-md-8">
                                     <div class="rec-info">
                                         <h5 ng-bind="item.movies[0].name"></h5>
-                                        <h5 ng-bind="item.movies[0].year"></h5>
+                                        <h5 ng-bind="'('+item.movies[0].year+')'"></h5>
                                     </div>
                                 </div>
                             </div>
                             <h5>
-                                <a ng-href="{{item.name}}">
+                                <a ng-href="{{item.name+' by '+item.playedBy}}">
                                     <span ng-bind="item.name"></span>
                                     <small>by</small>
                                     <span ng-bind="item.playedBy"></span>

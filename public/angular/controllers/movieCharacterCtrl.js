@@ -9,10 +9,14 @@
     angular.module('iMovieUi').controller('MovieCharacterCtrl', ['$scope', '$window', '$document', 'MovieCharacterSvs', 'RateSvc', '$auth', 'helperSvc',
         function ($scope, $window, $document, MovieCharacterSvs, RateSvc, $auth, helperSvc) {
 
+            $('#test').removeAttr('style');
+            $scope.contentLoaded = false;
+            $scope.notFound = false;
+
             var name = $window.location.pathname.split('/movie-character/')[1];
             $scope.rateValue = 1;
             $scope.dataHref = $document.context.URL;
-            $scope.contentLoaded = false;
+
             $scope.avgUpdate = false;
             $scope.isDesktop = helperSvc.isDesktop();
 
@@ -24,25 +28,33 @@
 
             MovieCharacterSvs.getMovieCharacter(name)
                 .then(function (response) {
-                    $scope.character = response.character;
-                    $scope.userRate = response.userRate;
-                    $scope.rateAverage = $scope.character.ratesValue > 0
-                        ? helperSvc.decimalRound($scope.character.ratesValue / $scope.character.ratesCount, 1)
-                        : 0;
-                    $scope.contentLoaded = true;
-                    $scope.fullName = $scope.character.name + ' played by ' + $scope.character.playedBy + ' in ' + $scope.character.movies[0].name;
-                    if ($scope.isDesktop) {
-                        var dto = {
-                            movie: response.character.movies[0].name,
-                            artist: response.character.playedBy,
-                            year: response.character.movies[0].year
-                        };
-                        MovieCharacterSvs.getRecommended(dto)
-                            .then(function (result) {
-                                $scope.recommended = result.data;
-                            }, function (err) {
-                                console.log(err);
-                            });
+                    if (response.success) {
+                        $scope.contentLoaded = true;
+                        $scope.character = response.character;
+                        $scope.userRate = response.userRate;
+                        $scope.rateAverage = $scope.character.ratesValue > 0
+                            ? helperSvc.decimalRound($scope.character.ratesValue / $scope.character.ratesCount, 1)
+                            : 0;
+
+                        $scope.fullName = $scope.character.name + ' played by ' + $scope.character.playedBy + ' in ' + $scope.character.movies[0].name;
+                        $scope.keyWords = $scope.character.name + ', ' + $scope.character.playedBy;
+
+                        if ($scope.isDesktop) {
+                            var dto = {
+                                movie: response.character.movies[0].name,
+                                artist: response.character.playedBy,
+                                year: response.character.movies[0].year
+                            };
+                            MovieCharacterSvs.getRecommended(dto)
+                                .then(function (result) {
+                                    $scope.recommended = result.data;
+                                }, function (err) {
+                                    console.log(err);
+                                });
+                        }
+                    } else {
+                        $scope.notFound = true;
+                        $scope.message = response.message;
                     }
 
                 }, function (err) {

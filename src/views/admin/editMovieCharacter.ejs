@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <title>iMovieUi Admin | Edit Movie Character</title>
-    <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
+    <link href="/img/favicon.ico" rel="icon" type="image/x-icon"/>
     <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css"/>
     <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css"/>
     <link rel="stylesheet" href="/lib/cropper/css/cropper.min.css"/>
@@ -61,13 +61,18 @@
                                    placeholder="Movie name"/>
                         </div>
                         <div class="form-group">
+                            <label for="type">Type</label>
+                            <select name="type" id="type" class="form-control">
+                                <option value="movie">Movie</option>
+                                <option value="tv-series">TV-Series</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
                             <label for="about">About</label>
                            <textarea name="about"
                                      rows="5"
                                      id="about"
-                                     class="form-control">
-                               <%=movieCharacter.about%>
-                           </textarea>
+                                     class="form-control"><%= movieCharacter.about %></textarea>
                         </div>
                         <div class="form-group text-center">
                             <button type="submit" class="btn btn-success">

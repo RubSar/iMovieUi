@@ -23,11 +23,11 @@ var App = function () {
             $offset = $(".one-page-nav-scrolling").height() + 8;
         }
         // Collapse Navbar When It's Clickicked
-        $(window).scroll(function () {
-            //if (window.innerWidth > 768) {
-               $('nav.navbar .navbar-collapse.in').collapse('hide');
-            //}
-        });
+        //$(window).scroll(function () {
+        //    //if (window.innerWidth > 768) {
+        //       $('nav.navbar .navbar-collapse.in').collapse('hide');
+        //    //}
+        //});
     }
 
     //owl carousel

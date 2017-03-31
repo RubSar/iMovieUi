@@ -40,7 +40,7 @@ var router = function () {
         if (id) {
             models.Rate.find({userId: id, value: value})
                 .select('characterId')
-                .populate('characterId', 'name imgUrl')
+                .populate('characterId', 'name imgUrl playedBy')
                 .exec(function (err, results) {
                     if (err) {
                         console.log(err);

@@ -38,6 +38,7 @@ var adminController = function () {
     //save comics character
     function saveMovieCharacter(req, res) {
         var model = req.body;
+        console.log(model);
         //if model is valid continue to next action
         if (!!model.name && !!model.playedBy && model.imageData && model.movie) {
 
@@ -50,9 +51,10 @@ var adminController = function () {
                         res.redirect('/admin/edit/movieCharacter/' + character._id)
                     } else {
                         var newCharacter = new MovieCharacter();
-                        newCharacter.name = req.body.name.trim();
-                        newCharacter.playedBy = req.body.playedBy.trim();
-                        newCharacter.about = req.body.about ? req.body.about.trim() : '';
+                        newCharacter.name = model.name.trim();
+                        newCharacter.playedBy = model.playedBy.trim();
+                        newCharacter.about = model.about ? model.about.trim() : '';
+                        newCharacter.type = model.type;
                         cloudinary.uploader.upload(req.body.imageData, function (result) {
                             newCharacter.imgUrl = result.url;
                             imdb.getReq({name: req.body.movie}, function (err, movie) {
@@ -60,7 +62,7 @@ var adminController = function () {
                                     res.render('admin/createMovieCharacter', {
                                         name: newCharacter.name,
                                         playedBy: newCharacter.playedBy,
-                                        about:newCharacter.about,
+                                        about: newCharacter.about,
                                         errorMessage: err.message
                                     })
                                 } else {
@@ -88,7 +90,7 @@ var adminController = function () {
             res.render('admin/createMovieCharacter', {
                 name: model.name,
                 playedBy: model.playedBy,
-                about:model.about,
+                about: model.about,
                 movie: model.movie,
                 errorMessage: 'Model invalid'
             })
@@ -129,6 +131,7 @@ var adminController = function () {
                 if (character) {
                     character.name = model.name || character.name;
                     character.playedBy = model.playedBy || character.playedBy;
+                    character.type = model.type || character.type;
                     character.about = model.about || character.about;
                     if (character.movies[0].name.trim() !== model.movie.trim()) {
                         imdb.getReq({name: model.movie}, function (err, movie) {
