@@ -19,7 +19,8 @@
     "animate.css": "^3.5.2",
     "angular": "^1.5.8",
     "angular-ui": "^0.4.0",
-    "cropperjs": "^0.8.1"
+    "cropperjs": "^0.8.1",
+    "angular-ui-router": "^0.4.2"
   },
   "overrides": {
     "bootstrap": {

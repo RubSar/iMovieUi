@@ -59,6 +59,7 @@ gulp.task('main-uglify', function(){
         './public/lib/jquery/dist/jquery.min.js',
         './public/lib/bootstrap/dist/js/bootstrap.min.js',
         './public/lib/angular/angular.min.js',
+        './public/lib/angular-ui-router/release/angular-ui-router.min.js',
         './public/js/owl.carousel.min.js'
     ])
         .pipe(concat('main-bundle.js'))
@@ -85,11 +86,11 @@ gulp.task('ng-uglify', function(){
         './public/angular/directives/modal/modal.js',
         './public/angular/directives/paging/paging.js',
         './public/angular/controllers/headerCtrl.js',
-        './public/angular/controllers/homeCtrl.js',
-        './public/angular/controllers/movieCharactersListCtrl.js',
-        './public/angular/controllers/movieCharacterCtrl.js',
-        './public/angular/controllers/comicsCharacterCtrl.js',
-        './public/angular/controllers/userRatesCtrl.js'
+        './public/angular/controllers/home/homeCtrl.js',
+        './public/angular/controllers/movieCharactersList/movieCharactersListCtrl.js',
+        './public/angular/controllers/movieCharacter/movieCharacterCtrl.js',
+        './public/angular/controllers/comicsCharacter/comicsCharacterCtrl.js',
+        './public/angular/controllers/userRates/userRatesCtrl.js'
     ])
         .pipe(concat('bundle.js'))
         .pipe(gulp.dest('./public/js'))
