@@ -1,10 +1,119 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
+<div class="container mt-100 mb-50" >
 
-</body>
-</html>
+    <input type="hidden" ng-value="isAuthProp =isAuthenticated()">
+
+    <div ng-hide="contentLoaded" class="lazy-load-box">
+        <i class="fa fa-spin fa-cog fa-5x"></i>
+    </div>
+    <div class="row mb-25" ng-show="contentLoaded">
+        <div class="text-center">
+            <h2 class="g-heading">
+                vote for the best
+                <strong ng-bind="character.name"></strong>
+                actor
+            </h2>
+        </div>
+        <div class="col-md-3 ">
+            <div class="row">
+                <div class="col-md-12 col-md-offset-0 col-sm-6 col-sm-offset-3">
+                    <div class="character-box">
+                        <img ng-src="{{character.imgUrl}}" class="img-responsive img-center"/>
+
+                        <div class="character-info">
+                            <div class="info">
+                                <h4><span ng-bind="character.name"></span>
+                                    <small >/ <span ng-bind="character.type"></span></small>
+                                </h4>
+                                <p ng-bind="character.description"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8 col-md-offset-2 hidden-xs">
+
+                    <button type="button" class="btn btn-facebook center-block mt-30 mb-30" ng-click="shareOnFacebook()">
+                        <i class="fa fa-facebook-f"></i> Share
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-9 actors-box">
+            <div class="row ">
+                <div class="col-md-3 col-sm-3 col-xs-6 pl-sm-10 pr-sm-10 pr-xs-5 pl-xs-5 mb-xs-3"
+                     ng-repeat="artist in character.actors track by $index">
+                    <div class="artist-info">
+                        <div class="artist-image-wrapper">
+                            <img ng-src="{{artist.imgUrl}}" class="img-responsive img-center noselect" alt ="{{fullName(artist)}}" title="{{fullName(artist)}}"  />
+                                <span ng-hide="voteStart" class="vote-box"
+                                      ng-class="{'in-progress': (voteStart)}"
+                                      ng-click="vote(artist._id, artist.votedByUser)">
+                                    <span ng-show="artist.votedByUser">
+                                        <i class="fa fa-check"></i>  Voted
+                                    </span>
+                                    <span ng-hide="artist.votedByUser">
+                                        <i class="fa fa-chevron-circle-up"></i> Vote
+                                    </span>
+
+                                </span>
+                                <span ng-show="voteStart" class="vote-box">
+                                    <i class="fa fa-spin fa-spinner"></i>
+                                </span>
+                        </div>
+                        <h4><span ng-bind="artist.firstName"></span> <span
+                                ng-bind="artist.lastName"></span></h4>
+
+                        <strong ng-bind="artist.votesCount"></strong> users vote
+                        <button type="button"
+                                class="btn btn-block navbar-toggle movie-toggle collapsed hidden-lg hidden-md hidden-sm"
+                                data-toggle="collapse" data-target="#movies-toggle-{{$index}}"
+                                aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
+                            <i class="fa fa-sliders"></i>&nbsp; Show Movies
+                        </button>
+                    </div>
+                    <div class="artist-movies">
+                        <div class="collapse navbar-collapse" id="movies-toggle-{{$index}}">
+                            <div ng-repeat="movie in artist.movies track by $index" class="movie-item text-center">
+                                <div class="row">
+                                    <div class="col-md-8 col-sm-10 col-md-offset-2 col-sm-offset-1">
+                                        <img ng-src="{{movie.posterUrl}}" class="img-responsive">
+                                    </div>
+                                </div>
+                                <h5 ng-bind="movie.name">
+                                    <small>(<span ng-bind="movie.year"></span>)</small>
+                                </h5>
+                                <i>iMDb Rating (<strong><span ng-bind="movie.IMDbRating"></span>/10</strong>) </i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-offset-3  col-md-9">
+            <div class="row bg-white">
+                <div class="center-block hidden-md hidden-lg hidden-lg mt-10 mb-20">
+                    <button type="button" class="btn btn-facebook center-block" ng-click="shareOnFacebook()">
+                        <i class="fa fa-facebook-f"></i> Share
+                    </button>
+                </div>
+                <div class="col-md-9 col-sm-9">
+                    <div class="form-group ">
+                        <div class="fb-comments" data-href="{{dataHref}}" data-numposts="5"></div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-3">
+                    <div class="form-group mt-30 hidden-xs" >
+                        <button type="button" class="btn btn-facebook center-block" ng-click="shareOnFacebook()">
+                            <i class="fa fa-facebook-f"></i> Share
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>

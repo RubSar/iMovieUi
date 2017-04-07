@@ -6,10 +6,9 @@
     'use strict';
 
     angular.module('iMovieUi')
-        .controller('ComicsCharacterCtrl', ['$scope', '$window', '$rootScope', 'ComicsCharactersSvc', 'VoteSvc', '$auth',
-            function ($scope, $window, $rootScope, ComicsCharactersSvc, VoteSvc, $auth) {
+        .controller('ComicsCharacterCtrl', ['$scope', '$window','$state', '$rootScope', 'ComicsCharactersSvc', 'VoteSvc', '$auth',
+            function ($scope, $window, $state, $rootScope, ComicsCharactersSvc, VoteSvc, $auth) {
 
-                var url = $window.location.pathname.split('/comics-character/')[1];
                 $scope.dataHref = document.URL;
                 $scope.voteStart = false;
                 $scope.contentLoaded = false;
@@ -18,7 +17,7 @@
                     return $auth.isAuthenticated();
                 };
 
-                ComicsCharactersSvc.getSingle(url)
+                ComicsCharactersSvc.getSingle($state.params.name)
                     .then(function (response) {
                         $scope.character = response.data;
                         $scope.contentLoaded = true;

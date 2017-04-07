@@ -1,10 +1,55 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
+<div class="text-center pt-85">
+    <div class="container-fluid">
 
-</body>
-</html>
+        <h2 class="g-heading">
+
+            THE MOST PLAYED <strong>COMIC CHARACTERS</strong>
+        </h2>
+
+        <h3 class="d-heading">Vote for the Best Comic character actor</h3>
+
+        <div class="comics-characters-list-wrapper">
+            <data-owl-carousel class="comics-character-list text-left" >
+
+                <div class="comics-character-list-item" owl-carousel-item ng-repeat="cCharacter in comicsCharacters">
+                    <div class="img-wrapper img-wrapper--shadow">
+                        <img ng-src="{{cCharacter.imgUrl}}" class="img-responsive">
+                    </div>
+                    <h3 ng-bind="cCharacter.name">
+                        <small ng-bind="cCharacter.type"></small>
+                    </h3>
+                    <p ng-bind="cCharacter.description"></p>
+
+                    <p ng-bind="'Was played by ' +cCharacter.actors.length +' actors'"></p>
+
+                    <div class="btn-see-more">
+                        <a ui-sref="comicsCharacter({name:cCharacter.name})">See more</a>
+                    </div>
+                </div>
+
+            </data-owl-carousel>
+        </div>
+
+    </div>
+</div>
+
+<div class="text-center  pt-85 pb-100">
+    <h2 class="g-heading">Most popular <strong>movie Characters</strong></h2>
+
+    <div class="container">
+        <div class="row" ng-repeat="row in movieCharacters">
+            <div class="col-md-6 col-sm-6 form-group" ng-repeat="item in row track by item._id">
+                <character model="item"></character>
+            </div>
+        </div>
+
+
+        <div class="text-left">
+            <a href="/most-popular-movie-characters/" class="btn btn-lg btn-primary">
+                See More Movie Characters
+            </a>
+        </div>
+
+    </div>
+
+</div>

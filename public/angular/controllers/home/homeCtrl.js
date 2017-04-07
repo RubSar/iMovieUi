@@ -5,11 +5,18 @@
 (function () {
     'use strict';
 
-    angular.module('iMovieUi').controller('HomeCtrl', ['$scope', 'MovieCharacterSvs', 'helperSvc', 'RateSvc', '$auth', function ($scope, MovieCharacterSvs, helperSvc, RateSvc, $auth) {
+    angular.module('iMovieUi').controller('HomeCtrl', ['$scope', 'MovieCharacterSvs', 'ComicsCharactersSvc', 'helperSvc', 'RateSvc', '$auth', function ($scope, MovieCharacterSvs, ComicsCharactersSvc, helperSvc, RateSvc, $auth) {
         //get movie characters
         MovieCharacterSvs.getTopCharacters()
             .then(function (response) {
                 $scope.originalMovieCharacters = response.data;
+            }, function (err) {
+                console.log(err);
+            });
+
+        ComicsCharactersSvc.getAll()
+            .then(function (response) {
+                $scope.comicsCharacters = response.data;
             }, function (err) {
                 console.log(err);
             });

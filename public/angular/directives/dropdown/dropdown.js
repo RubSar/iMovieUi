@@ -1,27 +1,28 @@
-
 //dropdown.js
-(function(){
-    angular.module('iMovieUi').directive('mcDropdown', function(){
-        return{
+(function () {
+    angular.module('iMovieUi').directive('mcDropdown', function () {
+        return {
             scope: {
-                model: '=',
+                onChange: '&',
                 itemsList: '=',
-                term:'@',
-                label:'@'
+                term: '@',
+                label: '@',
+                key: '@'
             },
             link: function (scope, element, attrs) {
 
-              scope.$watch('itemsList', function(newVal, oldVal){
-                  if (newVal && newVal.length) {
-                      scope.itemIsArray = Array.isArray(scope.itemsList[0][scope.term]);
-                  }
-              },true);
-                scope.setModel = function (label) {
+                scope.$watch('itemsList', function (newVal, oldVal) {
+                    if (newVal && newVal.length) {
+                        scope.itemIsArray = Array.isArray(scope.itemsList[0][scope.term]);
+                    }
+                }, true);
 
-                    var _selectedItem = $.grep(scope.itemsList, function (item) {
-                        return item[scope.term] == label;
-                    })[0];
-                    scope.model = angular.copy(_selectedItem);
+
+                scope.setModel = function (label) {
+                    if (scope.itemIsArray) {
+                        label =label[0];
+                    }
+                    scope.onChange({param: {term: scope.key, value: label}});
                 };
             },
             templateUrl: '/angular/directives/dropdown/dropdown.html'

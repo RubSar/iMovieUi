@@ -6,14 +6,14 @@
 (function () {
     'use strict';
 
-    angular.module('iMovieUi').controller('MovieCharacterCtrl', ['$scope', '$window', '$document', 'MovieCharacterSvs', 'RateSvc', '$auth', 'helperSvc',
-        function ($scope, $window, $document, MovieCharacterSvs, RateSvc, $auth, helperSvc) {
+    angular.module('iMovieUi').controller('MovieCharacterCtrl', ['$scope', '$window', '$document', '$state', 'MovieCharacterSvs', 'RateSvc', '$auth', 'helperSvc',
+        function ($scope, $window, $document, $state, MovieCharacterSvs, RateSvc, $auth, helperSvc) {
 
-            $('#test').removeAttr('style');
+
             $scope.contentLoaded = false;
             $scope.notFound = false;
 
-            var name = $window.location.pathname.split('/movie-character/')[1];
+            var name = $state.params.longName;
             $scope.rateValue = 1;
             $scope.dataHref = $document.context.URL;
 

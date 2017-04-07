@@ -203,7 +203,7 @@ a:hover {
   .one-page-header .navbar-nav {
     padding: 0;
     position: relative;
-    top: 25px;
+    top: 17px;
   }
 }
 @media (max-width: 991px) {
@@ -234,7 +234,7 @@ a:hover {
 
 /* Logo */
 .one-page-header .navbar-brand {
-  padding: 10px 15px;
+  padding: 5px 15px;
   height: auto;
 }
 .navbar-brand > img,

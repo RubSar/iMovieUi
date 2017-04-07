@@ -163,11 +163,11 @@
             scope.page = page;
 
             // Pass our parameters to the paging action
-            scope.pagingAction({
+            scope.pagingAction({params:{
                 page: scope.page,
                 pageSize: scope.pageSize,
                 total: scope.total
-            });
+            }});
 
             // If allowed scroll up to the top of the page
             if (scope.scrollTop) {

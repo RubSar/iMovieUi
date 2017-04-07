@@ -1,10 +1,143 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
+<div id="test" class="container pt-85 pb-100">
+    <div ng-hide="contentLoaded" class="lazy-load-box">
+        <i ng-hide="notFound" class="fa fa-spin fa-cog fa-5x"></i>
 
-</body>
-</html>
+        <h2 ng-if="notFound"><strong ng-bind="message"></strong> character not found</h2>
+    </div>
+    <div class="row" ng-show="contentLoaded">
+        <div class="col-md-9">
+            <h2 class="g-heading"><strong ng-bind="character.name"></strong>
+                <small>by</small>
+                <span ng-bind="character.playedBy"></span>
+            </h2>
+            <div class="character-view-wrapper">
+                <div class="row">
+                    <div class="col-md-4 col-sm-4">
+                        <div class="character-view">
+                            <img ng-src="{{character.imgUrl}}" class="img-responsive img-center rnd-8"
+                                 alt="{{fullName}}" title="{{fullName}}"/>
+                        </div>
+                    </div>
+                    <div class="col-md-8 col-sm-8">
+                        <div class="character-info">
+                            <div class="info-heading">
+                                <div class="row">
+                                    <div class="col-md-4 col-sm-5 col-xs-6">
+                                        <h4><strong>Rate</strong></h4>
+                                    </div>
+                                    <div class="col-md-8 col-sm-7 col-xs-6">
+                                        <h4><strong>Movie</strong></h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="info-body">
+                                <div class="row">
+                                    <div class="col-md-4 col-sm-5 col-xs-6">
+                                        <p class="rate-lg gold"><span ng-bind="rateAverage"></span> <i
+                                                class="fa fa-star"></i></p>
+
+                                        <p class="fs-20">
+                                            <span ng-bind="character.ratesCount"></span> users rate
+                                        </p>
+                                            <span ng-hide="avgUpdate">
+                                                <star-rating class="star-rating" rating-value="rateValue"
+                                                             data-max="10"
+                                                             user-rate="userRate"
+                                                             on-rating-selected="rateFunction(rating)">
+                                                </star-rating>
+                                           </span>
+                                        <i ng-show="avgUpdate" class="fa fa-spin fa-spinner" aria-hidden="true"></i>
+                                    </div>
+                                    <div class="col-md-8 col-sm-7 col-xs-6">
+
+                                        <div class="row">
+                                            <div class="col-md-5 col-sm-5 col-xs-10 col-md-offset-0 col-sm-offset-0 col-xs-offset-1">
+                                                <img ng-src="{{character.movies[0].poster}}"
+                                                     class="img-responsive img-center">
+                                            </div>
+                                            <div class="col-md-7 pl-0 col-sm-7">
+
+                                                <h4 class="mb-xs-4"><span ng-bind="character.movies[0].name"></span>
+                                                    <small>
+                                                        (<span ng-bind="character.movies[0].year"></span>)
+                                                    </small>
+                                                </h4>
+                                                <p class="mt-xs-0 mb-xs-0">iMDb Rating
+                                                    (<strong><span
+                                                            ng-bind="character.movies[0].IMDbRating"></span>/10</strong>)
+                                                </p>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <blockquote ng-if="character.about.length>0">
+                <p ng-bind="character.about"></p>
+            </blockquote>
+
+            <div class="form-group bg-white pl-30">
+                <div class="row">
+                    <div class="center-block hidden-md hidden-sm hidden-lg mt-10 mb-20">
+                        <button type="button" class="btn btn-facebook center-block" ng-click="shareOnFacebook()">
+                            <i class="fa fa-facebook-f"></i> Share
+                        </button>
+                    </div>
+                    <div class="col-md-9 col-sm-9">
+                        <div class="fb-comments" data-href="{{dataHref}}" data-numposts="5"></div>
+                    </div>
+                    <div class="col-md-3 col-sm-3 hidden-xs">
+                        <div class="share-btn-wrapper ">
+                            <button type="button" class="btn btn-facebook" ng-click="shareOnFacebook()">
+                                <i class="fa fa-facebook-f"></i> Share
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-3" ng-if="isDesktop">
+            <div class="recommended-box">
+                <div class="rec-heading">
+                    recommended
+                </div>
+                <div ng-repeat="item in recommended track by $index">
+                    <div class="rec-item">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <a ui-sref="movieCharacter({longName:item.name+' by '+item.playedBy})">
+                                    <img ng-src="{{item.imgUrl}}" class="img-responsive"
+                                         alt="{{item.name+' by '+item.playedBy}}"
+                                         title="{{item.name+' by '+item.playedBy}}">
+                                </a>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="rec-info">
+                                    <h5 ng-bind="item.movies[0].name"></h5>
+                                    <h5 ng-bind="'('+item.movies[0].year+')'"></h5>
+                                </div>
+                            </div>
+                        </div>
+                        <h5>
+                            <a ui-sref="movieCharacter({longName:item.name+' by '+item.playedBy})">
+                                <span ng-bind="item.name"></span>
+                                <small>by</small>
+                                <span ng-bind="item.playedBy"></span>
+                            </a>
+                        </h5>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>

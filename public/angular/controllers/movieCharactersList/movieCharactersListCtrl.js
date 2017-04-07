@@ -4,27 +4,30 @@
 //movieCharactersListCtrl.js
 
 (function () {
-    angular.module('iMovieUi').controller('MovieCharactersListCtrl', ['$scope', '$timeout', 'MovieCharacterSvs', 'RateSvc', 'helperSvc', '$auth', '$window',
-        function ($scope, $timeout, MovieCharacterSvs, RateSvc, helperSvc, $auth, $window) {
+    angular.module('iMovieUi').controller('MovieCharactersListCtrl', ['$scope', '$rootScope', '$timeout', '$state', 'MovieCharacterSvs', 'RateSvc', 'helperSvc', '$auth', '$window',
+        function ($scope, $rootScope, $timeout, $state, MovieCharacterSvs, RateSvc, helperSvc, $auth, $window) {
 
             $scope.contentLoaded = false;
+            $scope.filteredBy = {};
+            $scope.model = {
+                page: $state.params.page || 1
+            };
+            if ($state.params.key && $state.params.value) {
+                $scope.model.key = $state.params.key;
+                $scope.model.value = $state.params.value;
+            }
 
-            $scope.paging = {};
-            $scope.paging.number = 1;
-            $scope.paging.size = 10;
+            updateResults();
 
 
-            $scope._searchTerm = $window.location.href.split('?term=')[1];
             //only for input form
             $scope.searchTerm = $scope._searchTerm ? decodeURI($scope._searchTerm) : '';
-            $scope.filteredBy = undefined;
-            $scope.predicate = 'movie';
 
             $scope.isAuthenticated = function () {
                 return $auth.isAuthenticated();
             };
 
-
+            //getting top artists
             MovieCharacterSvs.getArtists()
                 .then(function (response) {
                     $scope.artists = response.data;
@@ -33,6 +36,7 @@
                     console.log(err);
                 });
 
+            //getting top years
             MovieCharacterSvs.getOrderedYears()
                 .then(function (response) {
                     $scope.years = response.data;
@@ -40,6 +44,7 @@
                     console.log(err);
                 });
 
+            //getting top movies
             MovieCharacterSvs.getMovies()
                 .then(function (response) {
                     $scope.movies = response.data;
@@ -48,31 +53,31 @@
                 });
 
 
-            $scope.$on('new-search', function (event, args) {
-
-                MovieCharacterSvs.searchCharacters({term: args.term})
-                    .then(function (response) {
-                        if (response.data.length > 0) {
-                            $scope.notFoundForTerm = false;
-                            $scope.originalMovieCharacters = response.data;
-                            $scope.listCharacters = helperSvc.chunk(response.data, 2);
-                        } else {
-                            $scope.notFoundForTerm = true;
-                            $scope.listCharacters=[];
-
-                        }
-                        $scope.count = 0;
-                        $scope.contentLoaded = true;
-                        $scope.filteredBy = {
-                            key: 'Searched By',
-                            value: decodeURI(args.term)
-                        };
-                    },
-                    function (msg) {
-                        console.log(msg);
-                    });
-
-            });
+            //$scope.$on('new-search', function (event, args) {
+            //
+            //    MovieCharacterSvs.searchCharacters({term: args.term})
+            //        .then(function (response) {
+            //            if (response.data.length > 0) {
+            //                $scope.notFoundForTerm = false;
+            //                $scope.originalMovieCharacters = response.data;
+            //                $scope.listCharacters = helperSvc.chunk(response.data, 2);
+            //            } else {
+            //                $scope.notFoundForTerm = true;
+            //                $scope.listCharacters = [];
+            //
+            //            }
+            //            $scope.count = 0;
+            //            $scope.contentLoaded = true;
+            //            $scope.filteredBy = {
+            //                key: 'Searched By',
+            //                value: decodeURI(args.term)
+            //            };
+            //        },
+            //        function (msg) {
+            //            console.log(msg);
+            //        });
+            //
+            //});
 
             $scope.getAll = function () {
                 var _concat = '?term=' + $scope._searchTerm;
@@ -83,65 +88,58 @@
                 $scope.filteredBy = undefined;
                 $scope._searchTerm = undefined;
 
-                MovieCharacterSvs.getCharactersList($scope.paging)
+                MovieCharacterSvs.getCharactersList({page: 1, term: 'movies.name', value: 'The Dark Knight'})
                     .then(function (response) {
                         $scope.originalMovieCharacters = response.data;
                         $scope.listCharacters = helperSvc.chunk(response.data, 2);
                         $scope.count = response.count;
                         $scope.contentLoaded = true;
-                    },
-                    function (msg) {
+                    }, function (msg) {
                         console.log(msg);
                     });
             };
 
-            $scope.$watch('paging.number', function (newVal, oldVal) {
-                if (newVal) {
-                    $scope.contentLoaded = false;
-                    if (!$scope._searchTerm) {
-                        MovieCharacterSvs.getCharactersList($scope.paging)
-                            .then(function (response) {
-                                $scope.originalMovieCharacters = response.data;
-                                $scope.listCharacters = helperSvc.chunk(response.data, 2);
-                                $scope.count = response.count;
-                                $scope.contentLoaded = true;
-                            },
-                            function (msg) {
-                                console.log(msg);
-                            });
-                    } else {
-                        MovieCharacterSvs.searchCharacters({term: $scope._searchTerm})
-                            .then(function (response) {
-                                if (response.data.length > 0) {
-                                    $scope.notFoundForTerm = false;
-                                    $scope.originalMovieCharacters = response.data;
-                                    $scope.listCharacters = helperSvc.chunk(response.data, 2);
-                                    $scope.count = response.count;
 
-                                } else {
-                                    $scope.listCharacters=[];
-                                    $scope.notFoundForTerm = true;
-                                }
-                                $scope.contentLoaded = true;
+            $scope.pagingChange = function (params) {
 
+                $state.go('movieCharactersList', {
+                    page: params.page
+                }, {notify: false});
 
-                                $scope.filteredBy = {
-                                    key: 'Searched By',
-                                    value: decodeURI($scope._searchTerm)
-                                };
-                            },
-                            function (msg) {
-                                console.log(msg);
-                            });
-                    }
-                }
-            }, true);
+               // $scope.model.page = params.page;
+                $timeout(function(){
+                    updateResults();
+                });
+
+            };
 
             $scope.$watch('isAuthProp', function (newVal, oldVal) {
                 if (newVal) {
                     getUserRates();
                 }
+            }, true);
 
+            $scope.setModel = function (param) {
+                console.log('-------------ssdsdsdsd');
+                $state.go('movieCharactersList', {
+                    page: 1,
+                    key: param.term,
+                    value: param.value
+                }, {notify: false});
+                param.page = 1;
+
+                $scope.model = {
+                    page: 1,
+                    key: param.term,
+                    value: param.value
+                };
+
+                updateResults();
+
+            };
+
+            $scope.$watch('model.page', function (newVal, oldVal, event) {
+                console.log('--------------' + newVal);
             }, true);
 
             $scope.$watch('originalMovieCharacters', function (newVal, oldVal) {
@@ -150,60 +148,6 @@
                 }
             }, true);
 
-            $scope.$watch('artist', function (newValue, oldValue) {
-                if (!!newValue && newValue != oldValue) {
-                    MovieCharacterSvs.getCharactersByArtist($scope.artist._id)
-                        .then(function (response) {
-                            $scope.originalMovieCharacters = response.data;
-                            $scope.count = response.data.length;
-                            $scope.listCharacters = helperSvc.chunk(response.data, 2);
-
-                            $scope.filteredBy = {
-                                key: 'Filtered By Artist',
-                                value: newValue._id
-                            }
-                        },
-                        function (err) {
-                            console.log(err);
-                        });
-                }
-            });
-
-            $scope.$watch('year', function (newValue, oldValue) {
-                if (!!newValue && newValue != oldValue) {
-                    MovieCharacterSvs.getCharactersByMovieReleaseDate(newValue._id[0])
-                        .then(function (response) {
-                            $scope.originalMovieCharacters = response.data;
-                            $scope.count = response.data.length;
-                            $scope.listCharacters = helperSvc.chunk(response.data, 2);
-                            $scope.filteredBy = {
-                                key: 'Filtered By Year',
-                                value: newValue._id[0]
-                            }
-                        },
-                        function (err) {
-                            console.log(err);
-                        });
-                }
-            });
-
-            $scope.$watch('movie', function (newValue, oldValue) {
-                if (!!newValue && newValue != oldValue) {
-                    MovieCharacterSvs.getCharactersByMovie(newValue._id[0])
-                        .then(function (response) {
-                            $scope.originalMovieCharacters = response.data;
-                            $scope.count = response.data.length;
-                            $scope.listCharacters = helperSvc.chunk(response.data, 2);
-                            $scope.filteredBy = {
-                                key: 'Filtered By Movie',
-                                value: newValue._id[0]
-                            }
-                        },
-                        function (err) {
-                            console.log(err);
-                        });
-                }
-            });
 
             //TODO: improve implementation letter
             function insertUserRating(userRates) {
@@ -230,7 +174,24 @@
                             console.log(err);
                         });
                 }
+            }
 
+            function updateResults() {
+                $scope.contentLoaded = false;
+                if ($scope.model.key) {
+                    $scope.filteredBy.key = 'movie';
+
+                }
+                MovieCharacterSvs.getCharactersList($scope.model)
+                    .then(function (response) {
+                        $scope.originalMovieCharacters = response.data;
+                        $scope.listCharacters = helperSvc.chunk(response.data, 2);
+                        $scope.count = response.count;
+                        $scope.contentLoaded = true;
+                    },
+                    function (msg) {
+                        console.log(msg);
+                    });
             }
 
         }])

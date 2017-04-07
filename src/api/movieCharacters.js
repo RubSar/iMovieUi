@@ -1,5 +1,5 @@
 /**
- * Created by Toshiba on 10/31/2016.
+ * Created by Ruben on 10/31/2016.
  */
 var express = require('express');
 var models = require('../models/movieCharacterModel');
@@ -28,8 +28,8 @@ var router = function () {
     });
 
     api.route('/all').get(function (req, res) {
-        console.log('in proggerss');
-        models.MovieCharacter.find({})
+
+        models.MovieCharacter.find({type: 'movie'})
 
             .exec(function (err, results) {
                 if (err) {
@@ -37,11 +37,13 @@ var router = function () {
                 } else {
                     res.send({
                         data: results,
-                        status: 200
+                        status: 200,
+                        count: results.length
                     });
                 }
             })
     });
+
 
     api.route('/search').get(function (req, res) {
         var term = decodeURIComponent(req.query.term);
@@ -61,35 +63,35 @@ var router = function () {
     });
 
     api.route('/list').get(function (req, res) {
-        var paging = req.query;
-        var size = parseInt(paging.size) || 10;
-        var number = parseInt(paging.number) || 1;
-        models.MovieCharacter.find({})
+        var body = req.query;
+        var key = body.key;
+        var value = body.value;
+        var query = {};
+        var page = parseInt(body.page);
+        if (key) {
+            query[key] = value;
+        }
+        console.log(query);
+        models.MovieCharacter.find(query)
             .sort({ratesValue: -1, ratesCount: 1})
             .select('name playedBy imgUrl movies ratesCount ratesValue ')
-            .limit(size)
-            .skip((number - 1) * size)
+            .limit(10)
+            .skip((page - 1) * 10)
             .exec(function (err, results) {
                 if (err) {
                     console.log(err);
                 } else {
-                    models.MovieCharacter.count({}, function (err, count) {
+                    models.MovieCharacter.count(query, function (err, count) {
                         if (err) {
                             console.log(err);
                         }
                         res.send({
+                            success: true,
                             data: results,
-                            count: count,
-                            status: 200,
-                            paging: {
-                                number: number,
-                                size: size
-                            }
+                            count: count
                         });
 
                     });
-
-
                 }
             })
     });
@@ -178,7 +180,7 @@ var router = function () {
             {"$limit": 10}
         ], function (err, result) {
             if (err) {
-                next(err);
+                console.log(err);
             } else {
                 res.send({
                     data: result,
@@ -218,14 +220,14 @@ var router = function () {
     api.route('/single').get(function (req, res) {
         var url = decodeURIComponent(req.query.name);
 
-        var name =url.split(' by ')[0];
-        var playedBy =url.split(' by ')[1];
+        var name = url.split(' by ')[0];
+        var playedBy = url.split(' by ')[1];
         var nameReg = new RegExp(name, 'i');
         var playedByReg = new RegExp(playedBy, 'i');
 
         var id = auth.user(req);
 
-        models.MovieCharacter.findOne({name: nameReg, playedBy:playedByReg})
+        models.MovieCharacter.findOne({name: nameReg, playedBy: playedByReg})
             .select('name playedBy imgUrl about movies ratesCount ratesValue ')
             .exec(function (err, result) {
                 if (err) {

@@ -28,6 +28,7 @@ app.use(express.static('public'));
 app.use(bodyParser.json({limit: '10mb'}));
 app.use(bodyParser.urlencoded({limit: '10mb', extended: true}));
 app.use(cookieParser());
+app.use(express.static(__dirname + '/public'));
 
 require('./src/config/passport.js')(passport);
 
@@ -43,13 +44,14 @@ app.set('view engine', 'ejs');
 //controllers
 var adminRouter = require('./src/routes/adminRoutes')(app, passport);
 var authRouter = require('./src/routes/authRoutes');
-var homeRouter = require('./src/routes/homeRoutes');
+//var homeRouter = require('./src/routes/homeRoutes')(app);
 
 
 //register controllers
 app.use('/Admin', adminRouter);
 app.use('/Auth', authRouter);
-app.use('/', homeRouter);
+//app.use('/', homeRouter);
+
 
 //register APIs
 app.use('/api/movieCharacters', movieCharacterAPI);
@@ -57,6 +59,7 @@ app.use('/api/comicsCharacters', comicsCharacterAPI);
 app.use('/api/rate', rateAPI);
 app.use('/api/vote', voteAPI);
 app.use('/api/user', userAPI);
+require('./src/routes/homeRoutes')(app);
 
 
 app.listen(port, function (err) {

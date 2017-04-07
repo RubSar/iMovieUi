@@ -1,8 +1,6 @@
+
 /**
- * Created by Toshiba on 11/12/2016.
- */
-/**
- * Created by Toshiba on 10/31/2016.
+ * Created by Ruben on 10/31/2016.
  */
 var express = require('express');
 var ComicsCharacter = require('../models/comicsCharacterModel').ComicsCharacter;
@@ -13,7 +11,7 @@ var router = function () {
     //GET actions
 
     api.get('/all', function (req, res) {
-        ComicsCharacter.find({}, 'name imgUrl description type', function (err, results) {
+        ComicsCharacter.find({}, 'name imgUrl description type actors._id', function (err, results) {
             if (err) {
                 console.log(err);
             } else {

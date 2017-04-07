@@ -1,6 +1,6 @@
 <div class="text-center  pt-85 pb-100">
     <div class="container-fluid">
-        <h2 class="g-heading"> Most Popular  <strong>movie characters</strong></h2>
+        <h2 class="g-heading"> Most Popular  <strong>TV-Series characters</strong></h2>
 
         <div ng-hide="contentLoaded" class="lazy-load-box">
             <i class="fa fa-spin fa-cog fa-5x"></i>
@@ -10,7 +10,8 @@
         <div class="container" ng-show="contentLoaded">
             <div class="row form-group">
                 <div class="col-md-6">
-                    <div ng-show="filteredBy.key" class="alert alert-info fade in alert-dismissable">
+                    <div ng-show="filteredBy" class="alert alert-info fade in alert-dismissable">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">x</a>
                         <span ng-bind="filteredBy.key"></span> : <strong ng-bind="filteredBy.value"></strong>
                     </div>
                 </div>
@@ -30,19 +31,19 @@
                         </div>
                         <div class="col-md-12 col-sm-3 col-xs-6">
                             <div class="form-group">
-                                <mc-dropdown on-change="setModel(param)" items-list="artists" key="playedBy" term="_id"
+                                <mc-dropdown items-list="artists" model="artist" term="_id"
                                              label="Artist"></mc-dropdown>
                             </div>
                         </div>
                         <div class="col-md-12 col-sm-3 col-xs-6">
                             <div class="form-group ">
-                                <mc-dropdown on-change="setModel(param)" items-list="years" key="movies.year" term="_id"
+                                <mc-dropdown items-list="years" model="year" term="_id"
                                              label="Year"></mc-dropdown>
                             </div>
                         </div>
                         <div class="col-md-12 col-sm-3 col-xs-6">
                             <div class="form-group">
-                                <mc-dropdown on-change="setModel(param)" items-list="movies" key="movies.name" term="_id"
+                                <mc-dropdown items-list="movies" model="movie" term="_id"
                                              label="Movie"></mc-dropdown>
                             </div>
                         </div>
@@ -55,10 +56,9 @@
                         </div>
                     </div>
                     <div class="form-group text-center">
-                        <div paging ng-show="count>10"
-                             page="model.page"
-                             paging-action="pagingChange(params)"
-                             page-size="10"
+                        <div paging ng-show="count>paging.size"
+                             page="paging.number"
+                             page-size="paging.size"
                              total="count">
                         </div>
                     </div>
