@@ -13,14 +13,19 @@
         function getRates(characterId){
             return helperSvc.requestHandler({method: 'GET', url: '/api/rate/rates', params:{characterId:characterId}});
         }
-        function userRatesForMovies(movies){
-            return helperSvc.requestHandler({method: 'Post', url: '/api/rate/userRatesByMovies', data:{movies:movies}});
+        function userRatesForCharacters(movies){
+            return helperSvc.requestHandler({method: 'Post', url: '/api/rate/userRatesByCharacters', data:{movies:movies}});
+        }
+
+        function userRate(characterId){
+            return helperSvc.requestHandler({method: 'GET', url: '/api/rate/userRate', params:{characterId:characterId}});
         }
 
         return {
             rate: rate,
             getRates:getRates,
-            userRatesForMovies:userRatesForMovies
+            userRate:userRate,
+            userRatesForCharacters:userRatesForCharacters
         };
     }])
 })();

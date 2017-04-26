@@ -1,11 +1,11 @@
-<div class="container mt-100 mb-50">
+<div class="container pt-85 pb-100">
 
     <input type="hidden" ng-value="isAuthProp =isAuthenticated()">
 
     <div class="container">
         <div class="text-center">
             <h2 class="g-heading">
-                Movie Characters Rated
+                Characters Rated
                 <small>by</small>
                 <strong>Me</strong>
             </h2>
@@ -32,7 +32,7 @@
                 <div class="row form-group" ng-repeat="row in characters track by $index">
                     <div class="col-md-3 col-sm-3 text-center mb-xs-15"
                          ng-repeat="character in row track by character._id">
-                        <a ui-sref="movieCharacter({longName:character.name+' by '+character.playedBy})">
+                        <a ui-sref="character({longName:character.name+' by '+character.playedBy})">
                             <img ng-src="{{character.imgUrl}}" class="img-responsive noselect img-center">
                             <h4 ng-bind="character.name" class="mb-xs-2 mt-xs-3"></h4>
                         </a>

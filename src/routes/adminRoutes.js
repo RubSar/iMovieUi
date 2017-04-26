@@ -8,6 +8,7 @@ var Admin = require('../models/adminModel.js');
 module.exports = function (app, passport) {
 
     function isLoggedIn(req, res, next) {
+        console.log('not logged in');
         // if user is authenticated in the session, carry on
         if (req.isAuthenticated())
             return next();
@@ -44,23 +45,23 @@ module.exports = function (app, passport) {
     //------------------------------------------------------------------------------------------------------------
     //START Movie Character Actions
 
-    adminRouter.get('/movieCharacters', isLoggedIn, function (req, res) {
+    adminRouter.get('/characters', isLoggedIn, function (req, res) {
         return adminController.movieCharacters(req, res);
     });
-    adminRouter.get('/create/movieCharacter', isLoggedIn, function (req, res) {
+    adminRouter.get('/create/character', isLoggedIn, function (req, res) {
         return adminController.createMovieCharacter(req, res);
     });
-    adminRouter.post('/create/movieCharacter', isLoggedIn, function (req, res) {
+    adminRouter.post('/create/character', isLoggedIn, function (req, res) {
         return adminController.saveMovieCharacter(req, res);
     });
 
-    adminRouter.get('/edit/movieCharacter/:id', isLoggedIn, function (req, res) {
+    adminRouter.get('/edit/character/:id', isLoggedIn, function (req, res) {
         return adminController.editMovieCharacter(req, res);
     });
-    adminRouter.post('/edit/movieCharacter/info', isLoggedIn, function (req, res) {
+    adminRouter.post('/edit/character/info', isLoggedIn, function (req, res) {
         return adminController.updateMovieCharacterInfo(req, res);
     });
-    adminRouter.post('/edit/movieCharacter/image', isLoggedIn, function (req, res) {
+    adminRouter.post('/edit/character/image', isLoggedIn, function (req, res) {
         return adminController.updateMovieCharacterImage(req, res);
     });
 

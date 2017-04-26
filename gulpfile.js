@@ -76,6 +76,7 @@ gulp.task('ng-uglify', function(){
         './public/angular/services/authInterceptor.js',
         './public/angular/services/helperSvc.js',
         './public/angular/services/movieCharacterSvc.js',
+        './public/angular/services/tvSeriesCharacterSvc.js',
         './public/angular/services/comicsCharacterSvc.js',
         './public/angular/services/rateSvc.js',
         './public/angular/services/voteSvc.js',
@@ -85,10 +86,14 @@ gulp.task('ng-uglify', function(){
         './public/angular/directives/character/character.js',
         './public/angular/directives/modal/modal.js',
         './public/angular/directives/paging/paging.js',
+        './public/angular/directives/owlCarousel/owlCarousel.js',
+        './public/angular/directives/owlCarousel/owlCarouselItem.js',
         './public/angular/controllers/headerCtrl.js',
         './public/angular/controllers/home/homeCtrl.js',
+        './public/angular/controllers/search/searchCtrl.js',
         './public/angular/controllers/movieCharactersList/movieCharactersListCtrl.js',
-        './public/angular/controllers/movieCharacter/movieCharacterCtrl.js',
+        './public/angular/controllers/tvSeriesCharactersList/tvSeriesCharactersListCtrl.js',
+        './public/angular/controllers/character/characterCtrl.js',
         './public/angular/controllers/comicsCharacter/comicsCharacterCtrl.js',
         './public/angular/controllers/userRates/userRatesCtrl.js'
     ])

@@ -6,12 +6,13 @@
     'use strict';
 
     angular.module('iMovieUi')
-        .controller('ComicsCharacterCtrl', ['$scope', '$window','$state', '$rootScope', 'ComicsCharactersSvc', 'VoteSvc', '$auth',
+        .controller('ComicsCharacterCtrl', ['$scope', '$window', '$state', '$rootScope', 'ComicsCharactersSvc', 'VoteSvc', '$auth',
             function ($scope, $window, $state, $rootScope, ComicsCharactersSvc, VoteSvc, $auth) {
 
                 $scope.dataHref = document.URL;
                 $scope.voteStart = false;
                 $scope.contentLoaded = false;
+                $window.document.title = 'Vote for the best actor of ' + $state.params.name;
 
                 $scope.isAuthenticated = function () {
                     return $auth.isAuthenticated();

@@ -95,11 +95,9 @@ var router = function () {
                 status: 200
             });
         });
-
-
     });
 
-    rateApi.post('/userRatesByMovies', function(req, res){
+    rateApi.post('/userRatesByCharacters', function(req, res){
         var _movies =req.body.movies;
 
         var id = auth.user(req);
@@ -136,7 +134,32 @@ var router = function () {
         }
     });
 
+    rateApi.get('/userRate', function(req, res){
+        var characterId =req.query.characterId;
+        var id = auth.user(req);
+        if(id){
+            User.findOne({_id:id}, function(err, user){
+                if (err) {
+                    console.log(err);
+                }
+                Rate.findOne({userId:user._id, characterId:characterId}, 'value', function(err, rate){
+                    if (err) {
+                        console.log(err);
+                    }
+                    res.send({
+                        success:true,
+                        data:rate
 
+                    })
+                })
+            })
+        } else{
+            res.send({
+                status:401,
+                message:'unauthenticated'
+            })
+        }
+    });
 
     return rateApi;
 };

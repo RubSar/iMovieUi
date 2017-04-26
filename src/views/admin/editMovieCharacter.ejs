@@ -22,7 +22,7 @@
 
         <div class="form-group text-center">
             <h2 class="text-danger"> Edit Movie Character
-                <a href="/admin/moviecharacters" class="btn btn-danger pull-right">
+                <a href="/admin/characters" class="btn btn-danger pull-right">
                     <i class="fa fa-close"></i> Cancel</a>
             </h2>
         </div>
@@ -35,7 +35,7 @@
                         <h3 class="text-info">Edit Movie character basic info</h3>
                     </div>
 
-                    <form action="/admin/edit/movieCharacter/info" method="post">
+                    <form action="/admin/edit/character/info" method="post">
                         <input type="hidden" value="<%= movieCharacter._id %>" name="id">
 
                         <div class="form-group">
@@ -61,11 +61,23 @@
                                    placeholder="Movie name"/>
                         </div>
                         <div class="form-group">
-                            <label for="type">Type</label>
-                            <select name="type" id="type" class="form-control">
-                                <option value="movie">Movie</option>
-                                <option value="tv-series">TV-Series</option>
-                            </select>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="type">Type</label>
+                                    <select name="type" id="type" class="form-control">
+                                        <option value="movie">Movie</option>
+                                        <option value="tv-series">TV-Series</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="type">Sex</label>
+                                    <select name="sex" id="sex" class="form-control">
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                        <option value="none">None</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="about">About</label>
@@ -89,7 +101,7 @@
                     <div class="text-center form-group">
                         <h3 class="text-info">Edit Movie character Image</h3>
                     </div>
-                    <form action="/admin/edit/movieCharacter/image" method="post" id="updateImage">
+                    <form action="/admin/edit/character/image" method="post" id="updateImage">
                         <input type="hidden" name="id" value="<%= movieCharacter._id %>">
                         <input type="hidden" id="imgData" name="imageData"/>
 

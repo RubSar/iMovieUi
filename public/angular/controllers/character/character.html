@@ -1,4 +1,5 @@
-<div id="test" class="container pt-85 pb-100">
+<div class="container pt-85 pb-100">
+    <input type="hidden" ng-value="authState =isAuthenticated()">
     <div ng-hide="contentLoaded" class="lazy-load-box">
         <i ng-hide="notFound" class="fa fa-spin fa-cog fa-5x"></i>
 
@@ -113,7 +114,7 @@
                     <div class="rec-item">
                         <div class="row">
                             <div class="col-md-4">
-                                <a ui-sref="movieCharacter({longName:item.name+' by '+item.playedBy})">
+                                <a ui-sref="character({longName:item.name+' by '+item.playedBy})">
                                     <img ng-src="{{item.imgUrl}}" class="img-responsive"
                                          alt="{{item.name+' by '+item.playedBy}}"
                                          title="{{item.name+' by '+item.playedBy}}">
@@ -127,7 +128,7 @@
                             </div>
                         </div>
                         <h5>
-                            <a ui-sref="movieCharacter({longName:item.name+' by '+item.playedBy})">
+                            <a ui-sref="character({longName:item.name+' by '+item.playedBy})">
                                 <span ng-bind="item.name"></span>
                                 <small>by</small>
                                 <span ng-bind="item.playedBy"></span>

@@ -3,7 +3,7 @@
  */
 
 (function () {
-    angular.module('iMovieUi').controller('headerCtrl', ['$scope', '$auth', '$rootScope', function ($scope, $auth, $rootScope) {
+    angular.module('iMovieUi').controller('headerCtrl', ['$scope', '$state', '$auth', '$rootScope', function ($scope, $state, $auth, $rootScope) {
 
         $scope.authenticate = function (provider) {
             $scope.showModal = false;
@@ -19,20 +19,13 @@
             $scope.showModal = !$scope.showModal;
         });
 
-
         $scope.logOut = function () {
             $auth.logout();
         };
 
         $scope.makeSearch = function () {
             if ($scope.searchTerm.length) {
-                var term = encodeURI($scope.searchTerm);
-                if (window.location.href.includes('most-popular-movie-characters')) {
-                    $rootScope.$broadcast('new-search', {term: term});
-                } else {
-                    window.location.href = '/most-popular-movie-characters?term=' + term;
-                }
-
+                $state.go('search', {term: $scope.searchTerm})
             } else {
                 return;
             }

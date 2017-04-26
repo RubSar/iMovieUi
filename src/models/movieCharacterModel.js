@@ -29,14 +29,15 @@ var MovieCharacterSchema = new Schema({
     name: String,
     imgUrl: String,
     playedBy: String,
-    type:{ type: String,enum: ['movie', 'tv-series'], default:'movie'},
+    type: {type: String, enum: ['movie', 'tv-series'], default: 'movie'},
+    sex: {type: String, enum: ['male', 'female', 'none'], default: 'male'},
     movies: [MovieSchema],
     rates: [{type: Schema.ObjectId, ref: 'Rate'}],
-    ratesValue:{type:Number, default:0},
-    ratesCount:{type:Number, default:0}
+    ratesValue: {type: Number, default: 0},
+    ratesCount: {type: Number, default: 0}
 });
 
-MovieCharacterSchema.index({name: 'text', playedBy: 'text'});
+MovieCharacterSchema.index({name: 'text', playedBy: 'text', 'movies.name': 'text', type:'text'});
 
 var RateSchema = new Schema({
     userId: {type: Schema.ObjectId, ref: 'User'},

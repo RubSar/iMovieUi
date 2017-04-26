@@ -3,11 +3,12 @@
  */
 (function () {
     angular.module('iMovieUi', ['satellizer', 'ui.router'])
-        .config(['$authProvider', '$httpProvider', '$stateProvider', '$locationProvider', function ($authProvider, $httpProvider, $stateProvider, $locationProvider) {
+        .config(['$authProvider', '$httpProvider', '$stateProvider', '$locationProvider', '$urlRouterProvider', function ($authProvider, $httpProvider, $stateProvider, $locationProvider, $urlRouterProvider) {
             $httpProvider.interceptors.push('authInterceptor');
             $authProvider.facebook({
                 clientId: '175488799579769'
             });
+
 
             $stateProvider
                 .state('home', {
@@ -17,32 +18,47 @@
                 })
                 .state('userRates', {
                     url: '/myRates',
-                    templateUrl: 'angular/controllers/userRates/user.rates.html',
+                    templateUrl: '/angular/controllers/userRates/user.rates.html',
                     controller: 'UserRatesCtrl'
+                })
+                .state('search', {
+                    url: '/search?term',
+                    templateUrl: '/angular/controllers/search/search.html',
+                    controller: 'SearchCtrl'
                 })
                 .state('comicsCharacter', {
                     url: '/comics-character/:name',
                     templateUrl: '/angular/controllers/comicsCharacter/comics.character.html',
                     controller: 'ComicsCharacterCtrl'
                 })
-                .state('movieCharacter', {
-                    url: '/movie-character/:longName',
-                    templateUrl: '/angular/controllers/movieCharacter/movie.character.html',
-                    controller: 'MovieCharacterCtrl'
+                .state('character', {
+                    url: '/character/:longName',
+                    templateUrl: '/angular/controllers/character/character.html',
+                    controller: 'CharacterCtrl'
                 })
                 .state('movieCharactersList', {
-                    url: '/most-popular-movie-characters?page&key&value',
-                    params: {
-                        page: "1"
-                    },
+                    url: '/most-popular-movie-characters?page',
+                    templateUrl: '/angular/controllers/movieCharactersList/movie.characters.list.html',
+                    controller: 'MovieCharactersListCtrl'
+                })
+                .state('movieCharactersList.sorted', {
+                    url: '/:key/:value',
                     templateUrl: '/angular/controllers/movieCharactersList/movie.characters.list.html',
                     controller: 'MovieCharactersListCtrl'
                 })
                 .state('tvSeriesCharactersList', {
-                    url: '/most-popular-tv-series-characters?page&count&filter',
+                    url: '/most-popular-tv-series-characters?page',
+                    templateUrl: '/angular/controllers/tvSeriesCharactersList/tv.series.characters.list.html',
+                    controller: 'TvSeriesCharactersListCtrl'
+                })
+                .state('tvSeriesCharactersList.sorted', {
+                    url: '/:key/:value',
                     templateUrl: '/angular/controllers/tvSeriesCharactersList/tv.series.characters.list.html',
                     controller: 'TvSeriesCharactersListCtrl'
                 });
+
+
+            $urlRouterProvider.otherwise('/');
 
             $locationProvider.html5Mode({
                 enabled: true,

@@ -2,22 +2,20 @@
  * Created by Ruben on 11/17/2016.
  */
 
-//movieCharacterCtrl.js
+//characterCtrl.js
 (function () {
     'use strict';
 
-    angular.module('iMovieUi').controller('MovieCharacterCtrl', ['$scope', '$window', '$document', '$state', 'MovieCharacterSvs', 'RateSvc', '$auth', 'helperSvc',
+    angular.module('iMovieUi').controller('CharacterCtrl', ['$scope', '$window', '$document', '$state', 'MovieCharacterSvs', 'RateSvc', '$auth', 'helperSvc',
         function ($scope, $window, $document, $state, MovieCharacterSvs, RateSvc, $auth, helperSvc) {
 
+            $window.document.title = $state.params.longName + ' (iMovieUi)';
 
             $scope.contentLoaded = false;
             $scope.notFound = false;
-
-            var name = $state.params.longName;
+            $scope.avgUpdate = false;
             $scope.rateValue = 1;
             $scope.dataHref = $document.context.URL;
-
-            $scope.avgUpdate = false;
             $scope.isDesktop = helperSvc.isDesktop();
 
 
@@ -25,8 +23,19 @@
                 return $auth.isAuthenticated();
             };
 
+            $scope.$watch('authState', function (newVal, oldVal) {
+                if (!!$scope.character && newVal && !$scope.userRate) {
+                    RateSvc.userRate($scope.character._id)
+                        .then(function (response) {
+                            $scope.userRate = response.data.value;
+                        }, function (err) {
+                            console.log(err);
+                        });
+                }
+            });
 
-            MovieCharacterSvs.getMovieCharacter(name)
+
+            MovieCharacterSvs.getMovieCharacter($state.params.longName)
                 .then(function (response) {
                     if (response.success) {
                         $scope.contentLoaded = true;
@@ -37,7 +46,6 @@
                             : 0;
 
                         $scope.fullName = $scope.character.name + ' played by ' + $scope.character.playedBy + ' in ' + $scope.character.movies[0].name;
-                        $scope.keyWords = $scope.character.name + ', ' + $scope.character.playedBy;
 
                         if ($scope.isDesktop) {
                             var dto = {

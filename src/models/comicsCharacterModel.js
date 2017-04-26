@@ -52,6 +52,8 @@ var CharacterSchema = new Schema({
     actors: [actorSchema]
 });
 
+CharacterSchema.index({name: 'text'});
+
 var ComicsCharacter = mongoose.model('ComicsCharacter', CharacterSchema);
 var Vote = mongoose.model('Vote', VoteSchema);
 

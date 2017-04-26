@@ -1,3 +1,4 @@
+<input type="hidden" ng-value="authState =isAuthenticated()">
 <div class="text-center pt-85">
     <div class="container-fluid">
 
@@ -7,8 +8,10 @@
         </h2>
 
         <h3 class="d-heading">Vote for the Best Comic character actor</h3>
-
-        <div class="comics-characters-list-wrapper">
+        <div ng-hide="comicsCharactersLoaded" class="lazy-load-box">
+            <i class="fa fa-spin fa-cog fa-5x"></i>
+        </div>
+        <div class="comics-characters-list-wrapper" ng-show="comicsCharactersLoaded">
             <data-owl-carousel class="comics-character-list text-left" >
 
                 <div class="comics-character-list-item" owl-carousel-item ng-repeat="cCharacter in comicsCharacters">
@@ -33,20 +36,41 @@
     </div>
 </div>
 
-<div class="text-center  pt-85 pb-100">
+<div class="text-center  pt-85">
     <h2 class="g-heading">Most popular <strong>movie Characters</strong></h2>
+    <div ng-hide="movieCharactersLoaded" class="lazy-load-box">
+        <i class="fa fa-spin fa-cog fa-5x"></i>
+    </div>
+    <div class="container" ng-show="movieCharactersLoaded">
 
-    <div class="container">
         <div class="row" ng-repeat="row in movieCharacters">
             <div class="col-md-6 col-sm-6 form-group" ng-repeat="item in row track by item._id">
                 <character model="item"></character>
             </div>
         </div>
-
-
         <div class="text-left">
-            <a href="/most-popular-movie-characters/" class="btn btn-lg btn-primary">
-                See More Movie Characters
+            <a ui-sref="movieCharactersList({page:1})" class="btn btn-lg btn-primary">
+                See All Movie Characters
+            </a>
+        </div>
+
+    </div>
+
+</div>
+<div class="text-center  pt-85 pb-100">
+    <h2 class="g-heading">Most popular <strong>TV-Series Characters</strong></h2>
+    <div ng-hide="tvSeriesCharactersLoaded" class="lazy-load-box">
+        <i class="fa fa-spin fa-cog fa-5x"></i>
+    </div>
+    <div class="container" ng-show="tvSeriesCharactersLoaded">
+        <div class="row" ng-repeat="row in tvSeriesCharacters">
+            <div class="col-md-6 col-sm-6 form-group" ng-repeat="item in row track by item._id">
+                <character model="item"></character>
+            </div>
+        </div>
+        <div class="text-left">
+            <a ui-sref="tvSeriesCharactersList({page:1})" class="btn btn-lg btn-primary">
+                See All TV-Series Characters
             </a>
         </div>
 

@@ -1,0 +1,45 @@
+<div class="container pt-85 pb-100">
+    <div class="text-center" ng-if="characters.length>0 || comicCharacters.length>0">
+        <h2 class="g-heading">Search results for
+            <strong ng-bind="model"></strong>
+        </h2>
+    </div>
+    <div ng-hide="movieCharactersContentLoaded" class="lazy-load-box">
+        <i class="fa fa-spin fa-cog fa-5x"></i>
+    </div>
+    <div ng-show="movieCharactersContentLoaded">
+        <ul class="search-results">
+            <li ng-repeat="character in characters">
+                <p>
+                    <a ui-sref="character({longName:character.name+' by ' +character.playedBy})">
+                        <strong ng-bind-html="highlight(character.name+ ' (' +character.type+' character)', model)"></strong>
+                    </a>
+                    <br>
+                    <small ng-bind-html="highlight('played by '+character.playedBy +' in ' +character.movies[0].name, model)"></small>
+                </p>
+
+            </li>
+        </ul>
+    </div>
+    <div ng-hide="comicCharactersContentLoaded" class="lazy-load-box">
+        <i class="fa fa-spin fa-cog fa-5x"></i>
+    </div>
+    <div ng-show="comicCharactersContentLoaded">
+        <ul class="search-results">
+            <li ng-repeat="character in comicCharacters">
+                <p>
+                    <a ui-sref="comicsCharacter({name:character.name})">
+                        <strong ng-bind-html="highlight(character.name+ ' ( was played by '+character.actors.length+' actors)',  model)"></strong>
+                    </a>
+                    <br>
+                    <small ng-bind-html="highlight(character.description+' / vote for the best actor ', model)"></small>
+                </p>
+
+            </li>
+        </ul>
+    </div>
+
+    <div ng-show="comicCharacters.length===0 && characters.length===0" class="lazy-load-box">
+        <H3>Your search - <strong ng-bind="model"></strong> - did not match any documents.</H3>
+    </div>
+</div>

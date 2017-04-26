@@ -21,7 +21,7 @@
 //    //});
 //    //
 //    //homeRouter.get('/movie-character/:name',  function (req, res) {
-//    //    return homeController.movieCharacter(req, res);
+//    //    return homeController.character(req, res);
 //    //});
 //    //homeRouter.get('/myRates',  function (req, res) {
 //    //    return homeController.userRates(req, res);

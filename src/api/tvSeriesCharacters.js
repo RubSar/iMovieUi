@@ -11,7 +11,7 @@ var router = function () {
     //GET actions
 
     api.route('/top').get(function (req, res) {
-        models.MovieCharacter.find({type: 'movie'})
+        models.MovieCharacter.find({type:'tv-series'})
             .sort({ratesCount: -1, ratesValue: -1})
             .limit(10)
             .select('name playedBy imgUrl movies ratesCount ratesValue ')
@@ -27,28 +27,14 @@ var router = function () {
             })
     });
 
-    //api.route('/all').get(function (req, res) {
-    //    models.MovieCharacter.find({})
-    //
-    //        .exec(function (err, results) {
-    //            if (err) {
-    //                console.log(err);
-    //            } else {
-    //
-    //                res.send({
-    //                    data: results,
-    //                    status: 200,
-    //                    count: results.length
-    //                });
-    //            }
-    //        })
-    //});
+
 
 
     api.route('/search').get(function (req, res) {
         var term = decodeURIComponent(req.query.term);
         models.MovieCharacter.find({$text: {$search: term}})
-            .select('name playedBy type movies.name')
+            .select('name playedBy imgUrl movies ratesCount ratesValue ')
+            .limit(10)
             .exec(function (err, results) {
                 if (err) {
                     console.log(err);
@@ -66,13 +52,13 @@ var router = function () {
         var key = body.key;
         var value = body.value;
         var query = {
-            type: 'movie'
+            type:'tv-series'
         };
         var page = parseInt(body.page);
         if (key) {
             query[key] = value;
         }
-        console.log(query);
+
         models.MovieCharacter.find(query)
             .sort({ratesValue: -1, ratesCount: 1})
             .select('name playedBy imgUrl movies ratesCount ratesValue ')
@@ -97,69 +83,11 @@ var router = function () {
             })
     });
 
-    //get top years
-    api.route('/artists').get(function (req, res) {
-        models.MovieCharacter.aggregate([
-            {
-                $match: {type: 'movie'}
-            },
-            {
-                $group: {
-                    _id: '$playedBy',
-                    count: {$sum: 1}
-                }
-            },
-            {
-                "$sort": {"count": -1}
-            },
-            {"$limit": 10}
-        ], function (err, result) {
-            if (err) {
-                console.log(err);
-            } else {
-                res.send({
-                    data: result,
-                    status: 200
-                });
-            }
-        });
-    });
-
-
-    //get top years
-    api.route('/years').get(function (req, res) {
-        models.MovieCharacter.aggregate([
-            {
-                $match: {type: 'movie'}
-            },
-            {
-                $group: {
-                    _id: '$movies.year',
-                    count: {$sum: 1}
-                }
-            },
-            {
-                "$sort": {"count": -1}
-            },
-            {"$limit": 10}
-        ], function (err, result) {
-            if (err) {
-                console.log(err);
-            } else {
-                res.send({
-                    data: result,
-                    status: 200
-                });
-            }
-        });
-    });
 
     //get top movies
     api.route('/movies').get(function (req, res) {
         models.MovieCharacter.aggregate([
-            {
-                $match: {type: 'movie'}
-            },
+            {$match:{type:'tv-series'}},
             {
                 $group: {
                     _id: '$movies.name',
@@ -176,7 +104,8 @@ var router = function () {
             } else {
                 res.send({
                     data: result,
-                    success: true
+                    success: true,
+                    status: 200
                 });
             }
         });

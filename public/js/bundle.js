@@ -2,12 +2,69 @@
  * Created by Ruben on 11/11/2016.
  */
 (function () {
-    angular.module('iMovieUi', ['satellizer'])
-        .config(['$authProvider','$httpProvider',function ($authProvider, $httpProvider) {
+    angular.module('iMovieUi', ['satellizer', 'ui.router'])
+        .config(['$authProvider', '$httpProvider', '$stateProvider', '$locationProvider', '$urlRouterProvider', function ($authProvider, $httpProvider, $stateProvider, $locationProvider, $urlRouterProvider) {
             $httpProvider.interceptors.push('authInterceptor');
             $authProvider.facebook({
                 clientId: '175488799579769'
             });
+
+
+            $stateProvider
+                .state('home', {
+                    url: '/',
+                    templateUrl: '/angular/controllers/home/home.html',
+                    controller: 'HomeCtrl'
+                })
+                .state('userRates', {
+                    url: '/myRates',
+                    templateUrl: '/angular/controllers/userRates/user.rates.html',
+                    controller: 'UserRatesCtrl'
+                })
+                .state('search', {
+                    url: '/search?term',
+                    templateUrl: '/angular/controllers/search/search.html',
+                    controller: 'SearchCtrl'
+                })
+                .state('comicsCharacter', {
+                    url: '/comics-character/:name',
+                    templateUrl: '/angular/controllers/comicsCharacter/comics.character.html',
+                    controller: 'ComicsCharacterCtrl'
+                })
+                .state('character', {
+                    url: '/character/:longName',
+                    templateUrl: '/angular/controllers/character/character.html',
+                    controller: 'CharacterCtrl'
+                })
+                .state('movieCharactersList', {
+                    url: '/most-popular-movie-characters?page',
+                    templateUrl: '/angular/controllers/movieCharactersList/movie.characters.list.html',
+                    controller: 'MovieCharactersListCtrl'
+                })
+                .state('movieCharactersList.sorted', {
+                    url: '/:key/:value',
+                    templateUrl: '/angular/controllers/movieCharactersList/movie.characters.list.html',
+                    controller: 'MovieCharactersListCtrl'
+                })
+                .state('tvSeriesCharactersList', {
+                    url: '/most-popular-tv-series-characters?page',
+                    templateUrl: '/angular/controllers/tvSeriesCharactersList/tv.series.characters.list.html',
+                    controller: 'TvSeriesCharactersListCtrl'
+                })
+                .state('tvSeriesCharactersList.sorted', {
+                    url: '/:key/:value',
+                    templateUrl: '/angular/controllers/tvSeriesCharactersList/tv.series.characters.list.html',
+                    controller: 'TvSeriesCharactersListCtrl'
+                });
+
+
+            $urlRouterProvider.otherwise('/');
+
+            $locationProvider.html5Mode({
+                enabled: true,
+                requireBase: false
+            });
+
         }]);
 
 })();
@@ -129,11 +186,8 @@
 //movieCharactersSvs.js
 
 (function () {
-    angular.module('iMovieUi').factory('MovieCharacterSvs',['helperSvc', function (helperSvc) {
+    angular.module('iMovieUi').factory('MovieCharacterSvs', ['helperSvc', function (helperSvc) {
 
-        function getAll(){
-            return helperSvc.requestHandler({method: 'GET', url: '/api/movieCharacters/all'});
-        }
 
         function getTopCharacters() {
             return helperSvc.requestHandler({method: 'GET', url: '/api/movieCharacters/top'});
@@ -143,54 +197,82 @@
             return helperSvc.requestHandler({method: 'GET', url: '/api/movieCharacters/artists'});
         }
 
-        function getMovies(){
+        function getMovies() {
             return helperSvc.requestHandler({method: 'GET', url: '/api/movieCharacters/movies'})
         }
 
-        function getOrderedYears(){
+        function getOrderedYears() {
             return helperSvc.requestHandler({method: 'GET', url: '/api/movieCharacters/years'});
         }
 
-        function getCharactersByArtist(artist) {
-            return helperSvc.requestHandler({method: 'GET', url: '/api/movieCharacters/byArtist', params:{artist:artist}});
+        function getCharactersList(model) {
+            return helperSvc.requestHandler({method: 'GET', url: '/api/movieCharacters/list', params: model});
         }
 
-        function getCharactersByMovieReleaseDate(year){
-            return helperSvc.requestHandler({method: 'GET', url: '/api/movieCharacters/byYear', params:{year:year}});
+        function getMovieCharacter(name) {
+            return helperSvc.requestHandler({method: 'GET', url: '/api/movieCharacters/single', params: {name: name}});
         }
 
-        function getCharactersByMovie(movieName){
-            return helperSvc.requestHandler({method: 'GET', url: '/api/movieCharacters/byMovie', params:{movieName:movieName}});
+        function search(model) {
+            return helperSvc.requestHandler({method: 'GET', url: '/api/movieCharacters/search', params: model});
         }
 
-        function getCharactersList(paging){
-            return helperSvc.requestHandler({method: 'GET', url: '/api/movieCharacters/list', params:paging});
-        }
-        function getMovieCharacter(name){
-            return helperSvc.requestHandler({method: 'GET', url: '/api/movieCharacters/single', params:{name:name}});
-        }
-
-        function searchCharacters(model){
-            return helperSvc.requestHandler({method: 'GET', url: '/api/movieCharacters/search', params:model});
-        }
-
-        function getRecommended(model){
-            return helperSvc.requestHandler({method: 'GET', url: '/api/movieCharacters/recommended', params:model});
+        function getRecommended(model) {
+            return helperSvc.requestHandler({method: 'GET', url: '/api/movieCharacters/recommended', params: model});
         }
 
         return {
-            getAll:getAll,
             getTopCharacters: getTopCharacters,
             getArtists: getArtists,
-            getMovies:getMovies,
-            getCharactersByMovie:getCharactersByMovie,
-            getCharactersByArtist: getCharactersByArtist,
-            getCharactersByMovieReleaseDate:getCharactersByMovieReleaseDate,
-            getOrderedYears:getOrderedYears,
-            getCharactersList:getCharactersList,
-            getMovieCharacter:getMovieCharacter,
-            getRecommended:getRecommended,
-            searchCharacters:searchCharacters
+            getMovies: getMovies,
+            getOrderedYears: getOrderedYears,
+            getCharactersList: getCharactersList,
+            getMovieCharacter: getMovieCharacter,
+            getRecommended: getRecommended,
+            search: search
+        }
+    }])
+})();
+/**
+ * Created by Ruben on 10/31/2016.
+ */
+//movieCharactersSvs.js
+
+(function () {
+    angular.module('iMovieUi').factory('TvSeriesCharacterSvs', ['helperSvc', function (helperSvc) {
+
+
+        function topCharacters() {
+            return helperSvc.requestHandler({method: 'GET', url: '/api/tvSeriesCharacter/top'});
+        }
+
+        function movies() {
+            return helperSvc.requestHandler({method: 'GET', url: '/api/tvSeriesCharacter/movies'})
+        }
+
+        function charactersList(model) {
+            return helperSvc.requestHandler({method: 'GET', url: '/api/tvSeriesCharacter/list', params: model});
+        }
+
+        function tvSeriesCharacter(name) {
+            return helperSvc.requestHandler({method: 'GET', url: '/api/tvSeriesCharacter/single', params: {name: name}});
+        }
+
+        function searchCharacters(model) {
+            return helperSvc.requestHandler({method: 'GET', url: '/api/tvSeriesCharacter/search', params: model});
+        }
+
+        function recommended(model) {
+            return helperSvc.requestHandler({method: 'GET', url: '/api/tvSeriesCharacter/recommended', params: model});
+        }
+
+        return {
+            topCharacters: topCharacters,
+            movies: movies,
+            charactersList: charactersList,
+            tvSeriesCharacter: tvSeriesCharacter,
+            getRecommended: recommended,
+            searchCharacters: searchCharacters
         }
     }])
 })();
@@ -201,20 +283,26 @@
 (function () {
     'use strict';
 
-    angular.module('iMovieUi').factory('ComicsCharactersSvc',['helperSvc', function (helperSvc) {
+    angular.module('iMovieUi').factory('ComicsCharactersSvc', ['helperSvc', function (helperSvc) {
 
-       function getAll(){
-           return helperSvc.requestHandler({method: 'GET', url: '/api/comicsCharacters/all'});
-       }
-
-        function getSingle(name){
-            return helperSvc.requestHandler({method: 'GET', url: '/api/comicsCharacters/single', params:{name:name}});
+        function getAll() {
+            return helperSvc.requestHandler({method: 'GET', url: '/api/comicsCharacters/all'});
         }
 
-       return{
-           getAll:getAll,
-           getSingle:getSingle
-       }
+        function getSingle(name) {
+            return helperSvc.requestHandler({method: 'GET', url: '/api/comicsCharacters/single', params: {name: name}});
+        }
+
+        function search(model) {
+            return helperSvc.requestHandler({method: 'GET', url: '/api/comicsCharacters/search', params: model});
+        }
+
+
+        return {
+            getAll: getAll,
+            getSingle: getSingle,
+            search: search
+        }
     }]);
 })();
 /**
@@ -232,14 +320,19 @@
         function getRates(characterId){
             return helperSvc.requestHandler({method: 'GET', url: '/api/rate/rates', params:{characterId:characterId}});
         }
-        function userRatesForMovies(movies){
-            return helperSvc.requestHandler({method: 'Post', url: '/api/rate/userRatesByMovies', data:{movies:movies}});
+        function userRatesForCharacters(movies){
+            return helperSvc.requestHandler({method: 'Post', url: '/api/rate/userRatesByCharacters', data:{movies:movies}});
+        }
+
+        function userRate(characterId){
+            return helperSvc.requestHandler({method: 'GET', url: '/api/rate/userRate', params:{characterId:characterId}});
         }
 
         return {
             rate: rate,
             getRates:getRates,
-            userRatesForMovies:userRatesForMovies
+            userRate:userRate,
+            userRatesForCharacters:userRatesForCharacters
         };
     }])
 })();
@@ -286,30 +379,31 @@
         }
     }]);
 })();
-
 //dropdown.js
-(function(){
-    angular.module('iMovieUi').directive('mcDropdown', function(){
-        return{
+(function () {
+    angular.module('iMovieUi').directive('mcDropdown', function () {
+        return {
             scope: {
-                model: '=',
+                onChange: '&',
                 itemsList: '=',
-                term:'@',
-                label:'@'
+                term: '@',
+                label: '@',
+                key: '@'
             },
             link: function (scope, element, attrs) {
 
-              scope.$watch('itemsList', function(newVal, oldVal){
-                  if (newVal && newVal.length) {
-                      scope.itemIsArray = Array.isArray(scope.itemsList[0][scope.term]);
-                  }
-              },true);
-                scope.setModel = function (label) {
+                scope.$watch('itemsList', function (newVal, oldVal) {
+                    if (newVal && newVal.length) {
+                        scope.itemIsArray = Array.isArray(scope.itemsList[0][scope.term]);
+                    }
+                }, true);
 
-                    var _selectedItem = $.grep(scope.itemsList, function (item) {
-                        return item[scope.term] == label;
-                    })[0];
-                    scope.model = angular.copy(_selectedItem);
+
+                scope.setModel = function (label) {
+                    if (scope.itemIsArray) {
+                        label =label[0];
+                    }
+                    scope.onChange({param: {term: scope.key, value: label}});
                 };
             },
             templateUrl: '/angular/directives/dropdown/dropdown.html'
@@ -645,11 +739,11 @@
             scope.page = page;
 
             // Pass our parameters to the paging action
-            scope.pagingAction({
+            scope.pagingAction({params:{
                 page: scope.page,
                 pageSize: scope.pageSize,
                 total: scope.total
-            });
+            }});
 
             // If allowed scroll up to the top of the page
             if (scope.scrollTop) {
@@ -891,11 +985,76 @@
 
 })();
 /**
+ * Created by Ruben on 4/3/2017.
+ */
+(function(){
+    angular.module('iMovieUi').directive("owlCarousel", function () {
+        return {
+            restrict: 'E',
+            transclude: false,
+            link: function (scope) {
+                scope.initCarousel = function (element) {
+                    var defaultOptions = {
+                        loop: true,
+                        margin: 15,
+                        responsive: {
+                            0: {
+                                items: 1
+                            },
+                            500: {
+                                items: 2
+                            },
+                            650: {
+                                items: 3
+                            },
+                            850: {
+                                items: 4
+                            },
+                            1024: {
+                                items: 4
+                            },
+                            1270: {
+                                items: 4
+                            }
+                        },
+                        navText: [,],
+                        nav: true,
+                        dots: false,
+                        navContainerClass: 'owl-buttons'
+                    };
+
+                    $(element).owlCarousel(defaultOptions);
+                };
+            }
+        };
+    });
+})();
+/**
+ * Created by Ruben on 4/3/2017.
+ */
+(function(){
+    angular.module('iMovieUi').directive('owlCarouselItem', ['$timeout', function ($timeout) {
+        return {
+            restrict: 'A',
+            transclude: false,
+            link: function (scope, element) {
+                // wait for the last item in the ng-repeat then call init
+                if (scope.$last) {
+                    $timeout(function () {
+                        scope.initCarousel(element.parent());
+                    }, 500);
+
+                }
+            }
+        };
+    }]);
+})();
+/**
  * Created by Ruben on 11/8/2016.
  */
 
 (function () {
-    angular.module('iMovieUi').controller('headerCtrl', ['$scope', '$auth', '$rootScope', function ($scope, $auth, $rootScope) {
+    angular.module('iMovieUi').controller('headerCtrl', ['$scope', '$state', '$auth', '$rootScope', function ($scope, $state, $auth, $rootScope) {
 
         $scope.authenticate = function (provider) {
             $scope.showModal = false;
@@ -911,20 +1070,13 @@
             $scope.showModal = !$scope.showModal;
         });
 
-
         $scope.logOut = function () {
             $auth.logout();
         };
 
         $scope.makeSearch = function () {
             if ($scope.searchTerm.length) {
-                var term = encodeURI($scope.searchTerm);
-                if (window.location.href.includes('most-popular-movie-characters')) {
-                    $rootScope.$broadcast('new-search', {term: term});
-                } else {
-                    window.location.href = '/most-popular-movie-characters?term=' + term;
-                }
-
+                $state.go('search', {term: $scope.searchTerm})
             } else {
                 return;
             }
@@ -940,65 +1092,130 @@
 (function () {
     'use strict';
 
-    angular.module('iMovieUi').controller('HomeCtrl', ['$scope', 'MovieCharacterSvs', 'helperSvc', 'RateSvc', '$auth', function ($scope, MovieCharacterSvs, helperSvc, RateSvc, $auth) {
-        //get movie characters
-        MovieCharacterSvs.getTopCharacters()
-            .then(function (response) {
-                $scope.originalMovieCharacters = response.data;
-            }, function (err) {
-                console.log(err);
-            });
+    angular.module('iMovieUi').controller('HomeCtrl', ['$scope', '$timeout', '$window', 'MovieCharacterSvs', 'TvSeriesCharacterSvs', 'ComicsCharactersSvc', 'helperSvc', 'RateSvc', '$auth',
+        function ($scope, $timeout, $window, MovieCharacterSvs, TvSeriesCharacterSvs, ComicsCharactersSvc, helperSvc, RateSvc, $auth) {
+            //get movie characters
+            $scope.comicsCharactersLoaded = false;
+            $scope.movieCharactersLoaded = false;
+            $scope.tvSeriesCharactersLoaded = false;
+            $scope.authState = false;
+            $window.document.title ='iMovieUi: Most popular movie and tv-series characters';
 
 
-        $scope.$watch('originalMovieCharacters', function (newVal, oldVal) {
-            if (!!newVal) {
-                $scope.movieCharacters = helperSvc.chunk(newVal, 2);
-                getUserRates();
-            }
-        }, true);
+            //getting top movie characters
+            MovieCharacterSvs.getTopCharacters()
+                .then(function (response) {
+                    $scope.originalMovieCharacters = response.data;
+                    $scope.movieCharactersLoaded = true;
+                }, function (err) {
+                    console.log(err);
+                });
+
+            //getting top tv-series characters
+            TvSeriesCharacterSvs.topCharacters()
+                .then(function (response) {
+                    $scope.originalTvSeriesCharacters = response.data;
+                    $scope.tvSeriesCharactersLoaded = true;
+                }, function (err) {
+                    console.log(err);
+                });
+
+            //getting comics characters
+            ComicsCharactersSvc.getAll()
+                .then(function (response) {
+                    $scope.comicsCharacters = response.data;
+                    $timeout(function () {
+                        $scope.comicsCharactersLoaded = true;
+                    }, 400);
+                }, function (err) {
+                    console.log(err);
+                });
 
 
-        $scope.isAuthenticated = function () {
-            return $auth.isAuthenticated();
-        };
+            $scope.$watch('originalMovieCharacters', function (newVal, oldVal) {
+                if (!!newVal) {
+                    $scope.movieCharacters = helperSvc.chunk(newVal, 2);
+                    getMovieCharactersUserRates();
+                }
+            }, true);
+            $scope.$watch('originalTvSeriesCharacters', function (newVal, oldVal) {
+                if (!!newVal) {
+                    $scope.tvSeriesCharacters = helperSvc.chunk(newVal, 2);
+                    getTvSeriesCharactersUserRates();
+                }
+            }, true);
 
 
-        $scope.$watch('isAuthProp', function (newVal, oldVal) {
-            if (newVal) {
-                getUserRates();
-            }
-
-        }, true);
+            $scope.isAuthenticated = function () {
+                return $auth.isAuthenticated();
+            };
 
 
-        //TODO: improve implementation letter
-        function insertUserRating(userRates) {
-            for (var i = 0; i < userRates.length; i++) {
-                for (var j = 0; j < $scope.originalMovieCharacters.length; j++) {
-                    if (userRates[i].characterId == $scope.originalMovieCharacters[j]._id) {
-                        $scope.originalMovieCharacters[j].userRate = userRates[i].value;
+            $scope.$watch('authState', function (newVal, oldVal) {
+                if (newVal) {
+                    getMovieCharactersUserRates();
+                    getTvSeriesCharactersUserRates();
+                }
+            }, true);
+
+
+            //TODO: improve implementation letter
+            function insertUserRatingForMC(userRates) {
+                for (var i = 0; i < userRates.length; i++) {
+                    for (var j = 0; j < $scope.originalMovieCharacters.length; j++) {
+                        if (userRates[i].characterId == $scope.originalMovieCharacters[j]._id) {
+                            $scope.originalMovieCharacters[j].userRate = userRates[i].value;
+                        }
                     }
                 }
             }
-        }
 
-        function getUserRates() {
-            if (!!$scope.originalMovieCharacters && $scope.isAuthProp) {
-                var movieCharacterIds = $scope.originalMovieCharacters.map(function (a) {
-                    return {_id: a._id};
-                });
-                RateSvc.userRatesForMovies(movieCharacterIds)
-                    .then(function (response) {
-                        if (response.success) {
-                            insertUserRating(response.data);
+            function insertUserRatingForTSC(userRates) {
+                for (var i = 0; i < userRates.length; i++) {
+                    for (var j = 0; j < $scope.originalTvSeriesCharacters.length; j++) {
+                        if (userRates[i].characterId == $scope.originalTvSeriesCharacters[j]._id) {
+                            $scope.originalTvSeriesCharacters[j].userRate = userRates[i].value;
                         }
-                    }, function (err) {
-                        console.log(err);
-                    });
+                    }
+                }
             }
 
-        }
-    }]);
+            //getting users rates for tv-series characters
+            function getTvSeriesCharactersUserRates() {
+                if (!!$scope.originalTvSeriesCharacters && $scope.authState) {
+                    var movieCharacterIds = $scope.originalTvSeriesCharacters.map(function (a) {
+                        return {_id: a._id};
+                    });
+                    RateSvc.userRatesForCharacters(movieCharacterIds)
+                        .then(function (response) {
+                            if (response.success) {
+                                insertUserRatingForTSC(response.data);
+                            }
+                        }, function (err) {
+                            console.log(err);
+                        });
+                }
+            }
+
+            //getting users rates for movie characters
+            function getMovieCharactersUserRates() {
+                if (!!$scope.originalMovieCharacters && $scope.authState) {
+                    var movieCharacterIds = $scope.originalMovieCharacters.map(function (a) {
+                        return {_id: a._id};
+                    });
+                    RateSvc.userRatesForCharacters(movieCharacterIds)
+                        .then(function (response) {
+                            if (response.success) {
+                                insertUserRatingForMC(response.data);
+                            }
+                        }, function (err) {
+                            console.log(err);
+                        });
+                }
+            }
+
+
+        }]);
 })();
 /**
  * Created by Ruben on 10/31/2016.
@@ -1006,27 +1223,83 @@
 //movieCharactersListCtrl.js
 
 (function () {
-    angular.module('iMovieUi').controller('MovieCharactersListCtrl', ['$scope', '$timeout', 'MovieCharacterSvs', 'RateSvc', 'helperSvc', '$auth', '$window',
-        function ($scope, $timeout, MovieCharacterSvs, RateSvc, helperSvc, $auth, $window) {
+    angular.module('iMovieUi').controller('SearchCtrl', ['$scope', '$sce', '$window', '$state', 'MovieCharacterSvs', 'ComicsCharactersSvc',
+        function ($scope, $sce, $window, $state, MovieCharacterSvs, ComicsCharactersSvc) {
+
+            $scope.movieCharactersContentLoaded = false;
+            $scope.comicCharactersContentLoaded = false;
+            $window.document.title = 'iMovieUi: Most Popular Movie and TV-Series Characters';
+            $scope.model = $state.params.term;
+
+            MovieCharacterSvs.search({term: $scope.model})
+                .then(function (response) {
+                    $scope.characters = response.data;
+                    $scope.movieCharactersContentLoaded = true;
+                }, function (err) {
+                    console.log(err);
+                });
+            ComicsCharactersSvc.search({term: $scope.model})
+                .then(function (response) {
+                    $scope.comicCharacters = response.data;
+                    $scope.comicCharactersContentLoaded = true;
+                }, function (err) {
+                    console.log(err);
+                });
+            $scope.highlight = function (text, search) {
+                if (!search) {
+                    return $sce.trustAsHtml(text);
+                }
+                return $sce.trustAsHtml(text.replace(new RegExp(search, 'gi'), '<span class="term">$&</span>'));
+            };
+
+            window.gl =$scope;
+
+        }])
+})();
+
+
+
+/**
+ * Created by Ruben on 10/31/2016.
+ */
+//movieCharactersListCtrl.js
+
+(function () {
+    angular.module('iMovieUi').controller('MovieCharactersListCtrl', ['$scope', '$rootScope', '$timeout', '$state', '$anchorScroll', '$sce', 'MovieCharacterSvs', 'RateSvc', 'helperSvc', '$auth', '$window',
+        function ($scope, $rootScope, $timeout, $state, $anchorScroll, $sce, MovieCharacterSvs, RateSvc, helperSvc, $auth, $window) {
 
             $scope.contentLoaded = false;
+            $scope.model = {
+                page: $state.params.page || 1
+            };
+            if ($state.params.key && $state.params.value) {
+                $scope.model.key = $state.params.key;
+                $scope.model.value = $state.params.value;
+                if ($state.params.key === 'playedBy') {
+                    $scope.pageHeader = $sce.trustAsHtml('list of <strong>' + $state.params.value + '</strong> top movie characters');
+                    $window.document.title = 'iMovieUi: List of ' + $state.params.value + ' top characters';
+                } else if ($state.params.key === 'movies.year') {
+                    $scope.pageHeader = $sce.trustAsHtml('Top movie characters of <strong>' + $state.params.value + '</strong>');
+                    $window.document.title = 'iMovieUi: Top Movie Characters of ' + $state.params.value;
+                } else if ($state.params.key === 'movies.name') {
+                    $scope.pageHeader = $sce.trustAsHtml('List of <strong>' + $state.params.value + '</strong> top movie characters');
+                    $window.document.title = 'iMovieUi: List of ' + $state.params.value + ' top Characters';
+                }
+            } else {
 
-            $scope.paging = {};
-            $scope.paging.number = 1;
-            $scope.paging.size = 10;
+                $window.document.title = 'iMovieUi: Most Popular Movie Characters';
+                $scope.pageHeader = $sce.trustAsHtml('most popular <strong>movie characters</strong>');
 
+            }
 
-            $scope._searchTerm = $window.location.href.split('?term=')[1];
-            //only for input form
-            $scope.searchTerm = $scope._searchTerm ? decodeURI($scope._searchTerm) : '';
-            $scope.filteredBy = undefined;
-            $scope.predicate = 'movie';
+            updateResults();
+
 
             $scope.isAuthenticated = function () {
                 return $auth.isAuthenticated();
             };
 
-
+            //getting top artists
             MovieCharacterSvs.getArtists()
                 .then(function (response) {
                     $scope.artists = response.data;
@@ -1035,6 +1308,7 @@
                     console.log(err);
                 });
 
+            //getting top years
             MovieCharacterSvs.getOrderedYears()
                 .then(function (response) {
                     $scope.years = response.data;
@@ -1042,6 +1316,7 @@
                     console.log(err);
                 });
 
+            //getting top movies
             MovieCharacterSvs.getMovies()
                 .then(function (response) {
                     $scope.movies = response.data;
@@ -1049,102 +1324,71 @@
                     console.log(err);
                 });
 
-
-            $scope.$on('new-search', function (event, args) {
-
-                MovieCharacterSvs.searchCharacters({term: args.term})
-                    .then(function (response) {
-                        if (response.data.length > 0) {
-                            $scope.notFoundForTerm = false;
-                            $scope.originalMovieCharacters = response.data;
-                            $scope.listCharacters = helperSvc.chunk(response.data, 2);
-                        } else {
-                            $scope.notFoundForTerm = true;
-                            $scope.listCharacters=[];
-
-                        }
-                        $scope.count = 0;
-                        $scope.contentLoaded = true;
-                        $scope.filteredBy = {
-                            key: 'Searched By',
-                            value: decodeURI(args.term)
-                        };
-                    },
-                    function (msg) {
-                        console.log(msg);
-                    });
-
-            });
-
+            //get all movie characters
             $scope.getAll = function () {
-                var _concat = '?term=' + $scope._searchTerm;
-                var _href = $window.location.href;
-                if (_href.indexOf('?term=')) {
-                    window.location.href = _href.replace(_concat, '');
-                }
-                $scope.filteredBy = undefined;
-                $scope._searchTerm = undefined;
-
-                MovieCharacterSvs.getCharactersList($scope.paging)
-                    .then(function (response) {
-                        $scope.originalMovieCharacters = response.data;
-                        $scope.listCharacters = helperSvc.chunk(response.data, 2);
-                        $scope.count = response.count;
-                        $scope.contentLoaded = true;
-                    },
-                    function (msg) {
-                        console.log(msg);
-                    });
+                $scope.pageHeader = $sce.trustAsHtml('most popular <strong>movie characters</strong>');
+                $window.document.title = 'iMovieUi: Most Popular Movie Characters';
+                $state.go('movieCharactersList', {
+                    page: 1
+                }, {notify: false});
+                $scope.model = {
+                    page: 1,
+                    key: null,
+                    value: null
+                };
+                updateResults();
             };
 
-            $scope.$watch('paging.number', function (newVal, oldVal) {
-                if (newVal) {
-                    $scope.contentLoaded = false;
-                    if (!$scope._searchTerm) {
-                        MovieCharacterSvs.getCharactersList($scope.paging)
-                            .then(function (response) {
-                                $scope.originalMovieCharacters = response.data;
-                                $scope.listCharacters = helperSvc.chunk(response.data, 2);
-                                $scope.count = response.count;
-                                $scope.contentLoaded = true;
-                            },
-                            function (msg) {
-                                console.log(msg);
-                            });
-                    } else {
-                        MovieCharacterSvs.searchCharacters({term: $scope._searchTerm})
-                            .then(function (response) {
-                                if (response.data.length > 0) {
-                                    $scope.notFoundForTerm = false;
-                                    $scope.originalMovieCharacters = response.data;
-                                    $scope.listCharacters = helperSvc.chunk(response.data, 2);
-                                    $scope.count = response.count;
 
-                                } else {
-                                    $scope.listCharacters=[];
-                                    $scope.notFoundForTerm = true;
-                                }
-                                $scope.contentLoaded = true;
-
-
-                                $scope.filteredBy = {
-                                    key: 'Searched By',
-                                    value: decodeURI($scope._searchTerm)
-                                };
-                            },
-                            function (msg) {
-                                console.log(msg);
-                            });
-                    }
+            $scope.pagingChange = function (params) {
+                if (!!$state.params.key) {
+                    $state.go('movieCharactersList.sorted', {
+                        page: params.page
+                    }, {notify: false});
+                } else {
+                    $state.go('movieCharactersList', {
+                        page: params.page
+                    }, {notify: false});
                 }
-            }, true);
 
-            $scope.$watch('isAuthProp', function (newVal, oldVal) {
+                $timeout(function () {
+                    updateResults();
+                });
+            };
+
+            $scope.$watch('authState', function (newVal, oldVal) {
                 if (newVal) {
                     getUserRates();
                 }
-
             }, true);
+
+            $scope.setModel = function (param) {
+
+                if (param.term === 'playedBy') {
+                    $scope.pageHeader = $sce.trustAsHtml('list of <strong>' + param.value + '</strong> top movie characters');
+                    $window.document.title = 'iMovieUi: List of ' + param.value + ' top characters';
+                } else if (param.term === 'movies.year') {
+                    $scope.pageHeader = $sce.trustAsHtml('Top movie characters of <strong>' + param.value + '</strong>');
+                    $window.document.title = 'iMovieUi: Top Movie Characters of ' + param.value;
+                } else if (param.term === 'movies.name') {
+                    $scope.pageHeader = $sce.trustAsHtml('List of <strong>' + param.value + '</strong> top characters');
+                    $window.document.title = 'iMovieUi: List of ' + param.value + ' top characters';
+                }
+                $state.go('movieCharactersList.sorted', {
+                    page: 1,
+                    key: param.term,
+                    value: param.value
+                }, {notify: false});
+
+                $scope.model = {
+                    page: 1,
+                    key: param.term,
+                    value: param.value
+                };
+
+                updateResults();
+
+            };
 
             $scope.$watch('originalMovieCharacters', function (newVal, oldVal) {
                 if (!!newVal) {
@@ -1152,60 +1396,6 @@
                 }
             }, true);
 
-            $scope.$watch('artist', function (newValue, oldValue) {
-                if (!!newValue && newValue != oldValue) {
-                    MovieCharacterSvs.getCharactersByArtist($scope.artist._id)
-                        .then(function (response) {
-                            $scope.originalMovieCharacters = response.data;
-                            $scope.count = response.data.length;
-                            $scope.listCharacters = helperSvc.chunk(response.data, 2);
-
-                            $scope.filteredBy = {
-                                key: 'Filtered By Artist',
-                                value: newValue._id
-                            }
-                        },
-                        function (err) {
-                            console.log(err);
-                        });
-                }
-            });
-
-            $scope.$watch('year', function (newValue, oldValue) {
-                if (!!newValue && newValue != oldValue) {
-                    MovieCharacterSvs.getCharactersByMovieReleaseDate(newValue._id[0])
-                        .then(function (response) {
-                            $scope.originalMovieCharacters = response.data;
-                            $scope.count = response.data.length;
-                            $scope.listCharacters = helperSvc.chunk(response.data, 2);
-                            $scope.filteredBy = {
-                                key: 'Filtered By Year',
-                                value: newValue._id[0]
-                            }
-                        },
-                        function (err) {
-                            console.log(err);
-                        });
-                }
-            });
-
-            $scope.$watch('movie', function (newValue, oldValue) {
-                if (!!newValue && newValue != oldValue) {
-                    MovieCharacterSvs.getCharactersByMovie(newValue._id[0])
-                        .then(function (response) {
-                            $scope.originalMovieCharacters = response.data;
-                            $scope.count = response.data.length;
-                            $scope.listCharacters = helperSvc.chunk(response.data, 2);
-                            $scope.filteredBy = {
-                                key: 'Filtered By Movie',
-                                value: newValue._id[0]
-                            }
-                        },
-                        function (err) {
-                            console.log(err);
-                        });
-                }
-            });
 
             //TODO: improve implementation letter
             function insertUserRating(userRates) {
@@ -1219,11 +1409,11 @@
             }
 
             function getUserRates() {
-                if (!!$scope.originalMovieCharacters && $scope.isAuthProp) {
+                if (!!$scope.originalMovieCharacters && $scope.authState) {
                     var movieCharacterIds = $scope.originalMovieCharacters.map(function (a) {
                         return {_id: a._id};
                     });
-                    RateSvc.userRatesForMovies(movieCharacterIds)
+                    RateSvc.userRatesForCharacters(movieCharacterIds)
                         .then(function (response) {
                             if (response.success) {
                                 insertUserRating(response.data);
@@ -1232,7 +1422,178 @@
                             console.log(err);
                         });
                 }
+            }
 
+            function updateResults() {
+                $scope.contentLoaded = false;
+
+                MovieCharacterSvs.getCharactersList($scope.model)
+                    .then(function (response) {
+
+                        $scope.originalMovieCharacters = response.data;
+                        $scope.listCharacters = helperSvc.chunk(response.data, 2);
+                        $scope.count = response.count;
+                        $scope.contentLoaded = true;
+                        $anchorScroll();
+
+                    }, function (msg) {
+                        console.log(msg);
+                    });
+            }
+
+        }])
+})();
+
+
+
+//tvSeriesCharactersListCtrl.js
+
+(function () {
+    angular.module('iMovieUi').controller('TvSeriesCharactersListCtrl', ['$scope', '$rootScope', '$timeout', '$state','$anchorScroll', 'TvSeriesCharacterSvs', 'RateSvc', 'helperSvc', '$auth', '$window',
+        function ($scope, $rootScope, $timeout, $state, $anchorScroll, TvSeriesCharacterSvs, RateSvc, helperSvc, $auth, $window) {
+
+            $scope.contentLoaded = false;
+            $window.document.title = 'iMovieUi: Most Popular TV-Series Characters';
+            $scope.filteredBy = {};
+            $scope.model = {
+                page: $state.params.page || 1
+            };
+            if ($state.params.key && $state.params.value) {
+                $scope.model.key = $state.params.key;
+                $scope.model.value = $state.params.value;
+                $window.document.title = 'iMovieUi: List of ' + $state.params.value + ' characters';
+            }else{
+                $window.document.title = 'iMovieUi: Most Popular TV-Series Characters';
+            }
+
+            updateResults();
+
+
+            //only for input form
+            $scope.searchTerm = $scope._searchTerm ? decodeURI($scope._searchTerm) : '';
+
+            $scope.isAuthenticated = function () {
+                return $auth.isAuthenticated();
+            };
+
+            //getting top movies
+            TvSeriesCharacterSvs.movies()
+                .then(function (response) {
+                    $scope.movies = response.data;
+                }, function (err) {
+                    console.log(err);
+                });
+
+
+            //get all movie characters
+            $scope.getAll = function () {
+                $window.document.title = 'iMovieUi: Most Popular TV-Series Characters';
+
+                $state.go('tvSeriesCharactersList', {
+                    page: 1,
+                    key: undefined,
+                    value: undefined
+                }, {notify: false});
+                $scope.filteredBy = undefined;
+                $scope._searchTerm = undefined;
+
+                $scope.model = {
+                    page: 1,
+                    key: null,
+                    value: null
+                };
+                updateResults();
+            };
+
+
+            $scope.pagingChange = function (params) {
+                if (!!$state.params.key) {
+                    $state.go('tvSeriesCharactersList.sorted', {
+                        page: params.page
+                    }, {notify: false});
+                } else {
+                    $state.go('tvSeriesCharactersList', {
+                        page: params.page
+                    }, {notify: false});
+                }
+
+                $timeout(function () {
+                    updateResults();
+                });
+            };
+
+            $scope.$watch('authState', function (newVal, oldVal) {
+                if (newVal) {
+                    getUserRates();
+                }
+            }, true);
+
+            $scope.setModel = function (param) {
+                $window.document.title = 'iMovieUi: List of ' +  param.value + ' characters';
+                $state.go('tvSeriesCharactersList.sorted', {
+                    page: 1,
+                    key:param.term,
+                    value:param.value
+                }, {notify: false});
+                param.page = 1;
+
+                $scope.model = {
+                    page: 1,
+                    key: param.term,
+                    value: param.value
+                };
+
+                updateResults();
+
+            };
+
+            $scope.$watch('originalCharacters', function (newVal, oldVal) {
+                if (!!newVal) {
+                    getUserRates();
+                }
+            }, true);
+
+
+            //TODO: improve implementation letter
+            function insertUserRating(userRates) {
+                for (var i = 0; i < userRates.length; i++) {
+                    for (var j = 0; j < $scope.originalCharacters.length; j++) {
+                        if (userRates[i].characterId == $scope.originalCharacters[j]._id) {
+                            $scope.originalCharacters[j].userRate = userRates[i].value;
+                        }
+                    }
+                }
+            }
+
+            function getUserRates() {
+                if (!!$scope.originalCharacters && $scope.authState) {
+                    var movieCharacterIds = $scope.originalCharacters.map(function (a) {
+                        return {_id: a._id};
+                    });
+                    RateSvc.userRatesForCharacters(movieCharacterIds)
+                        .then(function (response) {
+                            if (response.success) {
+                                insertUserRating(response.data);
+                            }
+                        }, function (err) {
+                            console.log(err);
+                        });
+                }
+            }
+
+            function updateResults() {
+                $scope.contentLoaded = false;
+                TvSeriesCharacterSvs.charactersList($scope.model)
+                    .then(function (response) {
+                        $scope.originalCharacters = response.data;
+                        $scope.listCharacters = helperSvc.chunk(response.data, 2);
+                        $scope.count = response.count;
+                        $scope.contentLoaded = true;
+                        $anchorScroll();
+                    },
+                    function (msg) {
+                        console.log(msg);
+                    });
             }
 
         }])
@@ -1244,22 +1605,20 @@
  * Created by Ruben on 11/17/2016.
  */
 
-//movieCharacterCtrl.js
+//characterCtrl.js
 (function () {
     'use strict';
 
-    angular.module('iMovieUi').controller('MovieCharacterCtrl', ['$scope', '$window', '$document', 'MovieCharacterSvs', 'RateSvc', '$auth', 'helperSvc',
-        function ($scope, $window, $document, MovieCharacterSvs, RateSvc, $auth, helperSvc) {
+    angular.module('iMovieUi').controller('CharacterCtrl', ['$scope', '$window', '$document', '$state', 'MovieCharacterSvs', 'RateSvc', '$auth', 'helperSvc',
+        function ($scope, $window, $document, $state, MovieCharacterSvs, RateSvc, $auth, helperSvc) {
 
-            $('#test').removeAttr('style');
+            $window.document.title = $state.params.longName + ' (iMovieUi)';
+
             $scope.contentLoaded = false;
             $scope.notFound = false;
-
-            var name = $window.location.pathname.split('/movie-character/')[1];
+            $scope.avgUpdate = false;
             $scope.rateValue = 1;
             $scope.dataHref = $document.context.URL;
-
-            $scope.avgUpdate = false;
             $scope.isDesktop = helperSvc.isDesktop();
 
 
@@ -1267,8 +1626,19 @@
                 return $auth.isAuthenticated();
             };
 
+            $scope.$watch('authState', function (newVal, oldVal) {
+                if (!!$scope.character && newVal && !$scope.userRate) {
+                    RateSvc.userRate($scope.character._id)
+                        .then(function (response) {
+                            $scope.userRate = response.data.value;
+                        }, function (err) {
+                            console.log(err);
+                        });
+                }
+            });
 
-            MovieCharacterSvs.getMovieCharacter(name)
+
+            MovieCharacterSvs.getMovieCharacter($state.params.longName)
                 .then(function (response) {
                     if (response.success) {
                         $scope.contentLoaded = true;
@@ -1279,7 +1649,6 @@
                             : 0;
 
                         $scope.fullName = $scope.character.name + ' played by ' + $scope.character.playedBy + ' in ' + $scope.character.movies[0].name;
-                        $scope.keyWords = $scope.character.name + ', ' + $scope.character.playedBy;
 
                         if ($scope.isDesktop) {
                             var dto = {
@@ -1361,19 +1730,19 @@
     'use strict';
 
     angular.module('iMovieUi')
-        .controller('ComicsCharacterCtrl', ['$scope', '$window', '$rootScope', 'ComicsCharactersSvc', 'VoteSvc', '$auth',
-            function ($scope, $window, $rootScope, ComicsCharactersSvc, VoteSvc, $auth) {
+        .controller('ComicsCharacterCtrl', ['$scope', '$window', '$state', '$rootScope', 'ComicsCharactersSvc', 'VoteSvc', '$auth',
+            function ($scope, $window, $state, $rootScope, ComicsCharactersSvc, VoteSvc, $auth) {
 
-                var url = $window.location.pathname.split('/comics-character/')[1];
                 $scope.dataHref = document.URL;
                 $scope.voteStart = false;
                 $scope.contentLoaded = false;
+                $window.document.title = 'Vote for the best actor of ' + $state.params.name;
 
                 $scope.isAuthenticated = function () {
                     return $auth.isAuthenticated();
                 };
 
-                ComicsCharactersSvc.getSingle(url)
+                ComicsCharactersSvc.getSingle($state.params.name)
                     .then(function (response) {
                         $scope.character = response.data;
                         $scope.contentLoaded = true;

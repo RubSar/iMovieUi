@@ -203,7 +203,7 @@ a:hover {
   .one-page-header .navbar-nav {
     padding: 0;
     position: relative;
-    top: 17px;
+    top: 12px;
   }
 }
 @media (max-width: 991px) {
@@ -247,6 +247,7 @@ a:hover {
 
 @media (max-width: 768px) {
   .one-page-header .navbar-brand {
+    margin-top: 5px;
     padding-left: 0;
   }
 }
@@ -365,7 +366,7 @@ a:hover {
 
   .one-page-header .navbar-toggle {
     display: block;
-    margin: 13px 0 5px;
+    margin: 8px 0 5px;
   }
 
   .one-page-header .navbar-collapse.collapse {
@@ -682,6 +683,7 @@ h2.g-heading {
   position: relative;
   margin: 0 0 40px;
   color: #31353e;
+  text-shadow: 1px 2px 3px #000000;
 }
 h3.d-heading {
   text-transform: uppercase;

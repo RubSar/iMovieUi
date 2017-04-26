@@ -38,6 +38,23 @@ var router = function () {
 
     });
 
+    api.route('/search').get(function (req, res) {
+        var term = decodeURIComponent(req.query.term);
+        console.log(term);
+        ComicsCharacter.find({$text: {$search: term}})
+            .select('name description actors._id')
+            .exec(function (err, results) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    res.send({
+                        data: results,
+                        status: 200
+                    });
+                }
+            })
+    });
+
 
     return api;
 };

@@ -32,6 +32,7 @@ var adminController = function () {
 
     //create movie character
     function createMovieCharacter(req, res) {
+        console.log('sssssssss');
         res.render('admin/createMovieCharacter');
     }
 
@@ -48,13 +49,14 @@ var adminController = function () {
                 } else {
                     //if found character,
                     if (character) {
-                        res.redirect('/admin/edit/movieCharacter/' + character._id)
+                        res.redirect('/admin/edit/character/' + character._id)
                     } else {
                         var newCharacter = new MovieCharacter();
                         newCharacter.name = model.name.trim();
                         newCharacter.playedBy = model.playedBy.trim();
                         newCharacter.about = model.about ? model.about.trim() : '';
                         newCharacter.type = model.type;
+                        newCharacter.sex = model.sex;
                         cloudinary.uploader.upload(req.body.imageData, function (result) {
                             newCharacter.imgUrl = result.url;
                             imdb.getReq({name: req.body.movie}, function (err, movie) {
@@ -74,7 +76,7 @@ var adminController = function () {
                                         IMDbId: movie.imdbID
                                     });
                                     newCharacter.save();
-                                    res.redirect('/admin/movieCharacters')
+                                    res.redirect('/admin/characters')
                                 }
 
                             });
@@ -132,6 +134,7 @@ var adminController = function () {
                     character.name = model.name || character.name;
                     character.playedBy = model.playedBy || character.playedBy;
                     character.type = model.type || character.type;
+                    character.sex = model.sex || character.sex;
                     character.about = model.about || character.about;
                     if (character.movies[0].name.trim() !== model.movie.trim()) {
                         imdb.getReq({name: model.movie}, function (err, movie) {

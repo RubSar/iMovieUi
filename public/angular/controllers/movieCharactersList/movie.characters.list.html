@@ -1,6 +1,7 @@
 <div class="text-center  pt-85 pb-100">
+    <input type="hidden" ng-value="authState =isAuthenticated()">
     <div class="container-fluid">
-        <h2 class="g-heading"> Most Popular  <strong>movie characters</strong></h2>
+        <h2 class="g-heading" data-ng-bind-html="pageHeader"></h2>
 
         <div ng-hide="contentLoaded" class="lazy-load-box">
             <i class="fa fa-spin fa-cog fa-5x"></i>
@@ -8,14 +9,7 @@
 
 
         <div class="container" ng-show="contentLoaded">
-            <div class="row form-group">
-                <div class="col-md-6">
-                    <div ng-show="filteredBy.key" class="alert alert-info fade in alert-dismissable">
-                        <span ng-bind="filteredBy.key"></span> : <strong ng-bind="filteredBy.value"></strong>
-                    </div>
-                </div>
 
-            </div>
             <div class="row">
                 <div class="col-md-2 form-group">
                     <div class="row">
@@ -48,14 +42,14 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-10 pr-xs-0 pl-xs-0">
+                <div class="col-md-10 pr-xs-0 pl-xs-0" id="list">
                     <div class="row form-group" ng-repeat="row in listCharacters">
                         <div class="col-md-6 col-sm-6" ng-repeat="character in row track by character._id">
                             <character model="character"></character>
                         </div>
                     </div>
                     <div class="form-group text-center">
-                        <div paging ng-show="count>10"
+                        <div paging ng-if="count>10"
                              page="model.page"
                              paging-action="pagingChange(params)"
                              page-size="10"

@@ -4,24 +4,35 @@
 //movieCharactersListCtrl.js
 
 (function () {
-    angular.module('iMovieUi').controller('MovieCharactersListCtrl', ['$scope', '$rootScope', '$timeout', '$state', 'MovieCharacterSvs', 'RateSvc', 'helperSvc', '$auth', '$window',
-        function ($scope, $rootScope, $timeout, $state, MovieCharacterSvs, RateSvc, helperSvc, $auth, $window) {
+    angular.module('iMovieUi').controller('MovieCharactersListCtrl', ['$scope', '$rootScope', '$timeout', '$state', '$anchorScroll', '$sce', 'MovieCharacterSvs', 'RateSvc', 'helperSvc', '$auth', '$window',
+        function ($scope, $rootScope, $timeout, $state, $anchorScroll, $sce, MovieCharacterSvs, RateSvc, helperSvc, $auth, $window) {
 
             $scope.contentLoaded = false;
-            $scope.filteredBy = {};
             $scope.model = {
                 page: $state.params.page || 1
             };
             if ($state.params.key && $state.params.value) {
                 $scope.model.key = $state.params.key;
                 $scope.model.value = $state.params.value;
+                if ($state.params.key === 'playedBy') {
+                    $scope.pageHeader = $sce.trustAsHtml('list of <strong>' + $state.params.value + '</strong> top movie characters');
+                    $window.document.title = 'iMovieUi: List of ' + $state.params.value + ' top characters';
+                } else if ($state.params.key === 'movies.year') {
+                    $scope.pageHeader = $sce.trustAsHtml('Top movie characters of <strong>' + $state.params.value + '</strong>');
+                    $window.document.title = 'iMovieUi: Top Movie Characters of ' + $state.params.value;
+                } else if ($state.params.key === 'movies.name') {
+                    $scope.pageHeader = $sce.trustAsHtml('List of <strong>' + $state.params.value + '</strong> top movie characters');
+                    $window.document.title = 'iMovieUi: List of ' + $state.params.value + ' top Characters';
+                }
+            } else {
+
+                $window.document.title = 'iMovieUi: Most Popular Movie Characters';
+                $scope.pageHeader = $sce.trustAsHtml('most popular <strong>movie characters</strong>');
+
             }
 
             updateResults();
 
-
-            //only for input form
-            $scope.searchTerm = $scope._searchTerm ? decodeURI($scope._searchTerm) : '';
 
             $scope.isAuthenticated = function () {
                 return $auth.isAuthenticated();
@@ -52,81 +63,61 @@
                     console.log(err);
                 });
 
-
-            //$scope.$on('new-search', function (event, args) {
-            //
-            //    MovieCharacterSvs.searchCharacters({term: args.term})
-            //        .then(function (response) {
-            //            if (response.data.length > 0) {
-            //                $scope.notFoundForTerm = false;
-            //                $scope.originalMovieCharacters = response.data;
-            //                $scope.listCharacters = helperSvc.chunk(response.data, 2);
-            //            } else {
-            //                $scope.notFoundForTerm = true;
-            //                $scope.listCharacters = [];
-            //
-            //            }
-            //            $scope.count = 0;
-            //            $scope.contentLoaded = true;
-            //            $scope.filteredBy = {
-            //                key: 'Searched By',
-            //                value: decodeURI(args.term)
-            //            };
-            //        },
-            //        function (msg) {
-            //            console.log(msg);
-            //        });
-            //
-            //});
-
+            //get all movie characters
             $scope.getAll = function () {
-                var _concat = '?term=' + $scope._searchTerm;
-                var _href = $window.location.href;
-                if (_href.indexOf('?term=')) {
-                    window.location.href = _href.replace(_concat, '');
-                }
-                $scope.filteredBy = undefined;
-                $scope._searchTerm = undefined;
-
-                MovieCharacterSvs.getCharactersList({page: 1, term: 'movies.name', value: 'The Dark Knight'})
-                    .then(function (response) {
-                        $scope.originalMovieCharacters = response.data;
-                        $scope.listCharacters = helperSvc.chunk(response.data, 2);
-                        $scope.count = response.count;
-                        $scope.contentLoaded = true;
-                    }, function (msg) {
-                        console.log(msg);
-                    });
+                $scope.pageHeader = $sce.trustAsHtml('most popular <strong>movie characters</strong>');
+                $window.document.title = 'iMovieUi: Most Popular Movie Characters';
+                $state.go('movieCharactersList', {
+                    page: 1
+                }, {notify: false});
+                $scope.model = {
+                    page: 1,
+                    key: null,
+                    value: null
+                };
+                updateResults();
             };
 
 
             $scope.pagingChange = function (params) {
+                if (!!$state.params.key) {
+                    $state.go('movieCharactersList.sorted', {
+                        page: params.page
+                    }, {notify: false});
+                } else {
+                    $state.go('movieCharactersList', {
+                        page: params.page
+                    }, {notify: false});
+                }
 
-                $state.go('movieCharactersList', {
-                    page: params.page
-                }, {notify: false});
-
-               // $scope.model.page = params.page;
-                $timeout(function(){
+                $timeout(function () {
                     updateResults();
                 });
-
             };
 
-            $scope.$watch('isAuthProp', function (newVal, oldVal) {
+            $scope.$watch('authState', function (newVal, oldVal) {
                 if (newVal) {
                     getUserRates();
                 }
             }, true);
 
             $scope.setModel = function (param) {
-                console.log('-------------ssdsdsdsd');
-                $state.go('movieCharactersList', {
+
+                if (param.term === 'playedBy') {
+                    $scope.pageHeader = $sce.trustAsHtml('list of <strong>' + param.value + '</strong> top movie characters');
+                    $window.document.title = 'iMovieUi: List of ' + param.value + ' top characters';
+                } else if (param.term === 'movies.year') {
+                    $scope.pageHeader = $sce.trustAsHtml('Top movie characters of <strong>' + param.value + '</strong>');
+                    $window.document.title = 'iMovieUi: Top Movie Characters of ' + param.value;
+                } else if (param.term === 'movies.name') {
+                    $scope.pageHeader = $sce.trustAsHtml('List of <strong>' + param.value + '</strong> top characters');
+                    $window.document.title = 'iMovieUi: List of ' + param.value + ' top characters';
+                }
+                $state.go('movieCharactersList.sorted', {
                     page: 1,
                     key: param.term,
                     value: param.value
                 }, {notify: false});
-                param.page = 1;
 
                 $scope.model = {
                     page: 1,
@@ -137,10 +128,6 @@
                 updateResults();
 
             };
-
-            $scope.$watch('model.page', function (newVal, oldVal, event) {
-                console.log('--------------' + newVal);
-            }, true);
 
             $scope.$watch('originalMovieCharacters', function (newVal, oldVal) {
                 if (!!newVal) {
@@ -161,11 +148,11 @@
             }
 
             function getUserRates() {
-                if (!!$scope.originalMovieCharacters && $scope.isAuthProp) {
+                if (!!$scope.originalMovieCharacters && $scope.authState) {
                     var movieCharacterIds = $scope.originalMovieCharacters.map(function (a) {
                         return {_id: a._id};
                     });
-                    RateSvc.userRatesForMovies(movieCharacterIds)
+                    RateSvc.userRatesForCharacters(movieCharacterIds)
                         .then(function (response) {
                             if (response.success) {
                                 insertUserRating(response.data);
@@ -178,18 +165,17 @@
 
             function updateResults() {
                 $scope.contentLoaded = false;
-                if ($scope.model.key) {
-                    $scope.filteredBy.key = 'movie';
 
-                }
                 MovieCharacterSvs.getCharactersList($scope.model)
                     .then(function (response) {
+
                         $scope.originalMovieCharacters = response.data;
                         $scope.listCharacters = helperSvc.chunk(response.data, 2);
                         $scope.count = response.count;
                         $scope.contentLoaded = true;
-                    },
-                    function (msg) {
+                        $anchorScroll();
+
+                    }, function (msg) {
                         console.log(msg);
                     });
             }

@@ -8,15 +8,28 @@
   margin-bottom: 0;
 }
 
-main.wrapper{
-  &>.content{
-    min-height: 100px;
+main.wrapper {
+  & > .content {
+    min-height: 300px;
   }
 
 }
 
 .top-results-dropdown {
-  max-width: 300px;
+  width: 250px;
+
+  &.dropdown-menu {
+    left: -45px;
+  }
+  @media  @tablet{
+    width: 230px;
+  }
+  @media  @mobile{
+    width: 180px;
+    &.dropdown-menu {
+      left: -15px;
+    }
+  }
   li {
     span {
       display: inline-block;
@@ -78,6 +91,9 @@ main.wrapper{
     margin-bottom: 7px;
     padding: 10px 15px;
     background-color: #fff;
+    -webkit-box-shadow: 2px 1px 8px 0 rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 2px 1px 8px 0 rgba(0, 0, 0, 0.75);
+    box-shadow: 2px 1px 8px 0 rgba(0, 0, 0, 0.75);
   }
 
   .rec-info {
@@ -133,17 +149,7 @@ main.wrapper{
       border: 1px solid #127387;
       border-bottom-color: transparent;
       color: goldenrod;
-      &:focus {
-        border: 1px solid #127387;
-        border-bottom-color: transparent;
-        color: goldenrod;
-      }
-      &:hover {
-        border: 1px solid #127387;
-        border-bottom-color: transparent;
-        color: goldenrod;
-      }
-      &:active {
+      &:focus, &:hover, &:active {
         border: 1px solid #127387;
         border-bottom-color: transparent;
         color: goldenrod;
@@ -181,11 +187,11 @@ main.wrapper{
   }
 }
 
-@media @desktop {
+.btn-fixed-size {
+  width: 100%;
+}
 
-  .btn-fixed-size {
-    width: 160px;
-  }
+@media @desktop {
 
   .share-btn-wrapper {
     padding: 25px;
@@ -316,6 +322,7 @@ main.wrapper{
       padding-top: 15px;
       .rate-lg {
         font-size: 50px;
+        text-shadow: 1px 2px 3px #59430d;
       }
     }
   }
@@ -596,10 +603,6 @@ main.wrapper{
     margin-right: 0;
   }
 
-  .btn-fixed-size {
-    width: 140px;
-  }
-
   .pl-sm-5 {
     padding-left: 5px;
   }
@@ -619,7 +622,7 @@ main.wrapper{
   .sm-header-search-box {
     position: absolute;
     right: 60px;
-    top: 15px;
+    top: 11px;
 
     input.form-control {
       height: 28px;
@@ -751,6 +754,7 @@ main.wrapper{
       padding-top: 15px;
       .rate-lg {
         font-size: 50px;
+        text-shadow: 1px 2px 3px #59430d;
       }
     }
   }
@@ -1032,10 +1036,6 @@ main.wrapper{
     margin-right: 0;
   }
 
-  .btn-fixed-size {
-    width: 100px;
-  }
-
   .header-search-box {
 
     input.form-control {
@@ -1166,6 +1166,7 @@ main.wrapper{
       text-align: center;
       .rate-lg {
         font-size: 40px;
+        text-shadow: 1px 2px 3px #59430d;
       }
 
       h4 {
@@ -1239,7 +1240,8 @@ main.wrapper{
     text-align: center;
   }
 }
-.actors-box{
+
+.actors-box {
   border-bottom: 1px solid #ccc;
   padding-bottom: 15px;
 }
@@ -1250,35 +1252,26 @@ blockquote {
   padding: 15px 20px 15px 45px;
   margin: 0 0 20px;
   position: relative;
-  /*Font*/
   font-family: Georgia, serif;
   font-size: 16px;
   line-height: 1.2;
   color: #666;
   text-align: justify;
-
-  /*Borders - (Optional)*/
   border-left: 15px solid #cc0404;
   border-right: 2px solid #127387;
-
-  /*Box Shadow - (Optional)*/
   -moz-box-shadow: 2px 2px 15px #ccc;
   -webkit-box-shadow: 2px 2px 15px #ccc;
   box-shadow: 2px 2px 15px #ccc;
 
   &:before {
+    position: absolute;
+    left: 10px;
+    top: 5px;
     content: "\201C";
-
-    /*Font*/
     font-family: Georgia, serif;
     font-size: 60px;
     font-weight: bold;
     color: #daa520;
-
-    /*Positioning*/
-    position: absolute;
-    left: 10px;
-    top: 5px;
   }
   p {
     padding: 0 3px;
@@ -1286,3 +1279,13 @@ blockquote {
   }
 }
 
+.search-results {
+  li {
+    list-style: none;
+    .term {
+      font-weight: 700;
+      background-color: #ccc;
+      font-style: italic;
+    }
+  }
+}
