@@ -44,7 +44,6 @@
 //module.exports = router();
 module.exports = function(app) {
     app.get('*', function(req, res) {
-        console.log('-----------------------------');
         res.sendfile('./public/index.html'); // load our public/index.html file
     });
 };
