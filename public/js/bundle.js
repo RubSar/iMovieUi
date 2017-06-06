@@ -1050,6 +1050,47 @@
     }]);
 })();
 /**
+ * Created by Ruben on 6/6/2017.
+ */
+(function(){
+    angular.module('iMovieUi').directive('fbComments', ['$timeout', function ($timeout) {
+
+
+        function createHTML(href, numPosts, colorScheme, width) {
+            return '<div class="fb-comments" ' +
+                'data-href="' + href + '" ' +
+                'data-numposts="' + numPosts + '" ' +
+                'data-colorsheme="' + colorScheme + '" ' +
+                'data-width="' + width + '">' +
+                '</div>';
+        }
+
+        return {
+            restrict: 'A',
+            scope: {},
+            link: function postLink(scope, elem, attrs) {
+                //
+                // Use timeout in order to be called after all watches are done and FB script is loaded
+                //
+                attrs.$observe('pageHref', function (newValue) {
+                    var href = newValue;
+                    var numPosts = attrs.numposts || 5;
+                    var colorscheme = attrs.colorscheme || 'light';
+                    var width = attrs.width || '100%';
+                    elem.html(createHTML(href, numPosts, colorscheme, width));
+                    $timeout(function () {
+                        if (typeof FB != 'undefined') {
+                            FB.XFBML.parse(elem[0]);
+                        }
+                    });
+                });
+
+
+            }
+        };
+    }]);
+})();
+/**
  * Created by Ruben on 11/8/2016.
  */
 
@@ -1609,8 +1650,8 @@
 (function () {
     'use strict';
 
-    angular.module('iMovieUi').controller('CharacterCtrl', ['$scope', '$window', '$document', '$state', 'MovieCharacterSvs', 'RateSvc', '$auth', 'helperSvc',
-        function ($scope, $window, $document, $state, MovieCharacterSvs, RateSvc, $auth, helperSvc) {
+    angular.module('iMovieUi').controller('CharacterCtrl', ['$scope', '$window', '$location','$anchorScroll', '$state', 'MovieCharacterSvs', 'RateSvc', '$auth', 'helperSvc',
+        function ($scope, $window, $location,$anchorScroll, $state, MovieCharacterSvs, RateSvc, $auth, helperSvc) {
 
             $window.document.title = $state.params.longName + ' (iMovieUi)';
 
@@ -1618,9 +1659,14 @@
             $scope.notFound = false;
             $scope.avgUpdate = false;
             $scope.rateValue = 1;
-            $scope.dataHref = $document.context.URL;
+
             $scope.isDesktop = helperSvc.isDesktop();
 
+
+            $scope.dataHref = function () {
+                var url = $location.absUrl();
+                return url.replace('localhost:3000', 'imovieui.com');
+            };
 
             $scope.isAuthenticated = function () {
                 return $auth.isAuthenticated();
@@ -1644,6 +1690,7 @@
                         $scope.contentLoaded = true;
                         $scope.character = response.character;
                         $scope.userRate = response.userRate;
+                        $anchorScroll();
                         $scope.rateAverage = $scope.character.ratesValue > 0
                             ? helperSvc.decimalRound($scope.character.ratesValue / $scope.character.ratesCount, 1)
                             : 0;
@@ -1700,19 +1747,18 @@
             };
 
             $scope.shareOnFacebook = function () {
-
                 var caption = ($auth.isAuthenticated() && !!$scope.userRate) ? 'My rating ' + $scope.userRate + ', ' : '';
                 var description = $scope.character.name + ' is a character from ' + $scope.character.movies[0].name + ' (' + $scope.character.movies[0].year + '). '
                     + 'He is portrayed by ' + $scope.character.playedBy + '. '
                     + caption + ' Rate Average : ' + $scope.rateAverage + ', Rates count : ' + $scope.character.ratesCount;
-                FB.ui(
-                    {
-                        method: 'feed',
-                        name: 'Rate for ' + $scope.character.name.toUpperCase(),
-                        link: $scope.dataHref,
-                        picture: $scope.character.imgUrl,
-                        description: description
-                    });
+                FB.ui({
+                    method: 'feed',
+                    name: 'Rate for ' + $scope.character.name.toUpperCase(),
+                    link: $scope.dataHref(),
+                    picture: $scope.character.imgUrl,
+                    caption: caption,
+                    description: description
+                });
             };
 
             $scope.$watch('userRate', function (newVal, oldVal) {
@@ -1730,13 +1776,18 @@
     'use strict';
 
     angular.module('iMovieUi')
-        .controller('ComicsCharacterCtrl', ['$scope', '$window', '$state', '$rootScope', 'ComicsCharactersSvc', 'VoteSvc', '$auth',
-            function ($scope, $window, $state, $rootScope, ComicsCharactersSvc, VoteSvc, $auth) {
+        .controller('ComicsCharacterCtrl', ['$scope', '$window', '$state', '$rootScope', '$location', 'ComicsCharactersSvc', 'VoteSvc', '$auth',
+            function ($scope, $window, $state, $rootScope, $location, ComicsCharactersSvc, VoteSvc, $auth) {
 
-                $scope.dataHref = document.URL;
+                $scope.dataHref = function () {
+                    var url = $location.absUrl();
+                    return url.replace('localhost:3000', 'imovieui.com');
+                };
+
                 $scope.voteStart = false;
                 $scope.contentLoaded = false;
                 $window.document.title = 'Vote for the best actor of ' + $state.params.name;
+
 
                 $scope.isAuthenticated = function () {
                     return $auth.isAuthenticated();
@@ -1801,7 +1852,7 @@
                         {
                             method: 'feed',
                             name: 'Vote for the best ' + $scope.character.name.toUpperCase() + ' actor.',
-                            link: $scope.dataHref,
+                            link: $scope.dataHref(),
                             picture: $scope.character.imgUrl,
                             description: description
                         });

@@ -6,8 +6,8 @@
 (function () {
     'use strict';
 
-    angular.module('iMovieUi').controller('CharacterCtrl', ['$scope', '$window', '$document', '$state', 'MovieCharacterSvs', 'RateSvc', '$auth', 'helperSvc',
-        function ($scope, $window, $document, $state, MovieCharacterSvs, RateSvc, $auth, helperSvc) {
+    angular.module('iMovieUi').controller('CharacterCtrl', ['$scope', '$window', '$location','$anchorScroll', '$state', 'MovieCharacterSvs', 'RateSvc', '$auth', 'helperSvc',
+        function ($scope, $window, $location,$anchorScroll, $state, MovieCharacterSvs, RateSvc, $auth, helperSvc) {
 
             $window.document.title = $state.params.longName + ' (iMovieUi)';
 
@@ -15,9 +15,14 @@
             $scope.notFound = false;
             $scope.avgUpdate = false;
             $scope.rateValue = 1;
-            $scope.dataHref = $document.context.URL;
+
             $scope.isDesktop = helperSvc.isDesktop();
 
+
+            $scope.dataHref = function () {
+                var url = $location.absUrl();
+                return url.replace('localhost:3000', 'imovieui.com');
+            };
 
             $scope.isAuthenticated = function () {
                 return $auth.isAuthenticated();
@@ -41,6 +46,7 @@
                         $scope.contentLoaded = true;
                         $scope.character = response.character;
                         $scope.userRate = response.userRate;
+                        $anchorScroll();
                         $scope.rateAverage = $scope.character.ratesValue > 0
                             ? helperSvc.decimalRound($scope.character.ratesValue / $scope.character.ratesCount, 1)
                             : 0;
@@ -97,19 +103,18 @@
             };
 
             $scope.shareOnFacebook = function () {
-
                 var caption = ($auth.isAuthenticated() && !!$scope.userRate) ? 'My rating ' + $scope.userRate + ', ' : '';
                 var description = $scope.character.name + ' is a character from ' + $scope.character.movies[0].name + ' (' + $scope.character.movies[0].year + '). '
                     + 'He is portrayed by ' + $scope.character.playedBy + '. '
                     + caption + ' Rate Average : ' + $scope.rateAverage + ', Rates count : ' + $scope.character.ratesCount;
-                FB.ui(
-                    {
-                        method: 'feed',
-                        name: 'Rate for ' + $scope.character.name.toUpperCase(),
-                        link: $scope.dataHref,
-                        picture: $scope.character.imgUrl,
-                        description: description
-                    });
+                FB.ui({
+                    method: 'feed',
+                    name: 'Rate for ' + $scope.character.name.toUpperCase(),
+                    link: $scope.dataHref(),
+                    picture: $scope.character.imgUrl,
+                    caption: caption,
+                    description: description
+                });
             };
 
             $scope.$watch('userRate', function (newVal, oldVal) {
