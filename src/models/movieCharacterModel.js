@@ -3,7 +3,7 @@
  */
 
 var mongoose = require('mongoose');
-var Vote = require('../models/comicsCharacterModel.js').Vote;
+var Vote = require('../models/comicCharacterModel.js').Vote;
 var Schema = mongoose.Schema;
 
 

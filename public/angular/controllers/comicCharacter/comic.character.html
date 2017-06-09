@@ -1,0 +1,97 @@
+<div class="container mt-100 mb-50">
+
+    <input type="hidden" ng-value="isAuthProp =isAuthenticated()">
+
+    <div ng-hide="contentLoaded" class="lazy-load-box">
+        <i class="fa fa-spin fa-cog fa-5x"></i>
+    </div>
+
+    <div class="mb-25" ng-show="contentLoaded">
+        <div class="text-center">
+            <h2 class="g-heading">vote for the best <strong ng-bind="character.name"></strong> actor</h2>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3 col-sm-4">
+                <div class="character-box">
+                    <img ng-src="{{character.imgUrl}}" class="img-responsive img-center"/>
+
+                    <div class="character-info">
+                        <div class="info">
+                            <h4>
+                                <span ng-bind="character.name"></span>
+                                <small>/ <span ng-bind="character.type"></span></small>
+                            </h4>
+                            <p ng-bind="character.description"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="button" class="btn btn-facebook center-block mt-30 mb-30" ng-click="shareOnFacebook()">
+                    <i class="fa fa-facebook-f"></i> Share
+                </button>
+            </div>
+            <div class="col-md-9 col-sm-8 ">
+                <div ng-bind-html="character.about"></div>
+            </div>
+        </div>
+
+        <ul class="nav nav-tabs my-rates-nav">
+            <li ng-repeat="artist in character.actors track by $index" ng-class="{'active':isActiveTab($index)}">
+                <a ng-click="selectArtist($index)" href="#">
+                    <div class="artist-image-wrapper">
+                        <img ng-src="{{artist.imgUrl}}" class="img-responsive img-center noselect" alt="{{fullName(artist)}}" title="{{fullName(artist)}}"/>
+                        <span ng-hide="voteStart" class="vote-box" ng-class="{'in-progress': (voteStart)}" ng-click="vote(artist._id, artist.votedByUser)">
+                            <span ng-show="artist.votedByUser">
+                                <i class="fa fa-check"></i>  Voted
+                            </span>
+                            <span ng-hide="artist.votedByUser">
+                                <i class="fa fa-chevron-circle-up"></i> Vote
+                            </span>
+                        </span>
+                        <span ng-show="voteStart" class="vote-box">
+                             <i class="fa fa-spin fa-spinner"></i>
+                         </span>
+                    </div>
+                    <h4 ng-bind="artist.firstName +' '+ artist.lastName"></h4>
+                    <strong ng-bind="artist.votesCount"></strong> users votes
+                </a>
+            </li>
+        </ul>
+
+        <div class="bg-white rated-box">
+            <div class="row">
+                <div class="col-md-10">
+                    <div ng-bind-html="currentArtist.about"></div>
+                </div>
+                <div class="col-md-2 text-center">
+                    <div ng-repeat="movie in currentArtist.movies track by $index">
+                        <img ng-src="{{movie.posterUrl}}" class="img-responsive">
+                        <h5 ng-bind="movie.name">
+                            <small>(<span ng-bind="movie.year"></span>)</small>
+                        </h5>
+                        <i>iMDb Rating (<strong><span ng-bind="movie.IMDbRating"></span>/10</strong>) </i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row bg-white">
+        <div class="col-md-9 col-sm-9">
+            <div class="form-group">
+                <div class="fb-comments" fb-comments page-href="{{dataHref()}}" data-numposts="5" data-colorscheme="light" data-width="100%"></div>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-3">
+            <div class="form-group mt-30 hidden-xs">
+                <button type="button" class="btn btn-facebook center-block" ng-click="shareOnFacebook()">
+                    <i class="fa fa-facebook-f"></i> Share
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+

@@ -26,10 +26,10 @@
                     templateUrl: '/angular/controllers/search/search.html',
                     controller: 'SearchCtrl'
                 })
-                .state('comicsCharacter', {
-                    url: '/comics-character/:name',
-                    templateUrl: '/angular/controllers/comicsCharacter/comics.character.html',
-                    controller: 'ComicsCharacterCtrl'
+                .state('comicCharacter', {
+                    url: '/comic-character/:name',
+                    templateUrl: '/angular/controllers/comicCharacter/comic.character.html',
+                    controller: 'ComicCharacterCtrl'
                 })
                 .state('character', {
                     url: '/character/:longName',
@@ -283,18 +283,18 @@
 (function () {
     'use strict';
 
-    angular.module('iMovieUi').factory('ComicsCharactersSvc', ['helperSvc', function (helperSvc) {
+    angular.module('iMovieUi').factory('ComicCharactersSvc', ['helperSvc', function (helperSvc) {
 
         function getAll() {
-            return helperSvc.requestHandler({method: 'GET', url: '/api/comicsCharacters/all'});
+            return helperSvc.requestHandler({method: 'GET', url: '/api/comicCharacters/all'});
         }
 
         function getSingle(name) {
-            return helperSvc.requestHandler({method: 'GET', url: '/api/comicsCharacters/single', params: {name: name}});
+            return helperSvc.requestHandler({method: 'GET', url: '/api/comicCharacters/single', params: {name: name}});
         }
 
         function search(model) {
-            return helperSvc.requestHandler({method: 'GET', url: '/api/comicsCharacters/search', params: model});
+            return helperSvc.requestHandler({method: 'GET', url: '/api/comicCharacters/search', params: model});
         }
 
 
@@ -1133,10 +1133,10 @@
 (function () {
     'use strict';
 
-    angular.module('iMovieUi').controller('HomeCtrl', ['$scope', '$timeout', '$window', 'MovieCharacterSvs', 'TvSeriesCharacterSvs', 'ComicsCharactersSvc', 'helperSvc', 'RateSvc', '$auth',
-        function ($scope, $timeout, $window, MovieCharacterSvs, TvSeriesCharacterSvs, ComicsCharactersSvc, helperSvc, RateSvc, $auth) {
+    angular.module('iMovieUi').controller('HomeCtrl', ['$scope', '$timeout', '$window', 'MovieCharacterSvs', 'TvSeriesCharacterSvs', 'ComicCharactersSvc', 'helperSvc', 'RateSvc', '$auth',
+        function ($scope, $timeout, $window, MovieCharacterSvs, TvSeriesCharacterSvs, ComicCharactersSvc, helperSvc, RateSvc, $auth) {
             //get movie characters
-            $scope.comicsCharactersLoaded = false;
+            $scope.comicCharactersLoaded = false;
             $scope.movieCharactersLoaded = false;
             $scope.tvSeriesCharactersLoaded = false;
             $scope.authState = false;
@@ -1161,12 +1161,12 @@
                     console.log(err);
                 });
 
-            //getting comics characters
-            ComicsCharactersSvc.getAll()
+            //getting comic characters
+            ComicCharactersSvc.getAll()
                 .then(function (response) {
-                    $scope.comicsCharacters = response.data;
+                    $scope.comicCharacters = response.data;
                     $timeout(function () {
-                        $scope.comicsCharactersLoaded = true;
+                        $scope.comicCharactersLoaded = true;
                     }, 400);
                 }, function (err) {
                     console.log(err);
@@ -1776,8 +1776,11 @@
     'use strict';
 
     angular.module('iMovieUi')
-        .controller('ComicsCharacterCtrl', ['$scope', '$window', '$state', '$rootScope', '$location', 'ComicsCharactersSvc', 'VoteSvc', '$auth',
-            function ($scope, $window, $state, $rootScope, $location, ComicsCharactersSvc, VoteSvc, $auth) {
+        .controller('ComicCharacterCtrl', ['$scope', '$window', '$state', '$rootScope', '$location', '$sce', 'ComicCharactersSvc', 'VoteSvc', '$auth',
+            function ($scope, $window, $state, $rootScope, $location, $sce, ComicCharactersSvc, VoteSvc, $auth) {
+
+
+                $scope.activeTab = 0;
 
                 $scope.dataHref = function () {
                     var url = $location.absUrl();
@@ -1793,9 +1796,24 @@
                     return $auth.isAuthenticated();
                 };
 
-                ComicsCharactersSvc.getSingle($state.params.name)
+                $scope.isActiveTab = function (index) {
+                    return $scope.activeTab == index;
+                };
+
+                $scope.selectArtist = function (index) {
+                    $scope.activeTab = index;
+                    $scope.currentArtist = $scope.character.actors[index];
+                    if (!!$scope.currentArtist.about && typeof($scope.currentArtist.about) === 'string') {
+                        $scope.currentArtist.about = $sce.trustAsHtml($scope.currentArtist.about);
+                    }
+                };
+
+                ComicCharactersSvc.getSingle($state.params.name)
                     .then(function (response) {
                         $scope.character = response.data;
+                        $scope.currentArtist = $scope.character.actors[0];
+                        $scope.currentArtist.about = $sce.trustAsHtml($scope.currentArtist.about);
+                        $scope.character.about = $sce.trustAsHtml($scope.character.about);
                         $scope.contentLoaded = true;
                         getUserRate();
                     }, function (err) {
@@ -1848,14 +1866,13 @@
                 $scope.shareOnFacebook = function () {
 
                     var description = 'Choose from ' + $scope.character.actors.length + ' actors who created the best character of ' + $scope.character.name;
-                    FB.ui(
-                        {
-                            method: 'feed',
-                            name: 'Vote for the best ' + $scope.character.name.toUpperCase() + ' actor.',
-                            link: $scope.dataHref(),
-                            picture: $scope.character.imgUrl,
-                            description: description
-                        });
+                    FB.ui({
+                        method: 'feed',
+                        name: 'Vote for the best ' + $scope.character.name.toUpperCase() + ' actor.',
+                        link: $scope.dataHref(),
+                        picture: $scope.character.imgUrl,
+                        description: description
+                    });
                 };
 
                 function getUserRate() {
@@ -1863,7 +1880,7 @@
                         VoteSvc.getUserVote($scope.character._id)
                             .then(function (response) {
                                 $scope.character.actors.filter(function (artist) {
-                                    if (artist._id == response.data.chosen) {
+                                    if (!!response.data && artist._id == response.data.chosen) {
                                         artist.votedByUser = true;
                                     }
                                 })

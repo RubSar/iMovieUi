@@ -71,35 +71,53 @@ module.exports = function (app, passport) {
     //************************************************************************************************************
     //
     //------------------------------------------------------------------------------------------------------------
-    //START Comics Character Actions
+    //START Comic Character Actions
 
-    adminRouter.get('/comicsCharacters', isLoggedIn, function (req, res) {
-        return adminController.comicsCharacters(req, res);
-    });
+    adminRouter.get('/comicCharacters', isLoggedIn, function (req, res) {
 
-    adminRouter.get('/create/comicsCharacter', isLoggedIn, function (req, res) {
-        return adminController.createComicsCharacter(req, res);
+        return adminController.comicCharacters(req, res);
     });
 
-    adminRouter.post('/create/comicsCharacter', isLoggedIn, function (req, res) {
-        return adminController.saveComicsCharacter(req, res);
-    });
-    adminRouter.get('/create/:comicsCharacter/artist', isLoggedIn, function (req, res) {
-        return adminController.createComicsCharacterArtist(req, res);
-    });
-    adminRouter.post('/create/:comicsCharacter/artist', isLoggedIn, function (req, res) {
-        return adminController.saveComicsCharacterArtist(req, res);
+    adminRouter.get('/create/comicCharacter', isLoggedIn, function (req, res) {
+        return adminController.createComicCharacter(req, res);
     });
 
-    adminRouter.get('/create/:comicsCharacter/:artist/movie', isLoggedIn, function (req, res) {
+    adminRouter.post('/create/comicCharacter', isLoggedIn, function (req, res) {
+        return adminController.saveComicCharacter(req, res);
+    });
+
+    adminRouter.get('/edit/comicCharacter/:id', isLoggedIn, function (req, res) {
+        return adminController.editComicCharacter(req, res);
+    });
+    adminRouter.post('/edit/comicCharacter', isLoggedIn, function (req, res) {
+        return adminController.updateComicCharacterInfo(req, res);
+    });
+
+    adminRouter.get('/create/:comicCharacter/artist', isLoggedIn, function (req, res) {
+        return adminController.createComicCharacterArtist(req, res);
+    });
+    adminRouter.post('/create/:comicCharacter/artist', isLoggedIn, function (req, res) {
+        return adminController.saveComicCharacterArtist(req, res);
+    });
+
+    adminRouter.get('/edit/:comicCharacterId/artist/:artistId', isLoggedIn, function (req, res) {
+        return adminController.editComicCharacterArtist(req, res);
+    });
+    adminRouter.post('/edit/comicCharacter/artistInfo', isLoggedIn, function (req, res) {
+        return adminController.updateComicCharacterArtistInfo(req, res);
+    });
+    ///
+
+
+    adminRouter.get('/create/:comicCharacter/:artist/movie', isLoggedIn, function (req, res) {
         return adminController.createArtistMovie(req, res);
     });
 
-    adminRouter.post('/create/:comicsCharacter/:artist/movie', isLoggedIn, function (req, res) {
+    adminRouter.post('/create/:comicCharacter/:artist/movie', isLoggedIn, function (req, res) {
         return adminController.saveArtistMovie(req, res);
     });
 
-    //END Comics Character Actions
+    //END Comic Character Actions
     //------------------------------------------------------------------------------------------------------------
 
     return adminRouter;

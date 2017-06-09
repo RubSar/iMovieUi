@@ -6,6 +6,8 @@
     <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css"/>
     <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css"/>
     <link rel="stylesheet" href="/lib/cropper/css/cropper.min.css"/>
+    <link rel="stylesheet" href="/lib/froala-wysiwyg-editor/css/froala_editor.pkgd.min.css">
+    <link rel="stylesheet" href="/lib/froala-wysiwyg-editor/css/froala_style.min.css">
     <link rel="stylesheet" href="/lib/cropper/css/main.css"/>
 
 </head>
@@ -24,15 +26,18 @@
             </div>
             <% } %>
            <div class="text-center form-group">
-               <h2 class="text-info"> Create Artist for <span><%= comicsCharacterName %></span></h2>
+               <h2 class="text-info"> Create Artist for <span><%= comicCharacterName %></span></h2>
            </div>
-            <form action="/admin/create/<%=comicsCharacterId%>/artist" method="post" id="createArtist">
-                <input  type="hidden" name="comicsCharacterId" value ="<%= comicsCharacterId %>"/>
-                <input  type="hidden" name="comicsCharacterName" value ="<%= comicsCharacterName %>"/>
+            <form action="/admin/create/<%=comicCharacterId%>/artist" method="post" id="createArtist">
+                <input  type="hidden" name="comicCharacterId" value ="<%= comicCharacterId %>"/>
+                <input  type="hidden" name="comicCharacterName" value ="<%= comicCharacterName %>"/>
                 <input type="hidden" id="imgData" name="imageData"/>
+                <div class="form-group">
+                    <textarea placeholder="About" rows="5" name="about"></textarea>
+                </div>
 
                 <div class="row form-group">
-                   <div class="col-md-4">
+                   <div class="col-md-4 col-sm-4">
                            <div class="form-group">
                                <input type="text" name="firstName" class="form-control" placeholder="First Name"/>
                            </div>
@@ -40,13 +45,13 @@
                                <input type="text" name="lastName" class="form-control" placeholder="Last Name"/>
                            </div>
                    </div>
-                   <div class="col-md-8">
-                       <div class="col-md-6">
+                   <div class="col-md-8 col-sm-8">
+                       <div class="col-md-6 col-sm-7">
                            <div class="image-crop">
                                <img src="">
                            </div>
                        </div>
-                       <div class="col-md-6">
+                       <div class="col-md-6 col-sm-5">
                            <div class="img-preview img-preview-xs"></div>
                            <hr>
                            <div class="btn-group">
@@ -78,9 +83,13 @@
 
 <script type="text/javascript" src="/lib/jquery/dist/jquery.min.js"></script>
 <script type="text/javascript" src="/lib/cropper/js/cropper.min.js"></script>
+<script type="text/javascript" src="/lib/froala-wysiwyg-editor/js/froala_editor.pkgd.min.js"></script>
 
 <script type="text/javascript">
     $(document).ready(function () {
+
+        $('textarea').froalaEditor();
+
         var $image = $(".image-crop > img");
         $($image).cropper({
             aspectRatio: 125 /186,

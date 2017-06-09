@@ -26,10 +26,10 @@
                     templateUrl: '/angular/controllers/search/search.html',
                     controller: 'SearchCtrl'
                 })
-                .state('comicsCharacter', {
-                    url: '/comics-character/:name',
-                    templateUrl: '/angular/controllers/comicsCharacter/comics.character.html',
-                    controller: 'ComicsCharacterCtrl'
+                .state('comicCharacter', {
+                    url: '/comic-character/:name',
+                    templateUrl: '/angular/controllers/comicCharacter/comic.character.html',
+                    controller: 'ComicCharacterCtrl'
                 })
                 .state('character', {
                     url: '/character/:longName',

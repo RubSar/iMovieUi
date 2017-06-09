@@ -78,7 +78,10 @@ div.treeview ul:first-child:before {
 }
 
 .treeview li.add a {
-    color:#5cb85c;
+     color:#5cb85c;
+ }
+.treeview li.edit a {
+    color:#d9534f;
 }
 .treeview li button, .treeview li button:active, .treeview li button:focus {
     text-decoration: none;

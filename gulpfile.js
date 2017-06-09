@@ -77,7 +77,7 @@ gulp.task('ng-uglify', function(){
         './public/angular/services/helperSvc.js',
         './public/angular/services/movieCharacterSvc.js',
         './public/angular/services/tvSeriesCharacterSvc.js',
-        './public/angular/services/comicsCharacterSvc.js',
+        './public/angular/services/comicCharacterSvc.js',
         './public/angular/services/rateSvc.js',
         './public/angular/services/voteSvc.js',
         './public/angular/services/userSvc.js',
@@ -95,7 +95,7 @@ gulp.task('ng-uglify', function(){
         './public/angular/controllers/movieCharactersList/movieCharactersListCtrl.js',
         './public/angular/controllers/tvSeriesCharactersList/tvSeriesCharactersListCtrl.js',
         './public/angular/controllers/character/characterCtrl.js',
-        './public/angular/controllers/comicsCharacter/comicsCharacterCtrl.js',
+        './public/angular/controllers/comicCharacter/comicCharacterCtrl.js',
         './public/angular/controllers/userRates/userRatesCtrl.js'
     ])
         .pipe(concat('bundle.js'))

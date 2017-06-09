@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>iMovieUi Admin | Create Comic Character</title>
+    <link href="/img/favicon.ico" rel="icon" type="image/x-icon"/>
+    <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css"/>
+    <link rel="stylesheet" href="/lib/cropper/css/cropper.min.css"/>
+    <link rel="stylesheet" href="/lib/froala-wysiwyg-editor/css/froala_editor.pkgd.min.css">
+    <link rel="stylesheet" href="/lib/froala-wysiwyg-editor/css/froala_style.min.css">
+    <link rel="stylesheet" href="/lib/cropper/css/main.css"/>
+
+
+</head>
+
+<body id="body" data-spy="scroll" data-target=".one-page-header" class="demo-lightbox-gallery">
+<main class="wrapper">
+    <header>
+        <% include partials/header.ejs %>
+    </header>
+
+
+    <div class="container" style="margin-top: 60px;">
+        <div class="jumbotron">
+            <% if (locals.errorMessage){ %>
+            <div class="text-center">
+                <h4 class="text-danger"> <%= errorMessage %> </h4>
+            </div>
+            <% } %>
+            <div class="form-group text-center">
+                <h2> Create new Comic Character</h2>
+            </div>
+            <% var name = locals.name ? locals.name : '' %>
+            <% var description = locals.description ? locals.description : '' %>
+            <% var movie = locals.movie ? locals.movie : '' %>
+            <form action="/admin/create/comicCharacter" method="post" id="createCharacter">
+                <div class="row form-group">
+                    <div class="col-md-5 col-md-offset-1">
+                        <input type="text" name="name" value="<%= name %>" class="form-control" placeholder="Name"/>
+                    </div>
+                    <div class="col-md-5">
+                        <input type="text" name="description" value="<%= description %>" class="form-control"
+                               placeholder="Description"/>
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col-md-5 col-md-offset-1">
+                        <label for="type">Character Type</label>
+                        <select name="type" class="form-control" id="type">
+                            <option>Hero</option>
+                            <option>Villain</option>
+                            <option>Complicated</option>
+                        </select>
+                    </div>
+                    <div class="col-md-5">
+                        <label for="sex">Character Sex</label>
+                        <select name="sex" class="form-control" id="sex">
+                            <option>Male</option>
+                            <option>Female</option>
+                            <option>Complicated</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <textarea name="about" id="about-field" placeholder="about"></textarea>
+                </div>
+                <div class="row form-group">
+                    <div class="col-md-6">
+                        <div class="image-crop">
+                            <img src="">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="img-preview img-preview-md"></div>
+                        <hr>
+                        <div class="btn-group">
+                            <label title="Upload image file" for="inputImage" class="btn btn-primary">
+                                <input type="file" accept="image/*" name="file" id="inputImage" class="hide">
+                                Upload new image
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" id="imgData" name="imageData"/>
+
+                <div class="form-group text-center">
+                    <button style="width: 280px" type="button" id="submitForm" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+
+            <canvas id="canvas2" width="400" height="500" style="display:none"></canvas>
+
+        </div>
+    </div>
+
+    <script type="text/javascript" src="/lib/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="/lib/cropper/js/cropper.min.js"></script>
+    <script type="text/javascript" src="/lib/froala-wysiwyg-editor/js/froala_editor.pkgd.min.js"></script>
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('#about-field').froalaEditor();
+
+            var $image = $(".image-crop > img");
+            $($image).cropper({
+                aspectRatio: 20 / 25,
+                preview: ".img-preview"
+            });
+
+            var $inputImage = $("#inputImage");
+            if (window.FileReader) {
+                $inputImage.change(function () {
+                    var fileReader = new FileReader(),
+                            files = this.files,
+                            file;
+
+                    if (!files.length) {
+                        return;
+                    }
+
+                    file = files[0];
+
+                    if (/^image\/\w+$/.test(file.type)) {
+                        fileReader.readAsDataURL(file);
+                        fileReader.onload = function () {
+                            $inputImage.val("");
+                            $image.cropper("reset", true).cropper("replace", this.result);
+                        };
+                    } else {
+                        alert("Please choose an image file.");
+                    }
+                });
+            } else {
+                $inputImage.addClass("hide");
+            }
+            $('#submitForm').on('click', function () {
+                var canvas = document.getElementById('canvas2');
+                var ctx = canvas.getContext('2d');
+                var img = new Image();
+                img.addEventListener('load', function () {
+                    ctx.drawImage(this, 0, 0, 400, 500);
+                    $('#imgData').val(canvas.toDataURL());
+                    $('#createCharacter').submit();
+                });
+                img.src = $image.cropper("getDataURL");
+
+            });
+        });
+
+    </script>
+
+</main>
+
+
+</body>

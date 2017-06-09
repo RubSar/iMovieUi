@@ -5,8 +5,8 @@ var express = require('express');
 var voteApi = express.Router();
 
 var User = require('../models/movieCharacterModel').User;
-var models = require('../models/comicsCharacterModel');
-var ComicsCharacter = models.ComicsCharacter;
+var models = require('../models/comicCharacterModel');
+var ComicCharacter = models.ComicCharacter;
 var Vote = models.Vote;
 
 var auth = require('../services/authService');
@@ -20,7 +20,7 @@ var router = function () {
             User.findOne({_id: id}, function (err, user) {
 
                 var characterQuery = {_id: req.body.characterId};
-                ComicsCharacter.findOne(characterQuery).exec(function (err, character) {
+                ComicCharacter.findOne(characterQuery).exec(function (err, character) {
                     if (err) {
                         console.log(err);
                     }

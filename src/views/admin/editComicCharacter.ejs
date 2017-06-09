@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>iMovieUi Admin | Edit Comic Character</title>
+    <link href="/img/favicon.ico" rel="icon" type="image/x-icon"/>
+    <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css"/>
+    <link rel="stylesheet" href="/lib/cropper/css/cropper.min.css"/>
+    <link rel="stylesheet" href="/lib/cropper/css/main.css"/>
+    <link rel="stylesheet" href="/lib/froala-wysiwyg-editor/css/froala_editor.pkgd.min.css">
+    <link rel="stylesheet" href="/lib/froala-wysiwyg-editor/css/froala_style.min.css">
+
+
+</head>
+
+<body id="body" data-spy="scroll" data-target=".one-page-header" class="demo-lightbox-gallery">
+<main class="wrapper">
+    <header>
+        <% include partials/header.ejs %>
+    </header>
+
+
+    <div class="container" style="margin-top: 60px;">
+        <div class="jumbotron">
+            <% if (locals.errorMessage){ %>
+            <div class="text-center">
+                <h4 class="text-danger"> <%= errorMessage %> </h4>
+            </div>
+            <% } %>
+            <div class="form-group text-center">
+                <h2> Edit Comic Character Info</h2>
+            </div>
+
+
+            <!-- edit comic character info-->
+            <form action="/admin/edit/comicCharacter" method="post">
+                <input type="hidden" name="id" value="<%= character._id %>">
+
+                <div class="row form-group">
+                    <div class="col-md-5 col-md-offset-1">
+                        <input type="text" name="name" value="<%= character.name %>" class="form-control" placeholder="Name"/>
+                    </div>
+                    <div class="col-md-5">
+                        <input type="text" name="description" value="<%= character.description %>" class="form-control"/>
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col-md-5 col-md-offset-1">
+                        <label for="type">Character Type</label>
+                        <select name="type" class="form-control" id="type">
+                            <option>Hero</option>
+                            <option>Villain</option>
+                            <option>Complicated</option>
+                        </select>
+                    </div>
+                    <div class="col-md-5">
+                        <label for="sex">Character Sex</label>
+                        <select name="sex" class="form-control" id="sex">
+                            <option>Male</option>
+                            <option>Female</option>
+                            <option>Complicated</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <textarea name="about" id="editor-22" placeholder="about"><%= character.about %></textarea>
+                </div>
+
+                <div class="form-group text-center">
+                    <button type="submit" class="btn btn-primary">Update info</button>
+                </div>
+            </form>
+
+            <!-- change comic character image-->
+            <form action="/admin/edit/comicsCharacterImage" method="post" id="editCharacter" style="margin-top:80px">
+                <div class="form-group text-center">
+                    <h2>Change Comic Character Image</h2>
+                </div>
+                <div class="row form-group">
+                    <div class="col-md-7">
+                        <div class="image-crop">
+                            <img src="<%= character.imgUrl %>">
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="img-preview img-preview-md"></div>
+                        <hr>
+                        <div class="btn-group">
+                            <label title="Upload image file" for="inputImage" class="btn btn-primary">
+                                <input type="file" accept="image/*" name="file" id="inputImage" class="hide">
+                                Upload new image
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" id="imgData" name="imageData"/>
+
+                <div class="form-group text-center">
+                    <button style="width: 280px" type="button" id="submitForm" class="btn btn-primary">
+                        Change Image
+                    </button>
+                </div>
+            </form>
+
+            <canvas id="canvas2" width="400" height="500" style="display:none"></canvas>
+
+        </div>
+    </div>
+
+    <script type="text/javascript" src="/lib/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="/lib/cropper/js/cropper.min.js"></script>
+    <script type="text/javascript" src="/lib/froala-wysiwyg-editor/js/froala_editor.pkgd.min.js"></script>
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('#editor-22').froalaEditor();
+
+
+            var $image = $(".image-crop > img");
+            $($image).cropper({
+                aspectRatio: 20 / 25,
+                preview: ".img-preview"
+            });
+
+            var $inputImage = $("#inputImage");
+            if (window.FileReader) {
+                $inputImage.change(function () {
+                    var fileReader = new FileReader(),
+                            files = this.files,
+                            file;
+
+                    if (!files.length) {
+                        return;
+                    }
+
+                    file = files[0];
+
+                    if (/^image\/\w+$/.test(file.type)) {
+                        fileReader.readAsDataURL(file);
+                        fileReader.onload = function () {
+                            $inputImage.val("");
+                            $image.cropper("reset", true).cropper("replace", this.result);
+                        };
+                    } else {
+                        alert("Please choose an image file.");
+                    }
+                });
+            } else {
+                $inputImage.addClass("hide");
+            }
+            $('#submitForm').on('click', function () {
+                var canvas = document.getElementById('canvas2');
+                var ctx = canvas.getContext('2d');
+                var img = new Image();
+                img.addEventListener('load', function () {
+                    ctx.drawImage(this, 0, 0, 400, 500);
+                    $('#imgData').val(canvas.toDataURL());
+                    $('#editCharacter').submit();
+                });
+                img.src = $image.cropper("getDataURL");
+
+            });
+        });
+
+    </script>
+
+</main>
+
+
+</body>

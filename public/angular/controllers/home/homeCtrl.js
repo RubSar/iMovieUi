@@ -5,10 +5,10 @@
 (function () {
     'use strict';
 
-    angular.module('iMovieUi').controller('HomeCtrl', ['$scope', '$timeout', '$window', 'MovieCharacterSvs', 'TvSeriesCharacterSvs', 'ComicsCharactersSvc', 'helperSvc', 'RateSvc', '$auth',
-        function ($scope, $timeout, $window, MovieCharacterSvs, TvSeriesCharacterSvs, ComicsCharactersSvc, helperSvc, RateSvc, $auth) {
+    angular.module('iMovieUi').controller('HomeCtrl', ['$scope', '$timeout', '$window', 'MovieCharacterSvs', 'TvSeriesCharacterSvs', 'ComicCharactersSvc', 'helperSvc', 'RateSvc', '$auth',
+        function ($scope, $timeout, $window, MovieCharacterSvs, TvSeriesCharacterSvs, ComicCharactersSvc, helperSvc, RateSvc, $auth) {
             //get movie characters
-            $scope.comicsCharactersLoaded = false;
+            $scope.comicCharactersLoaded = false;
             $scope.movieCharactersLoaded = false;
             $scope.tvSeriesCharactersLoaded = false;
             $scope.authState = false;
@@ -33,12 +33,12 @@
                     console.log(err);
                 });
 
-            //getting comics characters
-            ComicsCharactersSvc.getAll()
+            //getting comic characters
+            ComicCharactersSvc.getAll()
                 .then(function (response) {
-                    $scope.comicsCharacters = response.data;
+                    $scope.comicCharacters = response.data;
                     $timeout(function () {
-                        $scope.comicsCharactersLoaded = true;
+                        $scope.comicCharactersLoaded = true;
                     }, 400);
                 }, function (err) {
                     console.log(err);

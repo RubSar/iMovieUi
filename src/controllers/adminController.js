@@ -1,7 +1,7 @@
 /**
  * Created by User on 10/18/2016.
  */
-var ComicsCharacter = require('../models/comicsCharacterModel').ComicsCharacter;
+var ComicCharacter = require('../models/comicCharacterModel').ComicCharacter;
 var imdb = require('imdb-api');
 var cloudinary = require('cloudinary');
 var MovieCharacter = require('../models/movieCharacterModel').MovieCharacter;
@@ -32,11 +32,10 @@ var adminController = function () {
 
     //create movie character
     function createMovieCharacter(req, res) {
-        console.log('sssssssss');
         res.render('admin/createMovieCharacter');
     }
 
-    //save comics character
+    //save comic character
     function saveMovieCharacter(req, res) {
         var model = req.body;
         console.log(model);
@@ -197,47 +196,48 @@ var adminController = function () {
     //*****************************************************************************************************************
     //
     //-----------------------------------------------------------------------------------------------------------------
-    //START Comics Characters Actions
+    //START Comic Characters Actions
 
 
-    //list comics characters
-    function comicsCharacters(req, res) {
-        ComicsCharacter.find({}, function (err, results) {
+    //list comic characters
+    function comicCharacters(req, res) {
+        ComicCharacter.find({}, function (err, results) {
             if (err) {
                 console.log(err);
             } else {
-                res.render('admin/comicsCharacters', {
+                res.render('admin/comicCharacters', {
                     characters: results,
-                    title: 'Comics Characters for managing'
+                    title: 'Comic Characters for managing'
                 });
             }
         });
     }
 
-    //create comics Character
-    function createComicsCharacter(req, res) {
-        res.render('admin/createComicsCharacter')
+    //create comic Character
+    function createComicCharacter(req, res) {
+        res.render('admin/createComicCharacter')
     }
 
     //save comics character
-    function saveComicsCharacter(req, res) {
+    function saveComicCharacter(req, res) {
         var model = req.body;
         if (model.name && model.description && model.type && model.sex && model.imageData) {
 
-            var newComicsCharacter = new ComicsCharacter();
-            newComicsCharacter.name = model.name;
-            newComicsCharacter.description = model.description;
-            newComicsCharacter.type = model.type;
-            newComicsCharacter.sex = model.sex;
+            var newComicCharacter = new ComicCharacter();
+            newComicCharacter.name = model.name;
+            newComicCharacter.description = model.description;
+            newComicCharacter.type = model.type;
+            newComicCharacter.sex = model.sex;
+            newComicCharacter.about = model.about;
             cloudinary.uploader.upload(model.imageData, function (image) {
-                newComicsCharacter.imgUrl = image.url;
-                newComicsCharacter.save();
-                res.redirect('/admin/comicsCharacters');
+                newComicCharacter.imgUrl = image.url;
+                newComicCharacter.save();
+                res.redirect('/admin/comicCharacters');
 
             })
         } else {
             //return invalid model
-            res.render('admin/createComicsCharacter', {
+            res.render('admin/createComicCharacter', {
                 errorMessage: 'Invalid model',
                 name: model.name,
                 description: model.description
@@ -245,21 +245,54 @@ var adminController = function () {
         }
     }
 
-    //create artists for comics character
-    function createComicsCharacterArtist(req, res) {
-        var id = req.params.comicsCharacter;
-        ComicsCharacter.findOne({_id: id}, function (err, character) {
+    //edit comic character
+    function editComicCharacter(req, res) {
+        var model = req.params;
+        ComicCharacter.findOne({_id: model.id}, function (err, character) {
+            if (err) {
+                console.log(err);
+            } else {
+                res.render('admin/editComicCharacter', {
+                    character: character
+                });
+            }
+        });
+    }
+
+
+    //update comic character
+    function updateComicCharacterInfo(req, res) {
+        var model = req.body;
+        ComicCharacter.findOne({_id: model.id}, function (err, character) {
+            if (err) {
+                console.log(err);
+            } else {
+                character.name = model.name || character.name;
+                character.description = model.description || character.description;
+                character.type = model.type || character.type;
+                character.sex = model.sex || character.sex;
+                character.about = model.about || character.about;
+                character.save();
+                res.redirect('admin/comicCharacter');
+            }
+        });
+    }
+
+    //create artists for comic character
+    function createComicCharacterArtist(req, res) {
+        var id = req.params.comicCharacter;
+        ComicCharacter.findOne({_id: id}, function (err, character) {
             if (err) {
                 console.log(err);
             } else {
                 if (character) {
                     res.render('admin/createArtist', {
-                        comicsCharacterId: character._id,
-                        comicsCharacterName: character.name
+                        comicCharacterId: character._id,
+                        comicCharacterName: character.name
                     });
                 } else {
                     res.render('admin/notFound', {
-                        message: 'Sorry Comics Character not Found'
+                        message: 'Sorry Comic Character not Found'
                     });
                 }
             }
@@ -267,12 +300,12 @@ var adminController = function () {
 
     }
 
-    //save artist for comics character
-    function saveComicsCharacterArtist(req, res) {
+    //save artist for comic character
+    function saveComicCharacterArtist(req, res) {
         var model = req.body;
         if (model.firstName && model.lastName && model.imageData) {
-            //create artist for comics character
-            ComicsCharacter.findOne({_id: model.comicsCharacterId}, function (err, character) {
+            //create artist for comic character
+            ComicCharacter.findOne({_id: model.comicCharacterId}, function (err, character) {
                 if (err) {
                     console.log(err);
                 } else {
@@ -281,10 +314,11 @@ var adminController = function () {
                         character.actors.push({
                             firstName: model.firstName,
                             lastName: model.lastName,
+                            about: model.about,
                             imgUrl: image.url
                         });
                         character.save();
-                        res.redirect('/admin/comicsCharacters')
+                        res.redirect('/admin/comicCharacters')
                     });
 
                 }
@@ -292,15 +326,78 @@ var adminController = function () {
         } else {
             res.render('admin/createArtist', {
                 errorMessage: 'Invalid Model',
-                comicsCharacterId: model.comicsCharacterId,
-                comicsCharacterName: model.comicsCharacterName
+                comicCharacterId: model.comicCharacterId,
+                comicCharacterName: model.comicCharacterName
             });
         }
     }
 
+    //edit artists for comic character
+    function editComicCharacterArtist(req, res) {
+        var params = req.params;
+        ComicCharacter.findOne({_id: params.comicCharacterId}, function (err, character) {
+            if (err) {
+                console.log(err);
+            } else {
+                if (character) {
+                    var artist = character.actors.filter(function (artist) {
+                        console.log(artist._id + ' ------------------- ' + params.artistId);
+                        return artist._id == params.artistId;
+                    })[0];
+                    console.log(artist);
+
+                    res.render('admin/editArtist', {
+                        comicCharacterId: character._id,
+                        comicCharacterName: character.name,
+                        artist: artist
+                    });
+                } else {
+                    res.render('admin/notFound', {
+                        message: 'Sorry something went wrong'
+                    });
+                }
+            }
+        });
+
+    }
+
+    //update comic character artist info
+    function updateComicCharacterArtistInfo(req, res) {
+        var model = req.body;
+        ComicCharacter.findOne({_id: model.comicCharacterId}, function (err, character) {
+            if (err) {
+                console.log(err);
+            } else {
+                if (character) {
+                    character.actors.forEach(function (artist) {
+                        if (artist._id == model.artistId) {
+                            artist.firstName = model.firstName || artist.firstName;
+                            artist.lastName = model.lastName || artist.lastName;
+                            artist.about = model.about || artist.about;
+                            character.save(function(err, result){
+                                if (err) {
+                                    console.log(err);
+                                }else{
+                                    res.redirect('/admin/comicCharacters');
+                                }
+                            });
+
+                        }
+                    });
+
+
+                } else {
+                    res.render('admin/notFound', {
+                        message: 'Sorry something went wrong'
+                    });
+                }
+            }
+        });
+    }
+
     //create movie for comics character artist
     function createArtistMovie(req, res) {
-        var characterId = req.params.comicsCharacter;
+        var characterId = req.params.comicCharacter;
         var artistId = req.params.artist;
         res.render('admin/createMovie', {
             characterId: characterId,
@@ -319,7 +416,7 @@ var adminController = function () {
                     errorMessage: err.message
                 });
             } else {
-                ComicsCharacter.findOne({_id: model.character}, function (err, character) {
+                ComicCharacter.findOne({_id: model.character}, function (err, character) {
                     if (err) {
                         console.log(err);
                     }
@@ -336,7 +433,7 @@ var adminController = function () {
                             }
                         });
                         character.save();
-                        res.redirect('/admin/comicsCharacters');
+                        res.redirect('/admin/comicCharacters');
                     }
                 });
             }
@@ -357,11 +454,15 @@ var adminController = function () {
         updateMovieCharacterInfo: updateMovieCharacterInfo,
         updateMovieCharacterImage: updateMovieCharacterImage,
         //--------------------------------------------------------
-        comicsCharacters: comicsCharacters,
-        createComicsCharacter: createComicsCharacter,
-        saveComicsCharacter: saveComicsCharacter,
-        createComicsCharacterArtist: createComicsCharacterArtist,
-        saveComicsCharacterArtist: saveComicsCharacterArtist,
+        comicCharacters: comicCharacters,
+        createComicCharacter: createComicCharacter,
+        saveComicCharacter: saveComicCharacter,
+        editComicCharacter: editComicCharacter,
+        updateComicCharacterInfo: updateComicCharacterInfo,
+        createComicCharacterArtist: createComicCharacterArtist,
+        saveComicCharacterArtist: saveComicCharacterArtist,
+        editComicCharacterArtist: editComicCharacterArtist,
+        updateComicCharacterArtistInfo: updateComicCharacterArtistInfo,
         createArtistMovie: createArtistMovie,
         saveArtistMovie: saveArtistMovie
     }
