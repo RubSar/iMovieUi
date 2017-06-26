@@ -9,26 +9,24 @@
     </script>
     <meta charset="UTF-8">
     <title>Most Popular Movie Characters</title>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="description"
-          content="Rate for the top Movie and TV-Series characters. Vote for the best comic character actor. List of memorable movie characters. List of memorable tv-series characters.">
-    <meta name="keyword"
-          content="top movie characters, top tv-series character, most popular characters, memorable characters, best characters, comic characters">
+
     <link href="/img/favicon.ico" rel="icon" type="image/x-icon"/>
     <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css"/>
     <link rel="stylesheet" href="/css/app.min.css">
     <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     <div id="fb-root"></div>
     <script>
-        window.fbAsyncInit = function() {
-            FB.init({appId: '175488799579769', status: true, cookie: true,
-                xfbml: true});
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '175488799579769', status: true, cookie: true,
+                xfbml: true
+            });
         };
-        (function() {
-            var e = document.createElement('script'); e.async = true;
+        (function () {
+            var e = document.createElement('script');
+            e.async = true;
             e.src = document.location.protocol +
-                    '//connect.facebook.net/en_US/all.js';
+                              '//connect.facebook.net/en_US/all.js';
             document.getElementById('fb-root').appendChild(e);
         }());
     </script>
@@ -39,22 +37,17 @@
     <header>
         <div ng-controller="headerCtrl">
 
-            <nav class="one-page-header navbar navbar-default navbar-fixed-top one-page-nav-scrolling one-page-nav__fixed"
-                 data-role="navigation">
+            <nav class="one-page-header navbar navbar-default navbar-fixed-top one-page-nav-scrolling one-page-nav__fixed" data-role="navigation">
                 <div class="container">
                     <div class="menu-container page-scroll">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse"
-                                data-target=".navbar-ex1-collapse">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
                             <span class="sr-only">Toggle navigation</span>
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <form class="form-inline sm-header-search-box hidden-lg hidden-md hidden-xs"
-                              ng-submit="makeSearch()">
-                            <input type="search" ng-model="searchTerm"
-                                   placeholder="Search ..." class="form-control"
-                                   required/>
+                        <form class="form-inline sm-header-search-box hidden-lg hidden-md hidden-xs" ng-submit="makeSearch()">
+                            <input type="search" ng-model="searchTerm" placeholder="Search ..." class="form-control" required/>
                             <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
                         </form>
                         <a class="navbar-brand" ui-sref="home">
@@ -67,10 +60,7 @@
                             <ul class="nav navbar-nav">
                                 <li class="hidden-sm">
                                     <form class="form-inline header-search-box" ng-submit="makeSearch()">
-                                        <input type="search"
-                                               ng-model="searchTerm"
-                                               placeholder="Search ..."
-                                               class="form-control" required/>
+                                        <input type="search" ng-model="searchTerm" placeholder="Search ..." class="form-control" required/>
                                         <button type="submit" class="btn btn-default">
                                             <i class="fa fa-search"></i>
                                         </button>
@@ -87,13 +77,12 @@
                                 </li>
 
                                 <li ng-hide="isAuthenticated()" ng-cloak>
-                                    <button class="btn btn-facebook" ng-click="authenticate('facebook')"><i
-                                            class="fa fa-facebook-f"></i> Sign in
+                                    <button class="btn btn-facebook" ng-click="authenticate('facebook')">
+                                        <i class="fa fa-facebook-f"></i> Sign in
                                     </button>
                                 </li>
                                 <li ng-show="isAuthenticated()" ng-cloak class="dropdown open">
-                                    <a href="#" class="dropdown-toggle user-nav" data-toggle="dropdown" role="button"
-                                       aria-haspopup="true" aria-expanded="true">
+                                    <a href="#" class="dropdown-toggle user-nav" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
                                         <div class="user-box">
                                             <img src="/img/user.png" width="20">
                                         </div>
@@ -138,15 +127,12 @@
 
         </div>
         <div class="social-wrapper">
-            <a href="https://www.facebook.com/iMovieUi" target="_blank"><i
-                    class="fa fa-facebook-square fa-3x social"></i></a>
+            <a href="https://www.facebook.com/iMovieUi" target="_blank"><i class="fa fa-facebook-square fa-3x social"></i></a>
             <a href="https://twitter.com/iMovieUi" target="_blank"><i class="fa fa-twitter-square fa-3x social"></i></a>
-            <a href="https://plus.google.com/collection/kLz6qB" target="_blank"><i
-                    class="fa fa-google-plus-square fa-3x social"></i></a>
+            <a href="https://plus.google.com/collection/kLz6qB" target="_blank"><i class="fa fa-google-plus-square fa-3x social"></i></a>
 
             <p class="copyright">
-                &copy; 2017 All right reserved. iMovieUi
-            </p>
+                &copy; 2017 All right reserved. iMovieUi </p>
         </div>
 
     </footer>
@@ -191,7 +177,7 @@
     <!--<script src="/angular/controllers/userRates/userRatesCtrl.js" type="text/javascript"></script>-->
     <!--<script src="/angular/controllers/movieCharactersList/movieCharactersListCtrl.js" type="text/javascript"></script>-->
     <!--<script src="/angular/controllers/tvSeriesCharactersList/tvSeriesCharactersListCtrl.js"-->
-            <!--type="text/javascript"></script>-->
+    <!--type="text/javascript"></script>-->
     <!--<script src="/angular/controllers/character/characterCtrl.js" type="text/javascript"></script>-->
     <!--<script src="/angular/controllers/comicCharacter/comicCharacterCtrl.js" type="text/javascript"></script>-->
 
@@ -200,10 +186,10 @@
         (function (i, s, o, g, r, a, m) {
             i['GoogleAnalyticsObject'] = r;
             i[r] = i[r] || function () {
-                        (i[r].q = i[r].q || []).push(arguments)
-                    }, i[r].l = 1 * new Date();
+                                  (i[r].q = i[r].q || []).push(arguments)
+                              }, i[r].l = 1 * new Date();
             a = s.createElement(o),
-                    m = s.getElementsByTagName(o)[0];
+                              m = s.getElementsByTagName(o)[0];
             a.async = 1;
             a.src = g;
             m.parentNode.insertBefore(a, m)

@@ -1752,8 +1752,10 @@
                     + 'He is portrayed by ' + $scope.character.playedBy + '. '
                     + caption + ' Rate Average : ' + $scope.rateAverage + ', Rates count : ' + $scope.character.ratesCount;
                 FB.ui({
-                    method: 'feed',
-                    name: 'Rate for ' + $scope.character.name.toUpperCase(),
+                    method: 'share',
+                    display: 'popup',
+                    href: $scope.dataHref(),
+                    title: 'Rate for ' + $scope.character.name.toUpperCase(),
                     link: $scope.dataHref(),
                     picture: $scope.character.imgUrl,
                     caption: caption,
@@ -1867,8 +1869,10 @@
 
                     var description = 'Choose from ' + $scope.character.actors.length + ' actors who created the best character of ' + $scope.character.name;
                     FB.ui({
-                        method: 'feed',
-                        name: 'Vote for the best ' + $scope.character.name.toUpperCase() + ' actor.',
+                        method: 'share',
+                        display: 'popup',
+                        href: $scope.dataHref(),
+                        title: 'Vote for the best ' + $scope.character.name.toUpperCase() + ' actor.',
                         link: $scope.dataHref(),
                         picture: $scope.character.imgUrl,
                         description: description

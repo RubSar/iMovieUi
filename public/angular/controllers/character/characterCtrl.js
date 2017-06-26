@@ -108,8 +108,10 @@
                     + 'He is portrayed by ' + $scope.character.playedBy + '. '
                     + caption + ' Rate Average : ' + $scope.rateAverage + ', Rates count : ' + $scope.character.ratesCount;
                 FB.ui({
-                    method: 'feed',
-                    name: 'Rate for ' + $scope.character.name.toUpperCase(),
+                    method: 'share',
+                    display: 'popup',
+                    href: $scope.dataHref(),
+                    title: 'Rate for ' + $scope.character.name.toUpperCase(),
                     link: $scope.dataHref(),
                     picture: $scope.character.imgUrl,
                     caption: caption,

@@ -5,6 +5,9 @@
       <value>
         <option name="HTML_ATTRIBUTE_WRAP" value="0" />
         <option name="HTML_KEEP_LINE_BREAKS" value="false" />
+        <XML>
+          <option name="XML_LEGACY_SETTINGS_IMPORTED" value="true" />
+        </XML>
         <codeStyleSettings language="HTML">
           <indentOptions>
             <option name="CONTINUATION_INDENT_SIZE" value="18" />
