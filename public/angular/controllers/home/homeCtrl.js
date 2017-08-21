@@ -5,14 +5,14 @@
 (function () {
     'use strict';
 
-    angular.module('iMovieUi').controller('HomeCtrl', ['$scope', '$timeout', '$window', 'MovieCharacterSvs', 'TvSeriesCharacterSvs', 'ComicCharactersSvc', 'helperSvc', 'RateSvc', '$auth',
-        function ($scope, $timeout, $window, MovieCharacterSvs, TvSeriesCharacterSvs, ComicCharactersSvc, helperSvc, RateSvc, $auth) {
+    angular.module('iMovieUi').controller('HomeCtrl', ['$scope', '$timeout', '$window', 'MovieCharacterSvs', 'TvSeriesCharacterSvs', 'ComicCharactersSvc', 'helperSvc', 'RateSvc', '$auth', '$location',
+        function ($scope, $timeout, $window, MovieCharacterSvs, TvSeriesCharacterSvs, ComicCharactersSvc, helperSvc, RateSvc, $auth, $location) {
             //get movie characters
             $scope.comicCharactersLoaded = false;
             $scope.movieCharactersLoaded = false;
             $scope.tvSeriesCharactersLoaded = false;
             $scope.authState = false;
-            $window.document.title ='iMovieUi: Most popular movie and tv-series characters';
+            $window.document.title = 'iMovieUi: Most popular movie and tv-series characters';
 
 
             //getting top movie characters
@@ -57,6 +57,25 @@
                     getTvSeriesCharactersUserRates();
                 }
             }, true);
+
+            $scope.dataHref = function () {
+                var url = $location.absUrl();
+                return url.replace('localhost:3000', 'imovieui.com');
+            };
+
+
+            $scope.shareOnFacebook = function () {
+
+                FB.ui({
+                    method: 'share',
+                    display: 'popup',
+                    href: $scope.dataHref(),
+                    title: 'Rate for sdsdsd',
+                    link: $scope.dataHref(),
+                    caption: 'sadddddddddddd',
+                    description: 'sssssssssssssssssssssss'
+                });
+            };
 
 
             $scope.isAuthenticated = function () {

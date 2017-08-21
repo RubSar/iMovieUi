@@ -107,12 +107,22 @@
                 var description = $scope.character.name + ' is a character from ' + $scope.character.movies[0].name + ' (' + $scope.character.movies[0].year + '). '
                     + 'He is portrayed by ' + $scope.character.playedBy + '. '
                     + caption + ' Rate Average : ' + $scope.rateAverage + ', Rates count : ' + $scope.character.ratesCount;
+                //FB.ui({
+                //    method: 'share',
+                //    display: 'popup',
+                //    //href: $scope.dataHref(),
+                //    title: 'Rate for ' + $scope.character.name.toUpperCase(),
+                //    link: $scope.dataHref(),
+                //    picture: $scope.character.imgUrl,
+                //    caption: caption,
+                //    description: description
+                //});
                 FB.ui({
-                    method: 'share',
+                    method: 'feed',
                     display: 'popup',
-                    href: 'https://www.youtube.com/watch?v=XIbJ5jHit-8',
-                    title: 'Rate for ' + $scope.character.name.toUpperCase(),
-                    link: 'https://www.youtube.com/watch?v=XIbJ5jHit-8',
+                    //href: $scope.dataHref(),
+                    title: 'Rate for csfsfsf',
+                    link: $scope.dataHref(),
                     picture: $scope.character.imgUrl,
                     caption: caption,
                     description: description
