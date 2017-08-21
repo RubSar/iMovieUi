@@ -110,9 +110,9 @@
                 FB.ui({
                     method: 'share',
                     display: 'popup',
-                    href: $scope.dataHref(),
+                    href: 'https://www.youtube.com/watch?v=XIbJ5jHit-8',
                     title: 'Rate for ' + $scope.character.name.toUpperCase(),
-                    link: $scope.dataHref(),
+                    link: 'https://www.youtube.com/watch?v=XIbJ5jHit-8',
                     picture: $scope.character.imgUrl,
                     caption: caption,
                     description: description

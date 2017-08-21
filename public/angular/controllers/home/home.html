@@ -7,11 +7,12 @@
         </h2>
 
         <h3 class="d-heading">Vote for the Best Comic character actor</h3>
+
         <div ng-hide="comicCharactersLoaded" class="lazy-load-box">
             <i class="fa fa-spin fa-cog fa-5x"></i>
         </div>
         <div class="comics-characters-list-wrapper" ng-show="comicCharactersLoaded">
-            <data-owl-carousel class="comics-character-list text-left" >
+            <data-owl-carousel class="comics-character-list text-left">
 
                 <div class="comics-character-list-item" owl-carousel-item ng-repeat="cCharacter in comicCharacters">
                     <div class="img-wrapper img-wrapper--shadow">
@@ -36,7 +37,13 @@
 </div>
 
 <div class="text-center  pt-85">
+    <div class="fb-share-button"
+         data-href="http://www.imovieui.com/" data-layout="box_count" data-size="small"
+         data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore"
+                                      target="_blank" href="http://www.imovieui.com/">Share</a></div>
+
     <h2 class="g-heading">Most popular <strong>movie Characters</strong></h2>
+
     <div ng-hide="movieCharactersLoaded" class="lazy-load-box">
         <i class="fa fa-spin fa-cog fa-5x"></i>
     </div>
@@ -58,6 +65,7 @@
 </div>
 <div class="text-center  pt-85 pb-100">
     <h2 class="g-heading">Most popular <strong>TV-Series Characters</strong></h2>
+
     <div ng-hide="tvSeriesCharactersLoaded" class="lazy-load-box">
         <i class="fa fa-spin fa-cog fa-5x"></i>
     </div>
