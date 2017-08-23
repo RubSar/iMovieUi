@@ -3,12 +3,12 @@
  */
 (function () {
     angular.module('iMovieUi', ['satellizer', 'ui.router'])
-        .config(['$authProvider', '$httpProvider', '$stateProvider', '$locationProvider', '$urlRouterProvider', function ($authProvider, $httpProvider, $stateProvider, $locationProvider, $urlRouterProvider) {
+        .config(['$authProvider', '$httpProvider', '$stateProvider', '$locationProvider', '$urlRouterProvider',
+            function ($authProvider, $httpProvider, $stateProvider, $locationProvider, $urlRouterProvider) {
             $httpProvider.interceptors.push('authInterceptor');
             $authProvider.facebook({
-                clientId: '175488799579769'
+                clientId: '1912096279011070'
             });
-
 
             $stateProvider
                 .state('home', {
@@ -65,6 +65,40 @@
                 requireBase: false
             });
 
-        }]);
+
+
+        }])
+        .run(['$window', function($window){
+
+            $window.fbAsyncInit = function() {
+                FB.init({
+                    appId: '1912096279011070',
+                    status: true,
+                    cookie: true,
+                    xfbml: true,
+                    version: 'v2.4'
+                });
+            };
+
+            (function(d){
+                // load the Facebook javascript SDK
+
+                var js,
+                    id = 'facebook-jssdk',
+                    ref = d.getElementsByTagName('script')[0];
+
+                if (d.getElementById(id)) {
+                    return;
+                }
+
+                js = d.createElement('script');
+                js.id = id;
+                js.async = true;
+                js.src = "//connect.facebook.net/en_US/all.js";
+
+                ref.parentNode.insertBefore(js, ref);
+
+            }(document));
+        }])
 
 })();

@@ -63,21 +63,6 @@
                 return url.replace('localhost:3000', 'imovieui.com');
             };
 
-
-            $scope.shareOnFacebook = function () {
-
-                FB.ui({
-                    method: 'share',
-                    display: 'popup',
-                    href: $scope.dataHref(),
-                    title: 'Rate for sdsdsd',
-                    link: $scope.dataHref(),
-                    caption: 'sadddddddddddd',
-                    description: 'sssssssssssssssssssssss'
-                });
-            };
-
-
             $scope.isAuthenticated = function () {
                 return $auth.isAuthenticated();
             };
