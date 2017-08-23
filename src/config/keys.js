@@ -3,8 +3,8 @@
  */
 
 module.exports ={
-    FACEBOOK_SECRET :'f4bf617e48775a2ab21e2649d6b327e6',
-    FACEBOOK_APP_ID:'175488799579769',
+    FACEBOOK_SECRET :'63f78c47773ceec9ab662f0005748323',
+    FACEBOOK_APP_ID:'1912096279011070',
     TOKEN_SECRET:'born77villain77iMovieUi**secret',
     ADMIN_SECRET:'born77villain77iMovieUi**admin**secret'
 };

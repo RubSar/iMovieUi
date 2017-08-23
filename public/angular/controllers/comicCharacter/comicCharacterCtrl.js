@@ -11,7 +11,6 @@
 
 
                 $scope.activeTab = 0;
-
                 $scope.dataHref = function () {
                     var url = $location.absUrl();
                     return url.replace('localhost:3000', 'imovieui.com');
@@ -19,7 +18,7 @@
 
                 $scope.voteStart = false;
                 $scope.contentLoaded = false;
-                $window.document.title = 'Vote for the best actor of ' + $state.params.name;
+                $window.document.title = 'Vote for the best actor of ' + $state.params.name + ' | iMovieUi';
 
 
                 $scope.isAuthenticated = function () {

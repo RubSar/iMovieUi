@@ -89,6 +89,7 @@ gulp.task('ng-uglify', function(){
         './public/angular/directives/owlCarousel/owlCarousel.js',
         './public/angular/directives/owlCarousel/owlCarouselItem.js',
         './public/angular/directives/fbComments.js',
+        './public/angular/directives/seoMetaTags.js',
         './public/angular/controllers/headerCtrl.js',
         './public/angular/controllers/home/homeCtrl.js',
         './public/angular/controllers/search/searchCtrl.js',

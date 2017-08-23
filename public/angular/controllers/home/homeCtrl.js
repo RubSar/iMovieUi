@@ -63,6 +63,30 @@
                 return url.replace('localhost:3000', 'imovieui.com');
             };
 
+            $scope.shareOnFacebook = function () {
+                //var caption = ($auth.isAuthenticated() && !!$scope.userRate) ? 'My rating ' + $scope.userRate + ', ' : '';
+                //var description = $scope.character.name + ' is a character from ' + $scope.character.movies[0].name + ' (' + $scope.character.movies[0].year + '). '
+                //    + 'He is portrayed by ' + $scope.character.playedBy + '. '
+                //    + caption + ' Rate Average : ' + $scope.rateAverage + ', Rates count : ' + $scope.character.ratesCount;
+                FB.ui({
+                    method: 'share',
+                    display: 'popup',
+                    href: $scope.dataHref(),
+                    title: 'Rate for sddddddddddd',
+                    link: $scope.dataHref(),
+                    picture: 'http://res.cloudinary.com/dk1chsp5h/image/upload/v1477912842/joker_jnneco.jpg',
+                    caption: 'sssssssssssssssssssssssssss',
+                    description: 'ssssssssssssssssssssssssssssssssss'
+                });
+                //FB.ui({
+                //    method: 'feed',
+                //    link: 'link of post',
+                //    name: 'title of post',
+                //    caption: 'description'
+                //});
+            };
+
+
             $scope.isAuthenticated = function () {
                 return $auth.isAuthenticated();
             };

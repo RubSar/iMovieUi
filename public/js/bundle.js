@@ -1125,6 +1125,29 @@
     }]);
 })();
 /**
+ * Created by Ruben on 8/23/2017.
+ */
+
+(function () {
+    angular.module('iMovieUi').directive('seoMetaTags', ['$state', '$stateParams', function ($state, $stateParams) {
+
+
+        return {
+            restrict: 'A',
+            replace:true,
+            link: function (scope, elem, attrs) {
+
+
+            },
+            template: '<meta property="og:url" content="http://imovieui.com"/>' +
+            '<meta property="og:type" content="website"/>' +
+            '<meta property="og:title" content="Rate for the top Movie and TV-Series characters."/>' +
+            '<meta property="og:description" content="List of memorable tv-series characters. List of memorable movie characters. Vote for the best comic character actor."/>' +
+            '<meta property="og:image" content="http://imovieui.com/img/og-home.jpg"/>'
+        };
+    }]);
+})();
+/**
  * Created by Ruben on 11/8/2016.
  */
 
@@ -1224,6 +1247,30 @@
                 var url = $location.absUrl();
                 return url.replace('localhost:3000', 'imovieui.com');
             };
+
+            $scope.shareOnFacebook = function () {
+                //var caption = ($auth.isAuthenticated() && !!$scope.userRate) ? 'My rating ' + $scope.userRate + ', ' : '';
+                //var description = $scope.character.name + ' is a character from ' + $scope.character.movies[0].name + ' (' + $scope.character.movies[0].year + '). '
+                //    + 'He is portrayed by ' + $scope.character.playedBy + '. '
+                //    + caption + ' Rate Average : ' + $scope.rateAverage + ', Rates count : ' + $scope.character.ratesCount;
+                FB.ui({
+                    method: 'share',
+                    display: 'popup',
+                    href: $scope.dataHref(),
+                    title: 'Rate for sddddddddddd',
+                    link: $scope.dataHref(),
+                    picture: 'http://res.cloudinary.com/dk1chsp5h/image/upload/v1477912842/joker_jnneco.jpg',
+                    caption: 'sssssssssssssssssssssssssss',
+                    description: 'ssssssssssssssssssssssssssssssssss'
+                });
+                //FB.ui({
+                //    method: 'feed',
+                //    link: 'link of post',
+                //    name: 'title of post',
+                //    caption: 'description'
+                //});
+            };
+
 
             $scope.isAuthenticated = function () {
                 return $auth.isAuthenticated();
@@ -1691,7 +1738,7 @@
     angular.module('iMovieUi').controller('CharacterCtrl', ['$scope', '$window', '$location','$anchorScroll', '$state', 'MovieCharacterSvs', 'RateSvc', '$auth', 'helperSvc',
         function ($scope, $window, $location,$anchorScroll, $state, MovieCharacterSvs, RateSvc, $auth, helperSvc) {
 
-            $window.document.title = $state.params.longName + ' (iMovieUi)';
+            $window.document.title = $state.params.longName + ' | iMovieUi';
 
             $scope.contentLoaded = false;
             $scope.notFound = false;
@@ -1827,7 +1874,6 @@
 
 
                 $scope.activeTab = 0;
-
                 $scope.dataHref = function () {
                     var url = $location.absUrl();
                     return url.replace('localhost:3000', 'imovieui.com');
@@ -1835,7 +1881,7 @@
 
                 $scope.voteStart = false;
                 $scope.contentLoaded = false;
-                $window.document.title = 'Vote for the best actor of ' + $state.params.name;
+                $window.document.title = 'Vote for the best actor of ' + $state.params.name + ' | iMovieUi';
 
 
                 $scope.isAuthenticated = function () {

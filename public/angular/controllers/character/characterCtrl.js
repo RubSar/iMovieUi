@@ -9,7 +9,7 @@
     angular.module('iMovieUi').controller('CharacterCtrl', ['$scope', '$window', '$location','$anchorScroll', '$state', 'MovieCharacterSvs', 'RateSvc', '$auth', 'helperSvc',
         function ($scope, $window, $location,$anchorScroll, $state, MovieCharacterSvs, RateSvc, $auth, helperSvc) {
 
-            $window.document.title = $state.params.longName + ' (iMovieUi)';
+            $window.document.title = $state.params.longName + ' | iMovieUi';
 
             $scope.contentLoaded = false;
             $scope.notFound = false;
@@ -117,12 +117,6 @@
                     caption: caption,
                     description: description
                 });
-                //FB.ui({
-                //    method: 'feed',
-                //    link: 'link of post',
-                //    name: 'title of post',
-                //    caption: 'description'
-                //});
             };
 
             $scope.$watch('userRate', function (newVal, oldVal) {
