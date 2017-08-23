@@ -3,12 +3,12 @@
  */
 (function () {
     angular.module('iMovieUi', ['satellizer', 'ui.router'])
-        .config(['$authProvider', '$httpProvider', '$stateProvider', '$locationProvider', '$urlRouterProvider', function ($authProvider, $httpProvider, $stateProvider, $locationProvider, $urlRouterProvider) {
+        .config(['$authProvider', '$httpProvider', '$stateProvider', '$locationProvider', '$urlRouterProvider',
+            function ($authProvider, $httpProvider, $stateProvider, $locationProvider, $urlRouterProvider) {
             $httpProvider.interceptors.push('authInterceptor');
             $authProvider.facebook({
-                clientId: '175488799579769'
+                clientId: '1912096279011070'
             });
-
 
             $stateProvider
                 .state('home', {
@@ -65,7 +65,41 @@
                 requireBase: false
             });
 
-        }]);
+
+
+        }])
+        .run(['$window', function($window){
+
+            $window.fbAsyncInit = function() {
+                FB.init({
+                    appId: '1912096279011070',
+                    status: true,
+                    cookie: true,
+                    xfbml: true,
+                    version: 'v2.4'
+                });
+            };
+
+            (function(d){
+                // load the Facebook javascript SDK
+
+                var js,
+                    id = 'facebook-jssdk',
+                    ref = d.getElementsByTagName('script')[0];
+
+                if (d.getElementById(id)) {
+                    return;
+                }
+
+                js = d.createElement('script');
+                js.id = id;
+                js.async = true;
+                js.src = "//connect.facebook.net/en_US/all.js";
+
+                ref.parentNode.insertBefore(js, ref);
+
+            }(document));
+        }])
 
 })();
 /**
@@ -1133,14 +1167,14 @@
 (function () {
     'use strict';
 
-    angular.module('iMovieUi').controller('HomeCtrl', ['$scope', '$timeout', '$window', 'MovieCharacterSvs', 'TvSeriesCharacterSvs', 'ComicCharactersSvc', 'helperSvc', 'RateSvc', '$auth',
-        function ($scope, $timeout, $window, MovieCharacterSvs, TvSeriesCharacterSvs, ComicCharactersSvc, helperSvc, RateSvc, $auth) {
+    angular.module('iMovieUi').controller('HomeCtrl', ['$scope', '$timeout', '$window', 'MovieCharacterSvs', 'TvSeriesCharacterSvs', 'ComicCharactersSvc', 'helperSvc', 'RateSvc', '$auth', '$location',
+        function ($scope, $timeout, $window, MovieCharacterSvs, TvSeriesCharacterSvs, ComicCharactersSvc, helperSvc, RateSvc, $auth, $location) {
             //get movie characters
             $scope.comicCharactersLoaded = false;
             $scope.movieCharactersLoaded = false;
             $scope.tvSeriesCharactersLoaded = false;
             $scope.authState = false;
-            $window.document.title ='iMovieUi: Most popular movie and tv-series characters';
+            $window.document.title = 'iMovieUi: Most popular movie and tv-series characters';
 
 
             //getting top movie characters
@@ -1186,6 +1220,10 @@
                 }
             }, true);
 
+            $scope.dataHref = function () {
+                var url = $location.absUrl();
+                return url.replace('localhost:3000', 'imovieui.com');
+            };
 
             $scope.isAuthenticated = function () {
                 return $auth.isAuthenticated();
@@ -1761,6 +1799,12 @@
                     caption: caption,
                     description: description
                 });
+                //FB.ui({
+                //    method: 'feed',
+                //    link: 'link of post',
+                //    name: 'title of post',
+                //    caption: 'description'
+                //});
             };
 
             $scope.$watch('userRate', function (newVal, oldVal) {
