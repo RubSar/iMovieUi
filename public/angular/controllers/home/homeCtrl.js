@@ -9,7 +9,7 @@
         function ($scope, $rootScope, $timeout, $window, MovieCharacterSvs, TvSeriesCharacterSvs, ComicCharactersSvc, helperSvc, RateSvc, $auth, $location, MetaTagsService) {
 
             //init page title
-            $rootScope.metaTags= MetaTagsService;
+            $rootScope.metaTags= $rootScope.metaTags || MetaTagsService;
             $rootScope.metaTags.setHomeMetaTags();
 
             //get movie characters

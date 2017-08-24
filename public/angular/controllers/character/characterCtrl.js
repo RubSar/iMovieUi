@@ -6,10 +6,11 @@
 (function () {
     'use strict';
 
-    angular.module('iMovieUi').controller('CharacterCtrl', ['$scope', '$window', '$location','$anchorScroll', '$state', 'MovieCharacterSvs', 'RateSvc', '$auth', 'helperSvc',
-        function ($scope, $window, $location,$anchorScroll, $state, MovieCharacterSvs, RateSvc, $auth, helperSvc) {
+    angular.module('iMovieUi').controller('CharacterCtrl', ['$scope', '$rootScope', '$window', '$location', '$anchorScroll', '$state', 'MovieCharacterSvs', 'RateSvc', '$auth', 'helperSvc','MetaTagsService',
+        function ($scope, $rootScope, $window, $location, $anchorScroll, $state, MovieCharacterSvs, RateSvc, $auth, helperSvc, MetaTagsService) {
 
-            $window.document.title = $state.params.longName + ' | iMovieUi';
+            //init page title
+            $rootScope.metaTags = $rootScope.metaTags || MetaTagsService;
 
             $scope.contentLoaded = false;
             $scope.notFound = false;
@@ -22,6 +23,10 @@
             $scope.dataHref = function () {
                 var url = $location.absUrl();
                 return url.replace('localhost:3000', 'imovieui.com');
+            };
+
+            var metaModel={
+                url:$scope.dataHref()
             };
 
             $scope.isAuthenticated = function () {
@@ -45,6 +50,12 @@
                     if (response.success) {
                         $scope.contentLoaded = true;
                         $scope.character = response.character;
+                        metaModel.image = $scope.character.imgUrl;
+                        metaModel.name = $scope.character.name;
+                        metaModel.actor = $scope.character.playedBy;
+                        metaModel.movie = $scope.character.movies[0].name;
+                        metaModel.year = $scope.character.movies[0].year;
+                        $rootScope.metaTags.setCharacterMetaTags(metaModel);
                         $scope.userRate = response.userRate;
                         $anchorScroll();
                         $scope.rateAverage = $scope.character.ratesValue > 0
