@@ -5,14 +5,21 @@
 (function () {
     'use strict';
 
-    angular.module('iMovieUi').controller('HomeCtrl', ['$scope', '$timeout', '$window', 'MovieCharacterSvs', 'TvSeriesCharacterSvs', 'ComicCharactersSvc', 'helperSvc', 'RateSvc', '$auth', '$location',
-        function ($scope, $timeout, $window, MovieCharacterSvs, TvSeriesCharacterSvs, ComicCharactersSvc, helperSvc, RateSvc, $auth, $location) {
+    angular.module('iMovieUi').controller('HomeCtrl', ['$scope', '$rootScope', '$timeout', '$window', 'MovieCharacterSvs', 'TvSeriesCharacterSvs', 'ComicCharactersSvc', 'helperSvc', 'RateSvc', '$auth', '$location', 'MetaTagsService',
+        function ($scope, $rootScope, $timeout, $window, MovieCharacterSvs, TvSeriesCharacterSvs, ComicCharactersSvc, helperSvc, RateSvc, $auth, $location, MetaTagsService) {
+
+            //init page title
+            $rootScope.metaTags= MetaTagsService;
+            $rootScope.metaTags.setHomeMetaTags();
+
             //get movie characters
             $scope.comicCharactersLoaded = false;
             $scope.movieCharactersLoaded = false;
             $scope.tvSeriesCharactersLoaded = false;
             $scope.authState = false;
-            $window.document.title = 'iMovieUi: Most popular movie and tv-series characters';
+
+
+
 
 
             //getting top movie characters
