@@ -7,7 +7,7 @@
             function ($authProvider, $httpProvider, $stateProvider, $locationProvider, $urlRouterProvider) {
             $httpProvider.interceptors.push('authInterceptor');
             $authProvider.facebook({
-                clientId: '1912096279011070'
+                clientId: '175488799579769'
             });
 
             $stateProvider
@@ -72,7 +72,7 @@
 
             $window.fbAsyncInit = function() {
                 FB.init({
-                    appId: '1912096279011070',
+                    appId: '175488799579769',
                     status: true,
                     cookie: true,
                     xfbml: true,
