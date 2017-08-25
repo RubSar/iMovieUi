@@ -2,7 +2,7 @@
  * Created by Ruben on 11/11/2016.
  */
 (function () {
-    angular.module('iMovieUi', ['satellizer', 'ui.router'])
+    angular.module('iMovieUi', ['satellizer', 'ui.router', '720kb.socialshare'])
         .config(['$authProvider', '$httpProvider', '$stateProvider', '$locationProvider', '$urlRouterProvider',
             function ($authProvider, $httpProvider, $stateProvider, $locationProvider, $urlRouterProvider) {
             $httpProvider.interceptors.push('authInterceptor');
@@ -74,9 +74,9 @@
                 FB.init({
                     appId: '175488799579769',
                     status: true,
-                    cookie: true,
-                    xfbml: true,
-                    version: 'v2.4'
+                    cookie: false,
+                    xfbml: false,
+                    version: 'v3.0'
                 });
             };
 

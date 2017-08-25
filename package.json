@@ -10,6 +10,7 @@
   "author": "Ruben Sargsyan",
   "license": "ISC",
   "dependencies": {
+    "angular-socialshare": "^2.3.11",
     "bcrypt-nodejs": "0.0.3",
     "bluebird": "^3.4.6",
     "body-parser": "^1.14.1",

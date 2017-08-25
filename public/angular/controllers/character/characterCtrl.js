@@ -119,15 +119,26 @@
                     + 'He is portrayed by ' + $scope.character.playedBy + '. '
                     + caption + ' Rate Average : ' + $scope.rateAverage + ', Rates count : ' + $scope.character.ratesCount;
                 FB.ui({
-                    method: 'share',
-                    display: 'popup',
-                    href: $scope.dataHref(),
-                    title: 'Rate for ' + $scope.character.name.toUpperCase(),
-                    link: $scope.dataHref(),
+                    method: 'feed',
+                   display: 'popup',
+                    //href: $scope.dataHref(),
+                  //  caption: 'Rate for ' + $scope.character.name.toUpperCase(),
+                   // link: $scope.dataHref(),
+                    name:'aaaaaaaaaaaaaaaaa',
                     picture: $scope.character.imgUrl,
                     caption: caption,
-                    description: description
+                    description: description,
+                    thumbnail:$scope.character.imgUrl
                 });
+                //FB.ui({
+                //    method: 'share_open_graph',
+                //    action_type: 'og.likes',
+                //    action_properties: JSON.stringify({
+                //        object: $scope.dataHref(),
+                //    })
+                //}, function(response){
+                //    debugger
+                //});
             };
 
             $scope.$watch('userRate', function (newVal, oldVal) {
